@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+    <%@ include file="header.html" %>
+    <h1>Home Page</h1>
+    <p>lorem</p>
+    <%@ include file="footer.html" %>
 </body>
 </html>
