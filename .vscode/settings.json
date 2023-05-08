@@ -8,7 +8,8 @@
         "**/Thumbs.db": true,
         "**/.gitignore": true,
         "**/.vscode": true,
-        "**/.metadata": true
+        "**/.metadata": true,
+        "ReNewPhone\\src\\main/java": true
     },
     "explorerExclude.backup": {}
 }
