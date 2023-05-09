@@ -9,7 +9,13 @@
         "**/.gitignore": true,
         "**/.vscode": true,
         "**/.metadata": true,
-        "ReNewPhone\\src\\main/java": true
+        "ReNewPhone\\src\\main/java": true,
+        "ReNewPhone/.settings": true,
+        "ReNewPhone/build": true,
+        "ReNewPhone\\src\\main\\webapp/META-INF": true,
+        "ReNewPhone/.classpath": true,
+        "ReNewPhone/.project": true,
+        "Servers": true
     },
     "explorerExclude.backup": {}
 }

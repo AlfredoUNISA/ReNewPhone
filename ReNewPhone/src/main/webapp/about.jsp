@@ -1,15 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <link rel="stylesheet" href="css/content.css">
+    <title>About Us</title>
 </head>
 <body>
     <%@ include file="header.html" %>
-    <h1>About</h1>
-    <p>lorem ipsum</p>
+
+    <div class="content">
+        <h1>About</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat eius quibusdam vitae vero. Ad libero minus porro doloribus illo, saepe aperiam nam nemo at qui eius similique, neque veritatis unde.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, asperiores quibusdam aliquid culpa soluta earum vero odio delectus ducimus, ea, quas officiis. Id doloremque nesciunt amet maiores exercitationem! Eligendi, quidem.
+        </p>
+    </div>
+    
     <%@ include file="footer.html" %>
 </body>
 </html>
