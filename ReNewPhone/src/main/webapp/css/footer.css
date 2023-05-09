@@ -5,11 +5,15 @@ footer {
   text-align: center; /* Allinea il testo al centro */
   padding: 20px; /* Aggiunge un po' di spazio attorno al contenuto del footer */
   
+
+  
   /* Posiziona il footer in fondo alla pagina, anche quando c'è poco contenuto */
+  /*
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
+  */
 }
 
 /* Stili dei link nel footer */
