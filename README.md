@@ -1,6 +1,5 @@
 # [→ Cose da fare ←](https://github.com/users/AlfredoUNISA/projects/2)
 
----
 ### In caso non funzionano le jsp e servlet
 - Tasto destro sul progetto
 - Properties
