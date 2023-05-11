@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+C:\Users\Alfredo\Documents\TSW Progetto\ReNewPhone\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3835346711.index
+2850737910.index
+1657330681.index
+2001330896.index
+2130539646.index
