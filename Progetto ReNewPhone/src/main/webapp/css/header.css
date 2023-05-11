@@ -1,0 +1,27 @@
+/* Stile generale della navbar */
+nav {
+  background-color: #333; /* Colore di sfondo della navbar */
+  overflow: hidden; /* Nascondi elementi oltre i bordi della navbar */
+}
+
+/* Stili dei link nella navbar */
+nav a {
+  float: left; /* Imposta i link su una riga orizzontale */
+  color: white; /* Colore del testo dei link */
+  text-align: center; /* Allinea il testo al centro */
+  padding: 14px 16px; /* Aggiunge un po' di spazio attorno ai link */
+  text-decoration: none; /* Rimuove il sottolineato dal testo dei link */
+}
+
+/* Stili dei link al passaggio del mouse */
+nav a:hover {
+  background-color: #ddd; /* Cambia il colore di sfondo al passaggio del mouse */
+  color: black; /* Cambia il colore del testo al passaggio del mouse */
+}
+
+/* Stile del link attivo */
+nav a.active {
+  background-color: #4CAF50; /* Cambia il colore di sfondo del link attivo */
+  color: white; /* Cambia il colore del testo del link attivo */
+}
+  
