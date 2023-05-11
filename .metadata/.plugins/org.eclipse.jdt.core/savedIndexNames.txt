@@ -1,4 +1,0 @@
-INDEX VERSION 1.132+C:\Users\Alfredo\Documents\TSW Progetto\ReNewPhone\.metadata\.plugins\org.eclipse.jdt.core
-2422706002.index
-992168429.index
-1657330681.index
