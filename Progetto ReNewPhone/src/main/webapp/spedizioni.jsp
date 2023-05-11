@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="header.html"%>
+<%@ include file="html/header.html"%>
 	<div class="content">
 		<h1>Informazioni Spedizioni</h1>
 		<p>
@@ -24,6 +24,6 @@
 		</p>
 	</div>
 
-<%@ include file="footer.html"%>
+<%@ include file="html/footer.html"%>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <title>About Us</title>
 </head>
 <body>
-    <%@ include file="header.html" %>
+    <%@ include file="html/header.html" %>
 
     <div class="content">
         <h1>About</h1>
@@ -18,6 +18,6 @@
         </p>
     </div>
     
-    <%@ include file="footer.html" %>
+    <%@ include file="html/footer.html" %>
 </body>
 </html>
