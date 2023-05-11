@@ -1,0 +1,9 @@
+127.0.0.1 - - [29/Mar/2023:10:05:44 +0200] "GET /manager/html HTTP/1.1" 401 2562
+127.0.0.1 - manager [29/Mar/2023:10:05:49 +0200] "GET /manager/html HTTP/1.1" 200 13587
+127.0.0.1 - - [29/Mar/2023:10:05:50 +0200] "GET /manager/css/manager.css HTTP/1.1" 200 2946
+127.0.0.1 - - [29/Mar/2023:10:05:50 +0200] "GET /manager/images/asf-logo.svg HTTP/1.1" 200 20712
+127.0.0.1 - - [29/Mar/2023:10:05:50 +0200] "GET /manager/images/tomcat.svg HTTP/1.1" 200 68761
+127.0.0.1 - - [29/Mar/2023:10:05:50 +0200] "GET /favicon.ico HTTP/1.1" 200 21630
+127.0.0.1 - - [29/Mar/2023:11:18:33 +0200] "GET /YourWebApp/hello HTTP/1.1" 404 771
+127.0.0.1 - - [29/Mar/2023:11:18:33 +0200] "GET /favicon.ico HTTP/1.1" 200 21630
+127.0.0.1 - - [29/Mar/2023:11:18:39 +0200] "GET /YourWebApp/hello HTTP/1.1" 404 771
