@@ -1,6 +1,6 @@
 /* Stile generale del footer */
 footer {
-  background-color: #202731; 
+  background-color: #202731;
   color: white;
   text-align: center;
   padding: 20px;
@@ -10,7 +10,7 @@ footer {
 /* Stili dei link nel footer */
 footer a {
   color: white;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 /* Stili dei link al passaggio del mouse */
@@ -30,27 +30,25 @@ footer a:hover {
 .footer-link-block ul,
 .footer-social-block ul {
   display: flex;
-  flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   list-style-type: none;
   padding: 0;
 }
 
 /* Dimensione immagini dei social */
-.footer-social-block img {  
+.footer-social-block img {
   width: 2.5em;
   height: auto;
+}
+
+/* Posizione Social */
+.footer-social-block li {
+  margin-bottom: 1.5em;
 }
 
 /* Posizione Links*/
 .footer-link-block li {
   width: 100%;
   margin-bottom: 10px;
-}
-
-/* Posizione Social */
-.footer-social-block li {
-  width: 100%;
-  margin-bottom: 1.5em;
 }
