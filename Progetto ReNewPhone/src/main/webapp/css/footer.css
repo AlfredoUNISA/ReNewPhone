@@ -1,4 +1,4 @@
-/* Stile generale del footer */
+/* --------- STILE GENERALE ---------- */
 footer {
   background-color: #202731;
   color: white;
@@ -19,7 +19,17 @@ footer a:hover {
   color: #4CAF50;
 }
 
-/* ------------------- */
+/* --------- FOOTER SEMPRE IN BASSO ---------- */
+footer {
+  position: sticky;
+  top: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* --------- LISTE E FLEX ---------- */
 
 /* Togli i pallini dalle liste */
 .footer-social-block ul,
@@ -54,12 +64,7 @@ footer a:hover {
   margin-bottom: 10px;
 }
 
-/* ------------------- */
-
-/* Serve per il divisore */
-section {
-  position: relative;
-}
+/* --------- DIVISORE FOOTER ---------- */
 
 .wave-div {
   position: absolute;
@@ -79,14 +84,4 @@ section {
 
 .wave-div .shape-fill {
   fill: #FFFFFF;
-}
-
-/* ------------------- */
-footer{
-  position: sticky;
-  top: 100%;
-}
-
-body {
-  min-height: 100vh;
 }
