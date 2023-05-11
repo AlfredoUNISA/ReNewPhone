@@ -4,6 +4,7 @@ footer {
   color: white;
   text-align: center;
   padding: 20px;
+  padding-top: 65px;
   font-family: 'Nunito Sans', sans-serif;
 }
 
@@ -51,4 +52,29 @@ footer a:hover {
 .footer-link-block li {
   width: 100%;
   margin-bottom: 10px;
+}
+
+/* Serve per il divisore */
+section {
+  position: relative;
+}
+
+.wave-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-div svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 51px;
+}
+
+.wave-div .shape-fill {
+  fill: #FFFFFF;
 }
