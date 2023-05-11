@@ -2,13 +2,23 @@
 nav {
   background-color: #333;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Rimuove il punto dell'elenco e imposta il flex */
 nav ul {
   display: flex;
   list-style-type:none;
+  padding: 0;
+}
+
+.pulsanti-sinistra{
   padding-left: 20px;
+}
+
+.pulsanti-destra{
+  padding-right: 20px;
 }
 
 /* Stili dei link nella navbar */
