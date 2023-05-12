@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS user;
 
 CREATE TABLE product (	
   id int primary key AUTO_INCREMENT,
-  name char(20) not null,
+  name char(50) not null,
   description char(200),
   price int default 0,
   quantity int default 0,
@@ -17,7 +17,7 @@ CREATE TABLE product (
 );
 
 
-CREATE TABLE user{
+CREATE TABLE user(
     id int primary key AUTO_INCREMENT,
     name char(20) not null,
     email char(40) not null,
@@ -26,7 +26,7 @@ CREATE TABLE user{
     city char(20) not null,
     cap int not null,
     phone int not null
-}
+);
 
 INSERT INTO product (name, description, price, quantity, color, brand, category) VALUES
 ('iPhone 13 Pro', 'The most advanced iPhone ever.', 999, 100, 'Silver', 'Apple', 'Smartphone'),
