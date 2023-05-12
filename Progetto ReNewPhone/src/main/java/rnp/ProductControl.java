@@ -107,7 +107,7 @@ public class ProductControl extends HttpServlet {
 		 * reindirizza la richiesta alla pagina JSP "ProductView.jsp".
 		 */
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp"); // MODIFICABILE
 		dispatcher.forward(request, response);
 	}
 

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="css/content.css">
+    <link rel="stylesheet" type="text/css" href="css/content.css"/>
     <title>About Us</title>
 </head>
 <body>
