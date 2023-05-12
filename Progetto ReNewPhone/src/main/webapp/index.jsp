@@ -8,67 +8,35 @@
 	<title>Homepage</title>
 </head>
 <body>
-	<%@ include file="header.html" %>
+	<%@ include file="html/header.html" %>
 
 	<div class="content">
 		<h1>Home Page</h1>
-		<p>
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			
-		</p>
+		<p>Benvenuto nel sito di ReNewPhone, il sito di riferimento per la vendita di smartphone ricondizionati.</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
 	</div>
+	
 
-	<%@ include file="footer.html" %>
+	<%@ include file="html/footer.html" %>
 </body>
 </html>

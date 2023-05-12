@@ -8,13 +8,13 @@
 	<title>Contacts</title>
 </head>
 <body>
-	<%@ include file="header.html" %>
+	<%@ include file="html/header.html" %>
 
 	<div class="content">
 		<h1>Contact</h1>
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore harum unde voluptas laudantium. Sapiente magni neque perspiciatis, vero, cumque recusandae in quis officia labore voluptate error ullam autem obcaecati excepturi?</p>
 	</div>
 
-	<%@ include file="footer.html" %>
+	<%@ include file="html/footer.html" %>
 </body>
 </html>

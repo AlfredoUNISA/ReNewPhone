@@ -1,27 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
+
 /* Stile generale della navbar */
 nav {
-  background-color: #333; /* Colore di sfondo della navbar */
-  overflow: hidden; /* Nascondi elementi oltre i bordi della navbar */
+  background-color: #202731;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Rimuove il punto dell'elenco e imposta il flex */
+nav ul {
+  display: flex;
+  list-style-type:none;
+  padding: 0;
+}
+
+.pulsanti-sinistra{
+  padding-left: 20px;
+}
+
+.pulsanti-destra{
+  padding-right: 20px;
 }
 
 /* Stili dei link nella navbar */
 nav a {
-  float: left; /* Imposta i link su una riga orizzontale */
-  color: white; /* Colore del testo dei link */
-  text-align: center; /* Allinea il testo al centro */
-  padding: 14px 16px; /* Aggiunge un po' di spazio attorno ai link */
-  text-decoration: none; /* Rimuove il sottolineato dal testo dei link */
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px; 
+  text-decoration: none; 
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 /* Stili dei link al passaggio del mouse */
 nav a:hover {
-  background-color: #ddd; /* Cambia il colore di sfondo al passaggio del mouse */
-  color: black; /* Cambia il colore del testo al passaggio del mouse */
+  background-color: #ddd; 
+  color: black;
 }
 
 /* Stile del link attivo */
 nav a.active {
-  background-color: #4CAF50; /* Cambia il colore di sfondo del link attivo */
-  color: white; /* Cambia il colore del testo del link attivo */
+  background-color: #4CAF50;
+  color: white;
 }
-  
