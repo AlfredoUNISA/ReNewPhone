@@ -8,13 +8,13 @@
 	<title>Homepage</title>
 </head>
 <body>
-	<%@ include file="html/header.html" %>
+	<%@ include file="_header.html" %>
 
 	<div class="content">
 		<h1>TEMPLATE ---- TEMPLATE ---- TEMPLATE</h1>
 		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi repellendus veniam illo explicabo repellat veritatis, quis eius. Distinctio mollitia eos eaque rem facere incidunt placeat pariatur, nobis ut deleniti consectetur.</p>
 	</div>
 
-	<%@ include file="html/footer.html" %>
+	<%@ include file="_footer.html" %>
 </body>
 </html>

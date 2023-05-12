@@ -8,7 +8,7 @@
 	<title>Homepage</title>
 </head>
 <body>
-	<%@ include file="html/header.html" %>
+	<%@ include file="_header.html" %>
 
 	<div class="content">
 		<h1>Home Page</h1>
@@ -37,6 +37,6 @@
 	</div>
 	
 
-	<%@ include file="html/footer.html" %>
+	<%@ include file="_footer.html" %>
 </body>
 </html>
