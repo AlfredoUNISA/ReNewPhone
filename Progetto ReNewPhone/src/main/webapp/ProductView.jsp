@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,rnp.ProductBean"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" import="java.util.*,rnp.ProductBean"%>
 
 <%
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
@@ -68,7 +68,7 @@
 				<th>Nome</th>
 				<th>Descrizione</th>
 				<th>Prezzo</th>
-				<th>Quantitï¿½</th>
+				<th>Quantità </th>
 				<th>Colore</th>
 				<th>Brand</th>
 				<th>Categoria</th>
@@ -102,7 +102,7 @@
 			<label for="price">Prezzo:</label><br> 
 			<input name="price" type="number" min="0" value="0" required><br>
 
-			<label for="quantity">Quantitï¿½:</label><br> 
+			<label for="quantity">Quantità:</label><br> 
 			<input name="quantity" type="number" min="1" value="1" required><br>
 			
 			<label for="color">Colore:</label><br>
