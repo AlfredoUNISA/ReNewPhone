@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 
 body{
   margin: 0px;
@@ -30,7 +30,7 @@ nav ul {
 /* Stili dei link nella navbar */
 nav a {
   float: left;
-  color: white;
+  color: blue;
   text-align: center;
   padding: 14px 16px; 
   text-decoration: none; 

@@ -5,7 +5,8 @@ footer {
   text-align: center;
   padding: 20px;
   padding-top: 65px;
-  font-family: 'Nunito Sans', sans-serif;
+  /*font-family: 'Nunito Sans', sans-serif;*/
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 /* Stili dei link nel footer */

@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 // ORDINE DI CHIAMATE: jsp (product bean) -> product control -> ProductDAO -> Connection Pool
 
 /**
- * Servlet per gestire le richieste relatice alla manipolazione dei dati di un database.
+ * Servlet per gestire le richieste relatice alla manipolazione dei dati di un database (PRODOTTI).
  * @category Servlet
  * @category MODIFICABILE
  */
-@WebServlet("/product")
+@WebServlet("/products")
 public class ProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,7 +53,8 @@ public class ProductControl extends HttpServlet {
 					 * Se l'azione è "read", il servlet legge il parametro "id" dalla richiesta e 
 					 * richiama il metodo "doRetrieveByKey()" per OTTENERE il prodotto con l'ID specificato.
 					 */
-					int id = Integer.parseInt(request.getParameter("id"));
+					int id = Integer.parseInt(request.getParameter("id")); // MODIFICABILE
+					
 					request.removeAttribute("product");
 					request.setAttribute("product", productDAO.doRetrieveByKey(id));
 				} 
@@ -62,7 +63,7 @@ public class ProductControl extends HttpServlet {
 					 * Se l'azione è "delete", il servlet legge il parametro "id" dalla richiesta e 
 					 * richiama il metodo "doDelete()" per ELIMINARE il prodotto con l'ID specificato. 
 					 */
-					int id = Integer.parseInt(request.getParameter("id"));
+					int id = Integer.parseInt(request.getParameter("id")); // MODIFICABILE
 					productDAO.doDelete(id);
 				} 
 				else if (action.equalsIgnoreCase("insert")) {
@@ -71,16 +72,27 @@ public class ProductControl extends HttpServlet {
 					 * dalla richiesta e crea un nuovo oggetto ProductBean con questi valori. 
 					 * Quindi richiama il metodo "doSave()" per SALVARE il nuovo prodotto nel database. 
 					 */
+					// MODIFICABILE
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
 					int price = Integer.parseInt(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					String color = request.getParameter("color");
+					String brand = request.getParameter("brand");
+					String category = request.getParameter("category");
+					String state = request.getParameter("state");
 
+					// MODIFICABILE
 					ProductBean bean = new ProductBean();
 					bean.setName(name);
 					bean.setDescription(description);
 					bean.setPrice(price);
 					bean.setQuantity(quantity);
+					bean.setColor(color);
+					bean.setBrand(brand);
+					bean.setCategory(category);
+					bean.setState(state);
+					
 					productDAO.doSave(bean);
 				}
 			}
