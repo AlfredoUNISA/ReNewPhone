@@ -94,10 +94,10 @@
 			<input type="hidden" name="action" value="insert"> 
 
 			<label for="name">Nome:</label><br> 
-			<input name="name" type="text" maxlength="20" required placeholder="Inserisci nome"><br> 
+			<input name="name" type="text" maxlength="150" required placeholder="Inserisci nome"><br> 
 
 			<label for="description">Descrizione:</label><br>
-			<textarea name="description" maxlength="100" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
+			<textarea name="description" maxlength="255" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
 
 			<label for="price">Prezzo:</label><br> 
 			<input name="price" type="number" min="0" value="0" required><br>
@@ -109,13 +109,13 @@
 			<textarea name="color" maxlength="20" required placeholder="Inserisci colore"></textarea><br>
 			
 			<label for="brand">Brand:</label><br>
-			<textarea name="brand" maxlength="20" required placeholder="Inserisci brand"></textarea><br>
+			<textarea name="brand" maxlength="25" required placeholder="Inserisci brand"></textarea><br>
 			
 			<label for="category">Categoria:</label><br>
-			<textarea name="category" maxlength="20" required placeholder="Inserisci categoria"></textarea><br>
+			<textarea name="category" maxlength="15" required placeholder="Inserisci categoria"></textarea><br>
 			
 			<label for="state">Condizione:</label><br>
-			<textarea name="state" maxlength="20" required placeholder="Inserisci condizione"></textarea><br>
+			<textarea name="state" maxlength="12" required placeholder="Inserisci condizione"></textarea><br>
 
 			<input type="submit" value="Add">
 			<input type="reset" value="Reset">
