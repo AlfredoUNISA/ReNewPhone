@@ -69,3 +69,10 @@ INSERT INTO products (name, description, price, quantity, color, brand, category
 ('Motorola Moto G Stylus 5g (2022)', 'Lo Smartphone Con Pennino Più Conveniente.', 299, 100, 'Nero', 'Motorola', 'Smartphone', 'Buono'),
 ('Tcl 20 Se 5g', 'Lo Smartphone 5g Con Display Grande Più Conveniente.', 249, 100, 'Nero Lucido', 'Tcl', 'Smartphone', 'Buono'),
 ('Oppo A96 5g', 'Lo Smartphone 5g Più Elegante.', 399, 100, 'Nero Cosmico', 'Oppo', 'Smartphone', 'Buono');
+
+INSERT INTO users (name, email, password, address, city, cap, phone) VALUES
+('John Doe', 'johndoe@example.com', 'password123', '123 Main St', 'Anytown', '12345', '555-1234'),
+('Jane Smith', 'janesmith@example.com', 'password456', '456 Oak St', 'Otherville', '54321', '555-5678'),
+('Bob Johnson', 'bobjohnson@example.com', 'password789', '789 Elm St', 'Smalltown', '45678', '555-9012'),
+('Alice Lee', 'alicelee@example.com', 'passwordabc', '321 Maple St', 'Bigcity', '67890', '555-3456'),
+('David Chen', 'davidchen@example.com', 'passworddef', '654 Pine St', 'Metropolis', '13579', '555-7890');
