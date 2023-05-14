@@ -16,6 +16,7 @@ import javax.sql.DataSource;
  * Fornisce l'accesso ai dati di un oggetto ProductBean in una base di dati relazionale attraverso un pool di connessioni DataSource. 
  * La classe si occupa di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati nella tabella "product" della base di dati.
  * @category Query con Data Source
+ * @implNote ATTENZIONE: Modificare web.xml (resource-ref con JNDI) e modificare context.xml (in META-INF)
  * @category MODIFICABILE
  */
 public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABILE */ {

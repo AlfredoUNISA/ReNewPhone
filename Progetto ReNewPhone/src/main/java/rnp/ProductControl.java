@@ -24,7 +24,7 @@ public class ProductControl extends HttpServlet {
 	// SCEGLIERE SE UTILIZZARE IL DATA SOURCE O IL DRIVER MANAGER
 	// ProductDAODataSource usa il DataSource (TRUE)
 	// ProductDAODriverMan usa il DriverManager	(FALSE)
-	static boolean isDataSource = false;
+	static boolean isDataSource = true;
 	
 	static IBeanDAO<ProductBean> productDAO;
 	
