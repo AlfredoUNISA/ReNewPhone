@@ -10,6 +10,7 @@ import java.util.LinkedList;
 /**
  * Fornisce le implementazioni per la gestione dei dati persistenti relativi ai prodotti in un database attraverso il Driver Manager.
  * La classe si occupa di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati nella tabella "product" della base di dati.
+ * @deprecated
  * @category Query con Driver Manager
  * @category MODIFICABILE
  */

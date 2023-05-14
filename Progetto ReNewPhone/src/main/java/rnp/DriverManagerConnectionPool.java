@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * La classe DriverManagerConnectionPool è una classe utilizzata per la gestione della connessione al database MySQL utilizzando la classe DriverManager di JDBC. 
  * In particolare, la classe gestisce una pool di connessioni al database per ottimizzare le performance dell'applicazione.
+ * @deprecated
  * @category Connection Pool
  * @category MODIFICABILE 
  */
