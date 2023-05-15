@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=ISO-8859-1" import="java.util.*,rnp.UserBean"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" import="java.util.*,rnp.UserBean,rnp.UserDAODataSource"%>
 
 <%
 	Collection<?> users = (Collection<?>) request.getAttribute("users");
@@ -108,11 +108,12 @@
 			<input name="cap" type="text" maxlength="7" required placeholder="Inserisci CAP"><br> 
 			
 			<label for="phone">Telefono:</label><br> 
-			<input name="phone" type="tel" maxlength="20" required placeholder="Inserisci numero di telefono"><br>
+			<input name="phone" type="text" maxlength="20" required placeholder="Inserisci numero di telefono"><br>
 
 			<input type="submit" value="Add">
 			<input type="reset" value="Reset">
-
+			
+	
 		</form>
 	</div>
 

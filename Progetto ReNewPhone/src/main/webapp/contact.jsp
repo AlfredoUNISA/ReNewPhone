@@ -4,7 +4,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="css/content.css">
-  <title>Contacts</title>
+  <title>Contatti</title>
 </head>
 <body>
   <%@ include file="_header.html" %>

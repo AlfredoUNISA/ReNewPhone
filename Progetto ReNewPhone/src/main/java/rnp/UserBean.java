@@ -92,4 +92,6 @@ public class UserBean implements Serializable {
 		return "UserBean [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
 				+ address + ", city=" + city + ", cap=" + cap + ", phone=" + phone + "]";
 	}
+	
+
 }

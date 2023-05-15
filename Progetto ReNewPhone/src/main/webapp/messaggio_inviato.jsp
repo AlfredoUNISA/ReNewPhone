@@ -5,7 +5,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/content.css" /> 
-	<title>Homepage</title>
+	<title>Messaggio</title>
 </head>
 <body>
 	<%@ include file="_header.html" %>

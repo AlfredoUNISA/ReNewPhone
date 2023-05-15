@@ -49,7 +49,7 @@ label {
 
 input[type="email"],
 textarea {
-    width: 100%;
+    width: 40%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -59,8 +59,9 @@ textarea {
 /* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
 input[type="text"],
 input[type="username"], 
+
 textarea {
-    
+    width: 30%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -71,7 +72,7 @@ textarea {
 
 input[type="password"], 
 textarea {
-    
+    width: 30%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;

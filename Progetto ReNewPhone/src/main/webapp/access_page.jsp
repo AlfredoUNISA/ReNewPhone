@@ -14,8 +14,8 @@
 		 <h2>Accedi al tuo account</h2>
   
   <form action="access_page.jsp" method="post">
-    <input type="username" name="username" placeholder="Username" > <br>
-    <input type="password" name="password" placeholder="Password"> <br>
+    <input type="username" name="username" required placeholder="Username" > <br>
+    <input type="password" name="password" required placeholder="Password"> <br>
     <input type="submit" value="Login">
   </form>
   <p>Non sei ancora registrato? <a href="register.jsp">Registrati qui</a></p>
