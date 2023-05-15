@@ -23,9 +23,6 @@
 	<div class="content">
 		<h2>Prodotti Disponibili</h2>
 
-		<button id="refresh">
-			<a href="products">Ricarica</a>
-		</button>
 		<table border="1">
 			<tr>
 				<th>Id <a href="products?sort=id">Sort</a></th>
