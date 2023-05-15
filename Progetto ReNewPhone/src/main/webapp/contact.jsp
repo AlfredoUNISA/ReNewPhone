@@ -11,13 +11,16 @@
 
   <div class="content">
     <h1>Contact</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore harum unde voluptas laudantium. Sapiente magni neque perspiciatis, vero, cumque recusandae in quis officia labore voluptate error ullam autem obcaecati excepturi?</p>
-    <form action="contact.php" method="post">
+    <h4> Se riscontri dei problemi in fase d'acquisto o hai dubbi, non esitare a contattarci.</h4>
+    <h4>compila il modulo inserendo la tua email, ti risponderemo il prima possibile</h4>
+    <form action="messaggio_inviato.jsp" method="post">
       <input type="text" name="name" placeholder="Your name">
       <input type="email" name="email" placeholder="Your email">
       <textarea name="message" placeholder="Your message"></textarea>
       <input type="submit" value="Send">
     </form>
+    
+    <p> il servizio è attivo 7 giorni su 7 dalle 8 alle 18 </p>
   </div>
 
   <%@ include file="_footer.html" %>

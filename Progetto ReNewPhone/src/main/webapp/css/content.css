@@ -33,6 +33,7 @@ th {
     font-weight: bold;
 }
 
+
 /* Stili per form */
 form {
     max-width: 800px;
@@ -45,10 +46,32 @@ label {
     font-weight: bold;
 }
 
-input[type="text"],
+
 input[type="email"],
 textarea {
     width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
+input[type="text"],
+input[type="username"], 
+textarea {
+    
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
+
+input[type="password"], 
+textarea {
+    
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
