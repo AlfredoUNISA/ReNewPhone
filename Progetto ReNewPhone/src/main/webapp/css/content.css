@@ -2,6 +2,136 @@ body {
     margin: 0px;
     font-family: 'Nunito Sans', sans-serif;
 }
+
 .content {
     margin: 8px;
 }
+
+h2 {
+    text-align: center;
+}
+
+/* Stili per table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #333;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+
+/* Stili per form */
+form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+input[type="email"],
+textarea {
+    width: 40%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
+input[type="text"],
+input[type="username"], 
+
+textarea {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
+
+input[type="password"], 
+textarea {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+input[type="submit"], input[type="reset"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+    background-color: #0069d9;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .content {
+    margin: 0 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  /* Stili per table */
+  table {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 5px;
+  }
+
+
+
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+
+  .content {
+    margin: 0 5px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }

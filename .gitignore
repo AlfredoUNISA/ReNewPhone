@@ -6,6 +6,5 @@
 /Servers5/
 /Servers6/
 /.metadata/
-/Progetto ReNewPhone/build/
-/Progetto ReNewPhone/bin/
-/Progetto ReNewPhone/.gitignore
+/Progetto_ReNewPhone/build/
+/Progetto_ReNewPhone/src/main/.classpath
