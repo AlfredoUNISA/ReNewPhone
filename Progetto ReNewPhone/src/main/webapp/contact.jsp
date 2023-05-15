@@ -14,10 +14,10 @@
     <h4> Se riscontri dei problemi in fase d'acquisto o hai dubbi, non esitare a contattarci.</h4>
     <h4>compila il modulo inserendo la tua email, ti risponderemo il prima possibile</h4>
     <form action="messaggio_inviato.jsp" method="post">
-      <input type="text" name="name" placeholder="Your name">
-      <input type="email" name="email" placeholder="Your email">
-      <textarea name="message" placeholder="Your message"></textarea>
-      <input type="submit" value="Send">
+      <input type="text" name="name" placeholder="Inserisci il tuo nome">
+      <input type="email" name="email" placeholder="Inserisci la tua email">
+      <textarea name="message" placeholder="Scrivi qui il tuo messaggio"></textarea>
+      <input type="submit" value="Invia">
     </form>
     
     <p> il servizio è attivo 7 giorni su 7 dalle 8 alle 18 </p>
