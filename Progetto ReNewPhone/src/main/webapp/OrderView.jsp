@@ -105,14 +105,14 @@
 		
 		<!-- TODO: fixare (null parsing) -->
 		<h2>Inserisci</h2>
-		<form action="products" method="post">
+		<form action="orders" method="post">
 			<input type="hidden" name="action" value="insert"> 
 
-			<label for="userId">ID Utente:</label><br>
-    		<input name="userId" type="number" required><br>
+			<label for="id_user">ID Utente:</label><br>
+    		<input name="id_user" type="number" required><br>
 
-    		<label for="productId">ID Prodotto:</label><br>
-    		<input name="productId" type="number" required><br>
+    		<label for="id_product">ID Prodotto:</label><br>
+    		<input name="id_product" type="number" required><br>
 
     		<label for="quantity">Quantità:</label><br>
    			<input name="quantity" type="number" min="1" required><br>
