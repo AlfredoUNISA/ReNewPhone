@@ -15,7 +15,6 @@
         <img src="resources/chisiamo.png" alt="Chi siamo" width="300" height="200">
         <p>
         Siamo tre studenti di Unisa con la passione per l'informatica
-        
         </p>
     </div>
     
