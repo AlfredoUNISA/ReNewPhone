@@ -40,15 +40,15 @@
 				if (orders != null && orders.size() != 0) {
 					Iterator<?> it = orders.iterator();
 					while (it.hasNext()) {
-						OrderBean order_bean = (OrderBean) it.next();
+						OrderBean iter_order_bean = (OrderBean) it.next();
 			%>
 			<tr>
-				<td><%=order_bean.getId()%></td>
-				<td><%=order_bean.getId_user()%></td>
-				<td><%=order_bean.getId_product()%></td>
-				<td><%=order_bean.getQuantity()%></td>
-				<td><a href="orders?action=delete&id=<%=order_bean.getId()%>">Elimina</a><br>
-					<a href="orders?action=read&id=<%=order_bean.getId()%>#Dettagli">Dettagli</a></td>
+				<td><%=iter_order_bean.getId()%></td>
+				<td><%=iter_order_bean.getId_user()%></td>
+				<td><%=iter_order_bean.getId_product()%></td>
+				<td><%=iter_order_bean.getQuantity()%></td>
+				<td><a href="orders?action=delete&id=<%=iter_order_bean.getId()%>">Elimina</a><br>
+					<a href="orders?action=read&id=<%=iter_order_bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
 			<%
 					}
