@@ -10,33 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// ORDINE DI CHIAMATE: jsp (product bean) -> product control -> ProductDAO -> Connection Pool
-
 /**
- * Servlet per gestire le richieste relatice alla manipolazione dei dati di un database (PRODOTTI).
+ * Servlet per gestire le richieste relatice alla manipolazione dei dati di un database.
  * @category Servlet
  * @category MODIFICABILE
  */
-@WebServlet("/products")
-public class ProductControl extends HttpServlet {
+@WebServlet("/orders")
+public class OrderControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	// SCEGLIERE SE UTILIZZARE IL DATA SOURCE O IL DRIVER MANAGER
-	// ProductDAODataSource usa il DataSource (TRUE)
-	// ProductDAODriverMan usa il DriverManager	(FALSE)
-	static boolean isDataSource = true;
 	
-	static IBeanDAO<ProductBean> productDAO;
+	// MODIFICABILE
+	static IBeanDAO<OrderBean> orderDAO = new OrderDAODataSource();
 	
-	static {
-		if (isDataSource) {
-			productDAO = new ProductDAODataSource();
-		} else {
-			productDAO = new ProductDAODriverMan();
-		}
-	}
-	
-	public ProductControl() {
+	public OrderControl() {
 		super();
 	}
 
@@ -51,49 +37,40 @@ public class ProductControl extends HttpServlet {
 				if (action.equalsIgnoreCase("read")) {
 					/* 
 					 * Se l'azione è "read", il servlet legge il parametro "id" dalla richiesta e 
-					 * richiama il metodo "doRetrieveByKey()" per OTTENERE il prodotto con l'ID specificato.
+					 * richiama il metodo "doRetrieveByKey()" per OTTENERE l'order con l'ID specificato.
 					 */
 					int id = Integer.parseInt(request.getParameter("id")); // MODIFICABILE
 					
-					request.removeAttribute("product");
-					request.setAttribute("product", productDAO.doRetrieveByKey(id));
+					// MODIFICABILE
+					request.removeAttribute("order");
+					request.setAttribute("order", orderDAO.doRetrieveByKey(id));
 				} 
 				else if (action.equalsIgnoreCase("delete")) {
 					/* 
 					 * Se l'azione è "delete", il servlet legge il parametro "id" dalla richiesta e 
-					 * richiama il metodo "doDelete()" per ELIMINARE il prodotto con l'ID specificato. 
+					 * richiama il metodo "doDelete()" per ELIMINARE l'utente con l'ID specificato. 
 					 */
 					int id = Integer.parseInt(request.getParameter("id")); // MODIFICABILE
-					productDAO.doDelete(id);
+					orderDAO.doDelete(id);
 				} 
 				else if (action.equalsIgnoreCase("insert")) {
 					/* 
-					 * Se l'azione è "insert", il servlet legge i parametri "name", "description", "price" e "quantity" 
-					 * dalla richiesta e crea un nuovo oggetto ProductBean con questi valori. 
-					 * Quindi richiama il metodo "doSave()" per SALVARE il nuovo prodotto nel database. 
+					 * Se l'azione è "insert", il servlet legge i parametri "id_user", "id_product" e "quantity"
+					 * dalla richiesta e crea un nuovo oggetto OrderBean con questi valori. 
+					 * Quindi richiama il metodo "doSave()" per SALVARE il nuovo utente nel database. 
 					 */
 					// MODIFICABILE
-					String name = request.getParameter("name");
-					String description = request.getParameter("description");
-					int price = Integer.parseInt(request.getParameter("price"));
+					int id_user = Integer.parseInt(request.getParameter("id_user"));
+					int id_product = Integer.parseInt(request.getParameter("id_product"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
-					String color = request.getParameter("color");
-					String brand = request.getParameter("brand");
-					String category = request.getParameter("category");
-					String state = request.getParameter("state");
-
-					// MODIFICABILE
-					ProductBean bean = new ProductBean();
-					bean.setName(name);
-					bean.setDescription(description);
-					bean.setPrice(price);
-					bean.setQuantity(quantity);
-					bean.setColor(color);
-					bean.setBrand(brand);
-					bean.setCategory(category);
-					bean.setState(state);
 					
-					productDAO.doSave(bean);
+					// MODIFICABILE
+					OrderBean bean = new OrderBean();
+					bean.setId_user(id_user);
+					bean.setId_product(id_product);
+					bean.setQuantity(quantity);
+					
+					orderDAO.doSave(bean);
 				}
 			}
 		} catch (SQLException e) {
@@ -108,8 +85,9 @@ public class ProductControl extends HttpServlet {
 		String sort = request.getParameter("sort");
 
 		try {
-			request.removeAttribute("products");
-			request.setAttribute("products", productDAO.doRetrieveAll(sort));
+			// MODIFICABILE
+			request.removeAttribute("orders");
+			request.setAttribute("orders", orderDAO.doRetrieveAll(sort));
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
@@ -119,7 +97,7 @@ public class ProductControl extends HttpServlet {
 		 * reindirizza la richiesta alla pagina JSP "ProductView.jsp".
 		 */
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp"); // MODIFICABILE
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderView.jsp"); // MODIFICABILE
 		dispatcher.forward(request, response);
 	}
 

@@ -5,13 +5,13 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/content.css"/>
-    <title>About Us</title>
+    <title>Chi siamo</title>
 </head>
 <body>
     <%@ include file="_header.html" %>
 
     <div class="content">
-        <h1>About</h1>
+        <h1>Chi siamo</h1>
         <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat eius quibusdam vitae vero. Ad libero minus porro doloribus illo, saepe aperiam nam nemo at qui eius similique, neque veritatis unde.
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, asperiores quibusdam aliquid culpa soluta earum vero odio delectus ducimus, ea, quas officiis. Id doloremque nesciunt amet maiores exercitationem! Eligendi, quidem.

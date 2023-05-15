@@ -13,16 +13,16 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
- * Fornisce l'accesso ai dati di un oggetto ProductBean in una base di dati relazionale attraverso un pool di connessioni DataSource. 
- * La classe si occupa di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati nella tabella "product" della base di dati.
+ * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale attraverso un pool di connessioni DataSource. 
+ * La classe si occupa di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati nella tabella "TABLE_NAME" della base di dati.
  * @category Query con Data Source
  * @implNote ATTENZIONE: Modificare web.xml (resource-ref con JNDI) e modificare context.xml (in META-INF)
  * @category MODIFICABILE
  */
-public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABILE */ {
+public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ {
 
 	private static DataSource ds;
-	private static final String TABLE_NAME = "products"; // MODIFICABILE
+	private static final String TABLE_NAME = "users"; // MODIFICABILE
 
 	// Inizializzazione per il Data Source
 	static {
@@ -38,19 +38,20 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 	}
 
 	/**
-	 * Un bean "prodotto" viene inserito come una nuova riga nella tabella "TABLE_NAME" usando una connessione al database.
-	 * @param product Prodotto da inserire
+	 * Un bean viene inserito come una nuova riga nella tabella "TABLE_NAME" usando una connessione al database.
+	 * @param user Oggetto da inserire
 	 * @category MODIFICABILE
 	 */
 	@Override
-	public synchronized void doSave(ProductBean product) throws SQLException {
+	public synchronized void doSave(UserBean user) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		// MODIFICABILE
-		String insertSQL = "INSERT INTO " + ProductDAODataSource.TABLE_NAME
-				+ " (name, description, price, quantity, color, brand, category, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO " + UserDAODataSource.TABLE_NAME
+                + " (name, email, password, address, city, cap, phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
 
 		try { 
 			connection = ds.getConnection();
@@ -58,18 +59,17 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			preparedStatement = connection.prepareStatement(insertSQL);
 
 			// MODIFICABILE
-			preparedStatement.setString(1, product.getName());
-			preparedStatement.setString(2, product.getDescription());
-			preparedStatement.setInt(3, product.getPrice());
-			preparedStatement.setInt(4, product.getQuantity());
-			preparedStatement.setString(5, product.getColor());
-			preparedStatement.setString(6, product.getBrand());
-			preparedStatement.setString(7, product.getCategory());
-			preparedStatement.setString(8, product.getState());
+			preparedStatement.setString(1, user.getName());
+			preparedStatement.setString(2, user.getEmail());
+			preparedStatement.setString(3, user.getPassword());
+			preparedStatement.setString(4, user.getAddress());
+			preparedStatement.setString(5, user.getCity());
+			preparedStatement.setString(6, user.getCap());
+			preparedStatement.setString(7, user.getPhone());
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
+			connection.commit(); // TODO: Vedere se disabilitare autocommit=true
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -82,8 +82,8 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 	}
 
 	/**
-	 * Rimuove una riga dalla tabella "TABLE_NAME" in base al codice del prodotto.
-	 * @param code Il codice del prodotto da rimuovere.
+	 * Rimuove una riga dalla tabella "TABLE_NAME" in base al codice.
+	 * @param id Il codice del prodotto da rimuovere.
 	 * @return L'esito della query.
 	 * @category MODIFICABILE
 	 */
@@ -95,7 +95,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		int result = 0;
 
 
-		String deleteSQL = "DELETE FROM " + ProductDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
+		String deleteSQL = "DELETE FROM " + UserDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
 
 		try {
 			connection = ds.getConnection();
@@ -124,13 +124,13 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 	 * @category MODIFICABILE
 	 */
 	@Override
-	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<UserBean> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		Collection<UserBean> products = new LinkedList<UserBean>();
 
-		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + UserDAODataSource.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -143,18 +143,17 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				ProductBean bean = new ProductBean();
+				UserBean bean = new UserBean();
 
 				// MODIFICABILE
-				bean.setId(rs.getInt("ID"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
-				bean.setColor(rs.getString("COLOR"));
-				bean.setBrand(rs.getString("BRAND"));
-				bean.setCategory(rs.getString("CATEGORY"));
-				bean.setState(rs.getString("STATE"));
+				bean.setId(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setAddress(rs.getString("address"));
+				bean.setCity(rs.getString("city"));
+				bean.setCap(rs.getString("cap"));
+				bean.setPhone(rs.getString("phone"));
 				
 				products.add(bean);
 			}
@@ -172,19 +171,19 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 	}
 	
 	/**
-	 * Seleziona una singola riga dalla tabella "TABLE_NAME" in base al codice del prodotto.
-	 * @param code Il codice del prodotto da ottenere.
+	 * Seleziona una singola riga dalla tabella "TABLE_NAME" in base al codice.
+	 * @param id Il codice del prodotto da ottenere.
 	 * @return Il bean ottenuto in base al codice.
 	 * @category MODIFICABILE
 	 */
 	@Override
-	public synchronized ProductBean doRetrieveByKey(int id /* MODIFICABILE */) throws SQLException {
+	public synchronized UserBean doRetrieveByKey(int id /* MODIFICABILE */) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		ProductBean bean = new ProductBean();
+		UserBean bean = new UserBean();
 		
-		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
+		String selectSQL = "SELECT * FROM " + UserDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
 		
 		try {
 			connection = ds.getConnection();	
@@ -193,15 +192,14 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				// MODIFICABILE
-				bean.setId(rs.getInt("ID"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
-				bean.setColor(rs.getString("COLOR"));
-				bean.setBrand(rs.getString("BRAND"));
-				bean.setCategory(rs.getString("CATEGORY"));
-				bean.setState(rs.getString("STATE"));
+				bean.setId(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setAddress(rs.getString("address"));
+				bean.setCity(rs.getString("city"));
+				bean.setCap(rs.getString("cap"));
+				bean.setPhone(rs.getString("phone"));
 			}
 		} finally {
 			try {
@@ -214,5 +212,8 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		}
 		return bean;
 	}
+	
+	
+	
 }
 

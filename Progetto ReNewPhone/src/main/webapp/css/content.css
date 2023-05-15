@@ -33,6 +33,7 @@ th {
     font-weight: bold;
 }
 
+
 /* Stili per form */
 form {
     max-width: 800px;
@@ -45,10 +46,33 @@ label {
     font-weight: bold;
 }
 
-input[type="text"],
+
 input[type="email"],
 textarea {
-    width: 100%;
+    width: 40%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
+input[type="text"],
+input[type="username"], 
+
+textarea {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
+
+input[type="password"], 
+textarea {
+    width: 30%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -72,3 +96,42 @@ input[type="submit"], input[type="reset"] {
 input[type="submit"]:hover, input[type="reset"]:hover {
     background-color: #0069d9;
 }
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .content {
+    margin: 0 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  /* Stili per table */
+  table {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 5px;
+  }
+
+
+
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+
+  .content {
+    margin: 0 5px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
