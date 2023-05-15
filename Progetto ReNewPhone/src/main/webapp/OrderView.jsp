@@ -47,7 +47,7 @@
 				<td><%=iter_order_bean.getId_user()%></td>
 				<td><%=iter_order_bean.getId_product()%></td>
 				<td><%=iter_order_bean.getQuantity()%></td>
-				<td><a href="orders?action=delete&id=<%=iter_order_bean.getId()%>">Elimina</a><br>
+				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo ordine?')){location.href='orders?action=delete&id=<%=iter_order_bean.getId()%>';}">Elimina</a><br>
 					<a href="orders?action=read&id=<%=iter_order_bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
 			<%
@@ -72,7 +72,7 @@
 				<th>Nome Acquirente</th>
 				<th>Nome Prodotto</th>
 				<th>Prezzo</th>
-				<th>Quantità</th>
+				<th>Quantitï¿½</th>
 			</tr>
 			<tr>
 				<!-- Id Ordine -->
@@ -95,7 +95,7 @@
 				<!-- Prezzo -->
 				<td><%=product_bean.getPrice()%></td>
 				
-				<!-- Quantità -->
+				<!-- Quantitï¿½ -->
 				<td><%=order.getQuantity()%></td>
 			</tr>
 		</table>
@@ -114,7 +114,7 @@
     		<label for="id_product">ID Prodotto:</label><br>
     		<input name="id_product" type="number" required><br>
 
-    		<label for="quantity">Quantità:</label><br>
+    		<label for="quantity">Quantitï¿½:</label><br>
    			<input name="quantity" type="number" min="1" required><br>
 
 			<input type="submit" value="Add">

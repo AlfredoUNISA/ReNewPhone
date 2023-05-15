@@ -40,7 +40,7 @@
 				<td><%=bean.getId()%></td>
 				<td><%=bean.getName()%></td>
 				<td><%=bean.getDescription()%></td>
-				<td><a href="products?action=delete&id=<%=bean.getId()%>">Elimina</a><br>
+				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo prodotto?')){location.href='products?action=delete&id=<%=bean.getId()%>';}">Elimina</a><br>
 					<a href="products?action=read&id=<%=bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
 			<%
