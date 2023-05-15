@@ -115,12 +115,12 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 
 	/**
 	 * Seleziona tutte le righe dalla tabella "TABLE_NAME" e restituisce una collezione di oggetti.
-	 * @param order_by Specifica l'ordine di ordinamento dei risultati (se non è nullo aggiunge ORDER BY alla query).
+	 * @param sort Specifica l'ordine di ordinamento dei risultati (se non è nullo aggiunge ORDER BY alla query).
 	 * @return La collezione di oggetti contenente tutte le righe della tabella.
 	 * @category MODIFICABILE
 	 */
 	@Override
-	public synchronized Collection<OrderBean> doRetrieveAll(String order_by) throws SQLException {
+	public synchronized Collection<OrderBean> doRetrieveAll(String sort) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -128,8 +128,8 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 
 		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME;
 
-		if (order_by != null && !order_by.equals("")) {
-			selectSQL += " ORDER BY " + order_by;
+		if (sort != null && !sort.equals("")) {
+			selectSQL += " ORDER BY " + sort;
 		}
 
 		try {
