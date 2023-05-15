@@ -1,4 +1,8 @@
-<%@ page contentType="text/html; charset=ISO-8859-1" import="java.util.*,rnp.OrderBean"%>
+<%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
+<%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
+<%@ page import="java.util.*"%>
+
+<%@ page contentType="text/html; charset=ISO-8859-1"%>
 
 <%
 	Collection<?> orders = (Collection<?>) request.getAttribute("orders");
@@ -9,13 +13,14 @@
 	}
 	
 	OrderBean order = (OrderBean) request.getAttribute("order");
+	
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" href="css/content.css">
-	<title>Storage</title>
+	<title>Ordini</title>
 </head>
 <body>
 	<%@ include file="_header.html" %>
@@ -25,25 +30,25 @@
 		
 		<table border="1">
 			<tr>
-				<th>Id | <a href="orders?sort=id">Sort</a></th>
-				<th>Id Utente | <a href="orders?sort=id_user">Sort</a></th>
-				<th>Id Prodotto | <a href="orders?sort=id_product">Sort</a></th>
-				<th>Quantità Ordinata | <a href="orders?sort=quantity">Sort</a></th>
+				<th>Id <a href="orders?sort=id">Sort</a></th>
+				<th>Id Utente <a href="orders?sort=id_user">Sort</a></th>
+				<th>Id Prodotto <a href="orders?sort=id_product">Sort</a></th>
+				<th>Quantità Ordinata <a href="orders?sort=quantity">Sort</a></th>
 				<th>Azione</th>
 			</tr>
 			<%
 				if (orders != null && orders.size() != 0) {
 					Iterator<?> it = orders.iterator();
 					while (it.hasNext()) {
-						OrderBean bean = (OrderBean) it.next();
+						OrderBean order_bean = (OrderBean) it.next();
 			%>
 			<tr>
-				<td><%=bean.getId()%></td>
-				<td><%=bean.getId_user()%></td>
-				<td><%=bean.getId_product()%></td>
-				<td><%=bean.getQuantity()%></td>
-				<td><a href="orders?action=delete&id=<%=bean.getId()%>">Elimina</a><br>
-					<a href="orders?action=read&id=<%=bean.getId()%>#Dettagli">Dettagli</a></td>
+				<td><%=order_bean.getId()%></td>
+				<td><%=order_bean.getId_user()%></td>
+				<td><%=order_bean.getId_product()%></td>
+				<td><%=order_bean.getQuantity()%></td>
+				<td><a href="orders?action=delete&id=<%=order_bean.getId()%>">Elimina</a><br>
+					<a href="orders?action=read&id=<%=order_bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
 			<%
 					}
@@ -59,69 +64,64 @@
 
 		<h2 id="Dettagli">Dettagli</h2>
 		<%
-			if (orders != null) {
+			if (order != null) {
 		%>
 		<table border="1">
 			<tr>
 				<th>Id</th>
-				<th>Nome</th>
-				<th>Descrizione</th>
+				<th>Nome Acquirente</th>
+				<th>Nome Prodotto</th>
 				<th>Prezzo</th>
-				<th>Quantità </th>
-				<th>Colore</th>
-				<th>Brand</th>
-				<th>Categoria</th>
-				<th>Condizione</th>
+				<th>Quantità</th>
 			</tr>
 			<tr>
-			<!-- 
-				<td><%=product.getId()%></td>
-				<td><%=product.getName()%></td>
-				<td><%=product.getDescription()%></td>
-				<td><%=product.getPrice()%></td>
-				<td><%=product.getQuantity()%></td>
-				<td><%=product.getColor()%></td>
-				<td><%=product.getBrand()%></td>
-				<td><%=product.getCategory()%></td>
-				<td><%=product.getState()%></td>
-			 -->
+				<!-- Id Ordine -->
+				<td><%=order.getId()%></td>
+				
+				<!-- Nome Acquirente -->
+				<% 
+					UserDAODataSource userDAO = new UserDAODataSource();
+					UserBean user_bean = userDAO.doRetrieveByKey(order.getId_user()); 
+				%>
+				<td><%=user_bean.getName()%></td>
+				
+				<!-- Nome Prodotto -->
+				<% 
+					ProductDAODataSource productDAO = new ProductDAODataSource();
+					ProductBean product_bean = productDAO.doRetrieveByKey(order.getId_product()); 
+				%>
+				<td><%=product_bean.getName()%></td>
+				
+				<!-- Prezzo -->
+				<td><%=product_bean.getPrice()%></td>
+				
+				<!-- Quantità -->
+				<td><%=order.getQuantity()%></td>
 			</tr>
 		</table>
 		<%
 			}
 		%>
+		
+		<!-- TODO: fixare (null parsing) -->
 		<h2>Inserisci</h2>
 		<form action="products" method="post">
 			<input type="hidden" name="action" value="insert"> 
 
-			<label for="name">Nome:</label><br> 
-			<input name="name" type="text" maxlength="150" required placeholder="Inserisci nome"><br> 
+			<label for="userId">ID Utente:</label><br>
+    		<input name="userId" type="number" required><br>
 
-			<label for="description">Descrizione:</label><br>
-			<textarea name="description" maxlength="255" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
+    		<label for="productId">ID Prodotto:</label><br>
+    		<input name="productId" type="number" required><br>
 
-			<label for="price">Prezzo:</label><br> 
-			<input name="price" type="number" min="0" value="0" required><br>
-
-			<label for="quantity">Quantità:</label><br> 
-			<input name="quantity" type="number" min="1" value="1" required><br>
-			
-			<label for="color">Colore:</label><br>
-			<textarea name="color" maxlength="20" required placeholder="Inserisci colore"></textarea><br>
-			
-			<label for="brand">Brand:</label><br>
-			<textarea name="brand" maxlength="25" required placeholder="Inserisci brand"></textarea><br>
-			
-			<label for="category">Categoria:</label><br>
-			<textarea name="category" maxlength="15" required placeholder="Inserisci categoria"></textarea><br>
-			
-			<label for="state">Condizione:</label><br>
-			<textarea name="state" maxlength="12" required placeholder="Inserisci condizione"></textarea><br>
+    		<label for="quantity">Quantità:</label><br>
+   			<input name="quantity" type="number" min="1" required><br>
 
 			<input type="submit" value="Add">
 			<input type="reset" value="Reset">
 
 		</form>
+		
 	</div>
 
 	<%@ include file="_footer.html" %>
