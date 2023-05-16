@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +37,10 @@ public class SearchControl extends HttpServlet {
 				Collection<ProductBean> products = productDAO.doRetrieveAll(sort);
 				for (ProductBean product : products) {
 					// Calcola la distanza di Levenshtein tra la parola cercata e il nome del prodotto
-					int distance = levenshteinDistance(product.getName().toLowerCase(), query.toLowerCase());
+					
+					int distance = 1;
+					
+					// int distance = levenshteinDistance(product.getName().toLowerCase(), query.toLowerCase());
 					System.out.println("Distanza tra (" + product.getName().toLowerCase() + ") e (" + query.toLowerCase() + ") = " + distance);
 
 					// Consideramo i prodotti con una distanza di Levenshtein <= 2 come corrispondenze
