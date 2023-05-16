@@ -2,6 +2,7 @@ package rnp;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -84,7 +85,10 @@ public class UserControl extends HttpServlet {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			if(e instanceof SQLIntegrityConstraintViolationException)
+				request.setAttribute("user", null);
+			System.out.println("Error: " + e.getMessage());
+			System.out.println("Class:" + e.getClass());
 		}
 
 		/*

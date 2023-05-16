@@ -55,10 +55,10 @@
 			%>
 		</table>
 
-		<h2 id="Dettagli">Dettagli</h2>
 		<%
 			if (user != null) {
 		%>
+		<h2 id="Dettagli">Dettagli</h2>
 		<table border="1">
 			<tr>
 				<th>Id</th>
@@ -82,6 +82,11 @@
 
 			</tr>
 		</table>
+		<%
+			} else {
+		%>
+			<h2 style="color:red;">Email già presente</h2>
+		
 		<%
 			}
 		%>
