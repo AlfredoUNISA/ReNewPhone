@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet per gestire le richieste relatice alla manipolazione dei dati di un database.
+ * Servlet per gestire le richieste relate alla manipolazione dei dati di un database.
  * @category Servlet
  * @category MODIFICABILE
  */

@@ -40,12 +40,9 @@ if (query == null)
 				<th>Prezzo</th>
 			</tr>
 			<%
-			System.out.println("NELLA JSP:");
 			Iterator<?> it = searchResults.iterator();
 			while (it.hasNext()) {
 				ProductBean bean = (ProductBean) it.next();
-				System.out.println("------");
-			    System.out.println(bean);
 			%>
 			<tr>
 				<td><%=bean.getId()%></td>

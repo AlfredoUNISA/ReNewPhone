@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SearchControl
+ * Servlet per gestire le richieste relate alla ricerca di prodotti in un database.
+ * @category Servlet
  */
 @WebServlet("/search")
 public class SearchControl extends HttpServlet {
@@ -25,8 +26,7 @@ public class SearchControl extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = request.getParameter("q");
 		String sort = request.getParameter("sort");
 		Collection<ProductBean> searchResults = new ArrayList<ProductBean>();
@@ -36,24 +36,23 @@ public class SearchControl extends HttpServlet {
 			if (query != null && !query.isEmpty() && query.trim().length() > 0) {
 				Collection<ProductBean> products = productDAO.doRetrieveAll(sort);
 				for (ProductBean product : products) {
-					// Calcola la distanza di Levenshtein tra la parola cercata e il nome del prodotto
+					// Calcola il punteggio di similarità tra la parola cercata e il nome del prodotto
+					// https://github.com/xdrop/fuzzywuzzy
+					int score = FuzzySearch.partialRatio(query.toLowerCase(), product.getName().toLowerCase());
 					
-					int distance = FuzzySearch.ratio(query.toLowerCase(), product.getName().toLowerCase());
-					
-					// int distance = levenshteinDistance(product.getName().toLowerCase(), query.toLowerCase());
-					System.out.println("Distanza tra (" + product.getName().toLowerCase() + ") e (" + query.toLowerCase() + ") = " + distance);
+					//System.out.println("Score tra (" + product.getName().toLowerCase() + ") e (" + query.toLowerCase() + ") = " + score);
 
 					// Consideramo i prodotti con una distanza di Levenshtein <= 2 come corrispondenze
-					if (distance >= 40) {
+					if (score >= 70) {
 						searchResults.add(product);
 					}
 				}
-				System.out.println("NELLA SERVLET:");
+				/*
 				for (ProductBean product : searchResults) {
 					System.out.println("------");
 				    System.out.println(product);
 				}
-				
+				*/
 			}
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
@@ -68,33 +67,5 @@ public class SearchControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
-	}
-
-	// Funzione per la ricerca approssimativa usando l'algoritmo di Levenshtein
-	public static int levenshteinDistance(String s, String t) {
-		int m = s.length();
-		int n = t.length();
-		int[][] distance = new int[m + 1][n + 1];
-
-		for (int i = 0; i <= m; i++) {
-			distance[i][0] = i;
-		}
-
-		for (int j = 0; j <= n; j++) {
-			distance[0][j] = j;
-		}
-
-		for (int j = 1; j <= n; j++) {
-			for (int i = 1; i <= m; i++) {
-				if (s.charAt(i - 1) == t.charAt(j - 1)) {
-					distance[i][j] = distance[i - 1][j - 1];
-				} else {
-					distance[i][j] = Math.min(distance[i - 1][j], Math.min(distance[i][j - 1], distance[i - 1][j - 1]))
-							+ 1;
-				}
-			}
-		}
-
-		return distance[m][n];
 	}
 }
