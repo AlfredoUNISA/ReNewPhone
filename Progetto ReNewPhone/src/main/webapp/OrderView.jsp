@@ -103,7 +103,6 @@
 			}
 		%>
 		
-		<!-- TODO: fixare (null parsing) -->
 		<h2>Inserisci</h2>
 		<form action="orders" method="post">
 			<input type="hidden" name="action" value="insert"> 
