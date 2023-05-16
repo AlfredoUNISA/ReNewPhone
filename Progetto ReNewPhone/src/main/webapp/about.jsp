@@ -12,9 +12,9 @@
 
     <div class="content">
         <h1>Chi siamo</h1>
+        <img src="resources/chisiamo.png" alt="Chi siamo" width="300" height="200">
         <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat eius quibusdam vitae vero. Ad libero minus porro doloribus illo, saepe aperiam nam nemo at qui eius similique, neque veritatis unde.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, asperiores quibusdam aliquid culpa soluta earum vero odio delectus ducimus, ea, quas officiis. Id doloremque nesciunt amet maiores exercitationem! Eligendi, quidem.
+        Siamo tre studenti di Unisa con la passione per l'informatica
         </p>
     </div>
     

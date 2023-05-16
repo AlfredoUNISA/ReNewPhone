@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 // ORDINE DI CHIAMATE: jsp (product bean) -> product control -> ProductDAO -> Connection Pool
 
 /**
- * Servlet per gestire le richieste relatice alla manipolazione dei dati di un database (PRODOTTI).
+ * Servlet per gestire le richieste relate alla manipolazione dei dati di un database (PRODOTTI).
  * @category Servlet
  * @category MODIFICABILE
  */
