@@ -114,7 +114,7 @@
     		<label for="id_product">ID Prodotto:</label><br>
     		<input name="id_product" type="number" required><br>
 
-    		<label for="quantity">Quantitï¿½:</label><br>
+    		<label for="quantity">Quantità:</label><br>
    			<input name="quantity" type="number" min="1" required><br>
 
 			<input type="submit" value="Add">

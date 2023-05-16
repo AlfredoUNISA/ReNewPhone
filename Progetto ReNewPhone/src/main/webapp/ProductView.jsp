@@ -109,10 +109,17 @@
 			<textarea name="brand" maxlength="25" required placeholder="Inserisci brand"></textarea><br>
 			
 			<label for="category">Categoria:</label><br>
-			<textarea name="category" maxlength="15" required placeholder="Inserisci categoria"></textarea><br>
+			<select name="category" required>
+				<option value="Smartphone">Smartphone</option>
+  				<option value="Tablet">Tablet</option>
+			</select><br>
 			
 			<label for="state">Condizione:</label><br>
-			<textarea name="state" maxlength="12" required placeholder="Inserisci condizione"></textarea><br>
+			<select name="state" required>
+				<option value="Accettabile">Accettabile</option>
+				<option value="Buono">Buono</option>
+  				<option value="Ottimo">Ottimo</option>
+			</select><br>
 
 			<input type="submit" value="Add">
 			<input type="reset" value="Reset">
