@@ -5,21 +5,9 @@
 <%@ page contentType="text/html; charset=ISO-8859-1"%>
 
 <%
-	Collection<?> productsColl = (Collection<?>) request.getAttribute("products");
-	
-	if (productsColl == null) {
-		response.sendRedirect("./search");
-		return;
-	}
-	
-	List<ProductBean> productBeans = new ArrayList<>();
-	for (Object product : productsColl) {
-		productBeans.add((ProductBean) product);
-	}
-	
-	List<ProductBean> searchResults = (List<ProductBean>) request.getAttribute("searchResults");
-	
-	String searchTerm = request.getParameter("searchTerm");
+String query = request.getParameter("q");
+if (query == null)
+	query = "";
 %>
 
 <!DOCTYPE html>
@@ -34,53 +22,45 @@
 	<div class="content">
 		<h1>Ricerca prodotti</h1>
 		<form action="search" method="get">
-			<input type="hidden" name="action" value="search">
-			<input type="text" name="searchTerm" value="<%=searchTerm%>">
+			<input type="text" name="q" value="<%=query%>">
 			<button type="submit">Cerca</button>
 		</form>
 
 		<%
-		if (searchTerm != null && searchTerm.trim().length() > 0) {
+		Collection<?> results = (Collection<?>) request.getAttribute("results");
 		%>
-		<h2>Risultati della ricerca:</h2>
 		<%
-		if (searchResults.isEmpty()) {
+		if (results != null && !results.isEmpty()) {
 		%>
-		<p>
-			Nessun risultato trovato per "<%=searchTerm%>."
-		</p>
+		<table>
+			<tr>
+				<th>Codice</th>
+				<th>Nome</th>
+				<th>Descrizione</th>
+				<th>Prezzo</th>
+			</tr>
+			<%
+			Iterator<?> it = results.iterator();
+			while (it.hasNext()) {
+				ProductBean bean = (ProductBean) it.next();
+			%>
+			<tr>
+				<td><%=bean.getId()%></td>
+				<td><%=bean.getName()%></td>
+				<td><%=bean.getDescription()%></td>
+				<td><%=bean.getPrice()%></td>
+			</tr>
+			<%
+			}
+			%>
+		</table>
 		<%
 		} else {
 		%>
-		<ul>
-			<%
-			for (ProductBean result : searchResults) {
-			%>
-			<li><%=result.getName()%> - <%=result.getDescription()%></li>
-			<%
-			}
-			%>
-		</ul>
+		<p>Nessun risultato trovato.</p>
 		<%
 		}
 		%>
-		<%
-		}
-		%>
-
-		<h2>Tutti i prodotti:</h2>
-		<ul>
-			<%
-			for (ProductBean product : productBeans) {
-			%>
-			<li><%=product.getName()%> - <%=product.getDescription()%></li>
-			<%
-			}
-			%>
-		</ul>
-
-
-
 
 	</div>
 
