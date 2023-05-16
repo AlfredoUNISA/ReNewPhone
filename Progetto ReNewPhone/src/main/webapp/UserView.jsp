@@ -56,6 +56,7 @@
 		</table>
 
 		<%
+			Boolean error = (Boolean) request.getAttribute("error-email");
 			if (user != null) {
 		%>
 		<h2 id="Dettagli">Dettagli</h2>
@@ -83,7 +84,7 @@
 			</tr>
 		</table>
 		<%
-			} else {
+			} else if (error != null && error == true) {
 		%>
 			<h2 style="color:red;">Email già presente</h2>
 		

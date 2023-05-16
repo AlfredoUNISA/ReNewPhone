@@ -85,8 +85,11 @@ public class UserControl extends HttpServlet {
 				}
 			}
 		} catch (SQLException e) {
-			if(e instanceof SQLIntegrityConstraintViolationException)
+			if(e instanceof SQLIntegrityConstraintViolationException) {
+				request.removeAttribute("error-email");
+				request.setAttribute("error-email", true);
 				request.setAttribute("user", null);
+			}
 			System.out.println("Error: " + e.getMessage());
 			System.out.println("Class:" + e.getClass());
 		}
