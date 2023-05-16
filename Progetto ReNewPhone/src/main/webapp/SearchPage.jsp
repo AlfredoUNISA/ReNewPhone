@@ -27,10 +27,10 @@ if (query == null)
 		</form>
 
 		<%
-		Collection<?> results = (Collection<?>) request.getAttribute("results");
+		Collection<?> searchResults = (Collection<?>) request.getAttribute("searchResults");
 		%>
 		<%
-		if (results != null && !results.isEmpty()) {
+		if (searchResults != null && !searchResults.isEmpty()) {
 		%>
 		<table>
 			<tr>
@@ -40,9 +40,12 @@ if (query == null)
 				<th>Prezzo</th>
 			</tr>
 			<%
-			Iterator<?> it = results.iterator();
+			System.out.println("NELLA JSP:");
+			Iterator<?> it = searchResults.iterator();
 			while (it.hasNext()) {
 				ProductBean bean = (ProductBean) it.next();
+				System.out.println("------");
+			    System.out.println(bean);
 			%>
 			<tr>
 				<td><%=bean.getId()%></td>

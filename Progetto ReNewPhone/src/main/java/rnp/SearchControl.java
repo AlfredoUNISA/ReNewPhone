@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
-import org.apache.commons.lang3.StringUtils;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,16 +38,17 @@ public class SearchControl extends HttpServlet {
 				for (ProductBean product : products) {
 					// Calcola la distanza di Levenshtein tra la parola cercata e il nome del prodotto
 					
-					int distance = 1;
+					int distance = FuzzySearch.ratio(query.toLowerCase(), product.getName().toLowerCase());
 					
 					// int distance = levenshteinDistance(product.getName().toLowerCase(), query.toLowerCase());
 					System.out.println("Distanza tra (" + product.getName().toLowerCase() + ") e (" + query.toLowerCase() + ") = " + distance);
 
 					// Consideramo i prodotti con una distanza di Levenshtein <= 2 come corrispondenze
-					if (distance <= 2) {
+					if (distance >= 40) {
 						searchResults.add(product);
 					}
 				}
+				System.out.println("NELLA SERVLET:");
 				for (ProductBean product : searchResults) {
 					System.out.println("------");
 				    System.out.println(product);
