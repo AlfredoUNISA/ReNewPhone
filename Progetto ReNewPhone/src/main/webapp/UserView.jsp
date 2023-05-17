@@ -40,7 +40,7 @@
 				<td><%=bean.getId()%></td>
 				<td><%=bean.getName()%></td>
 				<td><%=bean.getEmail()%></td>
-				<td><a href="users?action=delete&id=<%=bean.getId()%>">Elimina</a><br>
+				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo utente?')){location.href='users?action=delete&id=<%=bean.getId()%>';}">Elimina</a><br>
 					<a href="users?action=read&id=<%=bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
 			<%
@@ -55,10 +55,11 @@
 			%>
 		</table>
 
-		<h2 id="Dettagli">Dettagli</h2>
 		<%
+			Boolean error = (Boolean) request.getAttribute("error-email");
 			if (user != null) {
 		%>
+		<h2 id="Dettagli">Dettagli</h2>
 		<table border="1">
 			<tr>
 				<th>Id</th>
@@ -82,6 +83,11 @@
 
 			</tr>
 		</table>
+		<%
+			} else if (error != null && error == true) {
+		%>
+			<h2 style="color:red;">Email già presente</h2>
+		
 		<%
 			}
 		%>

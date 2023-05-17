@@ -40,15 +40,15 @@
 				if (orders != null && orders.size() != 0) {
 					Iterator<?> it = orders.iterator();
 					while (it.hasNext()) {
-						OrderBean order_bean = (OrderBean) it.next();
+						OrderBean iter_order_bean = (OrderBean) it.next();
 			%>
 			<tr>
-				<td><%=order_bean.getId()%></td>
-				<td><%=order_bean.getId_user()%></td>
-				<td><%=order_bean.getId_product()%></td>
-				<td><%=order_bean.getQuantity()%></td>
-				<td><a href="orders?action=delete&id=<%=order_bean.getId()%>">Elimina</a><br>
-					<a href="orders?action=read&id=<%=order_bean.getId()%>#Dettagli">Dettagli</a></td>
+				<td><%=iter_order_bean.getId()%></td>
+				<td><%=iter_order_bean.getId_user()%></td>
+				<td><%=iter_order_bean.getId_product()%></td>
+				<td><%=iter_order_bean.getQuantity()%></td>
+				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo ordine?')){location.href='orders?action=delete&id=<%=iter_order_bean.getId()%>';}">Elimina</a><br>
+					<a href="orders?action=read&id=<%=iter_order_bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
 			<%
 					}
@@ -72,7 +72,7 @@
 				<th>Nome Acquirente</th>
 				<th>Nome Prodotto</th>
 				<th>Prezzo</th>
-				<th>Quantità</th>
+				<th>Quantitï¿½</th>
 			</tr>
 			<tr>
 				<!-- Id Ordine -->
@@ -95,7 +95,7 @@
 				<!-- Prezzo -->
 				<td><%=product_bean.getPrice()%></td>
 				
-				<!-- Quantità -->
+				<!-- Quantitï¿½ -->
 				<td><%=order.getQuantity()%></td>
 			</tr>
 		</table>
@@ -103,7 +103,6 @@
 			}
 		%>
 		
-		<!-- TODO: fixare (null parsing) -->
 		<h2>Inserisci</h2>
 		<form action="orders" method="post">
 			<input type="hidden" name="action" value="insert"> 

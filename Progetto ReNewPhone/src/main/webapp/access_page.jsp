@@ -13,14 +13,14 @@
 	<div class="content">
 		 <h2>Accedi al tuo account</h2>
   
-  <form action="access_page.jsp" method="post">
-    <input type="username" name="username" required placeholder="Username" > <br>
+  <form action="UserControl.java" method="post">
+    <input type="email" name="username" required placeholder="Username" > <br>
     <input type="password" name="password" required placeholder="Password"> <br>
-    <input type="submit" value="Login">
+    <input type="submit" value="Login"> <br>
+  	Non sei ancora registrato? <a href="register.jsp">Registrati qui</a>
   </form>
-  <p>Non sei ancora registrato? <a href="register.jsp">Registrati qui</a></p>
 	</div>
-
+	
 	<%@ include file="_footer.html" %>
 </body>
 </html>

@@ -2,6 +2,7 @@ package rnp;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet per gestire le richieste relatice alla manipolazione dei dati di un database.
+ * Servlet per gestire le richieste relate alla manipolazione dei dati di un database.
  * @category Servlet
  * @category MODIFICABILE
  */
@@ -84,7 +85,13 @@ public class UserControl extends HttpServlet {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			if(e instanceof SQLIntegrityConstraintViolationException) {
+				request.removeAttribute("error-email");
+				request.setAttribute("error-email", true);
+				request.setAttribute("user", null);
+			}
+			System.out.println("Error: " + e.getMessage());
+			System.out.println("Class:" + e.getClass());
 		}
 
 		/*

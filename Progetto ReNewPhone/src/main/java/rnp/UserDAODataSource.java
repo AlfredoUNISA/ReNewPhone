@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -47,6 +48,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		PreparedStatement stmt = null;
 
 		// MODIFICABILE
 		String insertSQL = "INSERT INTO " + UserDAODataSource.TABLE_NAME
@@ -55,22 +57,37 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 
 		try { 
 			connection = ds.getConnection();
+			//Query per verificare se esiste già un user con la stessa mail
+			String query = "SELECT COUNT(*) FROM " + UserDAODataSource.TABLE_NAME+ " WHERE email = ?";
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, user.getEmail());
+            ResultSet rs = stmt.executeQuery();
 
-			preparedStatement = connection.prepareStatement(insertSQL);
+            // Analizza il risultato della query
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                if (count > 0) {	//Controlla se esistono altre mail uguali
+                   throw new SQLIntegrityConstraintViolationException();
+                } else {	//Nel caso non sia presente nessuna mail uguale a quella da inserire
+                	preparedStatement = connection.prepareStatement(insertSQL);
 
-			// MODIFICABILE
-			preparedStatement.setString(1, user.getName());
-			preparedStatement.setString(2, user.getEmail());
-			preparedStatement.setString(3, user.getPassword());
-			preparedStatement.setString(4, user.getAddress());
-			preparedStatement.setString(5, user.getCity());
-			preparedStatement.setString(6, user.getCap());
-			preparedStatement.setString(7, user.getPhone());
+        			// MODIFICABILE
+        			preparedStatement.setString(1, user.getName());
+        			preparedStatement.setString(2, user.getEmail());
+        			preparedStatement.setString(3, user.getPassword());
+        			preparedStatement.setString(4, user.getAddress());
+        			preparedStatement.setString(5, user.getCity());
+        			preparedStatement.setString(6, user.getCap());
+        			preparedStatement.setString(7, user.getPhone());
 
-			preparedStatement.executeUpdate();
+        			preparedStatement.executeUpdate();
 
-			connection.commit(); // TODO: Vedere se disabilitare autocommit=true
-		} finally {
+        			connection.commit(); // TODO: Vedere se disabilitare autocommit=true
+
+                }
+            }
+			
+					} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();

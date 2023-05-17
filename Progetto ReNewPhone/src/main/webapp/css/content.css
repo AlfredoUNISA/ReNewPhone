@@ -1,10 +1,12 @@
 body {
-    margin: 0px;
+    margin: 0;
     font-family: 'Nunito Sans', sans-serif;
 }
 
 .content {
-    margin: 8px;
+    text-align: center;
+    padding: 20px;
+    margin: 8;
 }
 
 h2 {
@@ -46,33 +48,19 @@ label {
     font-weight: bold;
 }
 
+.cerca {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 input[type="email"],
-textarea {
-    width: 40%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-bottom: 15px;
-    font-size: 16px;
-}
-/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
 input[type="text"],
-input[type="username"], 
-
+input[type="username"],
+input[type="password"],
 textarea {
-    width: 30%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-bottom: 15px;
-    font-size: 16px;
-}
-/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
-
-input[type="password"], 
-textarea {
-    width: 30%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -80,7 +68,8 @@ textarea {
     font-size: 16px;
 }
 
-input[type="submit"], input[type="reset"] {
+input[type="submit"],
+input[type="reset"] {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -93,45 +82,22 @@ input[type="submit"], input[type="reset"] {
     cursor: pointer;
 }
 
-input[type="submit"]:hover, input[type="reset"]:hover {
+input[type="submit"]:hover,
+input[type="reset"]:hover {
     background-color: #0069d9;
 }
 
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
+@media (min-width: 768px) {
+    input[type="email"],
+    input[type="text"],
+    input[type="username"],
+    input[type="password"],
+    textarea {
+        width: 40%;
+    }
 
-  .content {
-    margin: 0 10px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-
-  /* Stili per table */
-  table {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  th,
-  td {
-    padding: 5px;
-  }
-
-
-
-@media (max-width: 480px) {
-  body {
-    font-size: 12px;
-  }
-
-  .content {
-    margin: 0 5px;
-  }
-
-  h2 {
-    font-size: 16px;
-  }
+    input[type="password"],
+    textarea {
+        width: 30%;
+    }
+}
