@@ -28,6 +28,7 @@
 				<th>Id <a href="products?sort=id">Sort</a></th>
 				<th>Nome <a href="products?sort=name">Sort</a></th>
 				<th>Descrizione <a href="products?sort=description">Sort</a></th>
+				<th>Prezzo <a href="products?sort=price">Sort</a></th>
 				<th>Azione</th>
 			</tr>
 			<%
@@ -40,6 +41,7 @@
 				<td><%=bean.getId()%></td>
 				<td><%=bean.getName()%></td>
 				<td><%=bean.getDescription()%></td>
+				<td><%=bean.getPrice()%></td>
 				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo prodotto?')){location.href='products?action=delete&id=<%=bean.getId()%>';}">Elimina</a><br>
 					<a href="products?action=read&id=<%=bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
