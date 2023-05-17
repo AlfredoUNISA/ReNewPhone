@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS buys;
 
-CREATE TABLE products (	
+CREATE TABLE products (
   id int primary key AUTO_INCREMENT,
   name varchar(150) not null,
   description varchar(255),
@@ -68,7 +68,34 @@ INSERT INTO products (name, description, price, quantity, color, brand, category
 ('Realme 9 Pro 5G', 'Lo smartphone 5G più potente.', 349, 100, 'Nero Notte', 'Realme', 'Smartphone', 'Buono'),
 ('Motorola Moto G Stylus 5G (2022)', 'Lo Smartphone con pennino più conveniente.', 299, 100, 'Nero', 'Motorola', 'Smartphone', 'Buono'),
 ('Tcl 20 Se 5G', 'Lo smartphone 5G con display grande più conveniente.', 249, 100, 'Nero Lucido', 'Tcl', 'Smartphone', 'Buono'),
-('Oppo A96 5G', 'Lo smartphone 5G più elegante.', 399, 100, 'Nero Cosmico', 'Oppo', 'Smartphone', 'Buono');
+('Oppo A96 5G', 'Lo smartphone 5G più elegante.', 399, 100, 'Nero Cosmico', 'Oppo', 'Smartphone', 'Buono'),
+('Iphone 13 Mini', 'iPhone più piccolo e potente di sempre.', 699, 100, 'Bianco', 'Apple', 'Smartphone', 'Buono'),
+('Samsung Galaxy Z Fold 3', 'Lo smartphone pieghevole più avanzato.', 1799, 100, 'Nero', 'Samsung', 'Smartphone', 'Ottimo'),
+('Google Pixel 6', 'La nuova generazione di Pixel.', 799, 100, 'Bianco', 'Google', 'Smartphone', 'Buono'),
+('OnePlus 11', 'Ultimo flagship di OnePlus.', 899, 100, 'Nero', 'OnePlus', 'Smartphone', 'Ottimo'),
+('Xiaomi 12', 'Un telefono potente a un prezzo conveniente.', 699, 100, 'Verde', 'Xiaomi', 'Smartphone', 'Buono'),
+('Realme GT Neo 2', 'Un dispositivo gaming ad alte prestazioni.', 599, 100, 'Nero', 'Realme', 'Smartphone', 'Buono'),
+('iPad Air (2022)', 'Il tablet potente e leggero di Apple.', 899, 100, 'Verde', 'Apple', 'Tablet', 'Ottimo'),
+('Samsung Galaxy Tab S7 FE', 'Un tablet versatile con funzionalità premium.', 599, 100, 'Nero', 'Samsung', 'Tablet', 'Buono'),
+('Microsoft Surface Go 3', 'Il tablet compatto e leggero per utilizzo quotidiano.', 499, 100, 'Platino', 'Microsoft', 'Tablet', 'Buono'),
+('Lenovo Tab P11 Plus', 'Un tablet premium con schermo nitido e audio potente', 349, 100, 'Grisio', 'Lenovo', 'Tablet', 'Buono'),
+('Asus ROG Phone 5', 'Uno smartphone dedicato al gaming ad alte prestazioni.', 999, 100, 'Nero', 'Asus', 'Smartphone', 'Ottimo'),
+('Huawei P50 Pro', 'Un dispositivo fotografico con una potente fotocamera.', 1099, 100, 'Argento', 'Huawei', 'Smartphone', 'Ottimo'),
+('Sony Xperia 1 III', 'Un telefono con funzionalità avanzate per la fotografia.', 1199, 100, 'Nero', 'Sony', 'Smartphone', 'Ottimo'),
+('Motorola Edge 20 Pro', 'Uno smartphone elegante con caratteristiche di fascia alta.', 899, 100, 'Blu', 'Motorola', 'Smartphone', 'Buono'),
+('Nokia 8.3 5G', 'Un telefono 5G con un design raffinato.', 599, 100, 'Bianco', 'Nokia', 'Smartphone', 'Buono'),
+('Xiaomi Mi 11 Lite', 'Uno smartphone leggero e sottile con ottime prestazioni.', 399, 100, 'Blu', 'Xiaomi', 'Smartphone', 'Buono'),
+('Xiaomi Redmi 9A', 'Uno smartphone economico con buone prestazioni.', 129, 100, 'Blu', 'Xiaomi', 'Smartphone', 'Accettabile'),
+('Samsung Galaxy A12', 'Un telefono a basso costo con una grande batteria.', 149, 100, 'Nero', 'Samsung', 'Smartphone', 'Accettabile'),
+('Motorola Moto E7', 'Un dispositivo entry-level con un prezzo conveniente.', 99, 100, 'Grigio', 'Motorola', 'Smartphone', 'Accettabile'),
+('Nokia 2.4', 'Un telefono economico con un design elegante.', 119, 100, 'Viola', 'Nokia', 'Smartphone', 'Accettabile'),
+('Realme C11', 'Uno smartphone economico con una grande batteria.', 99, 100, 'Verde', 'Realme', 'Smartphone', 'Accettabile'),
+('Xiaomi Mi 11 Lite', 'Uno smartphone leggero e sottile con ottime prestazioni.', 399, 100, 'Nero', 'Xiaomi', 'Smartphone', 'Buono'),
+('Xiaomi Redmi 9A', 'Uno smartphone economico con buone prestazioni.', 129, 100, 'Bianco', 'Xiaomi', 'Smartphone', 'Accettabile'),
+('Samsung Galaxy A12', 'Un telefono a basso costo con una grande batteria.', 149, 100, 'Bianco', 'Samsung', 'Smartphone', 'Accettabile'),
+('Motorola Moto E7', 'Un dispositivo entry-level con un prezzo conveniente.', 99, 100, 'Blu', 'Motorola', 'Smartphone', 'Accettabile'),
+('Nokia 2.4', 'Un telefono economico con un design elegante.', 119, 100, 'Rosso', 'Nokia', 'Smartphone', 'Accettabile'),
+('Realme C11', 'Uno smartphone economico con una grande batteria.', 99, 100, 'Nero', 'Realme', 'Smartphone', 'Accettabile');
 
 INSERT INTO users (name, email, password, address, city, cap, phone) VALUES
 ('John Doe', 'johndoe@example.com', 'password123', '123 Main St', 'Anytown', '12345', '555-1234'),
