@@ -7,6 +7,9 @@
 /Servers6/
 /.metadata/
 /Progetto_ReNewPhone/build/
-/Progetto_ReNewPhone/src/main/.classpath
-/Progetto ReNewPhone/.classpath
-/.classpath
+
+# Eclipse Core      
+.project
+
+# JDT-specific (Eclipse Java Development Tools)     
+.classpath
