@@ -10,6 +10,8 @@ Ricordarsi di importare il progetto su eclipse con `Import from existing project
 - Selezionare Tomcat 9.0 e il suo path
 - `Apply e Close`
 
-#### Testare se il connettore jdbc funziona
+#### Importare i jar necessari
 - Tasto destro sul progetto
 - `Build Path`
+- `Configure Build Path` > `Libraries`
+- Trova i jar nella directory `WEB-INF` > `lib`
