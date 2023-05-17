@@ -16,7 +16,7 @@
   <form action="UserControl.java" method="post">
     <input type="email" name="username" required placeholder="Username" > <br>
     <input type="password" name="password" required placeholder="Password"> <br>
-    <input type="submit" value="Login">
+    <input type="submit" value="Login"> <br>
   	Non sei ancora registrato? <a href="register.jsp">Registrati qui</a>
   </form>
 	</div>

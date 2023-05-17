@@ -42,8 +42,7 @@ public class SearchControl extends HttpServlet {
 					
 					//System.out.println("Score tra (" + product.getName().toLowerCase() + ") e (" + query.toLowerCase() + ") = " + score);
 
-					// Consideramo i prodotti con una distanza di Levenshtein <= 2 come corrispondenze
-					if (score >= 70) {
+					if (score >= 67) {
 						searchResults.add(product);
 					}
 				}
