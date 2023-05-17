@@ -48,34 +48,19 @@ label {
     font-weight: bold;
 }
 
+.cerca {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 input[type="email"],
-textarea {
-    width: 40%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-bottom: 15px;
-    font-size: 16px;
-}
-
-/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
 input[type="text"],
 input[type="username"],
-
-textarea {
-    width: 30%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-bottom: 15px;
-    font-size: 16px;
-}
-
-/* aggiunto un nuovo tipo per migliorare la visualizzazione nella pagina d'accesso */
 input[type="password"],
 textarea {
-    width: 30%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -101,34 +86,18 @@ input[type="submit"]:hover,
 input[type="reset"]:hover {
     background-color: #0069d9;
 }
-/*
-@media (max-width: 500px) {
-    body {
-        height: 100vh;
-        font-size: 14px;
+
+@media (min-width: 768px) {
+    input[type="email"],
+    input[type="text"],
+    input[type="username"],
+    input[type="password"],
+    textarea {
+        width: 40%;
     }
 
-    .content {
-        text-align: center;
-        max-width: 600px;
-        padding: 20px;
-        margin: 8;
-
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    
-    table {
-        max-width: 100%;
-        width: 100%;
-    }
-
-    th,
-    td {
-        padding: 5px;
+    input[type="password"],
+    textarea {
+        width: 30%;
     }
 }
-*/
