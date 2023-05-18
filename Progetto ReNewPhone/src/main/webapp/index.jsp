@@ -17,7 +17,7 @@
 		<ol>
 			<li><a href="products">TEST DATABASE - Prodotti</a></li>
 			<li><a href="users">TEST DATABASE - Utenti</a></li>
-			<li><a href="OrderView.jsp">TEST DATABASE - Ordini</a></li>
+			<li><a href="orders">TEST DATABASE - Ordini</a></li>
 			<li><a href="SearchPage.jsp">TEST RICERCA</a></li>
 		</ol>
 		
