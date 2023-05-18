@@ -38,6 +38,16 @@ CREATE TABLE buys (
   FOREIGN KEY (id_product) REFERENCES products(id)
 );
 
+CREATE TABLE carts (
+  id_user int not null,
+  id_product int not null,
+  quantity int not null,
+  primary key (id_user, id_product),
+  FOREIGN KEY (id_user) REFERENCES users(id),
+  FOREIGN KEY (id_product) REFERENCES products(id)
+);
+
+
 INSERT INTO products (name, description, price, quantity, color, brand, category, state) VALUES
 ('Iphone 13 Pro', 'Il più avanzato iphone di sempre.', 999, 100, 'Argento', 'Apple', 'Smartphone', 'Ottimo'),
 ('Samsung Galaxy S22 Ultra', 'Il Galaxy S più potente di sempre.', 1199, 100, 'Nero', 'Samsung', 'Smartphone', 'Ottimo'),
@@ -103,3 +113,9 @@ INSERT INTO users (name, email, password, address, city, cap, phone) VALUES
 ('Bob Johnson', 'bobjohnson@example.com', 'password789', '789 Elm St', 'Smalltown', '45678', '555-9012'),
 ('Alice Lee', 'alicelee@example.com', 'passwordabc', '321 Maple St', 'Bigcity', '67890', '555-3456'),
 ('David Chen', 'davidchen@example.com', 'passworddef', '654 Pine St', 'Metropolis', '13579', '555-7890');
+
+INSERT INTO carts (id_user, id_product, quantity)
+VALUES (1, 10, 1),
+       (1, 20, 1),
+       (2, 30, 2),
+       (3, 40, 1);

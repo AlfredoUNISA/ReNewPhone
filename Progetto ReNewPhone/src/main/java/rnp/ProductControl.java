@@ -20,21 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/products")
 public class ProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	// SCEGLIERE SE UTILIZZARE IL DATA SOURCE O IL DRIVER MANAGER
-	// ProductDAODataSource usa il DataSource (TRUE)
-	// ProductDAODriverMan usa il DriverManager	(FALSE)
-	static boolean isDataSource = true;
 	
-	static IBeanDAO<ProductBean> productDAO;
+	static IBeanDAO<ProductBean> productDAO = new ProductDAODataSource();
 	
-	static {
-		if (isDataSource) {
-			productDAO = new ProductDAODataSource();
-		} else {
-			productDAO = new ProductDAODriverMan();
-		}
-	}
 	
 	public ProductControl() {
 		super();

@@ -189,7 +189,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 	
 	/**
 	 * Seleziona una singola riga dalla tabella "TABLE_NAME" in base al codice.
-	 * @param id Il codice del prodotto da ottenere.
+	 * @param id Il codice dell'utente da ottenere.
 	 * @return Il bean ottenuto in base al codice.
 	 * @category MODIFICABILE
 	 */
