@@ -42,6 +42,7 @@
 				<td><%=bean.getName()%></td>
 				<td><%=bean.getDescription()%></td>
 				<td><%=bean.getPrice()%></td>
+				<td><%=bean.getYear()%></td>
 				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo prodotto?')){location.href='products?action=delete&id=<%=bean.getId()%>';}">Elimina</a><br>
 					<a href="products?action=read&id=<%=bean.getId()%>#Dettagli">Dettagli</a></td>
 			</tr>
@@ -72,6 +73,7 @@
 				<th>Brand</th>
 				<th>Categoria</th>
 				<th>Condizione</th>
+				<th>Anno</th>
 			</tr>
 			<tr>
 				<td><%=product.getId()%></td>
@@ -83,6 +85,7 @@
 				<td><%=product.getBrand()%></td>
 				<td><%=product.getCategory()%></td>
 				<td><%=product.getState()%></td>
+				<td><%=product.getYear()%></td>
 			</tr>
 		</table>
 		<%
@@ -122,6 +125,9 @@
 				<option value="Buono">Buono</option>
   				<option value="Ottimo">Ottimo</option>
 			</select><br>
+			
+			<label for="year">Anno:</label><br> 
+			<input name="year" type="number" min="2000" value="0" required><br>
 
 			<input type="submit" value="Add">
 			<input type="reset" value="Reset">

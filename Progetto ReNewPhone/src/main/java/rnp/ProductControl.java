@@ -81,6 +81,7 @@ public class ProductControl extends HttpServlet {
 					String brand = request.getParameter("brand");
 					String category = request.getParameter("category");
 					String state = request.getParameter("state");
+					int year= Integer.parseInt(request.getParameter("year"));
 
 					// MODIFICABILE
 					ProductBean bean = new ProductBean();
@@ -92,6 +93,7 @@ public class ProductControl extends HttpServlet {
 					bean.setBrand(brand);
 					bean.setCategory(category);
 					bean.setState(state);
+					bean.setYear(year);
 					
 					productDAO.doSave(bean);
 				}

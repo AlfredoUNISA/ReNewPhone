@@ -66,6 +66,8 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			preparedStatement.setString(6, product.getBrand());
 			preparedStatement.setString(7, product.getCategory());
 			preparedStatement.setString(8, product.getState());
+			preparedStatement.setString(9, product.getYear());
+
 
 			preparedStatement.executeUpdate();
 
@@ -155,6 +157,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 				bean.setBrand(rs.getString("BRAND"));
 				bean.setCategory(rs.getString("CATEGORY"));
 				bean.setState(rs.getString("STATE"));
+				bean.setYear(rs.getInt("YEAR"));
 				
 				products.add(bean);
 			}
@@ -202,6 +205,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 				bean.setBrand(rs.getString("BRAND"));
 				bean.setCategory(rs.getString("CATEGORY"));
 				bean.setState(rs.getString("STATE"));
+				bean.setYear(rs.getInt("YEAR"));
 			}
 		} finally {
 			try {
