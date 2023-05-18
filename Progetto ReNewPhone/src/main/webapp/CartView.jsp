@@ -4,13 +4,13 @@
 <%@ page contentType="text/html; charset=ISO-8859-1"%>
 
 <%
+	Object isAlreadyCheckedParam = request.getAttribute("isAlreadyChecked");
 	String userParam = request.getParameter("usr");
-	
+
+	ProductDAODataSource productDAO = null;
 	UserDAODataSource userDAO = null;
 	UserBean user_bean = null;
-	
-	ProductDAODataSource productDAO = null;
-	
+
 	int id_user = -1;
 	if (userParam != null) {
 		id_user = Integer.parseInt(userParam);
@@ -20,18 +20,29 @@
 		userDAO = new UserDAODataSource();
 		user_bean = userDAO.doRetrieveByKey(id_user); 
 	}
+
+	Boolean isAlreadyChecked = false;
+	if (isAlreadyCheckedParam != null) {
+		isAlreadyChecked = true;
+	}
 	
 	Collection<?> cart = (Collection<?>) request.getAttribute("cart");
-	if (cart == null){
-		// attenzione ai carrelli vuoti, evitare il loop
+	if (cart == null && isAlreadyChecked == false) {
+		request.setAttribute("usr", id_user);
+		request.getRequestDispatcher("./my-cart").forward(request, response);
+		return;
 	}
+	
+	
+	request.setAttribute("isAlreadyChecked", null);
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" href="css/content.css">
-	<title><%= user_bean.getName() %>'s cart</title>
+	<!-- user_bean.getName() -->
+	<title>Carrello</title>
 </head>
 <body>
 	<%@ include file="_header.html" %>
@@ -58,15 +69,16 @@
 				<td><%=product_bean.getName()%></td>
 				<td><%=product_bean.getPrice()%></td>
 				<td><%=bean.getQuantity()%></td>
-				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo prodotto dal carrello?')){location.href='my-cart?action=delete&id_product=<%=bean.getId_product()%>';}">Elimina</a><br>
-					<a href="my-cart?action=read&id=<%=bean.getId_product()%>">Dettagli</a></td>
+				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo prodotto dal carrello?')){location.href='my-cart?action=delete&usr=<%=id_user%>&id_product=<%=bean.getId_product()%>';}">Elimina</a><br>
+					<a href="my-cart?usr=<%=id_user%>&action=read&id=<%=bean.getId_product()%>">Dettagli</a></td>
 			</tr>
 		<%
 			}
 		}
 		else {
 		%>
-			<p>Errore</p>
+			<p>Errore: isAlreadyChecked = <%= isAlreadyChecked %> </p>
+			
 		<%
 		}
 		%>

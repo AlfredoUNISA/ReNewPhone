@@ -34,12 +34,24 @@ public class CartControl extends HttpServlet {
 
 		// Parametro della richiesta HTTP
 		String action = request.getParameter("action");
-		String userParam = request.getParameter("usr");
+		/*
+		String userParam = (String) request.getAttribute("usr");
+		
 		int id_user = -1; // Valore predefinito in caso di parametro null o non valido
 
 		if (userParam != null) {
 			id_user = Integer.parseInt(userParam);
 		}
+		*/
+		
+		Object id_user_attribute = request.getAttribute("usr");
+		
+		int id_user = -1;
+		if (id_user_attribute != null) {
+			id_user = (int) id_user_attribute;
+		}
+		
+		System.out.println(id_user);
 
 		try {
 			if (action != null && id_user != -1) {
@@ -104,6 +116,7 @@ public class CartControl extends HttpServlet {
 		 * reindirizza la richiesta alla pagina JSP "ProductView.jsp".
 		 */
 		
+		request.setAttribute("isAlreadyChecked", true);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp"); // MODIFICABILE
 		dispatcher.forward(request, response);
 	}
