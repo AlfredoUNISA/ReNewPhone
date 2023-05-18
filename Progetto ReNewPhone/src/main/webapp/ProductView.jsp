@@ -1,140 +1,156 @@
-<%@ page contentType="text/html; charset=ISO-8859-1" import="java.util.*,rnp.ProductBean"%>
+<%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
+<%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
+<%@ page import="java.util.*"%>
 
-<%
-	Collection<?> products = (Collection<?>) request.getAttribute("products");
-
-	if(products == null) {
-		response.sendRedirect("./products");	
-		return;
-	}
-	
-	ProductBean product = (ProductBean) request.getAttribute("product");
-%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="css/content.css">
-	<title>Storage</title>
+	<title>Product List</title>
 </head>
 <body>
 	<%@ include file="_header.html" %>
-
+	
 	<div class="content">
-		<h2>Prodotti Disponibili</h2>
-
-		<table border="1">
-			<tr>
-				<th>Id <a href="products?sort=id">Sort</a></th>
-				<th>Nome <a href="products?sort=name">Sort</a></th>
-				<th>Descrizione <a href="products?sort=description">Sort</a></th>
-				<th>Prezzo <a href="products?sort=price">Sort</a></th>
-				<th>Azione</th>
-			</tr>
-			<%
-				if (products != null && products.size() != 0) {
+	    <h2>Lista Prodotti</h2>
+	    
+	    <!-- TABELLA PRINCIPALE -->
+	    <table>
+	        <thead>
+	            <tr>
+	                <th>ID</th>
+	                <th>Nome</th>
+	                <th>Descrizione</th>
+	                <th>Prezzo</th>
+	                <th>Quantità</th>
+	                <th>Colore</th>
+	                <th>Marca</th>
+	                <th>Anno</th>
+	                <th>Categoria</th>
+	                <th>Condizioni</th>
+	                <th><i>Azioni</i></th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <%
+	            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
+	            Collection<?> products = (Collection<?>) request.getAttribute("products");
+	            
+	            // ITERAZIONE
+	            if (products != null && products.size() != 0) {
 					Iterator<?> it = products.iterator();
 					while (it.hasNext()) {
-						ProductBean bean = (ProductBean) it.next();
-			%>
-			<tr>
-				<td><%=bean.getId()%></td>
-				<td><%=bean.getName()%></td>
-				<td><%=bean.getDescription()%></td>
-				<td><%=bean.getPrice()%></td>
-				<td><%=bean.getYear()%></td>
-				<td><a href="javascript:void(0);" onclick="if(confirm('Sei sicuro di voler eliminare questo prodotto?')){location.href='products?action=delete&id=<%=bean.getId()%>';}">Elimina</a><br>
-					<a href="products?action=read&id=<%=bean.getId()%>#Dettagli">Dettagli</a></td>
-			</tr>
-			<%
-					}
-				} else {
-			%>
-			<tr>
-				<td colspan="6">Non ci sono prodotti</td>
-			</tr>
-			<%
-				}
-			%>
-		</table>
-
-		<h2 id="Dettagli">Dettagli</h2>
-		<%
-			if (product != null) {
+						ProductBean product = (ProductBean) it.next();
+	            %>
+	            <tr>
+	                <td><%= product.getId() %></td>
+	                <td><%= product.getName() %></td>
+	                <td><%= product.getDescription() %></td>
+	                <td><%= product.getPrice() %></td>
+	                <td><%= product.getQuantity() %></td>
+	                <td><%= product.getColor() %></td>
+	                <td><%= product.getBrand() %></td>
+	                <td><%= product.getYear() %></td>
+	                <td><%= product.getCategory() %></td>
+	                <td><%= product.getState() %></td>
+	                <td>
+	                    <a href="products?action=details&id=<%= product.getId() %>#Dettagli">Dettagli</a>
+	                    <a href="products?action=delete&id=<%= product.getId() %>">Elimina</a>
+	                </td>
+	            </tr>
+	            <% 
+	                }
+	            } else {
+	            %>
+	            <tr>
+	                <td colspan="11">No products found.</td>
+	            </tr>
+	            <% } %>
+	        </tbody>
+	    </table>
+		
+		<!-- TABELLA DETTAGLI -->
+		<% 
+			ProductBean productDetails = (ProductBean) request.getAttribute("product-details");
+			if (productDetails != null) {
 		%>
-		<table border="1">
-			<tr>
-				<th>Id</th>
-				<th>Nome</th>
-				<th>Descrizione</th>
-				<th>Prezzo</th>
-				<th>Quantità </th>
-				<th>Colore</th>
-				<th>Brand</th>
-				<th>Categoria</th>
-				<th>Condizione</th>
-				<th>Anno</th>
-			</tr>
-			<tr>
-				<td><%=product.getId()%></td>
-				<td><%=product.getName()%></td>
-				<td><%=product.getDescription()%></td>
-				<td><%=product.getPrice()%></td>
-				<td><%=product.getQuantity()%></td>
-				<td><%=product.getColor()%></td>
-				<td><%=product.getBrand()%></td>
-				<td><%=product.getCategory()%></td>
-				<td><%=product.getState()%></td>
-				<td><%=product.getYear()%></td>
-			</tr>
-		</table>
-		<%
-			}
-		%>
-		<h2>Inserisci</h2>
-		<form action="products" method="post">
-			<input type="hidden" name="action" value="insert"> 
-
-			<label for="name">Nome:</label><br> 
-			<input name="name" type="text" maxlength="150" required placeholder="Inserisci nome"><br> 
-
-			<label for="description">Descrizione:</label><br>
-			<textarea name="description" maxlength="255" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
-
-			<label for="price">Prezzo:</label><br> 
-			<input name="price" type="number" min="0" value="0" required><br>
-
-			<label for="quantity">Quantità:</label><br> 
-			<input name="quantity" type="number" min="1" value="1" required><br>
-			
-			<label for="color">Colore:</label><br>
-			<textarea name="color" maxlength="20" required placeholder="Inserisci colore"></textarea><br>
-			
-			<label for="brand">Brand:</label><br>
-			<textarea name="brand" maxlength="25" required placeholder="Inserisci brand"></textarea><br>
-			
-			<label for="category">Categoria:</label><br>
-			<select name="category" required>
+			<h2 id="Dettagli">Dettagli</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+		                <th>Nome</th>
+		                <th>Descrizione</th>
+		                <th>Prezzo</th>
+		                <th>Quantità</th>
+		                <th>Colore</th>
+		                <th>Marca</th>
+		                <th>Anno</th>
+		                <th>Categoria</th>
+		                <th>Condizioni</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%= productDetails.getId() %></td>
+	                	<td><%= productDetails.getName() %></td>
+	                	<td><%= productDetails.getDescription() %></td>
+	                	<td><%= productDetails.getPrice() %></td>
+	                	<td><%= productDetails.getQuantity() %></td>
+	                	<td><%= productDetails.getColor() %></td>
+	                	<td><%= productDetails.getBrand() %></td>
+	                	<td><%= productDetails.getYear() %></td>
+						<td><%= productDetails.getCategory() %></td>
+						<td><%= productDetails.getState() %></td>
+					</tr>
+				</tbody>
+			</table>
+		<%}%>
+	
+		
+		<!-- PARTE DELL'INSERIMENTO -->
+	    <h2>Aggiungi un prodotto</h2>
+	    <form method="post" action="products?action=add">
+	        <label>Nome:</label>
+	        <input type="text" name="name" required><br><br>
+	        
+	        <label>Descrizione:</label>
+	        <input type="text" name="description" required><br><br>
+	        
+	        <label>Prezzo:</label>
+	        <input type="number" name="price" required><br><br>
+	        
+	        <label>Quantità:</label>
+	        <input type="number" name="quantity" required><br><br>
+	        
+	        <label>Colore:</label>
+	        <input type="text" name="color" required><br><br>
+	        
+	        <label>Marca:</label>
+	        <input type="text" name="brand" required><br><br>
+	        
+	        <label>Anno:</label>
+	        <input type="number" name="year" required><br><br>
+	        
+	        <label>Categoria:</label>
+	        <select name="category" required>
 				<option value="Smartphone">Smartphone</option>
-  				<option value="Tablet">Tablet</option>
-			</select><br>
-			
-			<label for="state">Condizione:</label><br>
+	        	<option value="Tablet">Tablet</option>
+			</select><br><br>
+	        
+	        <label>Condizione:</label>
 			<select name="state" required>
 				<option value="Accettabile">Accettabile</option>
 				<option value="Buono">Buono</option>
-  				<option value="Ottimo">Ottimo</option>
-			</select><br>
-			
-			<label for="year">Anno:</label><br> 
-			<input name="year" type="number" min="2000" value="0" required><br>
-
-			<input type="submit" value="Add">
-			<input type="reset" value="Reset">
-
-		</form>
-	</div>
-
-	<%@ include file="_footer.html" %>
+		  		<option value="Ottimo">Ottimo</option>
+			</select><br><br>
+	        
+	        <input type="submit" value="Add">
+	    </form>
+    </div>
+    
+    <%@ include file="_footer.html" %>
 </body>
 </html>

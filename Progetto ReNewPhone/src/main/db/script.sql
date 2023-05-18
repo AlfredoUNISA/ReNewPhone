@@ -14,7 +14,7 @@ CREATE TABLE products (
   quantity int default 0,
   color varchar(20),
   brand varchar(25),
-  year int,
+  year int not null,
   category varchar(15),
   state char(12)
 );

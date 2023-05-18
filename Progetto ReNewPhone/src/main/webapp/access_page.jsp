@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/content.css" /> 
 	<title>Homepage</title>
 </head>
 <body>
@@ -14,7 +13,7 @@
 		 <h2>Accedi al tuo account</h2>
   
   <form action="UserControl.java" method="post">
-    <input type="email" name="username" required placeholder="Username" > <br>
+    <input type="email" name="username" required placeholder="Email" > <br>
     <input type="password" name="password" required placeholder="Password"> <br>
     <input type="submit" value="Login"> <br>
   	Non sei ancora registrato? <a href="register.jsp">Registrati qui</a>

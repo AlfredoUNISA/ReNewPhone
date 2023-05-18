@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/content.css"/>
     <title>Chi siamo</title>
 </head>
 <body>
