@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- /products -->
 	<title>Product List</title>
 </head>
 <body>
@@ -20,16 +21,16 @@
 	    <table>
 	        <thead>
 	            <tr>
-	                <th>ID</th>
-	                <th>Nome</th>
-	                <th>Descrizione</th>
-	                <th>Prezzo</th>
-	                <th>Quantità</th>
-	                <th>Colore</th>
-	                <th>Marca</th>
-	                <th>Anno</th>
-	                <th>Categoria</th>
-	                <th>Condizioni</th>
+	                <th>ID <a href="products?sort=id">Sort</a></th>
+	                <th>Nome <a href="products?sort=name">Sort</a></th>
+	                <th>Descrizione <a href="products?sort=description">Sort</a></th>
+	                <th>Prezzo <a href="products?sort=price">Sort</a></th>
+	                <th>Quantità <a href="products?sort=quantity">Sort</a></th>
+	                <th>Colore <a href="products?sort=color">Sort</a></th>
+	                <th>Marca <a href="products?sort=brand">Sort</a></th>
+	                <th>Anno <a href="products?sort=year">Sort</a></th>
+	                <th>Categoria <a href="products?sort=category">Sort</a></th>
+	                <th>Condizioni <a href="products?sort=state">Sort</a></th>
 	                <th><i>Azioni</i></th>
 	            </tr>
 	        </thead>
@@ -76,6 +77,7 @@
 			ProductBean productDetails = (ProductBean) request.getAttribute("product-details");
 			if (productDetails != null) {
 		%>
+			<br>
 			<h2 id="Dettagli">Dettagli</h2>
 			<table>
 				<thead>
@@ -109,30 +111,30 @@
 			</table>
 		<%}%>
 	
-		
 		<!-- PARTE DELL'INSERIMENTO -->
+		<br>
 	    <h2>Aggiungi un prodotto</h2>
 	    <form method="post" action="products?action=add">
 	        <label>Nome:</label>
-	        <input type="text" name="name" required><br><br>
+	        <input type="text" name="name" maxlength="150" placeholder="Inserisci nome" required><br><br>
 	        
 	        <label>Descrizione:</label>
-	        <input type="text" name="description" required><br><br>
+	        <input type="text" name="description" maxlength="255" placeholder="Inserisci descrizione" required><br><br>
 	        
 	        <label>Prezzo:</label>
-	        <input type="number" name="price" required><br><br>
+	        <input type="number" name="price" min="0" value="0" required><br><br>
 	        
 	        <label>Quantità:</label>
-	        <input type="number" name="quantity" required><br><br>
+	        <input type="number" name="quantity" min="1" value="1" required><br><br>
 	        
 	        <label>Colore:</label>
-	        <input type="text" name="color" required><br><br>
+	        <input type="text" name="color" maxlength="20" placeholder="Inserisci colore" required><br><br>
 	        
 	        <label>Marca:</label>
-	        <input type="text" name="brand" required><br><br>
+	        <input type="text" name="brand" maxlength="25" placeholder="Inserisci marca" required><br><br>
 	        
 	        <label>Anno:</label>
-	        <input type="number" name="year" required><br><br>
+	        <input type="number" name="year" min="2000" required><br><br>
 	        
 	        <label>Categoria:</label>
 	        <select name="category" required>

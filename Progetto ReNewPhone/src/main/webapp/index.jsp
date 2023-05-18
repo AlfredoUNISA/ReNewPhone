@@ -16,7 +16,7 @@
 		<p>Benvenuto nel sito di ReNewPhone, il sito di riferimento per la vendita di smartphone ricondizionati.</p>
 		<ol>
 			<li><a href="products">TEST DATABASE - Prodotti</a></li>
-			<li><a href="UserView.jsp">TEST DATABASE - Utenti</a></li>
+			<li><a href="users">TEST DATABASE - Utenti</a></li>
 			<li><a href="OrderView.jsp">TEST DATABASE - Ordini</a></li>
 			<li><a href="SearchPage.jsp">TEST RICERCA</a></li>
 		</ol>
