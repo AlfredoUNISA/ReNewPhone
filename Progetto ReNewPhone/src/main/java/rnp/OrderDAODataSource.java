@@ -65,7 +65,8 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 
 			preparedStatement.executeUpdate();
 
-			connection.commit(); // TODO: Vedere se disabilitare autocommit=true
+			connection.setAutoCommit(false);
+			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
