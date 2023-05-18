@@ -1,0 +1,339 @@
+/*----------- CONTENT ------------*/
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.content {
+  text-align: center;
+  padding: 20px;
+  margin: 8px;
+}
+
+h2 {
+  text-align: center;
+}
+
+/* Stili per table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 16px;
+  color: #333;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Stili per form */
+form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.cerca {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="username"],
+input[type="password"],
+input[type="ricerca"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+input[type="submit"],
+input[type="reset"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background-color: #0069d9;
+}
+
+/*----------- HEADER ------------*/
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+.header-body{
+  padding: 0%;
+  margin: 0%;
+}
+
+/* Stile generale della navbar */
+nav {
+  background-color: #202731;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Rimuove il punto dell'elenco e imposta il flex */
+nav ul {
+  display: flex;
+  list-style-type:none;
+  padding: 0;
+}
+
+.pulsanti-sinistra{
+  padding-left: 2em;
+}
+
+.pulsanti-destra{
+  padding-right: 2em;
+}
+
+/* Stili dei link nella navbar */
+nav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 1em 1.2em; 
+  text-decoration: none; 
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Stili dei link al passaggio del mouse */
+nav a:hover {
+  background-color: #ddd; 
+  color: black;
+}
+
+/* Stile del link attivo */
+nav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cerca{
+  padding: 1em;
+}
+
+/*----------- FOOTER ------------*/
+/* stile generale */
+footer {
+  background-color: #202731;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  padding-top: 65px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Stili dei link nel footer */
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Stili dei link al passaggio del mouse */
+footer a:hover {
+  color: #4CAF50;
+}
+
+/* --------- FOOTER SEMPRE IN BASSO ---------- */
+footer {
+  position: sticky;
+  top: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0px;
+}
+
+/*liste e flex*/
+
+/* Togli i pallini dalle liste */
+.footer-social-block ul,
+.footer-link-block ul {
+  list-style-type: none;
+}
+
+/* Flexbox per allineare gli elementi */
+.footer-link-block ul,
+.footer-social-block ul {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Dimensione immagini dei social */
+.footer-social-block img {
+  width: 2.5em;
+  height: auto;
+}
+
+/* Posizione Social */
+.footer-social-block li {
+  margin-bottom: 1.5em;
+}
+
+/* Posizione Links*/
+.footer-link-block li {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* divisore footer */
+
+.wave-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-div svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 51px;
+}
+
+.wave-div .shape-fill {
+  fill: #FFFFFF;
+}
+
+/*----------- MEDIA QUERIES ------------*/
+@media screen and (max-width: 767px) {
+	
+	form,
+  input[type="email"],
+  input[type="text"],
+  input[type="username"],
+  input[type="password"],
+  input[type="ricerca"],
+  textarea {
+    width: 100%;
+  }		
+  nav{
+    justify-content: space-between;
+    width: 100%;
+	}
+  .cerca{
+    display: none;
+  }
+  .header li{
+    font-size: 0.8em;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .pulsanti-destra{
+    padding-right: 0.5em;
+  }
+  .pulsanti-sinistra{
+    padding-left: 0.5em;
+  }
+  
+}
+@media screen and (max-width: 460px) {
+  nav{
+    justify-content:space-between;
+    width: 100%;
+}
+.cerca{
+  display: none;
+}
+li{
+  font-size: 0.85em;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.pulsanti-destra{
+  width: 100%;
+  padding-right: 0;
+}
+.pulsanti-sinistra{
+  width: 100%;
+  padding-left: 0;
+}
+}
+
+@media screen and (max-width: 376px) {
+  nav{
+    justify-content:space-between;
+    width: 100%;
+}
+.cerca{
+  display: none;
+}
+li{
+  font-size: 0.7em;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.pulsanti-destra{
+  width: 100%;
+  padding-right: 0;
+}
+.pulsanti-sinistra{
+  width: 100%;
+  padding-left: 0;
+}
+}
+
+@media screen and (max-width: 320px) {
+  nav{
+    justify-content:space-between;
+    width: 100%;
+}
+.cerca{
+  display: none;
+}
+li{
+  font-size: 0.6em;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.pulsanti-destra{
+  width: 100%;
+  padding-right: 0;
+}
+.pulsanti-sinistra{
+  width: 100%;
+  padding-left: 0;
+}
+}
