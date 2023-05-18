@@ -66,7 +66,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			preparedStatement.setString(6, product.getBrand());
 			preparedStatement.setString(7, product.getCategory());
 			preparedStatement.setString(8, product.getState());
-			preparedStatement.setString(9, product.getYear());
+			preparedStatement.setInt(9, product.getYear());
 
 
 			preparedStatement.executeUpdate();

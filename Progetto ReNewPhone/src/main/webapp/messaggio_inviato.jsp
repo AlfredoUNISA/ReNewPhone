@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/content.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/style.css" /> 
 	<title>Messaggio</title>
 </head>
 <body>

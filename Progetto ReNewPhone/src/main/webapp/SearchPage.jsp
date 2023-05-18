@@ -13,7 +13,7 @@ if (query == null)
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/content.css">
+<link rel="stylesheet" href="css/style.css">
 <title>Ricerca</title>
 </head>
 <body>

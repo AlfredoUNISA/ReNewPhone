@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="css/content.css">
+	<link rel="stylesheet" href="css/style.css">
 	<title>Ordini</title>
 </head>
 <body>
