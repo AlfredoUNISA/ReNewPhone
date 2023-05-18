@@ -13,16 +13,6 @@
 	<div class="content">
 		<h1>TEMPLATE ---- TEMPLATE ---- TEMPLATE</h1>
 		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi repellendus veniam illo explicabo repellat veritatis, quis eius. Distinctio mollitia eos eaque rem facere incidunt placeat pariatur, nobis ut deleniti consectetur.</p>
-		<% 
-		String test = request.getParameter("test"); 
-		if(test == null){
-		%>
-			<p>null</p>
-		<%
-		}else {
-		%>
-			<p>Non null</p>
-		<%} %>
 	</div>
 
 	<%@ include file="_footer.html" %>
