@@ -50,7 +50,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 
 		// MODIFICABILE
 		String insertSQL = "INSERT INTO " + ProductDAODataSource.TABLE_NAME
-				+ " (name, description, price, quantity, color, brand, category, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " (name, description, price, quantity, color, brand, year, category, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try { 
 			connection = ds.getConnection();
@@ -64,9 +64,9 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			preparedStatement.setInt(4, product.getQuantity());
 			preparedStatement.setString(5, product.getColor());
 			preparedStatement.setString(6, product.getBrand());
-			preparedStatement.setString(7, product.getCategory());
-			preparedStatement.setString(8, product.getState());
-			preparedStatement.setInt(9, product.getYear());
+			preparedStatement.setInt(7, product.getYear());
+			preparedStatement.setString(8, product.getCategory());
+			preparedStatement.setString(9, product.getState());
 
 
 			preparedStatement.executeUpdate();
@@ -148,16 +148,16 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 				ProductBean bean = new ProductBean();
 
 				// MODIFICABILE
-				bean.setId(rs.getInt("ID"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
-				bean.setColor(rs.getString("COLOR"));
-				bean.setBrand(rs.getString("BRAND"));
-				bean.setCategory(rs.getString("CATEGORY"));
-				bean.setState(rs.getString("STATE"));
-				bean.setYear(rs.getInt("YEAR"));
+				bean.setId(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setDescription(rs.getString("description"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setColor(rs.getString("color"));
+				bean.setBrand(rs.getString("brand"));
+				bean.setYear(rs.getInt("year"));
+				bean.setCategory(rs.getString("category"));
+				bean.setState(rs.getString("state"));
 				
 				products.add(bean);
 			}
@@ -196,16 +196,16 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				// MODIFICABILE
-				bean.setId(rs.getInt("ID"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
-				bean.setColor(rs.getString("COLOR"));
-				bean.setBrand(rs.getString("BRAND"));
-				bean.setCategory(rs.getString("CATEGORY"));
-				bean.setState(rs.getString("STATE"));
-				bean.setYear(rs.getInt("YEAR"));
+				bean.setId(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setDescription(rs.getString("description"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setColor(rs.getString("color"));
+				bean.setBrand(rs.getString("brand"));
+				bean.setYear(rs.getInt("year"));
+				bean.setCategory(rs.getString("category"));
+				bean.setState(rs.getString("state"));
 			}
 		} finally {
 			try {

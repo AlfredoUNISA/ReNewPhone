@@ -16,7 +16,7 @@
 	<div class="content">
 		
 		
-		<h2>Inserisci</h2>
+		<h2>Registrati</h2>
 		<form action="users" method="post">
 			<input type="hidden" name="action" value="insert"> 
 
@@ -43,7 +43,6 @@
 		
 			<input type="submit" value="Add">
 			<input type="reset" value="Reset">
-
 	
 		</form>
 	</div>
