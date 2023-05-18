@@ -1,50 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 
-body{
-  margin: 0px;
+/* Stile generale del body */
+body {
+	margin: 0;
+	padding: 0;
 }
 
-/* Stile generale della navbar */
+/* Stile del menu di navigazione */
 nav {
-  background-color: #202731;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
+	background-color: #f2f2f2;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-/* Rimuove il punto dell'elenco e imposta il flex */
-nav ul {
-  display: flex;
-  list-style-type:none;
-  padding: 0;
+/* Stile dei pulsanti a sinistra */
+.pulsanti-sinistra {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
-.pulsanti-sinistra{
-  padding-left: 20px;
+.pulsanti-sinistra li {
+	display: inline-block;
+	margin-right: 10px;
 }
 
-.pulsanti-destra{
-  padding-right: 20px;
+.pulsanti-sinistra li:last-child {
+	margin-right: 0;
 }
 
-/* Stili dei link nella navbar */
-nav a {
-  float: left;
-  color: white;
-  text-align: center;
-  padding: 14px 16px; 
-  text-decoration: none; 
-  font-family: 'Nunito Sans', sans-serif;
+.pulsanti-sinistra li a {
+	text-decoration: none;
+	color: #333;
+	padding: 5px;
+	border-radius: 3px;
 }
 
-/* Stili dei link al passaggio del mouse */
-nav a:hover {
-  background-color: #ddd; 
-  color: black;
+/* Stile del form di ricerca */
+.cerca {
+	display: flex;
+	margin-left: 20px;
 }
 
-/* Stile del link attivo */
-nav a.active {
-  background-color: #4CAF50;
-  color: white;
+
+
+/* Stile dei pulsanti a destra */
+.pulsanti-destra {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pulsanti-destra li {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.pulsanti-destra li:first-child {
+	margin-left: 0;
+}
+
+.pulsanti-destra li a {
+	text-decoration: none;
+	color: #333;
+	padding: 5px;
+	border-radius: 3px;
 }
