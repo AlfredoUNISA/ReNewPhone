@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		UserDAODataSource userDAO = new UserDAODataSource();
-		int id = -1;
+		int id = -2; // Utente non registrato
 		
 		try {
 			id = userDAO.doRetrieveByCredentials(email, password);
@@ -37,16 +37,21 @@ public class Login extends HttpServlet {
 		}
 		
 		if (id == -1) {
-			System.out.println("Login non andato a buon fine");
 			response.sendRedirect("access_page.jsp");
 		} else {
-			System.out.println("Hello user " + id);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", id);	
+			session.setAttribute("isAdmin", isAdmin(id));
 			
 			response.sendRedirect("index.jsp");
 		}
-		
+	}
+	
+	private Boolean isAdmin(int id) {
+		if(id == -10)
+			return true;
+		else
+			return false;
 	}
 
 }

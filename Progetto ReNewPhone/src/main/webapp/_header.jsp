@@ -6,20 +6,31 @@
 <%
 	// Ottenimento dell'utente attuale (funziona su tutte le pagine che utilizzano l'header)
 	Object session_obj = request.getSession().getAttribute("user");
-	int CURRENT_USER_ID = -1;	
+	int CURRENT_USER_ID = -1;
 	if(session_obj != null)
 		CURRENT_USER_ID = (int) session_obj;
 	
+	/*
+		ID:
+		-1 = Utente non registrato
+		>0 = Utente registrato
+	*/
 	UserBean CURRENT_USER_BEAN = null;
-	if(CURRENT_USER_ID > 0){
-		UserDAODataSource CURRENT_USER_DAO = new UserDAODataSource();
-		CURRENT_USER_BEAN = CURRENT_USER_DAO.doRetrieveByKey(CURRENT_USER_ID);
+	Boolean IS_CURRENT_USER_ADMIN = false;
+	Boolean IS_CURRENT_USER_REGISTRED = false;
+	if(CURRENT_USER_ID != -1){
+		UserDAODataSource dao = new UserDAODataSource();
+		CURRENT_USER_BEAN = dao.doRetrieveByKey(CURRENT_USER_ID);
+		IS_CURRENT_USER_ADMIN = (Boolean) request.getSession().getAttribute("isAdmin");
+		IS_CURRENT_USER_REGISTRED = true;
 	}
 %>
 
 <%-- 
-	CURRENT_USER_ID   : int 			  -> ID utente corrente
-	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+	CURRENT_USER_ID			  : int 	  -> ID utente corrente
+	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
+	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
+	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
 
 <!DOCTYPE html>
@@ -43,7 +54,7 @@
 		<ul class="pulsanti-destra">
 			<li><a href="my-cart">Carrello</a></li>
 			
-			<%if(CURRENT_USER_ID > 0) {%>
+			<%if(IS_CURRENT_USER_REGISTRED) {%>
 				<li><a href="user_page.jsp">Account</a></li>
 			<%} else {%>
 				<li><a href="access_page.jsp">Accedi</a></li>

@@ -3,8 +3,10 @@
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,rnp.UserBean,rnp.UserDAODataSource"%>
 		
 <%-- 
-	CURRENT_USER_ID   : int 			  -> ID utente corrente
-	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+	CURRENT_USER_ID			  : int 	  -> ID utente corrente
+	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
+	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
+	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
 
 <!DOCTYPE html>

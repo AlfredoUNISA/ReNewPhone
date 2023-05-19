@@ -4,8 +4,10 @@
 	pageEncoding="UTF-8"%>
 
 <%-- 
-	CURRENT_USER_ID   : int 			  -> ID utente corrente
-	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+	CURRENT_USER_ID			  : int 	  -> ID utente corrente
+	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
+	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
+	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@
 
 	<div class="content">
 		<h1>Home Page</h1>
-		<% if (CURRENT_USER_ID > 0){ %>
+		<% if (IS_CURRENT_USER_REGISTRED){ %>
 			<p>Benvenuto nel sito di ReNewPhone <b><%=CURRENT_USER_BEAN.getName()%> <%=CURRENT_USER_BEAN.getSurname()%></b>, il sito di riferimento per la vendita di smartphone ricondizionati.</p>
 
 		<%} else {%>

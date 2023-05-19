@@ -2,8 +2,10 @@
 	pageEncoding="UTF-8"%>
 
 <%-- 
-	CURRENT_USER_ID   : int 			  -> ID utente corrente
-	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+	CURRENT_USER_ID			  : int 	  -> ID utente corrente
+	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
+	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
+	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
 
 <!DOCTYPE html>
@@ -30,6 +32,11 @@
 		<hr>
 		
 		<h2>Accedi come:</h2>
+		<form action="login" method="post">
+			<input type="hidden" name="email" value="d@owner.com">
+			<input type="hidden" name="password" value="password_davide"> 
+			<input type="submit" value="ADMIN">
+		</form>
 		<form action="login" method="post">
 			<input type="hidden" name="email" value="johndoe@example.com">
 			<input type="hidden" name="password" value="password123"> 
