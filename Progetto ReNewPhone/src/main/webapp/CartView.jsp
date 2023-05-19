@@ -13,6 +13,11 @@
 --%>
 <%@ include file="_header.jsp" %>
 
+<%
+	if(IS_CURRENT_USER_ADMIN)
+		response.sendRedirect("index.jsp");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>

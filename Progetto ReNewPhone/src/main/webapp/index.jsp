@@ -31,9 +31,12 @@
 		
 		<hr>
 		
+		<% if (IS_CURRENT_USER_ADMIN){ %>
+			<a href="users">TEST DATABASE - Utenti (solo admin)</a><br>
+			<a href="orders">TEST DATABASE - Ordini (solo admin)</a><br><br>
+		<%}%>
+		
 		<a href="products">TEST DATABASE - Prodotti</a><br>
-		<a href="users">TEST DATABASE - Utenti</a><br>
-		<a href="orders">TEST DATABASE - Ordini</a><br>
 		<a href="SearchPage.jsp">TEST RICERCA</a><br><br>
 		
 		<hr>

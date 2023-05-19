@@ -1,6 +1,6 @@
 <%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
 <%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
-<%@ page import="java.util.*"%>
+<%@ page import="java.util.*, rnp.Login"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -52,7 +52,12 @@
 						UserBean user = (UserBean) it.next();
 	            %>
 	            <tr>
-	                <td><%=user.getId()%></td>
+
+	            	<% if(Login.isAdmin(user.getId())) { %>
+	            		<td>ADMIN</td>
+	            	<%} else {%>
+	                	<td><%=user.getId()%></td>
+	            	<%} %>
 					<td><%=user.getName()%></td>
 					<td><%=user.getSurname()%></td>
 					<td><%=user.getEmail()%></td>

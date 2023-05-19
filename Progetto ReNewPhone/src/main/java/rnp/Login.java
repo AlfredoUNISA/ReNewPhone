@@ -47,7 +47,7 @@ public class Login extends HttpServlet {
 		}
 	}
 	
-	private Boolean isAdmin(int id) {
+	public static Boolean isAdmin(int id) {
 		if(id == -10)
 			return true;
 		else
