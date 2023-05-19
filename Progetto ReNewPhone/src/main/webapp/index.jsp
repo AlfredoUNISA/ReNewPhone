@@ -14,12 +14,18 @@
 	<div class="content">
 		<h1>Home Page</h1>
 		<p>Benvenuto nel sito di ReNewPhone, il sito di riferimento per la vendita di smartphone ricondizionati.</p>
-		<ol>
-			<li><a href="products">TEST DATABASE - Prodotti</a></li>
-			<li><a href="users">TEST DATABASE - Utenti</a></li>
-			<li><a href="orders">TEST DATABASE - Ordini</a></li>
-			<li><a href="SearchPage.jsp">TEST RICERCA</a></li>
-		</ol>
+		
+		<a href="products">TEST DATABASE - Prodotti</a><br>
+		<a href="users">TEST DATABASE - Utenti</a><br>
+		<a href="orders">TEST DATABASE - Ordini</a><br>
+		<a href="SearchPage.jsp">TEST RICERCA</a><br><br>
+		
+		<label>Controlla il carrello dell'utente con id:</label>
+		<form action="my-cart" method="get">
+			<input name="user" type="number" min="1">
+			<br>
+			<input type="submit">
+		</form>
 		
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
 	</div>

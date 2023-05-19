@@ -107,13 +107,13 @@ INSERT INTO products (name, description, price, quantity, color, brand, category
 ('Nokia 2.4', 'Un telefono economico con un design elegante.', 119, 100, 'Rosso', 'Nokia', 'Smartphone', 'Accettabile',2019),
 ('Realme C11', 'Uno smartphone economico con una grande batteria.', 99, 100, 'Nero', 'Realme', 'Smartphone', 'Accettabile',2022);
 
-INSERT INTO users (name, email, password, address, city, cap, phone) VALUES
-('John Doe', 'johndoe@example.com', 'password123', '123 Main St', 'Anytown', '12345', '555-1234'),
-('Jane Smith', 'janesmith@example.com', 'password456', '456 Oak St', 'Otherville', '54321', '555-5678'),
-('Bob Johnson', 'bobjohnson@example.com', 'password789', '789 Elm St', 'Smalltown', '45678', '555-9012'),
-('Alice Lee', 'alicelee@example.com', 'passwordabc', '321 Maple St', 'Bigcity', '67890', '555-3456'),
-('David Chen', 'davidchen@example.com', 'passworddef', '654 Pine St', 'Metropolis', '13579', '555-7890'),
-('Davide Capricano', 'd@owner.com', 'password _davide', 'Via gambardella 29', ' Torre Annunziata', '80058', '123456789');
+INSERT INTO users (name, surname, email, password, address, city, cap, phone) VALUES
+('John', 'Doe', 'johndoe@example.com', 'password123', '123 Main St', 'Anytown', '12345', '555-1234'),
+('Jane', 'Smith', 'janesmith@example.com', 'password456', '456 Oak St', 'Otherville', '54321', '555-5678'),
+('Bob', 'Johnson', 'bobjohnson@example.com', 'password789', '789 Elm St', 'Smalltown', '45678', '555-9012'),
+('Alice', 'Lee', 'alicelee@example.com', 'passwordabc', '321 Maple St', 'Bigcity', '67890', '555-3456'),
+('David', 'Chen', 'davidchen@example.com', 'passworddef', '654 Pine St', 'Metropolis', '13579', '555-7890'),
+('Davide', 'Capricano', 'd@owner.com', 'password _davide', 'Via gambardella 29', ' Torre Annunziata', '80058', '123456789');
 
 INSERT INTO carts (id_user, id_product, quantity)
 VALUES (1, 10, 1),

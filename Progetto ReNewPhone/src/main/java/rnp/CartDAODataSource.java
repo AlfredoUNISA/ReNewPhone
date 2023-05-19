@@ -70,6 +70,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 
 			preparedStatement.executeUpdate();
 
+			connection.setAutoCommit(false);
 			connection.commit();
 		} finally {
 			try {
