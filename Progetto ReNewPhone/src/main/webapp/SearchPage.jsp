@@ -10,12 +10,13 @@
 	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
 	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
+<%@ include file="_header.jsp"%>
 
 <%
-String query = request.getParameter("q");
-if (query == null)
-	query = "";
-%>
+	String query = request.getParameter("q");
+	if (query == null)
+		query = "";
+	%>
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,6 @@ if (query == null)
 <title>Ricerca</title>
 </head>
 <body>
-	<%@ include file="_header.jsp"%>
 
 	<div class="content">
 		<h1>Ricerca prodotti</h1>

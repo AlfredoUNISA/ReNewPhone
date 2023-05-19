@@ -9,10 +9,10 @@
 	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
 	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
+<%@ include file="_header.jsp" %>
 
 <!DOCTYPE html>
 <html>
-<%@ include file="_header.jsp" %>
 <head>
 	<meta charset="UTF-8">
 	<%if(IS_CURRENT_USER_REGISTRED) {%>

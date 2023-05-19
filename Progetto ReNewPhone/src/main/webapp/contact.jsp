@@ -6,6 +6,7 @@
 	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
 	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
+<%@ include file="_header.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,6 @@
   <title>Contatti</title>
 </head>
 <body>
-  <%@ include file="_header.jsp" %>
 
   <div class="content">
     <h1>Contact</h1>
