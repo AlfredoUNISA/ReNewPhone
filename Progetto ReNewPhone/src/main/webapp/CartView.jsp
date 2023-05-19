@@ -5,22 +5,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<%
-	String userParam = request.getParameter("user");
-	UserDAODataSource userDAO = null;
-	ProductDAODataSource productDAO = null;
-	UserBean user_bean = null;
-	
-	int id_user = -1;
-	if (userParam != null) {
-		id_user = Integer.parseInt(userParam);
-		
-		productDAO = new ProductDAODataSource();
-		userDAO = new UserDAODataSource();
-		
-		user_bean = userDAO.doRetrieveByKey(id_user); 
-	}
-%>
+<%-- 
+	CURRENT_USER_ID   : int 			  -> ID utente corrente
+	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+--%>
 
 <!DOCTYPE html>
 <html>
@@ -30,19 +18,11 @@
 	<title>Carrello</title>
 </head>
 <body>
-	<%@ include file="_header.html" %>
+	<%@ include file="_header.jsp" %>
 	
 	<div class="content">
-		<label>Controlla il carrello dell'utente con id:</label>
-		<form action="my-cart" method="get">
-			<input name="user" type="number" min="1">
-			<br>
-			<input type="submit">
-		</form>
-		
-		<hr>
-	
-	    <h2>Utente: "<%= user_bean.getName() %> <%= user_bean.getSurname() %>" (<%= id_user %>)</h2>
+	    
+	    <h2>Utente: "<%= CURRENT_USER_BEAN.getName() %> <%= CURRENT_USER_BEAN.getSurname() %>" (id = <%= CURRENT_USER_ID %>)</h2>
 	    
 	    <!-- TABELLA PRINCIPALE -->
 	    <table>
@@ -59,6 +39,7 @@
 	            <%
 	            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
 	            Collection<?> cart = (Collection<?>) request.getAttribute("cart");
+	            ProductDAODataSource productDAO = new ProductDAODataSource();
 	            
 	            int sum = 0;
 	            
@@ -75,7 +56,7 @@
 					<td><%=product_bean.getPrice()%></td>
 					<td><%=cart_bean.getQuantity()%></td>
 	                <td>
-	                    <a href="my-cart?action=delete&user=<%=user_bean.getId()%>&product=<%=product_bean.getId()%>">Elimina</a>
+	                    <a href="my-cart?action=delete&user=<%=CURRENT_USER_BEAN.getId()%>&product=<%=product_bean.getId()%>">Elimina</a>
 	                </td>
 	            </tr>
 	            <% 
@@ -97,7 +78,7 @@
 		<form method="post" action="my-cart">
     		<input type="hidden" name="action" value="finalize">
     		<input type="hidden" name="total" value="<%=sum%>">
-    		<input type="hidden" name="user" value="<%=id_user%>">
+    		<input type="hidden" name="user" value="<%=CURRENT_USER_ID%>">
     		<input type="submit" value="Finalizza ordine">
 		</form>
 	
@@ -106,7 +87,7 @@
 	    <h2>Aggiungi un prodotto al carrello</h2>
 	    <form method="post" action="my-cart">
 	    	<input type="hidden" name="action" value="add">
-	    	<input type="hidden" name="user" value="<%=id_user%>">
+	    	<input type="hidden" name="user" value="<%=CURRENT_USER_ID%>">
 	    	
 	        <label>Id prodotto:</label>
 	        <input type="number" name="product" min="1" required><br><br> 

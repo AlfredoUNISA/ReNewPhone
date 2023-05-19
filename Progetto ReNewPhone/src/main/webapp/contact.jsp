@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
+<%-- 
+	CURRENT_USER_ID   : int 			  -> ID utente corrente
+	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +12,7 @@
   <title>Contatti</title>
 </head>
 <body>
-  <%@ include file="_header.html" %>
+  <%@ include file="_header.jsp" %>
 
   <div class="content">
     <h1>Contact</h1>
@@ -20,7 +25,7 @@
       <input type="submit" value="Invia">
     </form>
     
-    <p> Il servizio è attivo 7 giorni su 7 dalle 8:00 alle 18:00 </p>
+    <p> Il servizio ï¿½ attivo 7 giorni su 7 dalle 8:00 alle 18:00 </p>
   </div>
 
   <%@ include file="_footer.html" %>

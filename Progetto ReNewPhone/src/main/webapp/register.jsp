@@ -2,7 +2,10 @@
 	pageEncoding="ISO-8859-1"%>
 	<%@ page contentType="text/html; charset=ISO-8859-1" import="java.util.*,rnp.UserBean,rnp.UserDAODataSource"%>
 		
-
+<%-- 
+	CURRENT_USER_ID   : int 			  -> ID utente corrente
+	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+--%>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +14,7 @@
 	<title>Registrazione nuovo utente</title>
 </head>
 <body>
-	<%@ include file="_header.html" %>
+	<%@ include file="_header.jsp" %>
 
 	<div class="content">
 		
@@ -35,8 +38,8 @@
 			<label for="address">Indirizzo:</label><br> 
 			<textarea name="address" maxlength="60" required placeholder="Inserisci indirizzo"></textarea><br> 
 			
-			<label for="city">Città:</label><br> 
-			<input name="city" type="text" maxlength="35" required placeholder="Inserisci città"><br> 
+			<label for="city">Cittï¿½:</label><br> 
+			<input name="city" type="text" maxlength="35" required placeholder="Inserisci cittï¿½"><br> 
 			
 			<label for="cap">CAP:</label><br> 
 			<input name="cap" type="text" maxlength="7" required placeholder="Inserisci CAP"><br> 

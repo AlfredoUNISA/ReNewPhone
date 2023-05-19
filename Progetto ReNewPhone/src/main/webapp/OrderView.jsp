@@ -6,6 +6,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<%-- 
+	CURRENT_USER_ID   : int 			  -> ID utente corrente
+	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +18,7 @@
 	<title>Order List</title>
 </head>
 <body>
-	<%@ include file="_header.html" %>
+	<%@ include file="_header.jsp" %>
 	
 	<div class="content">
 	    <h2>Lista Ordini</h2>
@@ -88,7 +93,7 @@
 						<th>Cognome</th>
 						<th>Email</th>
 						<th>Indirizzo</th>
-						<th>Città</th>
+						<th>Cittï¿½</th>
 						<th>Cap</th>
 						<th>Telefono</th>
 					</tr>
@@ -120,7 +125,7 @@
 		                <th>Anno</th>
 		                <th>Categoria</th>
 		                <th>Condizioni</th>
-		                <th>Quantità</th>
+		                <th>Quantitï¿½</th>
 		                <th>Prezzo</th>
 					</tr>
 				</thead>

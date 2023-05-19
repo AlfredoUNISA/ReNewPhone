@@ -5,6 +5,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<%-- 
+	CURRENT_USER_ID   : int 			  -> ID utente corrente
+	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +17,7 @@
 	<title>User List</title>
 </head>
 <body>
-	<%@ include file="_header.html" %>
+	<%@ include file="_header.jsp" %>
 	
 	<div class="content">
 	    <h2>Lista Utenti</h2>
@@ -76,7 +81,7 @@
 						<th>Email</th>
 						<th>Password</th>
 						<th>Indirizzo</th>
-						<th>Città</th>
+						<th>Cittï¿½</th>
 						<th>Cap</th>
 						<th>Telefono</th>
 					</tr>
@@ -117,8 +122,8 @@
 			<label>Indirizzo:</label>
 			<textarea name="address" maxlength="60" placeholder="Inserisci indirizzo" required></textarea><br><br> 
 			
-			<label>Città:</label>
-			<input name="city" type="text" maxlength="35" placeholder="Inserisci città" required><br><br> 
+			<label>Cittï¿½:</label>
+			<input name="city" type="text" maxlength="35" placeholder="Inserisci cittï¿½" required><br><br> 
 			
 			<label>CAP:</label>
 			<input name="cap" type="text" maxlength="7" placeholder="Inserisci CAP" required><br><br> 

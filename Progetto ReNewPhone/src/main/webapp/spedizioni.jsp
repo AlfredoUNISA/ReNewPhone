@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%-- 
+	CURRENT_USER_ID   : int 			  -> ID utente corrente
+	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+--%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="_header.html"%>
+	<%@ include file="_header.jsp"%>
 	
 	<div class="content">
 		<h1>Informazioni Spedizioni</h1>

@@ -341,5 +341,37 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 		}
 		return bean;
 	}
+	
+	public synchronized int doRetrieveByCredentials(String email, String password) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String selectSQL = "SELECT id FROM " + UserDAODataSource.TABLE_NAME + " WHERE email = ? AND password = ?"; // MODIFICABILE
+
+		int result = -1;
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			// MODIFICABILE
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				// MODIFICABILE
+				result = rs.getInt("id");
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return result;
+	}
 
 }

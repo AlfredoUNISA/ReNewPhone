@@ -5,6 +5,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<%-- 
+	CURRENT_USER_ID   : int 			  -> ID utente corrente
+	CURRENT_USER_BEAN : UserBean 		  -> Bean per utente corrente
+--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +17,7 @@
 	<title>Product List</title>
 </head>
 <body>
-	<%@ include file="_header.html" %>
+	<%@ include file="_header.jsp" %>
 	
 	<div class="content">
 	    <h2>Lista Prodotti</h2>
@@ -25,7 +30,7 @@
 	                <th>Nome <a href="products?sort=name">Sort</a></th>
 	                <th>Descrizione <a href="products?sort=description">Sort</a></th>
 	                <th>Prezzo <a href="products?sort=price">Sort</a></th>
-	                <th>Quantità <a href="products?sort=quantity">Sort</a></th>
+	                <th>Quantitï¿½ <a href="products?sort=quantity">Sort</a></th>
 	                <th>Colore <a href="products?sort=color">Sort</a></th>
 	                <th>Marca <a href="products?sort=brand">Sort</a></th>
 	                <th>Anno <a href="products?sort=year">Sort</a></th>
@@ -86,7 +91,7 @@
 		                <th>Nome</th>
 		                <th>Descrizione</th>
 		                <th>Prezzo</th>
-		                <th>Quantità</th>
+		                <th>Quantitï¿½</th>
 		                <th>Colore</th>
 		                <th>Marca</th>
 		                <th>Anno</th>
@@ -124,7 +129,7 @@
 	        <label>Prezzo:</label>
 	        <input type="number" name="price" min="0" value="0" required><br><br>
 	        
-	        <label>Quantità:</label>
+	        <label>Quantitï¿½:</label>
 	        <input type="number" name="quantity" min="1" value="1" required><br><br>
 	        
 	        <label>Colore:</label>

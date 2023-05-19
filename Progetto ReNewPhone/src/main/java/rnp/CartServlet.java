@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CartServlet
@@ -24,11 +25,15 @@ public class CartServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String sort = request.getParameter("sort");
 
+		/*
 		String userParam = request.getParameter("user");
 		int id_user = -1;
 		if (userParam != null) {
 			id_user = Integer.parseInt(userParam);
 		}
+		*/
+		HttpSession session = request.getSession();
+		int id_user = (int) session.getAttribute("user");
 
 		String productParam = request.getParameter("product");
 		int id_product = -1;
