@@ -26,7 +26,7 @@
 	}
 %>
 
-<%-- 
+<%-- 					Legenda Sessione
 	CURRENT_USER_ID			  : int 	  -> ID utente corrente
 	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
 	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
@@ -57,7 +57,7 @@
 			<%if(IS_CURRENT_USER_REGISTRED) {%>
 				<li><a href="user_page.jsp">Account</a></li>
 			<%} else {%>
-				<li><a href="access_page.jsp">Accedi</a></li>
+				<li><a href="login.jsp">Accedi</a></li>
 			<%} %>
 		</ul>
 	</nav>

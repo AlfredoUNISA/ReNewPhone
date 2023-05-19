@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%-- 
+<%-- 					Legenda Sessione
 	CURRENT_USER_ID			  : int 	  -> ID utente corrente
 	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
 	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin

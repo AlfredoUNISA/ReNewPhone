@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
 		}
 		
 		if (id == -1) {
-			response.sendRedirect("access_page.jsp");
+			response.sendRedirect("login.jsp");
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", id);	

@@ -1,7 +1,7 @@
 <%@ page language="java" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 
-<%-- 
+<%-- 					Legenda Sessione
 	CURRENT_USER_ID			  : int 	  -> ID utente corrente
 	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
 	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
