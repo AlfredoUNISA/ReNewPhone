@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%-- 
 	CURRENT_USER_ID   : int 			  -> ID utente corrente
@@ -25,7 +25,7 @@
       <input type="submit" value="Invia">
     </form>
     
-    <p> Il servizio � attivo 7 giorni su 7 dalle 8:00 alle 18:00 </p>
+    <p> Il servizio è attivo 7 giorni su 7 dalle 8:00 alle 18:00 </p>
   </div>
 
   <%@ include file="_footer.html" %>

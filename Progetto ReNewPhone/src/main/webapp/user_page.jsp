@@ -1,7 +1,7 @@
 <%@page import="rnp.UserDAODataSource"%>
 <%@page import="rnp.UserBean"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%-- 
 	CURRENT_USER_ID   : int 			  -> ID utente corrente
@@ -12,7 +12,7 @@
 <html>
 <%@ include file="_header.jsp" %>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<%if(CURRENT_USER_ID > 0) {%>
 		<title><%=CURRENT_USER_BEAN.getName()%>'s page</title>
 	<%} else {%>

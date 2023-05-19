@@ -2,8 +2,8 @@
 <%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%-- 
 	CURRENT_USER_ID   : int 			  -> ID utente corrente
@@ -81,7 +81,7 @@
 						<th>Email</th>
 						<th>Password</th>
 						<th>Indirizzo</th>
-						<th>Citt�</th>
+						<th>Città</th>
 						<th>Cap</th>
 						<th>Telefono</th>
 					</tr>
@@ -122,8 +122,8 @@
 			<label>Indirizzo:</label>
 			<textarea name="address" maxlength="60" placeholder="Inserisci indirizzo" required></textarea><br><br> 
 			
-			<label>Citt�:</label>
-			<input name="city" type="text" maxlength="35" placeholder="Inserisci citt�" required><br><br> 
+			<label>Città:</label>
+			<input name="city" type="text" maxlength="35" placeholder="Inserisci città" required><br><br> 
 			
 			<label>CAP:</label>
 			<input name="cap" type="text" maxlength="7" placeholder="Inserisci CAP" required><br><br> 

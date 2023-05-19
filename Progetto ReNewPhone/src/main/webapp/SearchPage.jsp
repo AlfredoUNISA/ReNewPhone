@@ -2,7 +2,7 @@
 <%@ page import="rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
 
-<%@ page contentType="text/html; charset=ISO-8859-1"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 
 <%-- 
 	CURRENT_USER_ID   : int 			  -> ID utente corrente

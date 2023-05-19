@@ -2,8 +2,8 @@
 <%@ page import="rnp.CartBean, rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%-- 
 	CURRENT_USER_ID   : int 			  -> ID utente corrente
@@ -31,7 +31,7 @@
 	                <th>Nome Articolo</th>
 	                <th>Id Articolo</th>
 					<th>Prezzo (singolo articolo)</th>
-					<th>Quantit‡ Aggiunta</th>
+					<th>Quantit√† Aggiunta</th>
 	                <th><i>Azioni</i></th>
 	            </tr>
 	        </thead>
@@ -92,7 +92,7 @@
 	        <label>Id prodotto:</label>
 	        <input type="number" name="product" min="1" required><br><br> 
 			
-			<label>Quantit‡:</label>
+			<label>Quantit√†:</label>
 	        <input type="number" name="quantity" min="1" value="1" required><br><br>
 	        
 	        <input type="submit" value="Add">

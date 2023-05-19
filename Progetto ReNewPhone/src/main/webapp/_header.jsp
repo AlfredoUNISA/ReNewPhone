@@ -1,7 +1,7 @@
 <%@page import="rnp.UserDAODataSource"%>
 <%@page import="rnp.UserBean"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <%
 	// Ottenimento dell'utente attuale (funziona su tutte le pagine che utilizzano l'header)
@@ -25,7 +25,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>

@@ -3,8 +3,8 @@
 <%@ page import="rnp.ItemOrderBean, rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%-- 
 	CURRENT_USER_ID   : int 			  -> ID utente corrente
@@ -93,7 +93,7 @@
 						<th>Cognome</th>
 						<th>Email</th>
 						<th>Indirizzo</th>
-						<th>Citt�</th>
+						<th>Città</th>
 						<th>Cap</th>
 						<th>Telefono</th>
 					</tr>
@@ -125,7 +125,7 @@
 		                <th>Anno</th>
 		                <th>Categoria</th>
 		                <th>Condizioni</th>
-		                <th>Quantit�</th>
+		                <th>Quantità</th>
 		                <th>Prezzo</th>
 					</tr>
 				</thead>

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	<%@ page contentType="text/html; charset=ISO-8859-1" import="java.util.*,rnp.UserBean,rnp.UserDAODataSource"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,rnp.UserBean,rnp.UserDAODataSource"%>
 		
 <%-- 
 	CURRENT_USER_ID   : int 			  -> ID utente corrente
@@ -38,8 +38,8 @@
 			<label for="address">Indirizzo:</label><br> 
 			<textarea name="address" maxlength="60" required placeholder="Inserisci indirizzo"></textarea><br> 
 			
-			<label for="city">Citt�:</label><br> 
-			<input name="city" type="text" maxlength="35" required placeholder="Inserisci citt�"><br> 
+			<label for="city">Città:</label><br> 
+			<input name="city" type="text" maxlength="35" required placeholder="Inserisci città"><br> 
 			
 			<label for="cap">CAP:</label><br> 
 			<input name="cap" type="text" maxlength="7" required placeholder="Inserisci CAP"><br> 
