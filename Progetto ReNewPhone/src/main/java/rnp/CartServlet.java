@@ -153,19 +153,33 @@ public class CartServlet extends HttpServlet {
 		try {
 			Collection<CartBean> cart = (Collection<CartBean>) cartDAO.doRetrieveByUser(id_user, null);
 			
+			String totalParam = request.getParameter("total");
+			int total = 0;
+			if (totalParam != null) {
+				total = Integer.parseInt(totalParam);
+			}
+			
 			if (cart != null && cart.size() != 0) {
 				OrderDAODataSource orderDAO = new OrderDAODataSource();
+				ItemsOrderDAODataSource itemsOrderDAO = new ItemsOrderDAODataSource();
+				
+				OrderBean order_bean = new OrderBean();
+				order_bean.setId_user(id_user);
+				order_bean.setTotal(total);
+				
+				int generatedOrderId = orderDAO.doSave(order_bean);
+				
 				
 				Iterator<?> it = cart.iterator();
 				while (it.hasNext()) {
 					CartBean cart_bean = (CartBean) it.next();
 
-					OrderBean order_bean = new OrderBean();
-					order_bean.setId_user(id_user);
-					order_bean.setId_product(cart_bean.getId_product());
-					order_bean.setQuantity(cart_bean.getQuantity());
-
-					orderDAO.doSave(order_bean);
+					ItemOrderBean item_order_bean = new ItemOrderBean();
+					item_order_bean.setId_order(generatedOrderId);
+					item_order_bean.setId_product(cart_bean.getId_product());
+					item_order_bean.setQuantity(cart_bean.getQuantity());
+					
+					itemsOrderDAO.doSave(item_order_bean);
 				}
 				
 				cartDAO.doDelete(id_user);

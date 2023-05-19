@@ -3,9 +3,8 @@ package rnp;
 import java.io.Serializable;
 
 /**
- * Bean che contiene tutte le informazioni di un prodotto.
+ * Bean che contiene tutte le informazioni di un ordine.
  * @category Bean
- * @category MODIFICABILE (tutto)
  */
 public class OrderBean implements Serializable {
 
@@ -13,14 +12,12 @@ public class OrderBean implements Serializable {
 
 	int id;
     int id_user;
-    int id_product;
-    int quantity;
+    int total;
     
 	public OrderBean() {
 		id = -1;
 		id_user = 0;
-		id_product = 0;
-		quantity = 0;
+		total = 0;
 	}
 
 	public int getId() {
@@ -37,24 +34,16 @@ public class OrderBean implements Serializable {
 		this.id_user = id_user;
 	}
 
-	public int getId_product() {
-		return id_product;
+	public int getTotal() {
+		return total;
 	}
-	public void setId_product(int id_product) {
-		this.id_product = id_product;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderBean [id=" + id + ", id_user=" + id_user + ", id_product=" + id_product + ", quantity=" + quantity
-				+ "]";
+		return "OrderBean [id=" + id + ", id_user=" + id_user + ", total=" + total + "]";
 	}
 	
 }

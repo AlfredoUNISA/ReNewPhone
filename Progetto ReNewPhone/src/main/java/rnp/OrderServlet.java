@@ -3,7 +3,6 @@ package rnp;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -90,14 +89,12 @@ public class OrderServlet extends HttpServlet {
 	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// MODIFICABILE
 		int id_user = Integer.parseInt(request.getParameter("id_user"));
-		int id_product = Integer.parseInt(request.getParameter("id_product"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		int total = Integer.parseInt(request.getParameter("total"));
 
 		// MODIFICABILE
 		OrderBean order = new OrderBean();
 		order.setId_user(id_user);
-		order.setId_product(id_product);
-		order.setQuantity(quantity);
+		order.setTotal(total);
 
 		try {
 			orderDAO.doSave(order);

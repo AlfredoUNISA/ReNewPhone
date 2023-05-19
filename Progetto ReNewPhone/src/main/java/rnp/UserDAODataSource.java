@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -47,10 +48,11 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 	 * una connessione al database.
 	 * 
 	 * @param user Oggetto da inserire
+	 * @return
 	 * @category MODIFICABILE
 	 */
 	@Override
-	public synchronized void doSave(UserBean user) throws SQLException {
+	public synchronized int doSave(UserBean user) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -59,6 +61,8 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 		// MODIFICABILE
 		String insertSQL = "INSERT INTO " + UserDAODataSource.TABLE_NAME
 				+ " (name, surname, email, password, address, city, cap, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+		int generatedId = -1;
 
 		try {
 			connection = ds.getConnection();
@@ -74,7 +78,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 				if (count > 0) { // Controlla se esistono altre mail uguali
 					throw new SQLIntegrityConstraintViolationException();
 				} else { // Nel caso non sia presente nessuna mail uguale a quella da inserire
-					preparedStatement = connection.prepareStatement(insertSQL);
+					preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
 					// MODIFICABILE
 					preparedStatement.setString(1, user.getName());
@@ -90,6 +94,15 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 
 					connection.setAutoCommit(false);
 					connection.commit();
+
+					// Ottieni l'id generato
+					try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+						if (generatedKeys.next()) {
+							generatedId = generatedKeys.getInt(1);
+						} else {
+							System.out.println("ERROR: No ID obtained in OrderDAODataSource's doSave.");
+						}
+					}
 				}
 			}
 		} finally {
@@ -101,6 +114,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 					connection.close();
 			}
 		}
+		return generatedId;
 	}
 
 	/**

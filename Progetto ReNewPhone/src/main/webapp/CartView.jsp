@@ -87,6 +87,7 @@
 		<!-- Pulsante per la finalizzazione dell'ordine -->
 		<form method="post" action="my-cart">
     		<input type="hidden" name="action" value="finalize">
+    		<input type="hidden" name="total" value="<%=sum%>">
     		<input type="hidden" name="user" value="<%=id_user%>">
     		<input type="submit" value="Finalizza ordine">
 		</form>

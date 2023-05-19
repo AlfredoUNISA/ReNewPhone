@@ -31,12 +31,19 @@ CREATE TABLE users (
   phone varchar(20) not null
 );
 
-CREATE TABLE buys (
+CREATE TABLE orders (
   id int primary key AUTO_INCREMENT,
   id_user int not null,
+  total int not null,
+  FOREIGN KEY (id_user) REFERENCES users(id)
+);
+
+CREATE TABLE order_items (
+  id int primary key AUTO_INCREMENT,
+  id_order int not null,
   id_product int not null,
   quantity int not null,
-  FOREIGN KEY (id_user) REFERENCES users(id),
+  FOREIGN KEY (id_order) REFERENCES orders(id),
   FOREIGN KEY (id_product) REFERENCES products(id)
 );
 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -22,7 +23,7 @@ import javax.sql.DataSource;
 public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE */ {
 
 	private static DataSource ds;
-	private static final String TABLE_NAME = "buys"; // MODIFICABILE
+	private static final String TABLE_NAME = "orders"; // MODIFICABILE
 
 	// Inizializzazione per il Data Source
 	static {
@@ -40,33 +41,45 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 	/**
 	 * Un bean viene inserito come una nuova riga nella tabella "TABLE_NAME" usando una connessione al database.
 	 * @param order Oggetto da inserire
+	 * @return L'id generato automaticamente dalla insert
 	 * @category MODIFICABILE
 	 */
 	@Override
-	public synchronized void doSave(OrderBean order) throws SQLException {
+	public synchronized int doSave(OrderBean order) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		// MODIFICABILE
 		String insertSQL = "INSERT INTO " + OrderDAODataSource.TABLE_NAME
-                + " (id_user, id_product, quantity) VALUES (?, ?, ?)";
-
+                + " (id_user, total) VALUES (?, ?)";
+		
+		int generatedId = -1;
 
 		try { 
 			connection = ds.getConnection();
 
-			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
 			// MODIFICABILE
 			preparedStatement.setInt(1, order.getId_user());
-			preparedStatement.setInt(2, order.getId_product());
-			preparedStatement.setInt(3, order.getQuantity());
+			preparedStatement.setInt(2, order.getTotal());
 
 			preparedStatement.executeUpdate();
-
+			
 			connection.setAutoCommit(false);
 			connection.commit();
+			
+			// Ottieni l'id generato
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	            	generatedId = generatedKeys.getInt(1);
+	            }
+	            else {
+	                System.out.println("ERROR: No ID obtained in OrderDAODataSource's doSave.");
+	            }
+	        }
+			
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -76,6 +89,7 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 					connection.close();
 			}
 		}
+		return generatedId;
 	}
 
 	/**
@@ -145,8 +159,7 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 				// MODIFICABILE
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
-				bean.setId_product(rs.getInt("id_product"));
-				bean.setQuantity(rs.getInt("quantity"));
+				bean.setTotal(rs.getInt("total"));
 				
 				products.add(bean);
 			}
@@ -187,8 +200,7 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 				// MODIFICABILE
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
-				bean.setId_product(rs.getInt("id_product"));
-				bean.setQuantity(rs.getInt("quantity"));
+				bean.setTotal(rs.getInt("total"));
 			}
 		} finally {
 			try {
