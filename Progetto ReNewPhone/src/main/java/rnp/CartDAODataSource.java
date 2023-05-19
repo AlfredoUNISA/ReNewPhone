@@ -47,7 +47,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	 * una connessione al database.
 	 * 
 	 * @param cart_row Oggetto da inserire
-	 * @return L'id generato automaticamente dalla insert
+	 * @return Zero
 	 * @category MODIFICABILE
 	 */
 	@Override
@@ -59,8 +59,6 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 		// MODIFICABILE
 		String insertSQL = "INSERT INTO " + CartDAODataSource.TABLE_NAME
 				+ " (id_user, id_product, quantity) VALUES (?, ?, ?)";
-
-		int generatedId = -1;
 		
 		try {
 			connection = ds.getConnection();
@@ -77,15 +75,6 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 			connection.setAutoCommit(false);
 			connection.commit();
 
-			// Ottieni l'id generato
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-				if (generatedKeys.next()) {
-					generatedId = generatedKeys.getInt(1);
-				} else {
-					System.out.println("ERROR: No ID obtained in CartDAODataSource's doSave.");
-				}
-			}
-
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -95,7 +84,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 					connection.close();
 			}
 		}
-		return generatedId;
+		return 0;
 	}
 
 	/**

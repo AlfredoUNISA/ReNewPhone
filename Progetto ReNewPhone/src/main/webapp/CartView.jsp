@@ -33,6 +33,15 @@
 	<%@ include file="_header.html" %>
 	
 	<div class="content">
+		<label>Controlla il carrello dell'utente con id:</label>
+		<form action="my-cart" method="get">
+			<input name="user" type="number" min="1">
+			<br>
+			<input type="submit">
+		</form>
+		
+		<hr>
+	
 	    <h2>Utente: "<%= user_bean.getName() %> <%= user_bean.getSurname() %>" (<%= id_user %>)</h2>
 	    
 	    <!-- TABELLA PRINCIPALE -->

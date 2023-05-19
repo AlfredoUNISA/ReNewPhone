@@ -63,8 +63,11 @@ public class ItemsOrderDAODataSource implements IBeanDAO<ItemOrderBean> /* MODIF
 		int generatedId = -1;
 
 		try {
-			connection = ds.getConnection();
+			// Riduci il numero di prodotti in magazzino
+			ProductDAODataSource productDAO = new ProductDAODataSource();
+			productDAO.reduceStock(item.getId_product(), item.getQuantity());
 
+			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
 			// MODIFICABILE
@@ -76,6 +79,7 @@ public class ItemsOrderDAODataSource implements IBeanDAO<ItemOrderBean> /* MODIF
 
 			connection.setAutoCommit(false);
 			connection.commit();
+			
 
 			// Ottieni l'id generato
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {

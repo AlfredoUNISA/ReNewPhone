@@ -242,4 +242,31 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		}
 		return bean;
 	}
+	
+	public synchronized void reduceStock(int id, int qty) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE " + ProductDAODataSource.TABLE_NAME + " SET quantity = quantity - " + qty + " WHERE id = ?"; // MODIFICABILE
+
+		ProductBean product = doRetrieveByKey(id);
+		if(product.getQuantity() < qty)
+			throw new SQLException("Not Enough in stock");
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setInt(1, id); // MODIFICABILE
+			preparedStatement.executeUpdate();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
 }
