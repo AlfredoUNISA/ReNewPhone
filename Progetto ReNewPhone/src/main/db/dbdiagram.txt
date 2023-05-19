@@ -1,0 +1,46 @@
+// Sintassi: DBML, https://dbml.dbdiagram.io/docs/
+
+Table products {
+  id int [primary key]
+  name varchar(150) [not null]
+  description varchar(255)
+  price int
+  quantity int
+  color varchar(20)
+  brand varchar(25)
+  year int [not null]
+  category varchar(15)
+  state char(12)
+}
+
+Table users {
+  id int [primary key]
+  name varchar(25) [not null]
+  surname varchar(25) [not null]
+  email varchar(100) [not null, unique]
+  password varchar(50) [not null]
+  address varchar(60) [not null]
+  city varchar(35) [not null]
+  cap char(7) [not null]
+  phone varchar(20) [not null]
+}
+
+Table orders {
+  id int [primary key]
+  id_user int [not null, ref: > users.id]
+  total int [not null]
+}
+
+Table order_items {
+  id int [primary key]
+  id_order int [not null, ref: > orders.id]
+  id_product int [not null, ref: > products.id]
+  quantity int [not null]
+}
+
+Table carts {
+  id_user int [primary key, not null, ref: > users.id]
+  id_product int [primary key, not null, ref: > products.id]
+  quantity int [not null]
+  Primary Key (id_user, id_product)
+}

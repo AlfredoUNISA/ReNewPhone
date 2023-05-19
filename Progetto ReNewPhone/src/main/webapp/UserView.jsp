@@ -23,6 +23,7 @@
 	            <tr>
 	                <th>Id <a href="users?sort=id">Sort</a></th>
 					<th>Nome <a href="users?sort=name">Sort</a></th>
+					<th>Cognome <a href="users?sort=name">Sort</a></th>
 					<th>Email <a href="users?sort=email">Sort</a></th>
 	                <th><i>Azioni</i></th>
 	            </tr>

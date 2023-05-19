@@ -118,7 +118,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 	}
 
 	/**
-	 * Rimuove una riga dalla tabella "TABLE_NAME" in base al codice.
+	 * Rimuove una riga dalla tabella "users" in base al codice.
 	 * 
 	 * @param id Il codice del prodotto da rimuovere.
 	 * @return L'esito della query.
@@ -135,12 +135,27 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+
+			// Verifica se ci sono dipendenze nelle tabelle correlate
+			boolean hasDependencies = checkDependencies(connection, id);
+
+			if (hasDependencies) {
+				// Elimina le dipendenze nelle tabelle correlate
+				deleteDependencies(connection, id);
+			}
+			
 			preparedStatement = connection.prepareStatement(deleteSQL);
-
 			preparedStatement.setInt(1, id); // MODIFICABILE
-
 			result = preparedStatement.executeUpdate();
 
+			connection.commit();
+		} catch (SQLException e) {
+			System.out.println("ERROR: " + e);
+
+			if (connection != null) {
+				connection.rollback(); // Annulla la transazione in caso di errore
+			}
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -151,6 +166,79 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 			}
 		}
 		return (result != 0);
+	}
+
+	/**
+	 * Controlla se ci sono dipendenze in altre tabelle.
+	 */
+	private boolean checkDependencies(Connection connection, int userId) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean hasDependencies = false;
+
+		try {
+			// Verifica la tabella orders per dipendenze
+			String checkOrdersSQL = "SELECT COUNT(*) FROM orders WHERE id_user = ?";
+			preparedStatement = connection.prepareStatement(checkOrdersSQL);
+			preparedStatement.setInt(1, userId);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				int ordersCount = resultSet.getInt(1);
+				if (ordersCount > 0) {
+					hasDependencies = true;
+				}
+			}
+
+			if (!hasDependencies) {
+				// Verifica la tabella carts per dipendenze
+				String checkCartsSQL = "SELECT COUNT(*) FROM carts WHERE id_user = ?";
+				preparedStatement = connection.prepareStatement(checkCartsSQL);
+				preparedStatement.setInt(1, userId);
+				resultSet = preparedStatement.executeQuery();
+
+				if (resultSet.next()) {
+					int cartsCount = resultSet.getInt(1);
+					if (cartsCount > 0) {
+						hasDependencies = true;
+					}
+				}
+			}
+
+			if (resultSet != null) {
+				resultSet.close();
+			}
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR: " + e);
+		}
+
+		return hasDependencies;
+	}
+
+	/**
+	 * Elimina le dipendenze in altre tabelle.
+	 */
+	private void deleteDependencies(Connection connection, int userId) throws SQLException {
+		PreparedStatement preparedStatement = null;
+
+		try {
+			// TODO: Elimina le righe correlate nella tabella orders
+
+			// Elimina le righe correlate nella tabella carts
+			String deleteCartsSQL = "DELETE FROM carts WHERE id_user = ?";
+			preparedStatement = connection.prepareStatement(deleteCartsSQL);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.executeUpdate();
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR: " + e);
+		}
 	}
 
 	/**

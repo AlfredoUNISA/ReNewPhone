@@ -18,10 +18,13 @@
 		
 		<h2>Registrati</h2>
 		<form action="users" method="post">
-			<input type="hidden" name="action" value="insert"> 
+			<input type="hidden" name="action" value="add"> 
 
 			<label for="name">Nome:</label><br> 
 			<input name="name" type="text" maxlength="25" required placeholder="Inserisci nome"><br> 
+			
+			<label for="surname">Cognome:</label><br> 
+			<input name="surname" type="text" maxlength="25" required placeholder="Inserisci cognome"><br> 
 			
 			<label for="email">Email:</label><br> 
 			<input name="email" type="email" maxlength="100" required placeholder="Inserisci email"><br> 

@@ -4,23 +4,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/style.css" /> 
-	<title>Homepage</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>Homepage</title>
 </head>
 <body>
-	<%@ include file="_header.html" %>
+	<%@ include file="_header.html"%>
 
 	<div class="content">
-		 <h2>Accedi al tuo account</h2>
-  
-  <form action="UserControl.java" method="post">
-    <input type="email" name="username" required placeholder="Username" > <br>
-    <input type="password" name="password" required placeholder="Password"> <br>
-    <input type="submit" value="Login"> <br>
-  	Non sei ancora registrato? <a href="register.jsp">Registrati qui</a>
-  </form>
+		<h2>Accedi al tuo account</h2>
+
+		<form action="users" method="post">
+			<input type="email" name="username" required placeholder="Username"><br>
+			<input type="password" name="password" required placeholder="Password"><br> 
+			<input type="submit" value="Login"><br>
+		</form><br>
+		<p>
+			Non sei ancora registrato? <a href="register.jsp">Registrati qui</a>
+		</p>
 	</div>
-	
-	<%@ include file="_footer.html" %>
+
+	<%@ include file="_footer.html"%>
 </body>
 </html>
