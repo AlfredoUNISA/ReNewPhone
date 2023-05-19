@@ -89,6 +89,7 @@ public class UserServlet extends HttpServlet {
 	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// MODIFICABILE
 		String name = request.getParameter("name");
+		String surname = request.getParameter("surname");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String address = request.getParameter("address");
@@ -99,6 +100,7 @@ public class UserServlet extends HttpServlet {
 		// MODIFICABILE
 		UserBean user = new UserBean();
 		user.setName(name);
+		user.setSurname(surname);
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setAddress(address);

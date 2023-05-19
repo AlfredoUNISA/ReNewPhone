@@ -13,6 +13,7 @@ public class UserBean implements Serializable {
 
 	int id;
     String name;
+    String surname;
     String email;
     String password;
     String address;
@@ -45,6 +46,13 @@ public class UserBean implements Serializable {
 		this.name = name;
 	}
 
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -89,9 +97,8 @@ public class UserBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserBean [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
-				+ address + ", city=" + city + ", cap=" + cap + ", phone=" + phone + "]";
+		return "UserBean [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", password="
+				+ password + ", address=" + address + ", city=" + city + ", cap=" + cap + ", phone=" + phone + "]";
 	}
-	
 
 }

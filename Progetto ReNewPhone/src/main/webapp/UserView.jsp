@@ -41,6 +41,7 @@
 	            <tr>
 	                <td><%=user.getId()%></td>
 					<td><%=user.getName()%></td>
+					<td><%=user.getSurname()%></td>
 					<td><%=user.getEmail()%></td>
 	                <td>
 	                    <a href="users?action=details&id=<%= user.getId() %>#Dettagli">Dettagli</a>
@@ -52,7 +53,7 @@
 	            } else {
 	            %>
 	            <tr>
-	                <td colspan="4">No users found.</td>
+	                <td colspan="5">No users found.</td>
 	            </tr>
 	            <% } %>
 	        </tbody>
@@ -70,6 +71,7 @@
 					<tr>
 						<th>Id</th>
 						<th>Nome</th>
+						<th>Cognome</th>
 						<th>Email</th>
 						<th>Password</th>
 						<th>Indirizzo</th>
@@ -82,6 +84,7 @@
 					<tr>
 						<td><%=userDetails.getId()%></td>
 						<td><%=userDetails.getName()%></td>
+						<td><%=userDetails.getSurname()%></td>
 						<td><%=userDetails.getEmail()%></td>
 						<td><%=userDetails.getPassword()%></td>
 						<td><%=userDetails.getAddress()%></td>
@@ -100,6 +103,9 @@
 	    	
 	        <label>Nome:</label> 
 			<input name="name" type="text" maxlength="25" placeholder="Inserisci nome" required><br><br> 
+			
+			<label>Cognome:</label> 
+			<input name="surname" type="text" maxlength="25" placeholder="Inserisci cognome" required><br><br> 
 			
 			<label>Email:</label>
 			<input name="email" type="email" maxlength="100" placeholder="Inserisci email" required><br><br> 

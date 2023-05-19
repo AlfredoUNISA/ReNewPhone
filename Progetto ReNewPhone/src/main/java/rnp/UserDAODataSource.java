@@ -58,7 +58,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 
 		// MODIFICABILE
 		String insertSQL = "INSERT INTO " + UserDAODataSource.TABLE_NAME
-				+ " (name, email, password, address, city, cap, phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				+ " (name, surname, email, password, address, city, cap, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -78,12 +78,13 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 
 					// MODIFICABILE
 					preparedStatement.setString(1, user.getName());
-					preparedStatement.setString(2, user.getEmail());
-					preparedStatement.setString(3, user.getPassword());
-					preparedStatement.setString(4, user.getAddress());
-					preparedStatement.setString(5, user.getCity());
-					preparedStatement.setString(6, user.getCap());
-					preparedStatement.setString(7, user.getPhone());
+					preparedStatement.setString(2, user.getSurname());
+					preparedStatement.setString(3, user.getEmail());
+					preparedStatement.setString(4, user.getPassword());
+					preparedStatement.setString(5, user.getAddress());
+					preparedStatement.setString(6, user.getCity());
+					preparedStatement.setString(7, user.getCap());
+					preparedStatement.setString(8, user.getPhone());
 
 					preparedStatement.executeUpdate();
 
@@ -172,6 +173,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 				// MODIFICABILE
 				bean.setId(rs.getInt("id"));
 				bean.setName(rs.getString("name"));
+				bean.setSurname(rs.getString("surname"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
 				bean.setAddress(rs.getString("address"));
@@ -181,7 +183,6 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 
 				products.add(bean);
 			}
-
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -219,6 +220,7 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 				// MODIFICABILE
 				bean.setId(rs.getInt("id"));
 				bean.setName(rs.getString("name"));
+				bean.setSurname(rs.getString("surname"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
 				bean.setAddress(rs.getString("address"));

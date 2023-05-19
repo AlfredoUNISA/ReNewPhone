@@ -22,6 +22,7 @@ CREATE TABLE products (
 CREATE TABLE users (
   id int primary key AUTO_INCREMENT,
   name varchar(25) not null,
+  surname varchar(25) not null,
   email varchar(100) not null unique,
   password varchar(50) not null,
   address varchar(60) not null,
