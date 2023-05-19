@@ -2,6 +2,8 @@ package rnp;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,21 +23,21 @@ public class CartServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String sort = request.getParameter("sort");
-		
+
 		String userParam = request.getParameter("user");
 		int id_user = -1;
 		if (userParam != null) {
-			id_user = Integer.parseInt(userParam); 
+			id_user = Integer.parseInt(userParam);
 		}
-		
+
 		String productParam = request.getParameter("product");
 		int id_product = -1;
 		if (productParam != null) {
-			id_product = Integer.parseInt(productParam); 
+			id_product = Integer.parseInt(productParam);
 		}
 
 		// Esegui azioni opzionali
-		if (action != null && id_product != -1) {
+		if (action != null) {
 			switch (action) {
 			case "details":
 				showRowDetails(request, response, id_user, id_product);
@@ -45,6 +47,9 @@ public class CartServlet extends HttpServlet {
 				break;
 			case "delete":
 				deleteRow(request, response, id_user, id_product);
+				break;
+			case "finalize":
+				finalizeOrder(request, response, id_user);
 				break;
 			default:
 				response.sendRedirect(request.getContextPath());
@@ -79,7 +84,7 @@ public class CartServlet extends HttpServlet {
 	 */
 	private void showRowDetails(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product)
 			throws ServletException, IOException {
-		
+
 		try {
 			// MODIFICABILE
 			CartBean cart = cartDAO.doRetrieveByPrimaryKeys(id_user, id_product);
@@ -87,7 +92,8 @@ public class CartServlet extends HttpServlet {
 				request.removeAttribute("cart-details");
 				request.setAttribute("cart-details", cart);
 			} else {
-				System.out.println("**404** Cart row not found for showRowDetails (id_user = " + id_user + ", id_product = " + id_product + ")");
+				System.out.println("**404** Cart row not found for showRowDetails (id_user = " + id_user
+						+ ", id_product = " + id_product + ")");
 			}
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
@@ -97,7 +103,8 @@ public class CartServlet extends HttpServlet {
 	/**
 	 * Aggiunge una nuova riga alla table del database.
 	 */
-	private void addRow(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product) throws ServletException, IOException {
+	private void addRow(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product)
+			throws ServletException, IOException {
 		// MODIFICABILE
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 
@@ -125,7 +132,8 @@ public class CartServlet extends HttpServlet {
 
 		try {
 			if (!cartDAO.doDeleteSingleRow(id_user, id_product)) {
-				System.out.println("**404** Cart row not found for showRowDetails (id_user = " + id_user + ", id_product = " + id_product + ")");
+				System.out.println("**404** Cart row not found for showRowDetails (id_user = " + id_user
+						+ ", id_product = " + id_product + ")");
 			}
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
@@ -136,6 +144,37 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Finalizza l'ordine mettendo tutti gli oggetti del carrello in un ordine e
+	 * rimuove tutti gli elementi del carrello.
+	 */
+	private void finalizeOrder(HttpServletRequest request, HttpServletResponse response, int id_user)
+			throws ServletException, IOException {
+		try {
+			Collection<CartBean> cart = (Collection<CartBean>) cartDAO.doRetrieveByUser(id_user, null);
+			
+			if (cart != null && cart.size() != 0) {
+				OrderDAODataSource orderDAO = new OrderDAODataSource();
+				
+				Iterator<?> it = cart.iterator();
+				while (it.hasNext()) {
+					CartBean cart_bean = (CartBean) it.next();
+
+					OrderBean order_bean = new OrderBean();
+					order_bean.setId_user(id_user);
+					order_bean.setId_product(cart_bean.getId_product());
+					order_bean.setQuantity(cart_bean.getQuantity());
+
+					orderDAO.doSave(order_bean);
+				}
+				
+				cartDAO.doDelete(id_user);
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR: " + e);
+		}
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

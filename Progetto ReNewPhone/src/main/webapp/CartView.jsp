@@ -1,5 +1,5 @@
 <%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
-<%@ page import="rnp.CartBean, rnp.UserBean, rnp.ProductBean"%>
+<%@ page import="rnp.CartBean, rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -75,13 +75,21 @@
 	            } else {
 	            %>
 	            <tr>
-	                <td colspan="4">Nessun prodotto nel carrello.</td>
+	                <td colspan="5">Nessun prodotto nel carrello.</td>
 	            </tr>
 	            <% } %>
 	        </tbody>
 	    </table>
 		
 		<h3>Totale: <%=sum%></h3>
+		
+		
+		<!-- Pulsante per la finalizzazione dell'ordine -->
+		<form method="post" action="my-cart">
+    		<input type="hidden" name="action" value="finalize">
+    		<input type="hidden" name="user" value="<%=id_user%>">
+    		<input type="submit" value="Finalizza ordine">
+		</form>
 	
 		<!-- PARTE DELL'INSERIMENTO -->
 		<br>
