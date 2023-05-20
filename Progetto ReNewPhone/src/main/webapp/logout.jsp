@@ -16,6 +16,18 @@
     if (session != null) {
         // Invalida la sessione
         session.invalidate();
+        
+        // Disabilita il cookie di accesso automatico
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("userCookie")) {
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
     }
     
     // Reindirizza l'utente alla pagina di accesso o a un'altra pagina desiderata

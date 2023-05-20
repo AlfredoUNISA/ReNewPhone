@@ -108,41 +108,6 @@ public class CartServlet extends HttpServlet {
 	private void addRow(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product)
 			throws ServletException, IOException {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		/*
-		if (id_user == -1) {
-			// Utente non registrato, gestisci il carrello nel cookie
-
-			// Prendi il cookie "cartCookie" dalla richiesta
-			Cookie[] cookies = request.getCookies();
-			Cookie cartCookie = null;
-			if (cookies != null) {
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equals("cartCookie")) {
-						cartCookie = cookie;
-						break;
-					}
-				}
-			}
-
-			// Crea o aggiorna il carrello nel cookie
-			if (cartCookie == null) {
-				// Il cookie "cartCookie" non esiste, crea un nuovo carrello e aggiungi
-				// l'oggetto al carrello esistente
-				cartCookie = new Cookie("cartCookie", id_product + ":" + quantity);
-			} else {
-				// Il cookie "cartCookie" esiste, aggiungi l'oggetto al carrello esistente
-				String cartValue = cartCookie.getValue();
-				cartValue += "a" + id_product + ":" + quantity;
-				cartCookie.setValue(cartValue);
-			}
-
-			// Aggiorna il tempo di vita del cookie (opzionale)
-			cartCookie.setMaxAge(Login.COOKIE_DURATION); // Imposta il tempo di vita del cookie (in secondi)
-
-			// Aggiungi il cookie alla risposta
-			response.addCookie(cartCookie);
-		} else {
-			*/
 			// Utente registrato
 			CartBean cart = new CartBean();
 			cart.setId_user(id_user);
@@ -157,7 +122,6 @@ public class CartServlet extends HttpServlet {
 					// TODO: fare qualcosa se ci sono duplicati
 				}
 			}
-		//}
 	}
 
 	/**

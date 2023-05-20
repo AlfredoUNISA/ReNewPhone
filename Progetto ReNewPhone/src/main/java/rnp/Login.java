@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
 	public static final int HOUR = MINUTE * 60;
 	public static final int DAY = HOUR * 24;
 
-	public static final int COOKIE_DURATION = 1 * MINUTE;
+	public static final int COOKIE_DURATION = 1 * HOUR;
 
 	/**
 	 * Utilizzato per autentificare l'utente, creare una sessione e un cookie.
