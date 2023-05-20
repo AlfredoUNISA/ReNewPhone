@@ -1,3 +1,4 @@
+<%@page import="rnp.Login"%>
 <%@page import="rnp.UserDAODataSource"%>
 <%@page import="rnp.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,18 +13,40 @@
 	
 	/*
 		ID:
+	   -10 = Admin
 		-1 = Utente non registrato
 		>0 = Utente registrato
 	*/
-	UserBean CURRENT_USER_BEAN = null;
+	UserBean CURRENT_USER_BEAN = new UserBean();
 	Boolean IS_CURRENT_USER_ADMIN = false;
 	Boolean IS_CURRENT_USER_REGISTRED = false;
+	
 	if(CURRENT_USER_ID != -1){
+		// Utente registrato o admin
 		UserDAODataSource dao = new UserDAODataSource();
 		CURRENT_USER_BEAN = dao.doRetrieveByKey(CURRENT_USER_ID);
-		IS_CURRENT_USER_ADMIN = (Boolean) request.getSession().getAttribute("isAdmin");
+		
 		IS_CURRENT_USER_REGISTRED = true;
+		IS_CURRENT_USER_ADMIN = Login.isAdmin(CURRENT_USER_ID);
+	} else {
+		// Utente non registrato o uscito, controlla il cookie "userCookie"
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+		    for (Cookie cookie : cookies) {
+		        if (cookie.getName().equals("userCookie")) {
+		        	// Ottieni l'id dal cookie
+		        	CURRENT_USER_ID = Integer.parseInt(cookie.getValue());
+		        	
+		        	UserDAODataSource dao = new UserDAODataSource();
+		    		CURRENT_USER_BEAN = dao.doRetrieveByKey(CURRENT_USER_ID);
+		        	
+		    		IS_CURRENT_USER_REGISTRED = true;
+		        	IS_CURRENT_USER_ADMIN = Login.isAdmin(CURRENT_USER_ID);
+		        }
+		    }
+		}
 	}
+	
 %>
 
 <%-- 					Legenda Sessione

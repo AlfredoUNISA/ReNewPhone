@@ -342,6 +342,10 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 		return bean;
 	}
 	
+	/**
+	 * Controlla se un utente ha correttamente fatto l'accesso al suo account.
+	 * @return L'id dell'utente se ha avuto successo, -1 altrimenti
+	 */
 	public synchronized int doRetrieveByCredentials(String email, String password) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

@@ -44,37 +44,115 @@
 	        </thead>
 	        <tbody>
 	            <%
-	            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
-	            Collection<?> cart = (Collection<?>) request.getAttribute("cart");
-	            ProductDAODataSource productDAO = new ProductDAODataSource();
-	            
 	            int sum = 0;
+	            if(IS_CURRENT_USER_REGISTRED) {
+		            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
+		            Collection<?> cart = (Collection<?>) request.getAttribute("cart");
+		            ProductDAODataSource productDAO = new ProductDAODataSource();
+		            
+		            
+		            // ITERAZIONE
+		            if (cart != null && cart.size() != 0) {
+						Iterator<?> it = cart.iterator();
+						while (it.hasNext()) {
+							CartBean cart_bean = (CartBean) it.next();
+							ProductBean product_bean = productDAO.doRetrieveByKey(cart_bean.getId_product());
+		            %>
+		            <tr>
+						<td><%=product_bean.getName()%></td>
+						<td><%=product_bean.getId()%></td>
+						<td><%=product_bean.getPrice()%></td>
+						<td><%=cart_bean.getQuantity()%></td>
+		                <td>
+		                    <a href="my-cart?action=delete&user=<%=CURRENT_USER_BEAN.getId()%>&product=<%=product_bean.getId()%>">Elimina</a>
+		                </td>
+		            </tr>
+		            <% 
+		            	sum += product_bean.getPrice() * cart_bean.getQuantity();
+		                }
+		            } else {
+		            %>
+		            <tr>
+		                <td colspan="5">Nessun prodotto nel carrello.</td>
+		            </tr>
+		         <% }
+	            } 
+	            %>
 	            
-	            // ITERAZIONE
-	            if (cart != null && cart.size() != 0) {
-					Iterator<?> it = cart.iterator();
-					while (it.hasNext()) {
-						CartBean cart_bean = (CartBean) it.next();
-						ProductBean product_bean = productDAO.doRetrieveByKey(cart_bean.getId_product());
-	            %>
-	            <tr>
-					<td><%=product_bean.getName()%></td>
-					<td><%=product_bean.getId()%></td>
-					<td><%=product_bean.getPrice()%></td>
-					<td><%=cart_bean.getQuantity()%></td>
-	                <td>
-	                    <a href="my-cart?action=delete&user=<%=CURRENT_USER_BEAN.getId()%>&product=<%=product_bean.getId()%>">Elimina</a>
-	                </td>
-	            </tr>
-	            <% 
-	            	sum += product_bean.getPrice() * cart_bean.getQuantity();
+	            <%--  
+	            <%
+	            else {
+	            	// Utente non registrato, utilizza il carrello dal cookie
+
+	                // Prendi il cookie "carrello" dalla richiesta
+	                Cookie[] cookies = request.getCookies();
+	                Cookie cartCookie = null;
+	                if (cookies != null) {
+	                    for (Cookie cookie : cookies) {
+	                        if (cookie.getName().equals("cartCookie")) {
+	                            cartCookie = cookie;
+	                            break;
+	                        }
+	                    }
 	                }
-	            } else {
+	                if (cartCookie != null) {
+	                    String cartValue = cartCookie.getValue();
+	                    String[] cartItems = cartValue.split("a");
+
+	                    if (cartItems.length > 0) {
+	                        ProductDAODataSource productDAO = new ProductDAODataSource();
+	                        List<CartBean> cartList = new ArrayList<>();
+
+	                        // Itera sui prodotti nel carrello
+	                        for (String cartItem : cartItems) {
+	                            String[] itemDetails = cartItem.split(":");
+	                            int productId = Integer.parseInt(itemDetails[0]);
+	                            int quantity = Integer.parseInt(itemDetails[1]);
+
+	                            // Ottieni il prodotto dal database utilizzando l'ID del prodotto
+	                            ProductBean product = productDAO.doRetrieveByKey(productId);
+
+	                            // Crea un oggetto CartBean con il prodotto e la quantità
+	                            CartBean cartBean = new CartBean();
+	                            cartBean.setId_product(productId);
+	                            cartBean.setQuantity(quantity);
+
+	                            // Aggiungi l'oggetto CartBean alla lista
+	                            cartList.add(cartBean);
+	                        }
+
+	                        // Visualizza i prodotti nel carrello utilizzando i dati dalla lista di CartBean
+	                        for (CartBean cartBean : cartList) {
+	                            int productId = cartBean.getId_product();
+	                            int quantity = cartBean.getQuantity();
+
+	                            // Ottieni il prodotto dal database utilizzando l'ID del prodotto
+	                            ProductBean product = productDAO.doRetrieveByKey(productId);
+							%>
+							<tr>
+								<td><%=product.getName()%></td>
+								<td><%=product.getId()%></td>
+								<td><%=product.getPrice()%></td>
+								<td><%=quantity%></td>
+		                		<!--
+		                		<td>
+		                    		<a href="my-cart?action=delete&user=<%=CURRENT_USER_BEAN.getId()%>&product=<%=product.getId()%>">Elimina</a>
+		                		</td>
+		                		-->
+		            		</tr>
+							<%
+								sum += product.getPrice() * quantity;
+	                        }
+	                    } else {
+	    		            %>
+	    		            <tr>
+	    		                <td colspan="5">Nessun prodotto nel carrello.</td>
+	    		            </tr>
+	    		         <% }
+	                } //response.sendRedirect("my-cart");
+	            } 
 	            %>
-	            <tr>
-	                <td colspan="5">Nessun prodotto nel carrello.</td>
-	            </tr>
-	            <% } %>
+	            --%>
 	        </tbody>
 	    </table>
 		

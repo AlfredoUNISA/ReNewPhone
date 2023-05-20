@@ -23,7 +23,8 @@ public class UserBean implements Serializable {
     
 	public UserBean() {
 		id = -1;
-		name = "";
+		name = "Utente";
+		surname = "non registrato";
 		email = "";
 		password = "";
 		address = "";
