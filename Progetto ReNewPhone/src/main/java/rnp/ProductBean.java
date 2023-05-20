@@ -20,6 +20,7 @@ public class ProductBean implements Serializable {
     String brand;
     String category;
     String state;
+    int year;
 
 	public ProductBean() {
 		id = -1;
@@ -31,6 +32,15 @@ public class ProductBean implements Serializable {
 		brand = "";
 		category = "";
 		state = "";
+		year=0;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public int getId() {
@@ -100,7 +110,7 @@ public class ProductBean implements Serializable {
 	public String toString() {
 		return "ProductBean [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
 				+ ", quantity=" + quantity + ", color=" + color + ", brand=" + brand + ", category=" + category
-				+ ", state=" + state + "]";
+				+ ", state=" + state + ", year=" + year + "]";
 	}
 
 

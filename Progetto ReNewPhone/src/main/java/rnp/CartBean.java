@@ -3,7 +3,7 @@ package rnp;
 import java.io.Serializable;
 
 /**
- * Bean che contiene tutte le informazioni di un carrello.
+ * Bean che contiene tutte le informazioni di una riga di un carrello.
  * @category Bean
  * @category MODIFICABILE (tutto)
  */

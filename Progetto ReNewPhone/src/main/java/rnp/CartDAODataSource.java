@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -47,21 +47,23 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	 * una connessione al database.
 	 * 
 	 * @param cart_row Oggetto da inserire
+	 * @return Zero
 	 * @category MODIFICABILE
 	 */
 	@Override
-	public synchronized void doSave(CartBean cart_row) throws SQLException {
+	public synchronized int doSave(CartBean cart_row) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		// MODIFICABILE
-		String insertSQL = "INSERT INTO " + CartDAODataSource.TABLE_NAME + " (id_user, id_product, quantity) VALUES (?, ?, ?)";
-
+		String insertSQL = "INSERT INTO " + CartDAODataSource.TABLE_NAME
+				+ " (id_user, id_product, quantity) VALUES (?, ?, ?)";
+		
 		try {
 			connection = ds.getConnection();
 
-			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
 			// MODIFICABILE
 			preparedStatement.setInt(1, cart_row.getId_user());
@@ -70,7 +72,9 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 
 			preparedStatement.executeUpdate();
 
+			connection.setAutoCommit(false);
 			connection.commit();
+
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -80,6 +84,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 					connection.close();
 			}
 		}
+		return 0;
 	}
 
 	/**
@@ -237,7 +242,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 			preparedStatement.setInt(2, id_product);
 
 			ResultSet rs = preparedStatement.executeQuery();
-			
+
 			while (rs.next()) {
 				// MODIFICABILE
 				bean.setId_user(rs.getInt("id_user"));
@@ -264,7 +269,8 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	 *                carrello.
 	 * @param order   Specifica l'ordine di ordinamento dei risultati (se non è
 	 *                nullo aggiunge ORDER BY alla query).
-	 * @return La collezione di oggetti contenente tutte le righe inerenti all'utente.
+	 * @return La collezione di oggetti contenente tutte le righe inerenti
+	 *         all'utente.
 	 * @category MODIFICABILE
 	 */
 	public synchronized Collection<CartBean> doRetrieveByUser(int id_user, String order) throws SQLException {
@@ -277,24 +283,24 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
 		}
-		
+
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 
 			// MODIFICABILE
 			preparedStatement.setInt(1, id_user);
-			
+
 			ResultSet rs = preparedStatement.executeQuery();
-			
+
 			while (rs.next()) {
 				CartBean bean = new CartBean();
-				
+
 				// MODIFICABILE
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setId_product(rs.getInt("id_product"));
 				bean.setQuantity(rs.getInt("quantity"));
-				
+
 				carts.add(bean);
 			}
 		} finally {

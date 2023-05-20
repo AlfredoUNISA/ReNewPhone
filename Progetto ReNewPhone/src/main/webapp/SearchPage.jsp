@@ -2,22 +2,29 @@
 <%@ page import="rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
 
-<%@ page contentType="text/html; charset=ISO-8859-1"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+
+<%-- 					Legenda Sessione
+	CURRENT_USER_ID			  : int 	  -> ID utente corrente
+	CURRENT_USER_BEAN		  : UserBean  -> Bean per utente corrente
+	IS_CURRENT_USER_ADMIN	  : Bool 	  -> Boolean per sapere se l'user è admin
+	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
+--%>
+<%@ include file="_header.jsp"%>
 
 <%
-String query = request.getParameter("q");
-if (query == null)
-	query = "";
-%>
+	String query = request.getParameter("q");
+	if (query == null)
+		query = "";
+	%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/content.css">
+<link rel="stylesheet" href="css/style.css">
 <title>Ricerca</title>
 </head>
 <body>
-	<%@ include file="_header.html"%>
 
 	<div class="content">
 		<h1>Ricerca prodotti</h1>
