@@ -1,4 +1,4 @@
-<%@page import="rnp.ItemsOrderDAODataSource"%>
+<%@ page import="rnp.ItemsOrderDAODataSource"%>
 <%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
 <%@ page import="rnp.ItemOrderBean, rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
@@ -15,7 +15,7 @@
 
 <%@ include file="_header.jsp" %>
 <%
-	if(!IS_CURRENT_USER_ADMIN)
+	if(!IS_CURRENT_USER_REGISTRED)
 		response.sendRedirect("login.jsp");
 %>
 
@@ -53,6 +53,7 @@
 					Iterator<?> it = orders.iterator();
 					while (it.hasNext()) {
 						OrderBean order = (OrderBean) it.next();
+						if(CURRENT_USER_BEAN.getId()==order.getId_user() || IS_CURRENT_USER_ADMIN==true){
 	            %>
 		            <tr>
 		            	<!-- Id Ordine -->
@@ -74,6 +75,7 @@
 		            </tr>
 	            <% 
 	                }
+					}
 	            } else {
 	            %>
 	            <tr>

@@ -1,4 +1,4 @@
-<%@page import="rnp.Login"%>
+<%@ page import="rnp.Login"%>
 <%@page import="rnp.UserDAODataSource"%>
 <%@page import="rnp.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

@@ -18,6 +18,7 @@
 <head>
 	<!-- /products -->
 	<title>Product List</title>
+	<meta charset="UTF-8">
 </head>
 <body>
 	
