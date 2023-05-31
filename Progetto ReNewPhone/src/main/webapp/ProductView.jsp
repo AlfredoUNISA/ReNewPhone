@@ -32,7 +32,9 @@
 	            	<th>Immagine </th>
 	                <th>ID <a href="products?sort=id">Sort</a></th>
 	                <th>Nome <a href="products?sort=name">Sort</a></th>
-	                <th>Descrizione <a href="products?sort=description">Sort</a></th>
+	                <th>Ram <a href="products?sort=ram">Sort</a></th>
+	                <th>Dimensione Display<a href="products?sort=display_size">Sort</a></th>
+	                <th>Memoria Interna<a href="products?sort=storage">Sort</a></th>
 	                <th>Prezzo <a href="products?sort=price">Sort</a></th>
 	                <th>Quantità <a href="products?sort=quantity">Sort</a></th>
 	                <th>Colore <a href="products?sort=color">Sort</a></th>
@@ -58,7 +60,9 @@
 	            	<td><img class="productImg" alt="<%=product.getName()%>" src="resources/<%=product.getModel()%>.jpg"> </td>
 	                <td><%= product.getId() %></td>
 	                <td><%= product.getName() %></td>
-	                <td><%= product.getDescription() %></td>
+	                <td><%=	product.getRam()%></td>
+					<td><%=	product.getDisplay_size()%></td>
+					<td><%=	product.getStorage()%></td>
 	                <td><%= product.getPrice() %></td>
 	                <td><%= product.getQuantity() %></td>
 	                <td><%= product.getColor() %></td>
@@ -89,28 +93,30 @@
 		%>
 			<br>
 			<h2 id="Dettagli">Dettagli</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>Immagine</th>
-						<th>ID</th>
-		                <th>Nome</th>
-		                <th>Descrizione</th>
-		                <th>Prezzo</th>
-		                <th>Quantità</th>
-		                <th>Colore</th>
-		                <th>Marca</th>
-		                <th>Anno</th>
-		                <th>Categoria</th>
-		                <th>Condizioni</th>
-					</tr>
-				</thead>
+			<table class="DetailsTable">
+					<th>
+						<tr></tr>
+						<tr>ID</tr>
+		                <tr>Nome</tr>
+		                <tr>Ram</tr>
+		                <tr>Dimensione Display</tr>
+		                <tr>Memoria Interna</tr>
+		                <tr>Prezzo</tr>
+		                <tr>Quantità</tr>
+		                <tr>Colore</tr>
+		                <tr>Marca</tr>
+		                <tr>Anno</tr>
+		                <tr>Categoria</tr>
+		                <tr>Condizioni</tr>
+					</th>
 				<tbody>
 					<tr>
 						<td><img class="productDetailImg" alt="<%=productDetails.getModel()%>" src="resources/<%=productDetails.getModel()%>.jpg"> </td>
 						<td><%= productDetails.getId() %></td>
 	                	<td><%= productDetails.getName() %></td>
-	                	<td><%= productDetails.getDescription() %></td>
+	                	<td><%=	productDetails.getRam()%>GB</td>
+						<td><%=	productDetails.getDisplay_size()%>''</td>
+						<td><%=	productDetails.getStorage()%>GB</td>
 	                	<td><%= productDetails.getPrice() %></td>
 	                	<td><%= productDetails.getQuantity() %></td>
 	                	<td><%= productDetails.getColor() %></td>
@@ -120,6 +126,7 @@
 						<td><%= productDetails.getState() %></td>
 					</tr>
 				</tbody>
+				<p style="color:darkred; font-weight:bold;"> ATTENZIONE le immagini sono solo a scopo illustrativo. il colore potrebbe variare</p>
 			</table>
 		<%}%>
 	

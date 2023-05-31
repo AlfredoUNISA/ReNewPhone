@@ -44,7 +44,9 @@
 				<th>Immagine</th>
 				<th>Codice</th>
 				<th>Nome</th>
-				<th>Descrizione</th>
+				<th>Ram</th>
+				<th>Dimensione Display</th>
+				<th>Memoria Interna</th>
 				<th>Prezzo</th>
 			</tr>
 			<%
@@ -56,7 +58,9 @@
 				<td><img class="productImg" alt="<%=bean.getModel()%>" src="resources/<%=bean.getModel()%>.jpg"> </td>
 				<td><%=bean.getId()%></td>
 				<td><%=bean.getName()%></td>
-				<td><%=bean.getDescription()%></td>
+				<td><%=bean.getRam()%></td>
+				<td><%=bean.getDisplay_size()%></td>
+				<td><%=bean.getStorage()%></td>
 				<td><%=bean.getPrice()%></td>
 			</tr>
 			<%

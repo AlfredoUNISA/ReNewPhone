@@ -235,7 +235,7 @@ body {
 
 /*----------- MEDIA QUERIES ------------*/
 @media screen and (max-width: 767px) {
-	
+	table,
 	form,
   input[type="email"],
   input[type="text"],
@@ -267,6 +267,16 @@ body {
   
 }
 @media screen and (max-width: 460px) {
+	table,
+	form,
+  input[type="email"],
+  input[type="text"],
+  input[type="username"],
+  input[type="password"],
+  input[type="ricerca"],
+  textarea {
+    width: 100%;
+  }	
   nav{
     justify-content:space-between;
     width: 100%;
@@ -291,6 +301,16 @@ li{
 }
 
 @media screen and (max-width: 376px) {
+	table,
+	form,
+  input[type="email"],
+  input[type="text"],
+  input[type="username"],
+  input[type="password"],
+  input[type="ricerca"],
+  textarea {
+    width: 100%;
+  }	
   nav{
     justify-content:space-between;
     width: 100%;
@@ -459,6 +479,16 @@ nav a:hover {
       max-height: 100%;
       object-fit: cover;
     }
+ .DetailsTable tbody tr, tbody td{
+  border: none;
+  border-collapse: collapse;
+  font-size: 1em;
+  color: #333;
+ }
+ .DetailsTable thead tr, thead td{
+  background-color:none;
+  
+ }
  .productImg{
  width: 5em;
  }   

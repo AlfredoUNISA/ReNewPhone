@@ -88,7 +88,9 @@ public class ProductServlet extends HttpServlet {
 	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// MODIFICABILE
 		String name = request.getParameter("name");
-		String description = request.getParameter("description");
+		int ram= Integer.parseInt(request.getParameter("ram"));
+		float display_size= Float.parseFloat(request.getParameter("display_size"));
+		int storage= Integer.parseInt(request.getParameter("storage"));
 		int price = Integer.parseInt(request.getParameter("price"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String color = request.getParameter("color");
@@ -100,7 +102,9 @@ public class ProductServlet extends HttpServlet {
 		// MODIFICABILE
 		ProductBean product = new ProductBean();
 		product.setName(name);
-		product.setDescription(description);
+		product.setRam(ram);
+		product.setDisplay_size(display_size);
+		product.setStorage(storage);
 		product.setPrice(price);
 		product.setQuantity(quantity);
 		product.setColor(color);

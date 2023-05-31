@@ -13,7 +13,9 @@ public class ProductBean implements Serializable {
 
 	int id;
     String name;
-    String description;
+    int ram;
+    float display_size;
+    int storage;
     int price;
     int quantity;
     String color;
@@ -25,7 +27,6 @@ public class ProductBean implements Serializable {
 	public ProductBean() {
 		id = -1;
 		name = "";
-		description = "";
 		price = 0;
 		quantity = 0;
 		color = "";
@@ -76,17 +77,34 @@ public class ProductBean implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
+	
 	public int getPrice() {
 		return price;
 	}
+	public int getRam() {
+		return ram;
+	}
+
+	public void setRam(int ram) {
+		this.ram = ram;
+	}
+
+	public float getDisplay_size() {
+		return display_size;
+	}
+
+	public void setDisplay_size(float display_size) {
+		this.display_size = display_size;
+	}
+
+	public int getStorage() {
+		return storage;
+	}
+
+	public void setStorage(int storage) {
+		this.storage = storage;
+	}
+
 	public void setPrice(int price) {
 		this.price = price;
 	}
@@ -128,7 +146,7 @@ public class ProductBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductBean [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
+		return "ProductBean [id=" + id + ", name=" + name + ", price=" + price
 				+ ", quantity=" + quantity + ", color=" + color + ", brand=" + brand + ", category=" + category
 				+ ", state=" + state + ", year=" + year + "]";
 	}
