@@ -490,8 +490,14 @@ nav a:hover {
   color: #333;
  }
  
- .productDetailImg{
- width:20em;
+ .detailContent{
+ display:flex;
+ flex-wrap:wrap;
+ width:100%;
+ padding:1em;
+ }
+ .detailImage{
+ width: 30em;
  height:auto;
  }
  
@@ -526,3 +532,5 @@ nav a:hover {
  font-size:120%;
  font-weight:bold;
  }
+
+ 

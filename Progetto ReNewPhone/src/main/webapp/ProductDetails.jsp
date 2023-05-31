@@ -24,6 +24,8 @@
 	<div class="content">
 		<h1>Dettagli</h1>
 			<br>
+		<div class="detailContent">
+			<img class="detailImage" alt="<%=request.getParameter("name")%>" src="resources/<%=request.getParameter("name")%>.jpg">
 			<table class="DetailsTable">
 				<thead>
 					<tr>
@@ -73,7 +75,8 @@
 		<h1> Impossibile trovare i dettagli del prodotto</h1>
 		<%} %>
 				</tbody>
-			</table>
+			</table> 
+			</div>
 				<p style="color:darkred; font-weight:bold;"> ATTENZIONE le immagini sono solo a scopo illustrativo. il colore potrebbe variare</p>
 		
 		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi repellendus veniam illo explicabo repellat veritatis, quis eius. Distinctio mollitia eos eaque rem facere incidunt placeat pariatur, nobis ut deleniti consectetur.</p>
