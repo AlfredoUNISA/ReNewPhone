@@ -24,111 +24,44 @@
 	
 	<div class="content">
 	    <h2>Lista Prodotti</h2>
-	    
-	    <!-- TABELLA PRINCIPALE -->
-	    <table>
-	        <thead>
-	            <tr>
-	            	<th>Immagine </th>
-	                <th>ID <a href="products?sort=id">Sort</a></th>
-	                <th>Nome <a href="products?sort=name">Sort</a></th>
-	                <th>Ram <a href="products?sort=ram">Sort</a></th>
-	                <th>Dimensione Display<a href="products?sort=display_size">Sort</a></th>
-	                <th>Memoria Interna<a href="products?sort=storage">Sort</a></th>
-	                <th>Prezzo <a href="products?sort=price">Sort</a></th>
-	                <th>Quantità <a href="products?sort=quantity">Sort</a></th>
-	                <th>Colore <a href="products?sort=color">Sort</a></th>
-	                <th>Marca <a href="products?sort=brand">Sort</a></th>
-	                <th>Anno <a href="products?sort=year">Sort</a></th>
-	                <th>Categoria <a href="products?sort=category">Sort</a></th>
-	                <th>Condizioni <a href="products?sort=state">Sort</a></th>
-	                <th><i>Azioni</i></th>
-	            </tr>
-	        </thead>
-	        <tbody>
+	    <div class="productsGrid">
 	            <%
 	            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
 	            Collection<?> products = (Collection<?>) request.getAttribute("products");
-	            
+	            //TODO: Visualizzare un solo modello che rappresenta gli altri
 	            // ITERAZIONE
 	            if (products != null && products.size() != 0) {
 					Iterator<?> it = products.iterator();
 					while (it.hasNext()) {
 						ProductBean product = (ProductBean) it.next();
 	            %>
-	            <tr>
-	            	<td><img class="productImg" alt="<%=product.getName()%>" src="resources/<%=product.getModel()%>.jpg"> </td>
-	                <td><%= product.getId() %></td>
-	                <td><%= product.getName() %></td>
-	                <td><%=	product.getRam()%></td>
-					<td><%=	product.getDisplay_size()%></td>
-					<td><%=	product.getStorage()%></td>
-	                <td><%= product.getPrice() %></td>
-	                <td><%= product.getQuantity() %></td>
-	                <td><%= product.getColor() %></td>
-	                <td><%= product.getBrand() %></td>
-	                <td><%= product.getYear() %></td>
-	                <td><%= product.getCategory() %></td>
-	                <td><%= product.getState() %></td>
-	                <td>
-	                    <a href="products?action=details&id=<%= product.getId() %>#Dettagli">Dettagli</a>
-	                    <a href="products?action=delete&id=<%= product.getId() %>">Elimina</a>
-	                </td>
-	            </tr>
+	        	<div id="Product">
+	            	<img class="productImg" alt="<%=product.getModel()%>" src="resources/<%=product.getModel()%>.jpg" style="">
+	            	<div class="productInfo">
+	                <p> <%= product.getName()%> </p>
+	              	<p>  RAM: <%=	product.getRam()%>GB </p>
+					<p> Dimensioni: <%=	product.getDisplay_size()%>'' </p>
+					<p> Memoria: <%=	product.getStorage()%>GB </p>
+	                <p> Marca: <%= product.getBrand()%> </p>
+	                <p> Anno: <%= product.getYear() %> </p>
+	                <p id="price"> Prezzo: <%= product.getPrice()%> euro </p>
+	                <p> <a href="products?action=details&name=<%= product.getName() %>">Dettagli</a> </p>
+	                <p> <a href="products?action=delete&id=<%= product.getId() %>">Elimina</a> </p>
+	               
+				</div> 
+	                
+				</div>
+	            
 	            <% 
 	                }
 	            } else {
 	            %>
-	            <tr>
-	                <td colspan="11">No products found.</td>
-	            </tr>
+
+	               <h1>No products found. </h1>
+
 	            <% } %>
-	        </tbody>
-	    </table>
-		
-		<!-- TABELLA DETTAGLI -->
-		<% 
-			ProductBean productDetails = (ProductBean) request.getAttribute("product-details");
-			if (productDetails != null) {
-		%>
-			<br>
-			<h2 id="Dettagli">Dettagli</h2>
-			<table class="DetailsTable">
-					<th>
-						<tr></tr>
-						<tr>ID</tr>
-		                <tr>Nome</tr>
-		                <tr>Ram</tr>
-		                <tr>Dimensione Display</tr>
-		                <tr>Memoria Interna</tr>
-		                <tr>Prezzo</tr>
-		                <tr>Quantità</tr>
-		                <tr>Colore</tr>
-		                <tr>Marca</tr>
-		                <tr>Anno</tr>
-		                <tr>Categoria</tr>
-		                <tr>Condizioni</tr>
-					</th>
-				<tbody>
-					<tr>
-						<td><img class="productDetailImg" alt="<%=productDetails.getModel()%>" src="resources/<%=productDetails.getModel()%>.jpg"> </td>
-						<td><%= productDetails.getId() %></td>
-	                	<td><%= productDetails.getName() %></td>
-	                	<td><%=	productDetails.getRam()%>GB</td>
-						<td><%=	productDetails.getDisplay_size()%>''</td>
-						<td><%=	productDetails.getStorage()%>GB</td>
-	                	<td><%= productDetails.getPrice() %></td>
-	                	<td><%= productDetails.getQuantity() %></td>
-	                	<td><%= productDetails.getColor() %></td>
-	                	<td><%= productDetails.getBrand() %></td>
-	                	<td><%= productDetails.getYear() %></td>
-						<td><%= productDetails.getCategory() %></td>
-						<td><%= productDetails.getState() %></td>
-					</tr>
-				</tbody>
-				<p style="color:darkred; font-weight:bold;"> ATTENZIONE le immagini sono solo a scopo illustrativo. il colore potrebbe variare</p>
-			</table>
-		<%}%>
+		</div>
+			
 	
 		<!-- PARTE DELL'INSERIMENTO -->
 		<br>

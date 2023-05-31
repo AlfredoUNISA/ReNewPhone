@@ -68,7 +68,7 @@ public class ProductBean implements Serializable {
 				.replace("Lite","").strip();
 		
 
-		if(model.endsWith("a") || model.endsWith("s")) {
+		if(model.toLowerCase().endsWith("a") || model.toLowerCase().endsWith("s")) {
 			model=model.substring(0,model.length()-1);
 		}
 		return model;

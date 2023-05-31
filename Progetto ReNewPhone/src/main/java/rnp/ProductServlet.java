@@ -40,7 +40,7 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		// Ricarica tutte le righe e forward alla jsp
-		showAllRows(request, response, sort);
+		showAllRows(request, response, "id");
 	}
 
 	/**
@@ -62,21 +62,17 @@ public class ProductServlet extends HttpServlet {
 	}
 
 	/**
-	 * Mostra i dettagli di una riga all'interno della tabella "Dettagli".
+	 * Mostra i dettagli di una riga all'interno della jsp "ProductDetails".
 	 */
 	private void showRowDetails(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
 		
 		try {
 			// MODIFICABILE
-			ProductBean product = productDAO.doRetrieveByKey(id);
-			if (product != null) {
-				request.removeAttribute("product-details");
-				request.setAttribute("product-details", product);
-			} else {
-				System.out.println("**404** Product not found for showRowDetails (id_product = " + id + ")");
-			}
+			//request.removeAttribute("product-details");
+			request.setAttribute("product-details", productDAO.doRetrieveByName(name));
+			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
 		}

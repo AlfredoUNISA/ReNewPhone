@@ -479,20 +479,50 @@ nav a:hover {
       max-height: 100%;
       object-fit: cover;
     }
- .DetailsTable tbody tr, tbody td{
-  border: none;
+    
+ /*---------Stile tabella prodotti-------------- */
+ .DetailsTable table, .DetailsTable tr, .DetailsTable td{
   border-collapse: collapse;
+  border:none;
+  max-width: 800px;
+  margin: 0 auto;
   font-size: 1em;
   color: #333;
  }
- .DetailsTable thead tr, thead td{
-  background-color:none;
-  
- }
- .productImg{
- width: 5em;
- }   
- .productDetailImg{
  
- width: 15em;
- }   
+ .productDetailImg{
+ width:20em;
+ height:auto;
+ }
+ 
+/*---------Stile della pagina di visualizzazione dei prodotti-------------- */
+
+ .productsGrid{
+  display:flex;
+  font-size: .8em;
+  align-items: center; 
+  flex-wrap:wrap;
+  justify-content: space-between;
+ }
+ #Product{
+  padding: 1em;
+  display: flex;
+  font-size: 1.5em;
+  flex-wrap: wrap;
+  margin-left: 0.7em;
+  margin-bottom: 1em;
+  border: 1px solid black;
+  transition: transform 0.3s ease-in-out;
+  background-color:white;
+}
+ #Product:hover{
+  transform: scale(1.1);
+  }
+ #Product img{
+  width: 10em;
+  height:11em;
+ }
+ #price{
+ font-size:120%;
+ font-weight:bold;
+ }

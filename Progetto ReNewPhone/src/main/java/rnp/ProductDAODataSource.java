@@ -201,6 +201,73 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 	}
 
 	/**
+	 * Seleziona tutte le righe dalla tabella "TABLE_NAME" e restituisce una
+	 * collezione di oggetti.
+	 * 
+	 * @param order Specifica l'ordine di ordinamento dei risultati (se non è nullo
+	 *              aggiunge ORDER BY alla query).
+	 * @return La collezione di oggetti contenente tutte le righe della tabella.
+	 * @category MODIFICABILE
+	 */
+	public synchronized Collection<ProductBean> doRetrieveByName(String name) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
+
+		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME + " WHERE name LIKE ?";
+
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			if (name != null && !name.equals("")) {
+				preparedStatement.setString(1,name);
+			}
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+
+				// MODIFICABILE
+				bean.setId(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setRam(rs.getInt("ram"));
+				bean.setDisplay_size(rs.getFloat("display_size"));
+				bean.setStorage(rs.getInt("storage"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setColor(rs.getString("color"));
+				bean.setBrand(rs.getString("brand"));
+				bean.setYear(rs.getInt("year"));
+				bean.setCategory(rs.getString("category"));
+				bean.setState(rs.getString("state"));
+
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
 	 * Seleziona una singola riga dalla tabella "TABLE_NAME" in base al codice del
 	 * prodotto.
 	 * 
