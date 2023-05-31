@@ -53,6 +53,26 @@ public class ProductBean implements Serializable {
 	public String getName() {
 		return name;
 	}
+	
+	public String getModel() {
+		String model;
+		model=name.substring(0);
+		
+		model=model.replace("Pro", "")
+				.replace("Max", "")
+				.replace("Mini", "")
+				.replace("Plus","")
+				.replace("Ultra", "")
+				.replace("gen","")
+				.replace("Lite","").strip();
+		
+
+		if(model.endsWith("a") || model.endsWith("s")) {
+			model=model.substring(0,model.length()-1);
+		}
+		return model;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}

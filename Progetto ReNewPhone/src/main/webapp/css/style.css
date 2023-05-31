@@ -460,6 +460,9 @@ nav a:hover {
       object-fit: cover;
     }
  .productImg{
- width: 100px;
+ width: 5em;
  }   
-    
+ .productDetailImg{
+ 
+ width: 15em;
+ }   

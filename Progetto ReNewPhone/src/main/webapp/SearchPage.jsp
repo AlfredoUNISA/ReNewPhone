@@ -41,6 +41,7 @@
 		%>
 		<table>
 			<tr>
+				<th>Immagine</th>
 				<th>Codice</th>
 				<th>Nome</th>
 				<th>Descrizione</th>
@@ -52,6 +53,7 @@
 				ProductBean bean = (ProductBean) it.next();
 			%>
 			<tr>
+				<td><img class="productImg" alt="<%=bean.getModel()%>" src="resources/<%=bean.getModel()%>.jpg"> </td>
 				<td><%=bean.getId()%></td>
 				<td><%=bean.getName()%></td>
 				<td><%=bean.getDescription()%></td>

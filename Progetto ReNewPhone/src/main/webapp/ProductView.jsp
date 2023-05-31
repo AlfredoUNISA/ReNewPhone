@@ -29,7 +29,7 @@
 	    <table>
 	        <thead>
 	            <tr>
-	            	<th>Immagine</a> </th>
+	            	<th>Immagine </th>
 	                <th>ID <a href="products?sort=id">Sort</a></th>
 	                <th>Nome <a href="products?sort=name">Sort</a></th>
 	                <th>Descrizione <a href="products?sort=description">Sort</a></th>
@@ -55,7 +55,7 @@
 						ProductBean product = (ProductBean) it.next();
 	            %>
 	            <tr>
-	            	<td><img class="productImg" alt="<%=product.getName() %>" src="resources/<%=product.getName() %>.jpg"> </td>
+	            	<td><img class="productImg" alt="<%=product.getName()%>" src="resources/<%=product.getModel()%>.jpg"> </td>
 	                <td><%= product.getId() %></td>
 	                <td><%= product.getName() %></td>
 	                <td><%= product.getDescription() %></td>
@@ -92,6 +92,7 @@
 			<table>
 				<thead>
 					<tr>
+						<th>Immagine</th>
 						<th>ID</th>
 		                <th>Nome</th>
 		                <th>Descrizione</th>
@@ -106,6 +107,7 @@
 				</thead>
 				<tbody>
 					<tr>
+						<td><img class="productDetailImg" alt="<%=productDetails.getModel()%>" src="resources/<%=productDetails.getModel()%>.jpg"> </td>
 						<td><%= productDetails.getId() %></td>
 	                	<td><%= productDetails.getName() %></td>
 	                	<td><%= productDetails.getDescription() %></td>
