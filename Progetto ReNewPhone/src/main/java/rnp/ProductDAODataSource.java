@@ -259,7 +259,64 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		return products;
 	}
 	
-	
+	public synchronized Collection<ProductBean> doRetrieveByModel(String order) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
+
+		String selectSQL = "SELECT name, MIN(ram) AS min_ram, MAX(ram) AS max_ram,"
+				+ " MIN(display_size) AS min_display_size, MAX(display_size) AS max_display_size,"
+				+ "	MIN(storage) AS min_storage, MAX(storage) AS max_storage,"
+				+ "	MIN(price) AS min_price, MAX(price) AS max_price,"
+				+ "	MIN(quantity) AS min_quantity, MAX(quantity) AS max_quantity,"
+				+ "	MIN(year) AS min_year, MAX(year) AS max_year "
+				+ " FROM " + ProductDAODataSource.TABLE_NAME
+				+ " WHERE name = ?"
+				+ " GROUP BY name";
+
+
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY " + order;
+		}
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+
+				// MODIFICABILE
+				bean.setId(rs.getInt("id"));
+				bean.setName(rs.getString("name"));
+				bean.setRam(rs.getInt("ram"));
+				bean.setDisplay_size(rs.getFloat("display_size"));
+				bean.setStorage(rs.getInt("storage"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setColor(rs.getString("color"));
+				bean.setBrand(rs.getString("brand"));
+				bean.setYear(rs.getInt("year"));
+				bean.setCategory(rs.getString("category"));
+				bean.setState(rs.getString("state"));
+
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
 	
 	
 	

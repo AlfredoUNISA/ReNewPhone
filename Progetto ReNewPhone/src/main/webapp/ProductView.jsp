@@ -1,3 +1,4 @@
+<%@page import="java.util.stream.Collectors"%>
 <%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
 <%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
@@ -28,28 +29,78 @@
 	            <%
 	            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
 	            Collection<?> products = (Collection<?>) request.getAttribute("products");
-	            //TODO: Visualizzare un solo modello che rappresenta gli altri
+	            
 	            // ITERAZIONE
 	            if (products != null && products.size() != 0) {
-					Iterator<?> it = products.iterator();
-					while (it.hasNext()) {
-						ProductBean product = (ProductBean) it.next();
+	            	// Raggruppare i prodotti per nome e calcolare i valori minimi e massimi di ram, storage e price
+	                Map<String, List<ProductBean>> groupedProducts = new HashMap<>();
+	            	
+	            	// Mapping Iniziale: nome / lista di prodotti con lo stesso nome
+					Iterator<?> itMapping = products.iterator();
+					while (itMapping.hasNext()) {
+						ProductBean product = (ProductBean) itMapping.next();
+						
+						String productName = product.getName();
+						List<ProductBean> productList = groupedProducts.getOrDefault(productName, new ArrayList<>());
+						productList.add(product);
+			            groupedProducts.put(productName, productList);
+					}
+					
+					// Calcola e Mostra i valori minimi e massimi di ram, storage e price per ogni nome di prodotto
+			        for (Map.Entry<String, List<ProductBean>> entry : groupedProducts.entrySet()) {
+			            String productName = entry.getKey();
+			            List<ProductBean> productList = entry.getValue();
+
+			            int minRam = Integer.MAX_VALUE;
+			            int maxRam = Integer.MIN_VALUE;
+			            int minStorage = Integer.MAX_VALUE;
+			            int maxStorage = Integer.MIN_VALUE;
+			            int minPrice = Integer.MAX_VALUE;
+			            int maxPrice = Integer.MIN_VALUE;
+
+			            for (ProductBean product : productList) {
+			                minRam = Math.min(minRam, product.getRam());
+			                maxRam = Math.max(maxRam, product.getRam());
+			                minStorage = Math.min(minStorage, product.getStorage());
+			                maxStorage = Math.max(maxStorage, product.getStorage());
+			                minPrice = Math.min(minPrice, product.getPrice());
+			                maxPrice = Math.max(maxPrice, product.getPrice());
+			            }
+						
+			            ProductBean productBean = productList.get(0);
 	            %>
 	        	<div id="Product">
-	            	<img class="productImg" alt="<%=product.getModel()%>" src="resources/<%=product.getModel()%>.jpg" style="">
+	            	<img class="productImg" alt="<%=productBean.getModel()%>" src="resources/<%=productBean.getModel()%>.jpg" style="">
 	            	<div class="productInfo">
-	                <p> <%= product.getName()%> </p>
-	              	<p>  RAM: <%=	product.getRam()%>GB </p>
-					<p> Dimensioni: <%=	product.getDisplay_size()%>'' </p>
-					<p> Memoria: <%=	product.getStorage()%>GB </p>
-	                <p> Marca: <%= product.getBrand()%> </p>
-	                <p> Anno: <%= product.getYear() %> </p>
-	                <p id="price"> Prezzo: <%= product.getPrice()%> euro </p>
-	                <p> <a href="products?action=details&name=<%= product.getName() %>">Dettagli</a> </p>
-	                <p> <a href="products?action=delete&id=<%= product.getId() %>">Elimina</a> </p>
-	               
-				</div> 
-	                
+		                <p> <%= productName %> </p>
+		                
+		                <% if(minRam == maxRam) { %>
+		              		<p> RAM: <%= minRam %>GB </p>
+		              	<% } else { %>
+		              		<p> RAM (min-max): <%= minRam %>GB - <%= maxRam %>GB </p>
+		              	<% } %>
+		              	
+						<p> Dimensioni: <%= productBean.getDisplay_size() %>'' </p>
+						
+						<% if(minStorage == maxStorage) { %>
+							<p> Memoria: <%= minStorage %>GB </p>
+						<% } else { %>
+							<p> Memoria (min-max): <%= minStorage %>GB - <%= maxStorage %>GB </p>
+						<% } %>
+						
+		                <p> Marca: <%= productBean.getBrand() %> </p>
+		                
+		                <p> Anno: <%= productBean.getYear() %> </p>
+		                
+		                <% if(minPrice == maxPrice) { %>
+		                	<p id="price"> Prezzo: <%= minPrice %> € </p>
+		                <% } else { %>
+		                	<p id="price"> Prezzo (min-max): <%= minPrice %> € - <%= maxPrice %> € </p>
+		                <% } %>
+		                
+		                <p> <a href="products?action=details&name=<%= productBean.getName() %>">Dettagli</a> </p>
+		                <p> <a href="products?action=delete&id=<%= productBean.getId() %>">Elimina</a> </p>
+					</div> 
 				</div>
 	            
 	            <% 
