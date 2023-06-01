@@ -1,4 +1,4 @@
-UltraDROP DATABASE IF EXISTS renewphonedb;
+DROP DATABASE IF EXISTS renewphonedb;
 CREATE DATABASE renewphonedb;
 USE renewphonedb;
 
@@ -486,7 +486,7 @@ INSERT INTO products (name, ram, display_size, storage, price, quantity, color, 
 ('Pixel 7 Pro', 12, 6.7, 128, 615, 10, 'Nero', 'Google', 'Smartphone', 'Buono', 2022),
 ('Pixel 7 Pro', 12, 6.7, 128, 635, 10, 'Nero', 'Google', 'Smartphone', 'Ottimo', 2022),
 ('Pixel 7 Pro', 12, 6.7, 128, 615, 10, 'Bianco', 'Google', 'Smartphone', 'Buono', 2022),
-('Pixel 7 Pro', 12, 6.7, 128, 635, 10, 'Bianco', 'Google', 'Smartphone', 'Ottimo', 2022),
+('Pixel 7 Pro', 12, 6.7, 128, 635, 10, 'Bianco', 'Google', 'Smartphone', 'Ottimo', 2022);
 
 INSERT INTO users (name, surname, email, password, address, city, cap, phone) VALUES
 ('John', 'Doe', 'johndoe@example.com', 'password123', '123 Main St', 'Anytown', '12345', '555-1234'),
