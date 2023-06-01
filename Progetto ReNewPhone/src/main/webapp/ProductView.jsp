@@ -99,7 +99,6 @@
 		                <% } %>
 		                
 		                <p> <a href="products?action=details&name=<%= productBean.getName() %>">Dettagli</a> </p>
-		                <p> <a href="products?action=delete&id=<%= productBean.getId() %>">Elimina</a> </p>
 					</div> 
 				</div>
 	            
