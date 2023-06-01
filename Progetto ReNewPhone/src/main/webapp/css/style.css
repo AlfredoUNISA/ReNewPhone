@@ -523,14 +523,18 @@ nav a:hover {
 }
  #Product:hover{
   transform: scale(1.1);
-  }
+  }/*
  #Product img{
   width: 10em;
   height:11em;
- }
+ }*/
  #price{
  font-size:120%;
  font-weight:bold;
  }
-
+.productImg{
+	width:10em;
+	height:11.83em;
+	
+}
  
