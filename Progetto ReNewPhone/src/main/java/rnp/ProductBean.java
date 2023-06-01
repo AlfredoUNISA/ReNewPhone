@@ -64,8 +64,8 @@ public class ProductBean implements Serializable {
 				.replace("Mini", "")
 				.replace("Plus","")
 				.replace("Ultra", "")
-				.replace("gen","")
-				.replace("Lite","").strip();
+				.replace("Lite","")
+				.replace("mini","").strip();
 		
 
 		if(model.toLowerCase().endsWith("a") || model.toLowerCase().endsWith("s")) {
