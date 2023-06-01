@@ -1,4 +1,4 @@
-UltraDROP DATABASE IF EXISTS renewphonedb;
+DROP DATABASE IF EXISTS renewphonedb;
 CREATE DATABASE renewphonedb;
 USE renewphonedb;
 
