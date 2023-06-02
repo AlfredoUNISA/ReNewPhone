@@ -31,6 +31,7 @@ public class ProductServlet extends HttpServlet {
 				addRow(request, response);
 				break;
 			case "delete":
+				// TODO: da vedere se un utente è autorizzato a cancellare un prodotto
 				deleteRow(request, response);
 				break;
 			default:
