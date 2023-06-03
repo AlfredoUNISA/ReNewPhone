@@ -24,7 +24,17 @@
 	<div class="content">
 		<h1>Dettagli</h1>
 			<br>
-		<div class="detailContent">
+		
+		<%
+		// OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
+        Collection<?> products = (Collection<?>) request.getAttribute("product-details");
+        
+        // Controllo se il prodotto è presente nel DB
+        if (products != null && products.size() != 0) {
+        	
+        	
+        %>
+        <div class="detailContent">
 			<img class="detailImage" alt="<%=request.getParameter("name")%>" src="resources/<%=request.getParameter("name")%>.jpg">
 			<table class="DetailsTable">
 				<thead>
@@ -43,13 +53,9 @@
 		                <th>Condizioni</th>
 					</tr>
 				</thead>
-		<%
-		// OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
-        Collection<?> products = (Collection<?>) request.getAttribute("product-details");
-        
-        // ITERAZIONE
-        if (products != null && products.size() != 0) {
-			Iterator<?> it = products.iterator();
+        <%
+        //ITERAZIONE
+        	Iterator<?> it = products.iterator();
 			while (it.hasNext()) {
 				ProductBean productDetails = (ProductBean) it.next();
        
@@ -70,14 +76,14 @@
 						<td><%= productDetails.getCategory() %></td>
 						<td><%= productDetails.getState() %></td>
 					</tr>
-		<%}  }
-        	else {%>
-		<h1> Impossibile trovare i dettagli del prodotto</h1>
+		<%}  //End while
+         } /*End If*/ else {%>
+		<h1 style="font-weight:bold;"> Impossibile trovare i dettagli del prodotto <%=request.getParameter("name")%></h1>
 		<%} %>
 				</tbody>
 			</table> 
 			</div>
-				<p style="color:darkred; font-weight:bold;"> ATTENZIONE le immagini sono solo a scopo illustrativo. il colore potrebbe variare</p>
+		<p style="color:darkred; font-weight:bold;"> ATTENZIONE le immagini sono solo a scopo illustrativo. il colore potrebbe variare</p>
 		
 		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi repellendus veniam illo explicabo repellat veritatis, quis eius. Distinctio mollitia eos eaque rem facere incidunt placeat pariatur, nobis ut deleniti consectetur.</p>
 	</div>
