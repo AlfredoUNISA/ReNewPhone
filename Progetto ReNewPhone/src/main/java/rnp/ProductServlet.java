@@ -2,11 +2,15 @@ package rnp;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.*;
 
 /**
  * Servlet implementation class ProductServlet
@@ -34,6 +38,9 @@ public class ProductServlet extends HttpServlet {
 				// TODO: da vedere se un utente è autorizzato a cancellare un prodotto
 				deleteRow(request, response);
 				break;
+			case "getProducts":
+				showAllRows(request, response, "id");
+				break;
 			default:
 				response.sendRedirect(request.getContextPath());
 				break;
@@ -53,9 +60,12 @@ public class ProductServlet extends HttpServlet {
 	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort)
 			throws ServletException, IOException {
 		try {
-			// MODIFICABILE
-			request.removeAttribute("products");
-			request.setAttribute("products", productDAO.doRetrieveAll(sort));
+			Collection<ProductBean> products = productDAO.doRetrieveAll(sort);
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(products);
+			
+			request.setAttribute("productsJson", json);
 			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);

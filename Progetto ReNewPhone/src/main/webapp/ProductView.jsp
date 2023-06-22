@@ -17,99 +17,62 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<!-- /products -->
 	<title>Product List</title>
-	<meta charset="UTF-8">
 </head>
 <body>
 	
 	<div class="content">
 	    <h2>Lista Prodotti</h2>
 	    <div class="productsGrid">
-	            <%
-	            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
-	            Collection<?> products = (Collection<?>) request.getAttribute("products");
-	            
-	            // ITERAZIONE
-	            if (products != null && products.size() != 0) {
-	            	// Raggruppare i prodotti per nome e calcolare i valori minimi e massimi di ram, storage e price
-	                Map<String, List<ProductBean>> groupedProducts = new HashMap<>();
-	            	
-	            	// Mapping Iniziale: nome / lista di prodotti con lo stesso nome
-					Iterator<?> itMapping = products.iterator();
-					while (itMapping.hasNext()) {
-						ProductBean product = (ProductBean) itMapping.next();
-						
-						String productName = product.getName();
-						List<ProductBean> productList = groupedProducts.getOrDefault(productName, new ArrayList<>());
-						productList.add(product);
-			            groupedProducts.put(productName, productList);
-					}
-					
-					// Calcola e Mostra i valori minimi e massimi di ram, storage e price per ogni nome di prodotto
-			        for (Map.Entry<String, List<ProductBean>> entry : groupedProducts.entrySet()) {
-			            String productName = entry.getKey();
-			            List<ProductBean> productList = entry.getValue();
 
-			            int minRam = Integer.MAX_VALUE;
-			            int maxRam = Integer.MIN_VALUE;
-			            int minStorage = Integer.MAX_VALUE;
-			            int maxStorage = Integer.MIN_VALUE;
-			            int minPrice = Integer.MAX_VALUE;
-			            int maxPrice = Integer.MIN_VALUE;
-
-			            for (ProductBean product : productList) {
-			                minRam = Math.min(minRam, product.getRam());
-			                maxRam = Math.max(maxRam, product.getRam());
-			                minStorage = Math.min(minStorage, product.getStorage());
-			                maxStorage = Math.max(maxStorage, product.getStorage());
-			                minPrice = Math.min(minPrice, product.getPrice());
-			                maxPrice = Math.max(maxPrice, product.getPrice());
-			            }
-						
-			            ProductBean productBean = productList.get(0);
-	            %>
-	        	<div id="Product">
-	            	<img class="productImg" alt="<%=productBean.getModel()%>" src="resources/<%=productBean.getModel()%>.jpg" style="">
-	            	<div class="productInfo">
-		                <p> <%= productName %> </p>
-		                
-		                <% if(minRam == maxRam) { %>
-		              		<p> RAM: <%= minRam %>GB </p>
-		              	<% } else { %>
-		              		<p> RAM (min-max): <%= minRam %>GB - <%= maxRam %>GB </p>
-		              	<% } %>
-		              	
-						<p> Dimensioni: <%= productBean.getDisplay_size() %>'' </p>
-						
-						<% if(minStorage == maxStorage) { %>
-							<p> Memoria: <%= minStorage %>GB </p>
-						<% } else { %>
-							<p> Memoria (min-max): <%= minStorage %>GB - <%= maxStorage %>GB </p>
-						<% } %>
-						
-		                <p> Marca: <%= productBean.getBrand() %> </p>
-		                
-		                <p> Anno: <%= productBean.getYear() %> </p>
-		                
-		                <% if(minPrice == maxPrice) { %>
-		                	<p id="price"> Prezzo: <%= minPrice %> € </p>
-		                <% } else { %>
-		                	<p id="price"> Prezzo (min-max): <%= minPrice %> € - <%= maxPrice %> € </p>
-		                <% } %>
-		                
-		                <p> <a href="products?action=details&name=<%= productBean.getName() %>">Dettagli</a> </p>
-					</div> 
-				</div>
-	            
-	            <% 
-	                }
-	            } else {
-	            %>
-
-	               <h1>No products found. </h1>
-
-	            <% } %>
+<!-- Aggiungi il seguente script JavaScript -->
+<script>
+	$(document).ready(function(){
+	var productsJson = '${productsJson}';
+	
+	// Analizza la stringa JSON in un oggetto JavaScript
+	var product = JSON.parse(productsJson);
+	//create a map to organize data in product by name
+	var productMap = new Map();
+	//TODO: IMPLEMENTARE IL COSTO MINIMO E IL COSTO MASSIMO
+	var minRam=Number.MAX_SAFE_INTEGER;
+	var  maxRam=Number.MIN_SAFE_INTEGER;
+	var  minPrice=Number.MAX_SAFE_INTEGER; 
+	var  maxPrice=Number.MIN_SAFE_INTEGER;
+	var  minStorage=Number.MAX_SAFE_INTEGER; 
+	var  maxStorage=Number.MIN_SAFE_INTEGER;
+	
+	for(var i=0; product[i+1]!=null; i++){
+		
+		productMap.set(product[i].name, product[i]);
+	}
+	
+	 // Itera sui prodotti e visualizzali
+		productMap.forEach(function(productMap) {
+		  // Crea il markup HTML per un singolo prodotto
+		  var html = '<div id="Product">' +
+		    '<img class="productImg" alt="' + productMap.model + '" src="resources/' + productMap.model + '.jpg">' +
+		    '<div class="productInfo">' +
+		    '<p>' + productMap.name + '</p>' +
+		    '<p>RAM: ' + productMap.ram + 'GB</p>' +
+		    '<p>Dimensioni: ' + productMap.display_size + '""</p>' +
+		    '<p>Memoria: ' + productMap.storage + 'GB</p>' +
+		    '<p>Marca: ' + productMap.brand + '</p>' +
+		    '<p>Anno: ' + productMap.year + '</p>' +
+		    '<p>Prezzo: ' + productMap.price + '€</p>' +
+		    '<p><a href="products?action=details&name=' + productMap.name + '">Dettagli</a></p>' +
+		    '</div>' +
+		    '</div>';
+		
+		  // Aggiungi il markup HTML al contenitore dei prodotti
+		  $('.productsGrid').append(html);
+		}); 
+	});
+</script>
 		</div>
 			
 	
