@@ -2,7 +2,10 @@ package rnp;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +27,13 @@ public class ProductServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String sort = request.getParameter("sort");
-
+		int productsPerPage=0,currentPage=0;
+		if(request.getParameter("productsPerPage") != null || request.getParameter("page")!= null) {
+			productsPerPage= Integer.parseInt(request.getParameter("productsPerPage"));
+			currentPage= Integer.parseInt(request.getParameter("page"));
+		}else {
+			productsPerPage= 9;
+		}
 		// Esegui azioni opzionali
 		if (action != null) {
 			switch (action) {
@@ -39,17 +48,18 @@ public class ProductServlet extends HttpServlet {
 				deleteRow(request, response);
 				break;
 			case "getProducts":
-				showAllRows(request, response, "id");
+				showAllRows(request, response, "id",productsPerPage,currentPage);
 				break;
 			default:
 				response.sendRedirect(request.getContextPath());
 				break;
 			}
 		}
-
-		// Ricarica tutte le righe e forward alla jsp
-		showAllRows(request, response, "id");
+		else {
+			showAllRows(request, response, "id",productsPerPage,1);
+		}
 	}
+
 
 	/**
 	 * Mostra tutte le righe all'interno della tabella principale. Incaricato di
@@ -57,20 +67,48 @@ public class ProductServlet extends HttpServlet {
 	 * 
 	 * @param sort Specifica l'ordine di ordinamento dei risultati
 	 */
-	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort)
+	/*private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort)
 			throws ServletException, IOException {
 		try {
 			Collection<ProductBean> products = productDAO.doRetrieveAll(sort);
 			
 			Gson gson = new Gson();
 			String json = gson.toJson(products);
+			request.removeAttribute("productsJson");
+			request.setAttribute("productsJson", json);
+			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
+		} catch (SQLException e) {
+			System.out.println("ERROR: " + e);
+		}
+	}*/
+	
+	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort, int productsPerPage, int pageNumber)
+			throws ServletException, IOException {
+		try {
+			Collection<ProductBean> products = productDAO.doRetrieveAll(sort);
+			LinkedList<ProductBean> Ar= (LinkedList<ProductBean>) (products);
+			Collection<ProductBean> resultProducts = new ArrayList<>(); 
+			for(int i=productsPerPage*(pageNumber-1);  i<(productsPerPage*pageNumber); i++) {
+				resultProducts.add(Ar.get(i));
+			}
+			System.out.println("size: " + products.size());
+			Gson gson = new Gson();
+			JsonElement json = gson.toJsonTree(resultProducts);
 			
+			//Invio il numero di prodotti nel magazzino per permettere la suddivisione in più pagine
+			
+			request.removeAttribute("productNum");
+			request.setAttribute("productsNum", products.size());
+			
+			//Invio i productsPerPage elementi alla pagina jsp come JSON
+			request.removeAttribute("productsJson");
 			request.setAttribute("productsJson", json);
 			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
 		}
 	}
+	
 
 	/**
 	 * Mostra i dettagli di una riga all'interno della jsp "ProductDetails".
