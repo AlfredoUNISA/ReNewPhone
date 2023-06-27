@@ -29,10 +29,8 @@
 	    <div class="productsGrid">
 			<script type="text/javascript"><%@include file="js/ajaxScript.js" %></script>
 		</div>
-	
-		<div id="pagination"></div>
 		
-		
+		<button id="loadMoreButton" onclick="oadMoreProducts()">Carica Altro</button>
 		
 		
 		

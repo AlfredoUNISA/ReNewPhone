@@ -28,15 +28,12 @@ public class ProductServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String sort = request.getParameter("sort");
 
-		int productsPerPage = 0;
-		int currentPage = 0;
+		int productsPerLoading = 8;
+		int countLoadings = 0;
 		
-		if(request.getParameter("productsPerPage") != null || request.getParameter("page") != null) {
-			productsPerPage = Integer.parseInt(request.getParameter("productsPerPage"));
-			currentPage = Integer.parseInt(request.getParameter("page"));
-		} else {
-			productsPerPage = 8;
-			currentPage = 1;
+		if(request.getAttribute("productsPerLoading") != null || request.getAttribute("countLoadings") != null) {
+			productsPerLoading = (int) request.getAttribute("productsPerLoading");
+			countLoadings = (int) request.getAttribute("countLoadings");
 		}
 		
 		// Esegui azioni opzionali
@@ -52,16 +49,13 @@ public class ProductServlet extends HttpServlet {
 				// TODO: da vedere se un utente è autorizzato a cancellare un prodotto
 				deleteRow(request, response);
 				break;
-			case "getProducts":
-				showAllRows(request, response, "id",productsPerPage,currentPage);
-				break;
 			default:
 				response.sendRedirect(request.getContextPath());
 				break;
 			}
 		}
 		else {
-			showAllRows(request, response, "id", productsPerPage, currentPage);
+			showAllRows(request, response, "id", productsPerLoading, countLoadings);
 		}
 	}
 
@@ -87,13 +81,18 @@ public class ProductServlet extends HttpServlet {
 		}
 	}*/
 	
-	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort, int productsPerPage, int pageNumber)
+	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort, int productsPerLoading, int countLoadings)
 			throws ServletException, IOException {
 		try {
+			// Prendi tutti i prodotti
 			LinkedList<ProductBean> listProducts = (LinkedList<ProductBean>) productDAO.doRetrieveAll(sort);
+			
+			// Crea un Array List con i prodotti risultanti
 			Collection<ProductBean> resultProducts = new ArrayList<>(); 
+			
 			// TODO: Implementare la mappa
-			for(int i = productsPerPage*(pageNumber-1); i < (productsPerPage*pageNumber); i++) {
+			
+			for(int i = (productsPerLoading*countLoadings); i < (productsPerLoading*(countLoadings+1)); i++) {
 				resultProducts.add(listProducts.get(i));
 			}
 			
@@ -105,11 +104,11 @@ public class ProductServlet extends HttpServlet {
 			Gson gson = new Gson();
 			JsonElement json = gson.toJsonTree(resultProducts);
 			
-			// Invio il numero di prodotti nel magazzino per permettere la suddivisione in più pagine
-			request.removeAttribute("productsNum");
-			request.setAttribute("productsNum", listProducts.size());
+			// Imposta il numero di volte che è stato cliccato il pulsante "aggiungi altri"
+			request.removeAttribute("countLoadings");
+			request.setAttribute("countLoadings", ++countLoadings);
 			
-			// Invio i productsPerPage elementi alla pagina jsp come JSON
+			// Invia gli n (productsPerLoading) elementi alla pagina jsp come JSON
 			request.removeAttribute("productsJson");
 			request.setAttribute("productsJson", json);
 			System.out.println(json);
