@@ -27,13 +27,18 @@ public class ProductServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String sort = request.getParameter("sort");
-		int productsPerPage=0,currentPage=0;
-		if(request.getParameter("productsPerPage") != null || request.getParameter("page")!= null) {
-			productsPerPage= Integer.parseInt(request.getParameter("productsPerPage"));
-			currentPage= Integer.parseInt(request.getParameter("page"));
-		}else {
-			productsPerPage= 9;
+
+		int productsPerPage = 0;
+		int currentPage = 0;
+		
+		if(request.getParameter("productsPerPage") != null || request.getParameter("page") != null) {
+			productsPerPage = Integer.parseInt(request.getParameter("productsPerPage"));
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		} else {
+			productsPerPage = 8;
+			currentPage = 1;
 		}
+		
 		// Esegui azioni opzionali
 		if (action != null) {
 			switch (action) {
@@ -56,7 +61,7 @@ public class ProductServlet extends HttpServlet {
 			}
 		}
 		else {
-			showAllRows(request, response, "id",productsPerPage,1);
+			showAllRows(request, response, "id", productsPerPage, currentPage);
 		}
 	}
 
@@ -85,24 +90,30 @@ public class ProductServlet extends HttpServlet {
 	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort, int productsPerPage, int pageNumber)
 			throws ServletException, IOException {
 		try {
-			Collection<ProductBean> products = productDAO.doRetrieveAll(sort);
-			LinkedList<ProductBean> Ar= (LinkedList<ProductBean>) (products);
+			LinkedList<ProductBean> listProducts = (LinkedList<ProductBean>) productDAO.doRetrieveAll(sort);
 			Collection<ProductBean> resultProducts = new ArrayList<>(); 
-			for(int i=productsPerPage*(pageNumber-1);  i<(productsPerPage*pageNumber); i++) {
-				resultProducts.add(Ar.get(i));
+			// TODO: Implementare la mappa
+			for(int i = productsPerPage*(pageNumber-1); i < (productsPerPage*pageNumber); i++) {
+				resultProducts.add(listProducts.get(i));
 			}
-			System.out.println("size: " + products.size());
+			
+			System.out.println("size of listProducts: " + listProducts.size());
+			System.out.println("size of resultProducts: " + resultProducts.size());
+			
+			// Gson consente la serializzazione e deserializzazione di oggetti Java in 
+			// formato JSON e viceversa 
 			Gson gson = new Gson();
 			JsonElement json = gson.toJsonTree(resultProducts);
 			
-			//Invio il numero di prodotti nel magazzino per permettere la suddivisione in più pagine
+			// Invio il numero di prodotti nel magazzino per permettere la suddivisione in più pagine
+			request.removeAttribute("productsNum");
+			request.setAttribute("productsNum", listProducts.size());
 			
-			request.removeAttribute("productNum");
-			request.setAttribute("productsNum", products.size());
-			
-			//Invio i productsPerPage elementi alla pagina jsp come JSON
+			// Invio i productsPerPage elementi alla pagina jsp come JSON
 			request.removeAttribute("productsJson");
 			request.setAttribute("productsJson", json);
+			System.out.println(json);
+			
 			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);

@@ -60,9 +60,9 @@ public class ProductBean implements Serializable {
 		return this.model;
 	}
 	public void setModel() {
-		this.model=this.name.substring(0);
+		this.model = this.name.substring(0);
 		
-		this.model=this.model.replace("Pro", "")
+		this.model = this.model.replace("Pro", "")
 				.replace("Max", "")
 				.replace("Mini", "")
 				.replace("Plus","")
@@ -72,7 +72,7 @@ public class ProductBean implements Serializable {
 		
 
 		if(this.model.toLowerCase().endsWith("a") || this.model.toLowerCase().endsWith("s")) {
-			this.model=this.model.substring(0,this.model.length()-1);
+			this.model = this.model.substring(0, this.model.length()-1);
 		}
 	}
 	
