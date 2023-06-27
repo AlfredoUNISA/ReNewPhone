@@ -1,16 +1,18 @@
-$(document).ready(function() {
-	$('#loadMoreButton').click(function() {
+var countLoadings = 0;
+
+$(document).ready(function () {
+	$('#loadMoreButton').click(function () {
 		loadMoreProducts()
 	});
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	loadMoreProducts();
 });
 
 function loadMoreProducts() {
 	$.ajax({
-		url: 'products',
+		url: 'products?countLoadings=' + countLoadings,
 		success: function () {
 			// Recupera il JSON dei prodotti
 			var resultJSON = '${productsJson}';
@@ -39,9 +41,11 @@ function loadMoreProducts() {
 				// Aggiungi il markup HTML al contenitore dei prodotti
 				$('.productsGrid').append(html);
 			});
+			countLoadings++;
+			console.log(countLoadings - 1 + ", " + countLoadings);
 		},
 		error: function () {
-			alert("Errore caricamento prodotti");
+			console.error("Errore durante la chiamata AJAX: " + status + " - " + error);
 		}
 	});
 }

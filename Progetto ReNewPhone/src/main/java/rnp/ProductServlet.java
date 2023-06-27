@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -31,11 +30,11 @@ public class ProductServlet extends HttpServlet {
 		int productsPerLoading = 8;
 		int countLoadings = 0;
 		
-		if(request.getAttribute("productsPerLoading") != null || request.getAttribute("countLoadings") != null) {
-			productsPerLoading = (int) request.getAttribute("productsPerLoading");
-			countLoadings = (int) request.getAttribute("countLoadings");
+		if(request.getParameter("countLoadings") != null) {
+			countLoadings = Integer.parseInt(request.getParameter("countLoadings"));
 		}
-		
+		System.out.println(countLoadings);
+
 		// Esegui azioni opzionali
 		if (action != null) {
 			switch (action) {
@@ -96,22 +95,18 @@ public class ProductServlet extends HttpServlet {
 				resultProducts.add(listProducts.get(i));
 			}
 			
-			System.out.println("size of listProducts: " + listProducts.size());
-			System.out.println("size of resultProducts: " + resultProducts.size());
+			//System.out.println("size of listProducts: " + listProducts.size());
+			//System.out.println("size of resultProducts: " + resultProducts.size());
 			
 			// Gson consente la serializzazione e deserializzazione di oggetti Java in 
 			// formato JSON e viceversa 
 			Gson gson = new Gson();
 			JsonElement json = gson.toJsonTree(resultProducts);
 			
-			// Imposta il numero di volte che è stato cliccato il pulsante "aggiungi altri"
-			request.removeAttribute("countLoadings");
-			request.setAttribute("countLoadings", ++countLoadings);
-			
 			// Invia gli n (productsPerLoading) elementi alla pagina jsp come JSON
 			request.removeAttribute("productsJson");
 			request.setAttribute("productsJson", json);
-			System.out.println(json);
+			//System.out.println(json);
 			
 			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
 		} catch (SQLException e) {
