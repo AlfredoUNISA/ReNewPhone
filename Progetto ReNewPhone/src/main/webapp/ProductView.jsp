@@ -30,7 +30,7 @@
 			<script type="text/javascript"><%@include file="js/ajaxScript.js" %></script>
 		</div>
 		
-		<button id="loadMoreButton" onclick="oadMoreProducts()">Carica Altro</button>
+		<button id="loadMoreButton">Carica Altro</button>
 		
 		
 		
