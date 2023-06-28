@@ -22,10 +22,32 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Product List</title>
+
 </head>
 <body>	
 	<div class="content">
 	    <h2>Lista Prodotti</h2>
+	  
+	  
+        <div class="box" style="float:left; display:none">
+            <div class="box-inner">
+       		 <h5>Filtri:</h5>
+                <p> query 1</p>
+                <p> query 2</p>
+                <p> query 3</p>
+                <p> query 4</p>
+                <p> query 5</p>
+            </div>
+        </div>
+        <input onclick="toggleFilterPage()"
+        		type="button" 
+               class="slide-toggle"
+               value="Apri Filtri" 
+               id="myButton1">
+    
+        <script type="text/javascript" src="js/productFilterScript.js"></script>
+	    
+	    
 	    <div class="productsGrid">
 			<script type="text/javascript"><%@include file="js/ajaxScript.js" %></script>
 		</div>
