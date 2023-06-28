@@ -43,7 +43,7 @@ function loadMoreProducts() {
 			countLoadings++;
 			console.log(countLoadings - 1 + ", " + countLoadings);
 		},
-		error: function () {
+		error: function (status, error) {
 			console.error("Errore durante la chiamata AJAX: " + status + " - " + error);
 		}
 	});
