@@ -59,11 +59,6 @@ public class AjaxProductServlet extends HttpServlet {
 			Gson gson = new Gson();
 			JsonElement json = gson.toJsonTree(resultProducts);
 
-			// Invia gli n (productsPerLoading) elementi alla pagina jsp come JSON
-			request.removeAttribute("productsJson");
-			request.setAttribute("productsJson", json);
-			// System.out.println(json);
-
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 
