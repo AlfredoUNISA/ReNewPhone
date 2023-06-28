@@ -21,18 +21,50 @@ function loadMoreProducts() {
 
 			// Itera sui prodotti e visualizzali
 			$(resultJSON).each(function () {
-				// Crea il markup HTML per un singolo prodotto
+				// Creazione del valore da visualizzare per RAM
+				var ramValue;
+				if (this.minMaxValues.minRam == this.minMaxValues.maxRam) {
+					ramValue = this.minMaxValues.minRam + " GB";
+				} else {
+					ramValue = this.minMaxValues.minRam + " GB ~ " + this.minMaxValues.maxRam + " GB";
+				}
+
+				// Creazione del valore da visualizzare per Display Size
+				var displaySizeValue;
+				if (this.minMaxValues.minDisplaySize == this.minMaxValues.maxDisplaySize) {
+					displaySizeValue = this.minMaxValues.minDisplaySize + " \"";
+				} else {
+					displaySizeValue = this.minMaxValues.minDisplaySize + " \" ~ " + this.minMaxValues.maxDisplaySize + " \"";
+				}
+
+				// Creazione del valore da visualizzare per Storage
+				var storageValue;
+				if (this.minMaxValues.minStorage == this.minMaxValues.maxStorage) {
+					storageValue = this.minMaxValues.minStorage + " GB";
+				} else {
+					storageValue = this.minMaxValues.minStorage + " GB ~ " + this.minMaxValues.maxStorage + " GB";
+				}
+
+				// Creazione del valore da visualizzare per Price
+				var priceValue;
+				if (this.minMaxValues.minPrice == this.minMaxValues.maxPrice) {
+					priceValue = this.minMaxValues.minPrice + " &euro;";
+				} else {
+					priceValue = this.minMaxValues.minPrice + " &euro; ~ " + this.minMaxValues.maxPrice + " &euro;";
+				}
+
+				// Creazione del markup HTML per un singolo prodotto
 				var html =
 					'<div id="Product">' +
 					'<img class="productImg" alt="' + this.model + '" src="resources/' + this.model + '.jpg">' +
 					'<div class="productInfo">' +
 					'<p>' + this.groupName + '</p>' +
-					'<p>RAM: ' + this.minMaxValues.minRam + "~" + this.minMaxValues.maxRam + ' GB</p>' +
-					'<p>Dimensioni: ' + this.minMaxValues.minDisplaySize + "~" + this.minMaxValues.maxDisplaySize + '"</p>' +
-					'<p>Memoria: ' + this.minMaxValues.minStorage + "~" + this.minMaxValues.maxStorage + ' GB</p>' +
+					'<p>RAM: ' + ramValue + '</p>' +
+					'<p>Dimensioni: ' + displaySizeValue + '</p>' +
+					'<p>RAM: ' + storageValue + '</p>' +
 					'<p>Marca: ' + this.brand + '</p>' +
 					'<p>Anno: ' + this.year + '</p>' +
-					'<p>Prezzo: ' + this.minMaxValues.minPrice + "~" + this.minMaxValues.maxPrice + ' &euro;</p>' +
+					'<p>Prezzo: ' + priceValue + '</p>' +
 					'<p><a href="products?action=details&name=' + this.groupName + '">Dettagli</a></p>' +
 					'</div>' +
 					'</div>';
