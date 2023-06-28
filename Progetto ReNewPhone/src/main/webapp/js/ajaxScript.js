@@ -1,4 +1,4 @@
-var productsPerLoading = 24; // Cambiare questo per modificare il numero anche nella servlet
+var productsPerLoading = 8; // Cambiare questo per modificare il numero anche nella servlet
 var countLoadings = 0;
 
 $(document).ready(function () {

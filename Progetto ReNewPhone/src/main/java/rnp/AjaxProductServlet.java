@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -46,15 +47,11 @@ public class AjaxProductServlet extends HttpServlet {
 		try {
 			// Prendi tutti i prodotti dal database
 			LinkedList<ProductBean> listProducts = (LinkedList<ProductBean>) productDAO.doRetrieveAll(null);
-
-			// Crea un Array List con i prodotti risultanti
-			Collection<ProductBean> resultProducts = new ArrayList<>();
-
 			
 			// Crea una mappa per raggruppare i prodotti per nome
 			Map<String, List<ProductBean>> groupedProducts = new HashMap<>();
 
-			// Aggiungi i prodotti alla mappa raggruppandoli per nome
+			// Aggiungi tutti i prodotti alla mappa raggruppandoli per nome
 			for (ProductBean product : listProducts) {
 				String productName = product.getName();
 			  
@@ -70,9 +67,35 @@ public class AjaxProductServlet extends HttpServlet {
 				}
 			}
 
-			// Crea un Array List con i gruppi di prodotti risultanti
-			Collection<List<ProductBean>> resultGroups = groupedProducts.values();
+			// Creazione della nuova mappa per i dati estrapolati
+			Map<String, List<ProductBean>> extractedGroups = new LinkedHashMap<>();
 
+			// Calcolo dell'indice di inizio e fine per l'estrazione dei dati
+			int startIndex = productsPerLoading * countLoadings;
+			int endIndex = productsPerLoading * (countLoadings + 1);
+
+			// Iterazione sulla mappa dei gruppi
+			int counter = 0;
+			for (List<ProductBean> group : groupedProducts.values()) {
+			    // Verifica se l'indice corrente rientra nell'intervallo di estrazione
+			    if (counter >= startIndex && counter < endIndex) {
+			        // Ottieni il nome del gruppo corrente
+			        String groupName = group.get(0).getName();
+
+			        // Aggiungi il gruppo corrente alla nuova mappa
+			        extractedGroups.put(groupName, group);
+			    }
+
+			    counter++;
+
+			    // Verifica se abbiamo estratto il numero desiderato di elementi
+			    if (counter >= endIndex) {
+			        break;
+			    }
+			}
+
+			// Creazione della collezione dei gruppi estratti
+			Collection<List<ProductBean>> resultGroups = extractedGroups.values();
 			
 
 			// Creazione di un oggetto JSON per i gruppi di prodotti
@@ -132,61 +155,9 @@ public class AjaxProductServlet extends HttpServlet {
 			// Converti l'array dei gruppi in formato JSON
 			String jsonResult = gson.toJson(jsonGroups);
 
-			// Stampa il JSON risultante
-			System.out.println(jsonResult);
 			
-			
-			
-			
-			
-			/*
-			// Stampa i gruppi di prodotti in modo leggibile
-			for (List<ProductBean> group : resultGroups) {
-			    
-			    int minRam = Integer.MAX_VALUE;
-			    int maxRam = Integer.MIN_VALUE;
-			    float minDisplaySize = Float.MAX_VALUE;
-			    float maxDisplaySize = Float.MIN_VALUE;
-			    int minStorage = Integer.MAX_VALUE;
-			    int maxStorage = Integer.MIN_VALUE;
-			    
-			    for (ProductBean product : group) {
-			        // Calcola il valore minimo e massimo per ram
-			        minRam = Math.min(minRam, product.getRam());
-			        maxRam = Math.max(maxRam, product.getRam());
-			        
-			        // Calcola il valore minimo e massimo per display size
-			        minDisplaySize = Math.min(minDisplaySize, product.getDisplay_size());
-			        maxDisplaySize = Math.max(maxDisplaySize, product.getDisplay_size());
-			        
-			        // Calcola il valore minimo e massimo per storage
-			        minStorage = Math.min(minStorage, product.getStorage());
-			        maxStorage = Math.max(maxStorage, product.getStorage());
-			    }
-			    System.out.println("~~ ~~ ~~ Gruppo " + group.get(0).getName() + " ~~ ~~ ~~");
-			    System.out.println("Valore minimo RAM: " + minRam);
-			    System.out.println("Valore massimo RAM: " + maxRam);
-			    System.out.println("Valore minimo Display Size: " + minDisplaySize);
-			    System.out.println("Valore massimo Display Size: " + maxDisplaySize);
-			    System.out.println("Valore minimo Storage: " + minStorage);
-			    System.out.println("Valore massimo Storage: " + maxStorage);
-			    System.out.println("=============================");
-			}
-			*/
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+		
 /*
 			// Aggiungi i prodotti alla lista risultante
 			for (int i = (productsPerLoading * countLoadings); i < (productsPerLoading * (countLoadings + 1)); i++) {
