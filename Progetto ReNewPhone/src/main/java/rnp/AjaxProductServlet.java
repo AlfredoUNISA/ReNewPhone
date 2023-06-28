@@ -155,16 +155,6 @@ public class AjaxProductServlet extends HttpServlet {
 			// Converti l'array dei gruppi in formato JSON
 			String jsonResult = gson.toJson(jsonGroups);
 
-			
-
-		
-/*
-			// Aggiungi i prodotti alla lista risultante
-			for (int i = (productsPerLoading * countLoadings); i < (productsPerLoading * (countLoadings + 1)); i++) {
-				resultProducts.add(resultGroups.);
-			}
-*/
-			
 			// Scrivi il JSON come risposta
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
