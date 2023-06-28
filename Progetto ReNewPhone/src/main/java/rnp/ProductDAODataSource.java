@@ -184,6 +184,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 				bean.setYear(rs.getInt("year"));
 				bean.setCategory(rs.getString("category"));
 				bean.setState(rs.getString("state"));
+				bean.setModel();
 
 				products.add(bean);
 			}

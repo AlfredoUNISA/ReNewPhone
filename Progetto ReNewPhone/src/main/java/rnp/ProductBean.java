@@ -23,6 +23,7 @@ public class ProductBean implements Serializable {
     String category;
     String state;
     int year;
+    String model;
 
 	public ProductBean() {
 		id = -1;
@@ -34,6 +35,7 @@ public class ProductBean implements Serializable {
 		category = "";
 		state = "";
 		year=0;
+		model=this.getModel();
 	}
 
 	public int getYear() {
@@ -54,12 +56,13 @@ public class ProductBean implements Serializable {
 	public String getName() {
 		return name;
 	}
-	
 	public String getModel() {
-		String model;
-		model=name.substring(0);
+		return this.model;
+	}
+	public void setModel() {
+		this.model = this.name.substring(0);
 		
-		model=model.replace("Pro", "")
+		this.model = this.model.replace("Pro", "")
 				.replace("Max", "")
 				.replace("Mini", "")
 				.replace("Plus","")
@@ -68,10 +71,9 @@ public class ProductBean implements Serializable {
 				.replace("mini","").strip();
 		
 
-		if(model.toLowerCase().endsWith("a") || model.toLowerCase().endsWith("s")) {
-			model=model.substring(0,model.length()-1);
+		if(this.model.toLowerCase().endsWith("a") || this.model.toLowerCase().endsWith("s")) {
+			this.model = this.model.substring(0, this.model.length()-1);
 		}
-		return model;
 	}
 	
 	public void setName(String name) {

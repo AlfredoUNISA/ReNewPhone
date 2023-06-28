@@ -2,6 +2,7 @@ package rnp;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,6 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		String sort = request.getParameter("sort");
 
 		// Esegui azioni opzionali
 		if (action != null) {
@@ -39,26 +39,8 @@ public class ProductServlet extends HttpServlet {
 				break;
 			}
 		}
-
-		// Ricarica tutte le righe e forward alla jsp
-		showAllRows(request, response, "id");
-	}
-
-	/**
-	 * Mostra tutte le righe all'interno della tabella principale. Incaricato di
-	 * fare il forward verso la jsp.
-	 * 
-	 * @param sort Specifica l'ordine di ordinamento dei risultati
-	 */
-	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort)
-			throws ServletException, IOException {
-		try {
-			// MODIFICABILE
-			request.removeAttribute("products");
-			request.setAttribute("products", productDAO.doRetrieveAll(sort));
+		else {
 			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
-		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
 		}
 	}
 

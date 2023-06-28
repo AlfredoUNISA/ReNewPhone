@@ -675,8 +675,10 @@ INSERT INTO users (name, surname, email, password, address, city, cap, phone) VA
 ('Jane', 'Smith', 'janesmith@example.com', 'password456', '456 Oak St', 'Otherville', '54321', '555-5678'),
 ('Bob', 'Johnson', 'bobjohnson@example.com', 'password789', '789 Elm St', 'Smalltown', '45678', '555-9012'),
 ('Alice', 'Lee', 'alicelee@example.com', 'passwordabc', '321 Maple St', 'Bigcity', '67890', '555-3456'),
-('David', 'Chen', 'davidchen@example.com', 'passworddef', '654 Pine St', 'Metropolis', '13579', '555-7890'),
-('Davide', 'Capricano', 'd@owner.com', 'password_davide', 'Via gambardella 29', ' Torre Annunziata', '80058', '358-8896');
+('David', 'Chen', 'davidchen@example.com', 'passworddef', '654 Pine St', 'Metropolis', '13579', '555-7890');
+
+INSERT INTO users (id, name, surname, email, password, address, city, cap, phone) VALUES
+(-10, 'Davide', 'Capricano', 'd@owner.com', 'password_davide', 'Via gambardella 29', ' Torre Annunziata', '80058', '358-8896');
 
 INSERT INTO carts (id_user, id_product, quantity)
 VALUES (1, 10, 1),
