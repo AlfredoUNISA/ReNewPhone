@@ -1,4 +1,4 @@
-<%@page import="rnp.ItemsOrderDAODataSource"%>
+<%@ page import="rnp.ItemsOrderDAODataSource"%>
 <%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
 <%@ page import="rnp.ItemOrderBean, rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
@@ -15,7 +15,7 @@
 
 <%@ include file="_header.jsp" %>
 <%
-	if(!IS_CURRENT_USER_ADMIN)
+	if(!IS_CURRENT_USER_REGISTRED)
 		response.sendRedirect("login.jsp");
 %>
 
@@ -53,6 +53,7 @@
 					Iterator<?> it = orders.iterator();
 					while (it.hasNext()) {
 						OrderBean order = (OrderBean) it.next();
+						if(CURRENT_USER_BEAN.getId()==order.getId_user() || IS_CURRENT_USER_ADMIN==true){
 	            %>
 		            <tr>
 		            	<!-- Id Ordine -->
@@ -74,6 +75,7 @@
 		            </tr>
 	            <% 
 	                }
+					}
 	            } else {
 	            %>
 	            <tr>
@@ -126,14 +128,16 @@
 					<tr>
 						<th>ID</th>
 		                <th>Nome</th>
-		                <th>Descrizione</th>
+		                <th>Ram</th>
+		                <th>Dimensione Display</th>
+		                <th>Memoria Interna</th>
+		                <th>Prezzo</th>
+		                <th>Quantità</th>
 		                <th>Colore</th>
 		                <th>Marca</th>
 		                <th>Anno</th>
 		                <th>Categoria</th>
 		                <th>Condizioni</th>
-		                <th>Quantità</th>
-		                <th>Prezzo</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -148,18 +152,20 @@
 								ItemOrderBean item = (ItemOrderBean) it.next();
 								ProductBean productDetails = productDAO.doRetrieveByKey(item.getId_product());
 						%>
-							<tr>
-								<td><%= productDetails.getId() %></td>
-			                	<td><%= productDetails.getName() %></td>
-			                	<td><%= productDetails.getDescription() %></td>
-			                	<td><%= productDetails.getColor() %></td>
-			                	<td><%= productDetails.getBrand() %></td>
-			                	<td><%= productDetails.getYear() %></td>
-								<td><%= productDetails.getCategory() %></td>
-								<td><%= productDetails.getState() %></td>
-			                	<td><%= item.getQuantity() %></td>
-			                	<td><%= productDetails.getPrice() %></td>
-							</tr>
+						<tr>
+							<td><%= productDetails.getId() %></td>
+	                		<td><%= productDetails.getName() %></td>
+	                		<td><%=	productDetails.getRam()%></td>
+							<td><%=	productDetails.getDisplay_size()%></td>
+							<td><%=	productDetails.getStorage()%></td>
+	                		<td><%= productDetails.getPrice() %></td>
+	                		<td><%= productDetails.getQuantity() %></td>
+	                		<td><%= productDetails.getColor() %></td>
+	                		<td><%= productDetails.getBrand() %></td>
+	                		<td><%= productDetails.getYear() %></td>
+							<td><%= productDetails.getCategory() %></td>
+							<td><%= productDetails.getState() %></td>
+						</tr>
 						<%	}
 			            }
 						%>

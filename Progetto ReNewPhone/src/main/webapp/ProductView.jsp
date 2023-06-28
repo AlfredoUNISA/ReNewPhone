@@ -1,3 +1,4 @@
+<%@page import="java.util.stream.Collectors"%>
 <%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
 <%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
 <%@ page import="java.util.*"%>
@@ -18,105 +19,99 @@
 <head>
 	<!-- /products -->
 	<title>Product List</title>
+	<meta charset="UTF-8">
 </head>
 <body>
 	
 	<div class="content">
 	    <h2>Lista Prodotti</h2>
-	    
-	    <!-- TABELLA PRINCIPALE -->
-	    <table>
-	        <thead>
-	            <tr>
-	                <th>ID <a href="products?sort=id">Sort</a></th>
-	                <th>Nome <a href="products?sort=name">Sort</a></th>
-	                <th>Descrizione <a href="products?sort=description">Sort</a></th>
-	                <th>Prezzo <a href="products?sort=price">Sort</a></th>
-	                <th>Quantità <a href="products?sort=quantity">Sort</a></th>
-	                <th>Colore <a href="products?sort=color">Sort</a></th>
-	                <th>Marca <a href="products?sort=brand">Sort</a></th>
-	                <th>Anno <a href="products?sort=year">Sort</a></th>
-	                <th>Categoria <a href="products?sort=category">Sort</a></th>
-	                <th>Condizioni <a href="products?sort=state">Sort</a></th>
-	                <th><i>Azioni</i></th>
-	            </tr>
-	        </thead>
-	        <tbody>
+	    <div class="productsGrid">
 	            <%
 	            // OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
 	            Collection<?> products = (Collection<?>) request.getAttribute("products");
 	            
 	            // ITERAZIONE
 	            if (products != null && products.size() != 0) {
-					Iterator<?> it = products.iterator();
-					while (it.hasNext()) {
-						ProductBean product = (ProductBean) it.next();
+	            	// Raggruppare i prodotti per nome e calcolare i valori minimi e massimi di ram, storage e price
+	                Map<String, List<ProductBean>> groupedProducts = new HashMap<>();
+	            	
+	            	// Mapping Iniziale: nome / lista di prodotti con lo stesso nome
+					Iterator<?> itMapping = products.iterator();
+					while (itMapping.hasNext()) {
+						ProductBean product = (ProductBean) itMapping.next();
+						
+						String productName = product.getName();
+						List<ProductBean> productList = groupedProducts.getOrDefault(productName, new ArrayList<>());
+						productList.add(product);
+			            groupedProducts.put(productName, productList);
+					}
+					
+					// Calcola e Mostra i valori minimi e massimi di ram, storage e price per ogni nome di prodotto
+			        for (Map.Entry<String, List<ProductBean>> entry : groupedProducts.entrySet()) {
+			            String productName = entry.getKey();
+			            List<ProductBean> productList = entry.getValue();
+
+			            int minRam = Integer.MAX_VALUE;
+			            int maxRam = Integer.MIN_VALUE;
+			            int minStorage = Integer.MAX_VALUE;
+			            int maxStorage = Integer.MIN_VALUE;
+			            int minPrice = Integer.MAX_VALUE;
+			            int maxPrice = Integer.MIN_VALUE;
+
+			            for (ProductBean product : productList) {
+			                minRam = Math.min(minRam, product.getRam());
+			                maxRam = Math.max(maxRam, product.getRam());
+			                minStorage = Math.min(minStorage, product.getStorage());
+			                maxStorage = Math.max(maxStorage, product.getStorage());
+			                minPrice = Math.min(minPrice, product.getPrice());
+			                maxPrice = Math.max(maxPrice, product.getPrice());
+			            }
+						
+			            ProductBean productBean = productList.get(0);
 	            %>
-	            <tr>
-	                <td><%= product.getId() %></td>
-	                <td><%= product.getName() %></td>
-	                <td><%= product.getDescription() %></td>
-	                <td><%= product.getPrice() %></td>
-	                <td><%= product.getQuantity() %></td>
-	                <td><%= product.getColor() %></td>
-	                <td><%= product.getBrand() %></td>
-	                <td><%= product.getYear() %></td>
-	                <td><%= product.getCategory() %></td>
-	                <td><%= product.getState() %></td>
-	                <td>
-	                    <a href="products?action=details&id=<%= product.getId() %>#Dettagli">Dettagli</a>
-	                    <a href="products?action=delete&id=<%= product.getId() %>">Elimina</a>
-	                </td>
-	            </tr>
+	        	<div id="Product">
+	            	<img class="productImg" alt="<%=productBean.getModel()%>" src="resources/<%=productBean.getModel()%>.jpg" style="">
+	            	<div class="productInfo">
+		                <p> <%= productName %> </p>
+		                
+		                <% if(minRam == maxRam) { %>
+		              		<p> RAM: <%= minRam %>GB </p>
+		              	<% } else { %>
+		              		<p> RAM (min-max): <%= minRam %>GB - <%= maxRam %>GB </p>
+		              	<% } %>
+		              	
+						<p> Dimensioni: <%= productBean.getDisplay_size() %>'' </p>
+						
+						<% if(minStorage == maxStorage) { %>
+							<p> Memoria: <%= minStorage %>GB </p>
+						<% } else { %>
+							<p> Memoria (min-max): <%= minStorage %>GB - <%= maxStorage %>GB </p>
+						<% } %>
+						
+		                <p> Marca: <%= productBean.getBrand() %> </p>
+		                
+		                <p> Anno: <%= productBean.getYear() %> </p>
+		                
+		                <% if(minPrice == maxPrice) { %>
+		                	<p id="price"> Prezzo: <%= minPrice %> € </p>
+		                <% } else { %>
+		                	<p id="price"> Prezzo (min-max): <%= minPrice %> € - <%= maxPrice %> € </p>
+		                <% } %>
+		                
+		                <p> <a href="products?action=details&name=<%= productBean.getName() %>">Dettagli</a> </p>
+					</div> 
+				</div>
+	            
 	            <% 
 	                }
 	            } else {
 	            %>
-	            <tr>
-	                <td colspan="11">No products found.</td>
-	            </tr>
+
+	               <h1>No products found. </h1>
+
 	            <% } %>
-	        </tbody>
-	    </table>
-		
-		<!-- TABELLA DETTAGLI -->
-		<% 
-			ProductBean productDetails = (ProductBean) request.getAttribute("product-details");
-			if (productDetails != null) {
-		%>
-			<br>
-			<h2 id="Dettagli">Dettagli</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>ID</th>
-		                <th>Nome</th>
-		                <th>Descrizione</th>
-		                <th>Prezzo</th>
-		                <th>Quantità</th>
-		                <th>Colore</th>
-		                <th>Marca</th>
-		                <th>Anno</th>
-		                <th>Categoria</th>
-		                <th>Condizioni</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><%= productDetails.getId() %></td>
-	                	<td><%= productDetails.getName() %></td>
-	                	<td><%= productDetails.getDescription() %></td>
-	                	<td><%= productDetails.getPrice() %></td>
-	                	<td><%= productDetails.getQuantity() %></td>
-	                	<td><%= productDetails.getColor() %></td>
-	                	<td><%= productDetails.getBrand() %></td>
-	                	<td><%= productDetails.getYear() %></td>
-						<td><%= productDetails.getCategory() %></td>
-						<td><%= productDetails.getState() %></td>
-					</tr>
-				</tbody>
-			</table>
-		<%}%>
+		</div>
+			
 	
 		<!-- PARTE DELL'INSERIMENTO -->
 		<br>

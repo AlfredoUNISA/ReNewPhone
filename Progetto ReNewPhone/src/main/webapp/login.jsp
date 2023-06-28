@@ -8,7 +8,9 @@
 	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
 <%@ include file="_header.jsp"%>
-
+<%if(IS_CURRENT_USER_REGISTRED){ 
+	response.sendRedirect("user_page.jsp");}
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +18,6 @@
 <title>Accedi</title>
 </head>
 <body>
-
 	<div class="content">
 		<h2>Accedi al tuo account</h2>
 

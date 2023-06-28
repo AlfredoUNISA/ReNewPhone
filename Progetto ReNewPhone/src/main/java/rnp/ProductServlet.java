@@ -31,6 +31,7 @@ public class ProductServlet extends HttpServlet {
 				addRow(request, response);
 				break;
 			case "delete":
+				// TODO: da vedere se un utente è autorizzato a cancellare un prodotto
 				deleteRow(request, response);
 				break;
 			default:
@@ -40,7 +41,7 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		// Ricarica tutte le righe e forward alla jsp
-		showAllRows(request, response, sort);
+		showAllRows(request, response, "id");
 	}
 
 	/**
@@ -62,21 +63,17 @@ public class ProductServlet extends HttpServlet {
 	}
 
 	/**
-	 * Mostra i dettagli di una riga all'interno della tabella "Dettagli".
+	 * Mostra i dettagli di una riga all'interno della jsp "ProductDetails".
 	 */
 	private void showRowDetails(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
 		
 		try {
 			// MODIFICABILE
-			ProductBean product = productDAO.doRetrieveByKey(id);
-			if (product != null) {
-				request.removeAttribute("product-details");
-				request.setAttribute("product-details", product);
-			} else {
-				System.out.println("**404** Product not found for showRowDetails (id_product = " + id + ")");
-			}
+			//request.removeAttribute("product-details");
+			request.setAttribute("product-details", productDAO.doRetrieveByName(name));
+			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
 		}
@@ -88,7 +85,9 @@ public class ProductServlet extends HttpServlet {
 	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// MODIFICABILE
 		String name = request.getParameter("name");
-		String description = request.getParameter("description");
+		int ram= Integer.parseInt(request.getParameter("ram"));
+		float display_size= Float.parseFloat(request.getParameter("display_size"));
+		int storage= Integer.parseInt(request.getParameter("storage"));
 		int price = Integer.parseInt(request.getParameter("price"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String color = request.getParameter("color");
@@ -100,7 +99,9 @@ public class ProductServlet extends HttpServlet {
 		// MODIFICABILE
 		ProductBean product = new ProductBean();
 		product.setName(name);
-		product.setDescription(description);
+		product.setRam(ram);
+		product.setDisplay_size(display_size);
+		product.setStorage(storage);
 		product.setPrice(price);
 		product.setQuantity(quantity);
 		product.setColor(color);
