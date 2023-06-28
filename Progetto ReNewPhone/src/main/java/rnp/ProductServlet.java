@@ -2,17 +2,12 @@ package rnp;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.*;
 
 /**
  * Servlet implementation class ProductServlet
@@ -25,15 +20,6 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		String sort = request.getParameter("sort");
-
-		int productsPerLoading = 8;
-		int countLoadings = 0;
-		
-		if(request.getParameter("countLoadings") != null) {
-			countLoadings = Integer.parseInt(request.getParameter("countLoadings"));
-		}
-		System.out.println(countLoadings);
 
 		// Esegui azioni opzionali
 		if (action != null) {
@@ -54,66 +40,9 @@ public class ProductServlet extends HttpServlet {
 			}
 		}
 		else {
-			showAllRows(request, response, "id", productsPerLoading, countLoadings);
+			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
 		}
 	}
-
-
-	/**
-	 * Mostra tutte le righe all'interno della tabella principale. Incaricato di
-	 * fare il forward verso la jsp.
-	 * 
-	 * @param sort Specifica l'ordine di ordinamento dei risultati
-	 */
-	/*private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort)
-			throws ServletException, IOException {
-		try {
-			Collection<ProductBean> products = productDAO.doRetrieveAll(sort);
-			
-			Gson gson = new Gson();
-			String json = gson.toJson(products);
-			request.removeAttribute("productsJson");
-			request.setAttribute("productsJson", json);
-			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
-		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
-		}
-	}*/
-	
-	private void showAllRows(HttpServletRequest request, HttpServletResponse response, String sort, int productsPerLoading, int countLoadings)
-			throws ServletException, IOException {
-		try {
-			// Prendi tutti i prodotti
-			LinkedList<ProductBean> listProducts = (LinkedList<ProductBean>) productDAO.doRetrieveAll(sort);
-			
-			// Crea un Array List con i prodotti risultanti
-			Collection<ProductBean> resultProducts = new ArrayList<>(); 
-			
-			// TODO: Implementare la mappa
-			
-			for(int i = (productsPerLoading*countLoadings); i < (productsPerLoading*(countLoadings+1)); i++) {
-				resultProducts.add(listProducts.get(i));
-			}
-			
-			//System.out.println("size of listProducts: " + listProducts.size());
-			//System.out.println("size of resultProducts: " + resultProducts.size());
-			
-			// Gson consente la serializzazione e deserializzazione di oggetti Java in 
-			// formato JSON e viceversa 
-			Gson gson = new Gson();
-			JsonElement json = gson.toJsonTree(resultProducts);
-			
-			// Invia gli n (productsPerLoading) elementi alla pagina jsp come JSON
-			request.removeAttribute("productsJson");
-			request.setAttribute("productsJson", json);
-			//System.out.println(json);
-			
-			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
-		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
-		}
-	}
-	
 
 	/**
 	 * Mostra i dettagli di una riga all'interno della jsp "ProductDetails".

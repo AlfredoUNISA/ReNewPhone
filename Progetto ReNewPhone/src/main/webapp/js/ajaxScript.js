@@ -1,3 +1,4 @@
+var productsPerLoading = 24; // Cambiare questo per modificare il numero anche nella servlet
 var countLoadings = 0;
 
 $(document).ready(function () {
@@ -12,22 +13,20 @@ $(document).ready(function () {
 
 function loadMoreProducts() {
 	$.ajax({
-		url: 'products?countLoadings=' + countLoadings,
-		success: function () {
+		url: 'AjaxProductServlet?countLoadings=' + countLoadings + '&productsPerLoading=' + productsPerLoading,
+		success: function (response) {
 			// Recupera il JSON dei prodotti
-			var resultJSON = '${productsJson}';
-
-			// Converte il JSON in un array di oggetti
-			var result = JSON.parse(resultJSON);
+			var resultJSON = response;
+			console.log(resultJSON);
 
 			// Itera sui prodotti e visualizzali
-			$(result).each(function () {
+			$(resultJSON).each(function () {
 				// Crea il markup HTML per un singolo prodotto
 				var html =
 					'<div id="Product">' +
 					'<img class="productImg" alt="' + this.model + '" src="resources/' + this.model + '.jpg">' +
 					'<div class="productInfo">' +
-					'<p>' + this.name + '</p>' +
+					'<p>' + this.name + ' (id=' + this.id + ')</p>' +
 					'<p>RAM: ' + this.ram + ' GB</p>' +
 					'<p>Dimensioni: ' + this.display_size + '"</p>' +
 					'<p>Memoria: ' + this.storage + ' GB</p>' +
