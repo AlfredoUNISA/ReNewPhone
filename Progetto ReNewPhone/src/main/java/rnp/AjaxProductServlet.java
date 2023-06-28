@@ -25,7 +25,7 @@ public class AjaxProductServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int productsPerLoading = 12;
+		int productsPerLoading = 12; // Default
 		int countLoadings = 0;
 
 		if (request.getParameter("productsPerLoading") != null) {
@@ -39,7 +39,7 @@ public class AjaxProductServlet extends HttpServlet {
 		System.out.println("countLoadings: " + countLoadings);
 
 		try {
-			// Prendi tutti i prodotti
+			// Prendi tutti i prodotti dal database
 			LinkedList<ProductBean> listProducts = (LinkedList<ProductBean>) productDAO.doRetrieveAll(null);
 
 			// Crea un Array List con i prodotti risultanti
@@ -47,23 +47,18 @@ public class AjaxProductServlet extends HttpServlet {
 
 			// TODO: Implementare la mappa
 
+			// Aggiungi i prodotti alla lista risultante
 			for (int i = (productsPerLoading * countLoadings); i < (productsPerLoading * (countLoadings + 1)); i++) {
 				resultProducts.add(listProducts.get(i));
 			}
 
-			// System.out.println("size of listProducts: " + listProducts.size());
-			// System.out.println("size of resultProducts: " + resultProducts.size());
-
-			// Gson consente la serializzazione e deserializzazione di oggetti Java in
-			// formato JSON e viceversa
+			// Gson consente la serializzazione e deserializzazione di oggetti Java in formato JSON e viceversa
 			Gson gson = new Gson();
-			JsonElement json = gson.toJsonTree(resultProducts);
-
+			
+			// Scrivi il JSON come risposta
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-
-			// Scrivi il JSON come risposta
-			response.getWriter().write(json.toString());
+			response.getWriter().write(gson.toJsonTree(resultProducts).toString());
 
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
