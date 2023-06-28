@@ -26,14 +26,14 @@ function loadMoreProducts() {
 					'<div id="Product">' +
 					'<img class="productImg" alt="' + this.model + '" src="resources/' + this.model + '.jpg">' +
 					'<div class="productInfo">' +
-					'<p>' + this.name + ' (id=' + this.id + ')</p>' +
-					'<p>RAM: ' + this.ram + ' GB</p>' +
-					'<p>Dimensioni: ' + this.display_size + '"</p>' +
-					'<p>Memoria: ' + this.storage + ' GB</p>' +
+					'<p>' + this.groupName + '</p>' +
+					'<p>RAM: ' + this.minMaxValues.minRam + "~" + this.minMaxValues.maxRam + ' GB</p>' +
+					'<p>Dimensioni: ' + this.minMaxValues.minDisplaySize + "~" + this.minMaxValues.maxDisplaySize + '"</p>' +
+					'<p>Memoria: ' + this.minMaxValues.minStorage + "~" + this.minMaxValues.maxStorage + ' GB</p>' +
 					'<p>Marca: ' + this.brand + '</p>' +
 					'<p>Anno: ' + this.year + '</p>' +
-					'<p>Prezzo: ' + this.price + ' &euro;</p>' +
-					'<p><a href="products?action=details&name=' + this.name + '">Dettagli</a></p>' +
+					'<p>Prezzo: ' + this.minMaxValues.minPrice + "~" + this.minMaxValues.maxPrice + ' &euro;</p>' +
+					'<p><a href="products?action=details&name=' + this.groupName + '">Dettagli</a></p>' +
 					'</div>' +
 					'</div>';
 

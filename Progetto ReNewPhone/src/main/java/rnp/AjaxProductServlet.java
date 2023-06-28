@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 /**
  * Servlet implementation class AjaxProductServlet
@@ -45,20 +50,154 @@ public class AjaxProductServlet extends HttpServlet {
 			// Crea un Array List con i prodotti risultanti
 			Collection<ProductBean> resultProducts = new ArrayList<>();
 
-			// TODO: Implementare la mappa
+			
+			// Crea una mappa per raggruppare i prodotti per nome
+			Map<String, List<ProductBean>> groupedProducts = new HashMap<>();
 
-			// Aggiungi i prodotti alla lista risultante
-			for (int i = (productsPerLoading * countLoadings); i < (productsPerLoading * (countLoadings + 1)); i++) {
-				resultProducts.add(listProducts.get(i));
+			// Aggiungi i prodotti alla mappa raggruppandoli per nome
+			for (ProductBean product : listProducts) {
+				String productName = product.getName();
+			  
+				// Controlla se il nome del prodotto è già presente nella mappa
+				if (groupedProducts.containsKey(productName)) {
+					// Se il nome del prodotto è già presente, aggiungi il prodotto alla lista corrispondente
+					groupedProducts.get(productName).add(product);
+				} else {
+					// Se il nome del prodotto non è presente, crea una nuova lista e aggiungi il prodotto
+					List<ProductBean> productList = new ArrayList<>();
+					productList.add(product);
+					groupedProducts.put(productName, productList);
+				}
 			}
 
-			// Gson consente la serializzazione e deserializzazione di oggetti Java in formato JSON e viceversa
-			Gson gson = new Gson();
+			// Crea un Array List con i gruppi di prodotti risultanti
+			Collection<List<ProductBean>> resultGroups = groupedProducts.values();
+
+			
+
+			// Creazione di un oggetto JSON per i gruppi di prodotti
+			JsonArray jsonGroups = new JsonArray();
+
+			// Creazione di un oggetto Gson per la serializzazione degli oggetti Java in JSON
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			
+			// Creazione dei gruppi di prodotti in formato JSON
+			for (List<ProductBean> group : resultGroups) {
+			    JsonObject jsonGroup = new JsonObject();
+			    
+			    // Aggiungi i campi vari del gruppo
+			    jsonGroup.addProperty("groupName", group.get(0).getName());
+			    jsonGroup.addProperty("model", group.get(0).getModel());
+			    jsonGroup.addProperty("brand", group.get(0).getBrand());
+			    jsonGroup.addProperty("year", group.get(0).getYear());
+			    
+			    // Creazione di un oggetto JSON per i valori minimi e massimi
+			    JsonObject jsonMinMax = new JsonObject();
+			    jsonMinMax.addProperty("minRam", Integer.MAX_VALUE);
+			    jsonMinMax.addProperty("maxRam", Integer.MIN_VALUE);
+			    jsonMinMax.addProperty("minDisplaySize", Float.MAX_VALUE);
+			    jsonMinMax.addProperty("maxDisplaySize", Float.MIN_VALUE);
+			    jsonMinMax.addProperty("minStorage", Integer.MAX_VALUE);
+			    jsonMinMax.addProperty("maxStorage", Integer.MIN_VALUE);
+			    jsonMinMax.addProperty("minPrice", Integer.MAX_VALUE);
+			    jsonMinMax.addProperty("maxPrice", Integer.MIN_VALUE);
+			    
+			    // Calcolo dei valori minimi e massimi all'interno del gruppo
+			    for (ProductBean product : group) {
+			        // Calcola il valore minimo e massimo per ram
+			        jsonMinMax.addProperty("minRam", Math.min(jsonMinMax.get("minRam").getAsInt(), product.getRam()));
+			        jsonMinMax.addProperty("maxRam", Math.max(jsonMinMax.get("maxRam").getAsInt(), product.getRam()));
+			        
+			        // Calcola il valore minimo e massimo per display size
+			        jsonMinMax.addProperty("minDisplaySize", Math.min(jsonMinMax.get("minDisplaySize").getAsFloat(), product.getDisplay_size()));
+			        jsonMinMax.addProperty("maxDisplaySize", Math.max(jsonMinMax.get("maxDisplaySize").getAsFloat(), product.getDisplay_size()));
+			        
+			        // Calcola il valore minimo e massimo per storage
+			        jsonMinMax.addProperty("minStorage", Math.min(jsonMinMax.get("minStorage").getAsInt(), product.getStorage()));
+			        jsonMinMax.addProperty("maxStorage", Math.max(jsonMinMax.get("maxStorage").getAsInt(), product.getStorage()));
+			        
+			        // Calcola il valore minimo e massimo per storage
+			        jsonMinMax.addProperty("minPrice", Math.min(jsonMinMax.get("minPrice").getAsInt(), product.getPrice()));
+			        jsonMinMax.addProperty("maxPrice", Math.max(jsonMinMax.get("maxPrice").getAsInt(), product.getPrice()));
+			    }
+			    
+			    // Aggiungi l'oggetto dei valori minimi e massimi al gruppo
+			    jsonGroup.add("minMaxValues", jsonMinMax);
+			    
+			    
+			    // Aggiungi il gruppo di prodotti all'array dei gruppi
+			    jsonGroups.add(jsonGroup);
+			}
+
+			// Converti l'array dei gruppi in formato JSON
+			String jsonResult = gson.toJson(jsonGroups);
+
+			// Stampa il JSON risultante
+			System.out.println(jsonResult);
+			
+			
+			
+			
+			
+			/*
+			// Stampa i gruppi di prodotti in modo leggibile
+			for (List<ProductBean> group : resultGroups) {
+			    
+			    int minRam = Integer.MAX_VALUE;
+			    int maxRam = Integer.MIN_VALUE;
+			    float minDisplaySize = Float.MAX_VALUE;
+			    float maxDisplaySize = Float.MIN_VALUE;
+			    int minStorage = Integer.MAX_VALUE;
+			    int maxStorage = Integer.MIN_VALUE;
+			    
+			    for (ProductBean product : group) {
+			        // Calcola il valore minimo e massimo per ram
+			        minRam = Math.min(minRam, product.getRam());
+			        maxRam = Math.max(maxRam, product.getRam());
+			        
+			        // Calcola il valore minimo e massimo per display size
+			        minDisplaySize = Math.min(minDisplaySize, product.getDisplay_size());
+			        maxDisplaySize = Math.max(maxDisplaySize, product.getDisplay_size());
+			        
+			        // Calcola il valore minimo e massimo per storage
+			        minStorage = Math.min(minStorage, product.getStorage());
+			        maxStorage = Math.max(maxStorage, product.getStorage());
+			    }
+			    System.out.println("~~ ~~ ~~ Gruppo " + group.get(0).getName() + " ~~ ~~ ~~");
+			    System.out.println("Valore minimo RAM: " + minRam);
+			    System.out.println("Valore massimo RAM: " + maxRam);
+			    System.out.println("Valore minimo Display Size: " + minDisplaySize);
+			    System.out.println("Valore massimo Display Size: " + maxDisplaySize);
+			    System.out.println("Valore minimo Storage: " + minStorage);
+			    System.out.println("Valore massimo Storage: " + maxStorage);
+			    System.out.println("=============================");
+			}
+			*/
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+/*
+			// Aggiungi i prodotti alla lista risultante
+			for (int i = (productsPerLoading * countLoadings); i < (productsPerLoading * (countLoadings + 1)); i++) {
+				resultProducts.add(resultGroups.);
+			}
+*/
 			
 			// Scrivi il JSON come risposta
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(gson.toJsonTree(resultProducts).toString());
+			response.getWriter().write(jsonResult);
 
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
