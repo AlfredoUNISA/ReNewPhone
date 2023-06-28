@@ -21,12 +21,45 @@
 	<meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/productFilterScript.js"></script>
 	<title>Product List</title>
 </head>
 <body>	
 	<div class="content">
-	    <h2>Lista Prodotti</h2>
-	    <div class="productsGrid">
+	   <h2>Lista Prodotti</h2>
+	    
+	    
+	    <div class="box" style="float:left; display:none">
+            <div class="box-inner">
+       		 <h5>Filtri:</h5>
+       		 	<fieldset id="priceRange">
+	                <input type="number" placeholder="Min" min="0" max="9999">  
+	                 Prezzo
+	                <input type="number" placeholder="Max" min="0" max="9999">
+               	</fieldset>
+                <p> query 2</p>
+                <p> query 3</p>
+                <p> query 4</p>
+                <p> query 5</p>
+                <input onclick="processFilters"
+        		type="button" 
+               	class="processButton"
+               	value="Conferma" 
+               	id="myButton1">
+            </div>
+        </div>
+        <input onclick="toggleFilterPage()"
+        		type="button" 
+               	class="slide-toggle"
+               	value="Apri Filtri" 
+               	id="myButton1">
+    
+		 	
+			    <div class="productsGrid">
+	    
+	    
+	    
+	    
 			<script type="text/javascript"><%@include file="js/ajaxScript.js" %></script>
 		</div>
 		
