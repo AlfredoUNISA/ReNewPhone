@@ -28,6 +28,13 @@
 		<h1>Dettagli</h1><br>
 		<img class="detailImage" alt="<%=name%>" src="resources/<%=name%>.jpg">
 		<div class="productDetails">
+			<div id="description">
+				<h2><%=name%></h2>
+				<div id="categoryContainer"></div>
+				<div id="brandContainer"></div>
+				<div id="yearContainer"></div>
+			</div>
+
 			<div id="ramContainer"></div>
 			<div id="displaySizeContainer"></div>
 			<div id="storageContainer"></div>
@@ -36,6 +43,8 @@
 			<div id="stateContainer"></div>
 			<br><br>
 			<div id="priceContainer"></div>
+			<div id="quantityContainer"></div>
+			<div id="idContainer"></div>
 		</div>  
 
 

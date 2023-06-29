@@ -8,22 +8,21 @@ var json;
 
 $(document).ready(function () {
 	json = getJson();
-	console.log(json);
+	//console.log(json);
 
 	insertInArray();
 
 	initializeHTML();
 
-	getSelectedValuesAndUpdatePrice();
+	updatePrice();
 
-	getSelectedValuesAndUpdatePrice();
 });
 
 /**
  * Ottiene il JSON con tutti i dettagli del prodotto
  * @returns JSON dei dettagli del prodotto
  */
-function getJson() { 
+function getJson() {
 	// Prendi la stringa JSON dei dettagli del prodotto attraverso l'attributo JSP
 	var jsonString = '<%= request.getAttribute("product-details") %>;'
 
@@ -31,12 +30,12 @@ function getJson() {
 	jsonString = jsonString.substring(0, jsonString.length - 1);
 
 	// console.log(jsonString);
-	
+
 	return JSON.parse(jsonString);
 }
 
 /**
- * Inserisce tutti i valori dei dettagli del prodotto in un array
+ * Inserisce tutti i valori dei dettagli dal json in un array
  */
 function insertInArray() {
 	$(json).each(function () {
@@ -62,6 +61,17 @@ function insertInArray() {
  * Seleziona anche i primi valori di ogni gruppo.
  */
 function initializeHTML() {
+	var categoryContainer = $("#categoryContainer");
+	categoryContainer.append('Categoria: <b>' + json[0].category + '</b><br><br>');
+
+	var brandContainer = $("#brandContainer");
+	brandContainer.append('Marca: <b>' + json[0].brand + '</b><br><br>');
+
+	var yearContainer = $("#yearContainer");
+	yearContainer.append('Anno: <b>' + json[0].year + '</b><br><br><hr>');
+
+	
+
 	// RAM
 	var ramContainer = $("#ramContainer");
 	ramContainer.append('RAM: ');
@@ -69,7 +79,7 @@ function initializeHTML() {
 		ramContainer.append('<b>' + ramValues[0] + ' GB' + '</b>');
 	} else {
 		$(ramValues).each(function () {
-			ramContainer.append('<input type="radio" class="ramBtn" onChange="getSelectedValuesAndUpdatePrice()" value="' + this + '" name="ramGroup"/>' + this + ' GB');
+			ramContainer.append('<input type="radio" class="ramBtn" onChange="updatePrice()" value="' + this + '" name="ramGroup"/>' + this + ' GB');
 		});
 	}
 	ramContainer.append('<br><br>');
@@ -81,7 +91,7 @@ function initializeHTML() {
 		displaySizeContainer.append('<b>' + displaySizeValues[0] + " \"" + '</b>');
 	} else {
 		$(displaySizeValues).each(function () {
-			displaySizeContainer.append('<input type="radio" class="displaySizeBtn" onChange="getSelectedValuesAndUpdatePrice()" value="' + this + '" name="displayGroup"/>' + this + " \"");
+			displaySizeContainer.append('<input type="radio" class="displaySizeBtn" onChange="updatePrice()" value="' + this + '" name="displayGroup"/>' + this + " \"");
 		});
 	}
 	displaySizeContainer.append('<br><br>');
@@ -93,7 +103,7 @@ function initializeHTML() {
 		storageContainer.append('<b>' + storageValues[0] + " GB" + '</b>');
 	} else {
 		$(storageValues).each(function () {
-			storageContainer.append('<input type="radio" class="storageBtn" onChange="getSelectedValuesAndUpdatePrice()" value="' + this + '" name="storageGroup"/>' + this + ' GB');
+			storageContainer.append('<input type="radio" class="storageBtn" onChange="updatePrice()" value="' + this + '" name="storageGroup"/>' + this + ' GB');
 		});
 	}
 	storageContainer.append('<br><br>');
@@ -105,7 +115,7 @@ function initializeHTML() {
 		colorContainer.append('<b>' + colorValues[0] + '</b>');
 	} else {
 		$(colorValues).each(function () {
-			colorContainer.append('<input type="radio" class="colorBtn" onChange="getSelectedValuesAndUpdatePrice()" value="' + this + '" name="colorGroup"/>' + this);
+			colorContainer.append('<input type="radio" class="colorBtn" onChange="updatePrice()" value="' + this + '" name="colorGroup"/>' + this);
 		});
 	}
 	colorContainer.append('<br><br>');
@@ -117,7 +127,7 @@ function initializeHTML() {
 		stateContainer.append('<b>' + stateValues[0] + '</b>');
 	} else {
 		$(stateValues).each(function () {
-			stateContainer.append('<input type="radio" class="stateBtn" onChange="getSelectedValuesAndUpdatePrice()" value="' + this + '" name="stateGroup"/>' + this);
+			stateContainer.append('<input type="radio" class="stateBtn" onChange="updatePrice()" value="' + this + '" name="stateGroup"/>' + this);
 		});
 	}
 	stateContainer.append('<br><br>');
@@ -131,10 +141,10 @@ function initializeHTML() {
 }
 
 /**
- * Ottiene i valori selezionati dai radio button e aggiorna il prezzo
+ * Ottiene i valori selezionati dai radio button incluso il prezzo
  * @returns array con i valori selezionati
  */
-function getSelectedValuesAndUpdatePrice() {
+function getSelectedValues() {
 	var selectedRam = $(".ramBtn:checked").val();
 	if (selectedRam == undefined)
 		selectedRam = ramValues[0];
@@ -155,22 +165,66 @@ function getSelectedValuesAndUpdatePrice() {
 	if (selectedState == undefined)
 		selectedState = stateValues[0];
 
-	// Stampa i valori selezionati
-	// console.log("selected ram: " + selectedRam);
-	// console.log("selected display size: " + selectedDisplaySize);
-	// console.log("selected storage: " + selectedStorage);
-	// console.log("selected color: " + selectedColor);
-	// console.log("-------------------");
+
 
 	var values = [selectedRam, selectedDisplaySize, selectedStorage, selectedColor, selectedState];
-	
+
 	// search the values in the json and return the price
-	var price = 0;
+	var price = -1;
+	var quantity = 0;
+	var id = 0;
 	$(json).each(function () {
-		if (this.ram == values[0] && this.display_size == values[1] && this.storage == values[2] && this.color == values[3] && this.state == values[4])
+		if (this.ram == values[0] && this.display_size == values[1] && this.storage == values[2] && this.color == values[3] && this.state == values[4]) {
 			price = this.price;
+			quantity = this.quantity;
+			id = this.id;
+		}
 	});
-	$("#priceContainer").html('<b>' + price + ' &euro;');
-	
+
+	//console.log("selected ram: " + selectedRam);
+	//console.log("selected display size: " + selectedDisplaySize);
+	//console.log("selected storage: " + selectedStorage);
+	//console.log("selected color: " + selectedColor);
+	//console.log("price: " + price);
+	//console.log("quantity: " + quantity);
+	//console.log("id: " + id);
+	//console.log("-------------------");
+
+	values.push(price);
+	values.push(quantity);
+	values.push(id);
 	return values;
+}
+
+/**
+ * Aggiorna il prezzo, la quantità in magazzino e l'id nella pagina
+ */
+function updatePrice() {
+	var values = getSelectedValues();
+	var price = values[5];
+	var quantity = values[6];
+	var id = values[7];
+
+	var error = false;
+	if (price == -1) {
+		error = true;
+		$("#priceContainer").html('<b>Non disponibile</b>');
+	} else {
+		$("#priceContainer").html('<b>' + price + ' &euro;');
+	}
+	
+	if (error == true || quantity == 0) {
+		error = true;
+		$("#quantityContainer").html('<b>Non in magazzino</b>');
+	} else {
+		$("#quantityContainer").html('<b>In magazzino: ' + quantity + '</b>');
+	}	
+	
+	if (error == true || id == 0){
+		error = true;
+		$("#idContainer").html('<b>Non disponibile</b>');
+	} else {
+		$("#idContainer").html('<b>ID: ' + id + '</b>');
+	}
+	
 }
