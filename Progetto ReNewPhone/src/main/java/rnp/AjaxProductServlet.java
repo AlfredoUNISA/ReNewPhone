@@ -108,7 +108,7 @@ protected void loadProducts(HttpServletRequest request, HttpServletResponse resp
 					&& memoryMax > product.getStorage()
 					&& ramMin < product.getRam()
 					&& ramMax > product.getRam()
-					&& filteredBrand == product.getBrand()) {
+					&& filteredBrand.compareToIgnoreCase(product.getBrand())==0) {
 			
 			// Controlla se il nome del prodotto è già presente nella mappa
 			if (groupedProducts.containsKey(productName)) {
