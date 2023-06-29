@@ -95,7 +95,7 @@ protected void loadProducts(HttpServletRequest request, HttpServletResponse resp
 		// Crea una mappa per raggruppare i prodotti per nome
 		Map<String, List<ProductBean>> groupedProducts = new HashMap<>();
 
-		if(filteredBrand!=null) //Controllo che i prodotti rientrino nei filtri
+		if(filteredBrand!=null &&  filteredBrand.compareToIgnoreCase("Seleziona")!=0) //Controllo che i prodotti rientrino nei filtri
     		filterStringWasNull=false;
 		// Aggiungi tutti i prodotti alla mappa raggruppandoli per nome
 		for (ProductBean product : listProducts) {

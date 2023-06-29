@@ -6,12 +6,14 @@ $(document).ready(function(){
 		toggleFilterPage();
 	})
 	$(".processButton").click(function(){
+		$("#loadMoreButton").hide();
+		$("#loadMoreFilteredButton").show();
 		countLoadings=0; //resetto i caricamenti così non verranno saltati i prodotti già caricati all'inizio
 		$(".productsGrid").empty(); //tolgo tutti gli elementi non filtrati caricati in precedenza
 		filterProducts();
 	})
 	$('#loadMoreFilteredButton').click(function () {
-		filterProductsProducts()
+		filterProducts();
 	});
 	
 	
