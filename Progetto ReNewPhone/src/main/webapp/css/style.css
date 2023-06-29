@@ -533,4 +533,18 @@ nav a:hover {
 	height:11.83em;
 	
 }
- 
+/* Stile per gli elementi del menù dei filtri*/
+.box{
+	height:100px;
+	float:left; 
+	display:none;
+	text-align:center;
+	
+}
+.box-inner{
+	height:100px;
+	float:left; 
+	display:none;
+	text-align:center;
+	
+}

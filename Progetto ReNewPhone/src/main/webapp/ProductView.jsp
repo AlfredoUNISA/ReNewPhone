@@ -21,10 +21,9 @@
 	<meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script type="text/javascript" src="js/productFilterScript.js"></script>
 	<title>Product List</title>
 </head>
-<body>	
+<body>
 	<div class="content">
 	   <h2>Lista Prodotti</h2>
 	    
@@ -37,29 +36,44 @@
 	                 Prezzo
 	                <input type="number" placeholder="Max" min="0" max="9999">
                	</fieldset>
-                <p> query 2</p>
-                <p> query 3</p>
-                <p> query 4</p>
-                <p> query 5</p>
-                <input onclick="processFilters"
-        		type="button" 
+                <fieldset id="memoryRange">
+	                <input type="number" placeholder="Min" min="0" max="9999">Gb  
+	                 Spazio interno
+	                <input type="number" placeholder="Max" min="0" max="9999">Gb
+               	</fieldset>
+                <fieldset>
+               	<label for="brandSelect">Brand</label>             
+	                <select id="brandSelect">
+	                	<option value="Seleziona"> Seleziona </option>
+	                	<option value="Apple">Apple</option>
+	                	<option value="Google">Google</option>
+	                	<option value="Samsung">Samsung</option>
+	                	<option value="Xiaomi">Xiaomi</option>
+	                </select>
+               	</fieldset>
+				<fieldset id="ramRange">
+	                <input type="number" placeholder="Min" min="0" max="9999">Gb  
+	                 RAM
+	                <input type="number" placeholder="Max" min="0" max="9999">Gb
+               	</fieldset>
+                <input type="button" 
                	class="processButton"
                	value="Conferma" 
                	id="myButton1">
             </div>
         </div>
-        <input onclick="toggleFilterPage()"
-        		type="button" 
+        <input	type="button" 
                	class="slide-toggle"
                	value="Apri Filtri" 
-               	id="myButton1">
+               	id="myButton">
     
 		 	
 			    <div class="productsGrid">
 	    
 	    
 	    
-	    
+	    	<script type="text/javascript"><%@include file="js/productFilterScript.js" %></script>
+		
 			<script type="text/javascript"><%@include file="js/ajaxScript.js" %></script>
 		</div>
 		
