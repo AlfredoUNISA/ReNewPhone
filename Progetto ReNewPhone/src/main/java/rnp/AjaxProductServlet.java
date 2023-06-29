@@ -22,7 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 /**
- * Servlet implementation class AjaxProductServlet
+ * Servlet che ritorna un JSON a una richiesta AJAX
  */
 @WebServlet("/AjaxProductServlet")
 public class AjaxProductServlet extends HttpServlet {
