@@ -29,12 +29,12 @@
 		<img class="detailImage" alt="<%=name%>" src="resources/<%=name%>.jpg">
 		<div class="productDetails">
 			<div id="description">
-				<h2><%=name%></h2>
+				<i><h2><%=name%></h2></i>
 				<div id="categoryContainer"></div>
 				<div id="brandContainer"></div>
 				<div id="yearContainer"></div>
 			</div>
-
+			<h2>Specifiche</h2>
 			<div id="ramContainer"></div>
 			<div id="displaySizeContainer"></div>
 			<div id="storageContainer"></div>
@@ -45,8 +45,19 @@
 			<div id="priceContainer"></div>
 			<div id="quantityContainer"></div>
 			<div id="idContainer"></div>
-		</div>  
-
+		</div>
+		<br>  
+		<div class="buyProduct">
+			Seleziona la quantità: 
+			<select id="quantitySelect">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
+			<button id="addToCartBtn">Aggiungi al carrello</button>
+		</div>
 
 	</div>
 

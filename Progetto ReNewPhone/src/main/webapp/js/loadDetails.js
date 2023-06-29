@@ -5,8 +5,26 @@ var colorValues = [];
 var stateValues = [];
 
 var json;
+var currentProductId = -1;
+var currentProductQuantity = -1;
+var currentUserId = '<%= CURRENT_USER_ID %>;';
 
 $(document).ready(function () {
+	$('#addToCartBtn').click(function (e) { 
+		currentProductQuantity = $('#quantitySelect').val();
+		console.log(currentProductQuantity);
+		$.ajax({
+			type: "POST",
+			url: "my-cart?action=add&user=" + currentUserId + "&product=" + currentProductId + "&quantity=" + currentProductQuantity,
+			success: function () {
+				alert("Prodotto aggiunto al carrello");
+			},
+			error: function () {
+				alert("Errore durante l'aggiunta al carrello");
+			}
+		});
+	});
+	
 	json = getJson();
 	//console.log(json);
 
@@ -218,6 +236,7 @@ function updatePrice() {
 		$("#quantityContainer").html('<b>Non in magazzino</b>');
 	} else {
 		$("#quantityContainer").html('<b>In magazzino: ' + quantity + '</b>');
+		currentProductQuantity = quantity;
 	}	
 	
 	if (error == true || id == 0){
@@ -225,6 +244,11 @@ function updatePrice() {
 		$("#idContainer").html('<b>Non disponibile</b>');
 	} else {
 		$("#idContainer").html('<b>ID: ' + id + '</b>');
+		currentProductId = id;
 	}
 	
+
+	console.log(currentProductId);
+	console.log(currentProductQuantity);
+	console.log(currentUserId);
 }
