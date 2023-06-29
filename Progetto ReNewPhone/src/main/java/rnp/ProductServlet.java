@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+
 /**
  * Servlet implementation class ProductServlet
  */
@@ -54,7 +58,10 @@ public class ProductServlet extends HttpServlet {
 		try {
 			// MODIFICABILE
 			//request.removeAttribute("product-details");
-			request.setAttribute("product-details", productDAO.doRetrieveByName(name));
+			Gson gson = new GsonBuilder().create();
+			String json = gson.toJson(productDAO.doRetrieveByName(name));
+			
+			request.setAttribute("product-details", json.substring(0, json.length()));
 			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
