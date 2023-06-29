@@ -52,9 +52,9 @@
 	                </select>
                	</fieldset>
 				<fieldset id="ramRange">
-	                <input type="number" placeholder="Min" min="0" max="9999">Gb  
+	                <input type="number" placeholder="Min" min="0" max="99">Gb  
 	                 RAM
-	                <input type="number" placeholder="Max" min="0" max="9999">Gb
+	                <input type="number" placeholder="Max" min="0" max="99">Gb
                	</fieldset>
                 <input type="button" 
                	class="processButton"
@@ -78,6 +78,7 @@
 		</div>
 		
 		<button id="loadMoreButton">Carica Altro</button>
+		<button id="loadMoreFilteredButton" style="display:none">Carica Altro</button>
 		
 		
 		
