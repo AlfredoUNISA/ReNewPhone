@@ -34,6 +34,8 @@
 			<div id="colorContainer"></div>
 			<div id="colorContainer"></div>
 			<div id="stateContainer"></div>
+			<br><br>
+			<div id="priceContainer"></div>
 		</div>  
 
 
