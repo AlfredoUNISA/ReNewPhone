@@ -66,12 +66,12 @@ public class AjaxProductServlet extends HttpServlet {
 		if (request.getParameter("productsPerLoading") != null) {
 			productsPerLoading = Integer.parseInt(request.getParameter("productsPerLoading"));
 		}
-		System.out.println("productsPerLoading: " + countLoadings);
+		//System.out.println("productsPerLoading: " + countLoadings);
 		
 		if (request.getParameter("countLoadings") != null) {
 			countLoadings = Integer.parseInt(request.getParameter("countLoadings"));
 		}
-		System.out.println("countLoadings: " + countLoadings);
+		//System.out.println("countLoadings: " + countLoadings);
 		
 		loadProducts(request,response,productsPerLoading,
 				countLoadings,priceMin,priceMax,memoryMin,

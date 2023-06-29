@@ -88,8 +88,6 @@ function initializeHTML() {
 	var yearContainer = $("#yearContainer");
 	yearContainer.append('Anno: <b>' + json[0].year + '</b><br><br><hr>');
 
-	
-
 	// RAM
 	var ramContainer = $("#ramContainer");
 	ramContainer.append('RAM: ');
@@ -223,6 +221,29 @@ function updatePrice() {
 	var quantity = values[6];
 	var id = values[7];
 
+	
+	if (quantity == 0){
+		$("#quantitySelect").prop("disabled", true);
+		$("#addToCartBtn").prop("disabled", true);
+	} else {
+		$("#quantitySelect").prop("disabled", false);
+		$("#addToCartBtn").prop("disabled", false);
+		for (var i = 1; i <= 5; i++)
+			$("#quantityOption" + i).prop("disabled", false);
+	}
+	
+	if (quantity < 5) {
+		for (var i = 1; i <= 5; i++) {
+			console.log("Quantity: " + quantity);
+			console.log("i: " + i);
+			if(i <= quantity)
+				$("#quantityOption" + i).prop("disabled", false);
+			else	
+				$("#quantityOption" + i).prop("disabled", true);
+		}
+	}
+	
+
 	var error = false;
 	if (price == -1) {
 		error = true;
@@ -247,8 +268,4 @@ function updatePrice() {
 		currentProductId = id;
 	}
 	
-
-	console.log(currentProductId);
-	console.log(currentProductQuantity);
-	console.log(currentUserId);
 }

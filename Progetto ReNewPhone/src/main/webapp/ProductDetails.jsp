@@ -50,11 +50,11 @@
 		<div class="buyProduct">
 			Seleziona la quantità: 
 			<select id="quantitySelect">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
+				<option id="quantityOption1" value="1">1</option>
+				<option id="quantityOption2" value="2">2</option>
+				<option id="quantityOption3" value="3">3</option>
+				<option id="quantityOption4" value="4">4</option>
+				<option id="quantityOption5" value="5">5</option>
 			</select>
 			<button id="addToCartBtn">Aggiungi al carrello</button>
 		</div>
