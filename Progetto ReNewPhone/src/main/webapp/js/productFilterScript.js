@@ -62,14 +62,6 @@ function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBr
 
 			// Itera sui prodotti e visualizzali
 			$(resultJSON).each(function () {
-				if(this.minMaxValues.minRam>=ramMin && 
-				this.minMaxValues.maxRam<=ramMax &&
-				this.minMaxValues.minStorage>=memoryMin &&
-				this.minMaxValues.maxStorage<=memoryMax &&
-				this.minMaxValues.minPrice >= priceMin &&
-				this.minMaxValues.maxPrice <= priceMax &&
-				this.brand == filterBrand
-				){
 				// Creazione del valore da visualizzare per RAM
 				var ramValue;
 				if (this.minMaxValues.minRam == this.minMaxValues.maxRam) {
@@ -118,7 +110,6 @@ function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBr
 
 				// Aggiungi il markup HTML al contenitore dei prodotti
 				$('.productsGrid').append(html);
-				}
 			});
 			countLoadings++;
 			console.log(countLoadings - 1 + ", " + countLoadings);

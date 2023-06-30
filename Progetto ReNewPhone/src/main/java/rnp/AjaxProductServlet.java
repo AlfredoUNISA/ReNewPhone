@@ -41,25 +41,25 @@ public class AjaxProductServlet extends HttpServlet {
 				,ramMax=Integer.MAX_VALUE;
 		String filterBrand=null;
 		//Ottenimento dei valori dei filtri
-		if (request.getParameter("priceMin") != null) {
+		if (request.getParameter("priceMin")!=null && !request.getParameter("priceMin").isBlank()) {
 			priceMin= Integer.parseInt(request.getParameter("priceMin"));
 		}
-		if (request.getParameter("priceMax") != null) {
+		if (request.getParameter("priceMax")!=null && !request.getParameter("priceMax").isBlank()) {
 			priceMax= Integer.parseInt(request.getParameter("priceMax"));
 		}
-		if (request.getParameter("memoryMin") != null) {
+		if (request.getParameter("memoryMin")!=null && !request.getParameter("memoryMin").isBlank()) {
 			memoryMin= Integer.parseInt(request.getParameter("memoryMin"));
 		}
-		if (request.getParameter("memoryMax") != null) {
+		if (request.getParameter("memoryMax")!= null && !request.getParameter("memoryMax").isBlank()) {
 			memoryMax= Integer.parseInt(request.getParameter("memoryMax"));
 		}
-		if (request.getParameter("ramMin") != null) {
+		if (request.getParameter("ramMin")!=null && !request.getParameter("ramMin").isBlank()) {
 			ramMin= Integer.parseInt(request.getParameter("ramMin"));
 		}
-		if (request.getParameter("ramMax") != null) {
+		if (request.getParameter("ramMax")!=null && !request.getParameter("ramMax").isBlank()) {
 			ramMax= Integer.parseInt(request.getParameter("ramMax"));
 		}
-		if (request.getParameter("filterBrand") != null) {
+		if (request.getParameter("filterBrand")!=null && !request.getParameter("filterBrand").isBlank()) {
 			filterBrand= request.getParameter("filterBrand");
 		}
 		
@@ -210,7 +210,7 @@ protected void loadProducts(HttpServletRequest request, HttpServletResponse resp
 
 		// Converti l'array dei gruppi in formato JSON
 		String jsonResult = gson.toJson(jsonGroups);
-
+		System.out.println(jsonResult.toString());
 		// Scrivi il JSON come risposta
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
