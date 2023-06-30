@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -32,21 +32,25 @@ public class AdminInsertServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    addRow(request, response);
-	    //storeImage(request);
+		try {
+			addRow(request, response);
+		} catch (ServletException | IOException | InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	
-	private void storeImage(HttpServletRequest request) throws IOException, ServletException {
+	private void storeImage(HttpServletRequest request, String name) throws IOException, ServletException {
 		Part filePart = request.getPart("file");
-	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+	    //String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 	    InputStream fileContent = filePart.getInputStream();
 	    
 	    // Definisci la directory di destinazione
-	    String uploadDirectory = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\resources"; // Percorso assoluto o relativo
+	    String uploadDirectory = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\resources";
 
 	    // Crea il percorso completo per il file
-	    String filePath = uploadDirectory + File.separator + fileName;
+	    String filePath = uploadDirectory + File.separator + name + ".jpg";
 
 	    // Salva il file sul server
 	    File file = new File(filePath);
@@ -61,8 +65,9 @@ public class AdminInsertServlet extends HttpServlet {
 	
 	/**
 	 * Aggiunge una nuova riga alla table del database.
+	 * @throws InterruptedException 
 	 */
-	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InterruptedException {
 		// MODIFICABILE
 		String name = request.getParameter("name");
 		int ram = Integer.parseInt(request.getParameter("ram"));
@@ -90,10 +95,18 @@ public class AdminInsertServlet extends HttpServlet {
 		product.setCategory(category);
 		product.setState(state);
 
+		boolean error = false;
 		try {
 			productDAO.doSave(product);
 		} catch (SQLException e) {
+			error = true;
 			System.out.println("ERROR: " + e);
+		}
+		
+		if (!error) {
+			storeImage(request, name);
+			TimeUnit.SECONDS.sleep(2);
+			response.sendRedirect("products?action=details&name="+name);
 		}
 	}
 }

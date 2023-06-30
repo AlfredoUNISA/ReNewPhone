@@ -28,7 +28,7 @@
 		
 		<h2>Aggiungi un prodotto</h2>
 		<form action="AdminInsert" method="post" enctype="multipart/form-data">
-			<!-- <input type="file" name="file" /> -->
+			<input type="file" name="file" />
 			
 		    <label>Nome:</label>
 		    <input type="text" name="name" maxlength="150" placeholder="Inserisci nome" required><br><br>

@@ -81,6 +81,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 			preparedStatement.setString(11, product.getState());
 
 			preparedStatement.executeUpdate();
+			connection.setAutoCommit(false);
 			connection.commit();
 
 			// Ottieni l'id generato
