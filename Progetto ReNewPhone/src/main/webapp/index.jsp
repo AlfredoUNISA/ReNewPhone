@@ -29,17 +29,13 @@
 			<p>Benvenuto nel sito di ReNewPhone, il sito di riferimento per la vendita di smartphone ricondizionati.</p>
 		<%} %>
 		
-		<hr>
 		
 		<% if (IS_CURRENT_USER_ADMIN){ %>
-			<a href="users">TEST DATABASE - Utenti (solo admin)</a><br>
-			<a href="orders">TEST DATABASE - Ordini (solo admin)</a><br><br>
+		<hr>
+			<a href="admin.jsp">Vai alla pagina per admin</a><br>
+		<hr>
 		<%}%>
 		
-		<a href="products">TEST DATABASE - Prodotti</a><br>
-		<a href="SearchPage.jsp">TEST RICERCA</a><br><br>
-		
-		<hr>
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
 	</div>
 	

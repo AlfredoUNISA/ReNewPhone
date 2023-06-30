@@ -39,7 +39,7 @@ public class ProductServlet extends HttpServlet {
 				deleteRow(request, response);
 				break;
 			default:
-				response.sendRedirect(request.getContextPath());
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Pagina non trovata");
 				break;
 			}
 		}
