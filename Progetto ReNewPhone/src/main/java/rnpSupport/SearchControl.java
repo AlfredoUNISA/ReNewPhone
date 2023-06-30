@@ -1,10 +1,13 @@
-package rnp;
+package rnpSupport;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+import rnpBean.ProductBean;
+import rnpDAO.IBeanDAO;
+import rnpDAO.ProductDAODataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package rnp;
+package rnpBean;
 
 import java.io.Serializable;
 

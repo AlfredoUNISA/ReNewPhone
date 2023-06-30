@@ -1,4 +1,4 @@
-package rnp;
+package rnpDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import rnpBean.ItemOrderBean;
 
 /**
  * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale

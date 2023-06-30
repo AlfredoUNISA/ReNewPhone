@@ -1,5 +1,5 @@
-<%@ page import="rnp.UserDAODataSource"%>
-<%@ page import="rnp.UserBean"%>
+<%@ page import="rnpDAO.UserDAODataSource"%>
+<%@ page import="rnpBean.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 

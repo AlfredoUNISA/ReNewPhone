@@ -1,4 +1,4 @@
-package rnp;
+package rnpServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,6 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import rnpBean.CartBean;
+import rnpBean.ItemOrderBean;
+import rnpBean.OrderBean;
+import rnpBean.ProductBean;
+import rnpDAO.CartDAODataSource;
+import rnpDAO.ItemsOrderDAODataSource;
+import rnpDAO.OrderDAODataSource;
+import rnpDAO.ProductDAODataSource;
 
 /**
  * Servlet implementation class CartServlet

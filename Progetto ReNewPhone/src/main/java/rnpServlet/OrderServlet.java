@@ -1,4 +1,4 @@
-package rnp;
+package rnpServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import rnpBean.OrderBean;
+import rnpDAO.OrderDAODataSource;
 
 /**
  * Servlet per gestire le richieste relate alla manipolazione dei dati di un database.
