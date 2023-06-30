@@ -25,13 +25,53 @@
 <body>
 
 	<div class="content">
-		<p>Sei un admin</p>
-		<form action="AdminInsert" method="post" enctype="multipart/form-data">
-    		<input type="file" name="file" />
-    		<input type="submit" value="Upload" />
-		</form>
 		
-		<% %>
+		<h2>Aggiungi un prodotto</h2>
+		<form action="AdminInsert" method="post" enctype="multipart/form-data">
+			<!-- <input type="file" name="file" /> -->
+			
+		    <label>Nome:</label>
+		    <input type="text" name="name" maxlength="150" placeholder="Inserisci nome" required><br><br>
+	
+			<label>Ram:</label>
+		    <input type="number" name="ram" min="0" value="0" required><br><br>
+	
+			<label>Display:</label>
+		    <input type="number" name="display_size" min="0" value="0" required><br><br>
+		    
+		    <label>Storage:</label>
+		    <input type="number" name="storage" min="0" value="0" required><br><br>
+	
+		    <label>Prezzo:</label>
+		    <input type="number" name="price" min="0" value="0" required><br><br>
+		
+		    <label>Quantità:</label>
+		    <input type="number" name="quantity" min="1" value="1" required><br><br>
+		
+		    <label>Colore:</label>
+		    <input type="text" name="color" maxlength="20" placeholder="Inserisci colore" required><br><br>
+		
+		    <label>Marca:</label>
+		    <input type="text" name="brand" maxlength="25" placeholder="Inserisci marca" required><br><br>
+		
+		    <label>Anno:</label>
+		    <input type="number" name="year" min="2000" required><br><br>
+		
+		    <label>Categoria:</label>
+		    <select name="category" required>
+				<option value="Smartphone">Smartphone</option>
+		    	<option value="Tablet">Tablet</option>
+			</select><br><br>
+		
+		    <label>Condizione:</label>
+			<select name="state" required>
+				<option value="Accettabile">Accettabile</option>
+				<option value="Buono">Buono</option>
+		  		<option value="Ottimo">Ottimo</option>
+			</select><br><br>
+		
+		    <input type="submit" value="Add">
+		</form>
 
 
 	</div>

@@ -58,7 +58,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 
 		// MODIFICABILE
 		String insertSQL = "INSERT INTO " + ProductDAODataSource.TABLE_NAME
-				+ " (name, ram, display_size, storage, price, quantity, color, brand, year, category, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " (name, ram, display_size, storage, price, quantity, color, brand, year, category, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		int generatedId = -1;
 
