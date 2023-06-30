@@ -210,7 +210,7 @@ protected void loadProducts(HttpServletRequest request, HttpServletResponse resp
 
 		// Converti l'array dei gruppi in formato JSON
 		String jsonResult = gson.toJson(jsonGroups);
-		System.out.println(jsonResult.toString());
+		// System.out.println(jsonResult.toString());
 		// Scrivi il JSON come risposta
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

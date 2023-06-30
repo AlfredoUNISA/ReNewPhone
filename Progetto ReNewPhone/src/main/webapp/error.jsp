@@ -34,7 +34,8 @@
 			<p>Problema con il server (controlla sysout)</p>
 		<%
 			}
-    		System.out.println(request.getAttribute("javax.servlet.error.exception"));
+			if(request.getAttribute("javax.servlet.error.exception") != null)
+    			System.out.println(request.getAttribute("javax.servlet.error.exception"));
     	%>
     	
 	</div>
