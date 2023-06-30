@@ -27,7 +27,7 @@
 	<div class="content">
 		
 		<h2>Aggiungi un prodotto</h2>
-		<form action="AdminInsert" method="post" enctype="multipart/form-data">
+		<form action="Admin" method="post" enctype="multipart/form-data">
 			<input type="file" name="file" />
 			
 		    <label>Nome:</label>
