@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -27,7 +29,7 @@ import rnpBean.ItemOrderBean;
  * @category MODIFICABILE
  */
 public class ItemsOrderDAODataSource implements IBeanDAO<ItemOrderBean> /* MODIFICABILE */ {
-
+	private static final Logger logger = Logger.getLogger(ItemsOrderDAODataSource.class.getName());
 	private static DataSource ds;
 	private static final String TABLE_NAME = "order_items"; // MODIFICABILE
 
@@ -40,7 +42,7 @@ public class ItemsOrderDAODataSource implements IBeanDAO<ItemOrderBean> /* MODIF
 			ds = (DataSource) envCtx.lookup("jdbc/renewphonedb"); // MODIFICABILE
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.SEVERE,"Error:" + e.getMessage());
 		}
 	}
 
@@ -88,7 +90,7 @@ public class ItemsOrderDAODataSource implements IBeanDAO<ItemOrderBean> /* MODIF
 				if (generatedKeys.next()) {
 					generatedId = generatedKeys.getInt(1);
 				} else {
-					System.out.println("ERROR: No ID obtained in OrderDAODataSource's doSave.");
+					logger.log(Level.WARNING,"ERROR: No ID obtained in OrderDAODataSource's doSave.");
 				}
 			}
 
@@ -154,7 +156,7 @@ public class ItemsOrderDAODataSource implements IBeanDAO<ItemOrderBean> /* MODIF
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<ItemOrderBean> products = new LinkedList<ItemOrderBean>();
+		Collection<ItemOrderBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + ItemsOrderDAODataSource.TABLE_NAME;
 
