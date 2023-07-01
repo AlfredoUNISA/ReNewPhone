@@ -146,12 +146,14 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME;
 
 		if (sort != null && !sort.equals("")) {
-			selectSQL += " ORDER BY " + sort;
+			selectSQL += " ORDER BY ?";
 		}
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
+			if(sort != null && !sort.equals(""))
+				preparedStatement.setString(1, sort);
 
 			ResultSet rs = preparedStatement.executeQuery();
 

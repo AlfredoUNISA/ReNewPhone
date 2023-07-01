@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -27,10 +29,10 @@ import rnpBean.CartBean;
  * @category MODIFICABILE
  */
 public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ {
-
+	private static final Logger logger = Logger.getLogger(CartDAODataSource.class.getName());
 	private static DataSource ds;
 	private static final String TABLE_NAME = "carts"; // MODIFICABILE
-
+	private static final String selectPrototype="SELECT * FROM " + CartDAODataSource.TABLE_NAME;
 	// Inizializzazione per il Data Source
 	static {
 		try {
@@ -40,7 +42,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 			ds = (DataSource) envCtx.lookup("jdbc/renewphonedb"); // MODIFICABILE
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.SEVERE,"Error:" + e.getMessage());
 		}
 	}
 
@@ -182,15 +184,17 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 
 		Collection<CartBean> carts = new LinkedList<CartBean>();
 
-		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME;
+		String selectSQL=selectPrototype;
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY ?";
 		}
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
+			if(order != null && !order.equals(""))
+				preparedStatement.setString(1, order);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -233,7 +237,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 
 		CartBean bean = new CartBean();
 
-		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ? AND id_product = ?"; // MODIFICABILE
+		String selectSQL = selectPrototype + " WHERE id_user = ? AND id_product = ?"; // MODIFICABILE
 
 		try {
 			connection = ds.getConnection();
@@ -278,9 +282,9 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	public synchronized Collection<CartBean> doRetrieveByUser(int id_user, String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Collection<CartBean> carts = new LinkedList<CartBean>();
+		Collection<CartBean> carts = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ?"; // MODIFICABILE
+		String selectSQL = selectPrototype + " WHERE id_user = ?"; // MODIFICABILE
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -325,8 +329,9 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	 * @deprecated
 	 */
 	@Override
+	@Deprecated
 	public synchronized CartBean doRetrieveByKey(int NON_USARE_QUESTO_METODO) throws SQLException {
-		System.out.println("Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()");
+		logger.log(Level.WARNING,"Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()");
 		return null;
 	}
 
