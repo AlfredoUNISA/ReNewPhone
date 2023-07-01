@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -27,7 +29,7 @@ import rnpBean.CartBean;
  * @category MODIFICABILE
  */
 public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ {
-
+	private static final Logger logger = Logger.getLogger(CartDAODataSource.class.getName());
 	private static DataSource ds;
 	private static final String TABLE_NAME = "carts"; // MODIFICABILE
 
@@ -40,7 +42,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 			ds = (DataSource) envCtx.lookup("jdbc/renewphonedb"); // MODIFICABILE
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.log(Level.SEVERE,"Error:" + e.getMessage());
 		}
 	}
 
