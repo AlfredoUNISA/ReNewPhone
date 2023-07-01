@@ -282,7 +282,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	public synchronized Collection<CartBean> doRetrieveByUser(int id_user, String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Collection<CartBean> carts = new LinkedList<CartBean>();
+		Collection<CartBean> carts = new LinkedList<>();
 
 		String selectSQL = selectPrototype + " WHERE id_user = ?"; // MODIFICABILE
 
@@ -329,8 +329,9 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	 * @deprecated
 	 */
 	@Override
+	@Deprecated
 	public synchronized CartBean doRetrieveByKey(int NON_USARE_QUESTO_METODO) throws SQLException {
-		System.out.println("Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()");
+		logger.log(Level.WARNING,"Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()");
 		return null;
 	}
 

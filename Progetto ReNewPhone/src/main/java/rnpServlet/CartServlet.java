@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +29,7 @@ import rnpDAO.ProductDAODataSource;
  */
 @WebServlet("/my-cart")
 public class CartServlet extends HttpServlet {
+	private static final Logger logger = Logger.getLogger(CartServlet.class.getName());
 	private static final long serialVersionUID = 1L;
 	private static CartDAODataSource cartDAO = new CartDAODataSource();
 
@@ -86,7 +89,7 @@ public class CartServlet extends HttpServlet {
 			request.setAttribute("cart", cartDAO.doRetrieveByUser(usr, sort));
 			request.getServletContext().getRequestDispatcher("/CartView.jsp").forward(request, response);
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			printError(e);
 		}
 	}
 
@@ -107,7 +110,7 @@ public class CartServlet extends HttpServlet {
 						+ ", id_product = " + id_product + ")");
 			}
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			printError(e);
 		}
 	}
 
@@ -162,7 +165,7 @@ public class CartServlet extends HttpServlet {
 			try {
 				cartDAO.doSave(cart);
 			} catch (SQLException e) {
-				System.out.println("ERROR: " + e);
+				printError(e);
 				if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 					// TODO: fare qualcosa se ci sono duplicati
 				}
@@ -182,7 +185,7 @@ public class CartServlet extends HttpServlet {
 						+ ", id_product = " + id_product + ")");
 			}
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			printError(e);
 			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 				// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
 				// questa riga da eliminare
@@ -241,7 +244,7 @@ public class CartServlet extends HttpServlet {
 				cartDAO.doDelete(id_user);
 			}
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			printError(e);
 			// Fare qualcosa se non ci sono abbastanza oggetti in stock
 		}
 	}
@@ -251,4 +254,9 @@ public class CartServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	protected final void printError(SQLException e) {
+		logger.log(Level.SEVERE, "ERROR: "+e);
+	}
 }
+
+
