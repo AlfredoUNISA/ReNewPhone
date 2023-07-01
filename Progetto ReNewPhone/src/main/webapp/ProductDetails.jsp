@@ -18,7 +18,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript"><%@include file="js/loadDetails.js" %></script>
+	<script type="text/javascript"><%@include file="js/detailsLoad.js" %></script>
 	<title>Homepage</title>
 </head>
 <body>

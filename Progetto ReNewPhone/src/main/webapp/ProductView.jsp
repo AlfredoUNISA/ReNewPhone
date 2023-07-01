@@ -72,9 +72,9 @@
 	    
 	    
 	    
-	    	<script type="text/javascript"><%@include file="js/productFilterScript.js" %></script>
+	    	<script type="text/javascript"><%@include file="js/productsFilter.js" %></script>
 		
-			<script type="text/javascript"><%@include file="js/ajaxScript.js" %></script>
+			<script type="text/javascript"><%@include file="js/productsAjax.js" %></script>
 		</div>
 		
 		<button id="loadMoreButton">Carica Altro</button>

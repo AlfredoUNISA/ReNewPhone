@@ -7,10 +7,11 @@
 <%
 	// Ottenimento dell'utente attuale (funziona su tutte le pagine che utilizzano l'header)
 	Object session_obj = request.getSession().getAttribute("user");
+	//System.out.println("[header] session_obj: " + session_obj);
 	int CURRENT_USER_ID = -1;
 	if(session_obj != null)
 		CURRENT_USER_ID = (int) session_obj;
-	
+
 	/*
 		ID:
 	   -10 = Admin
@@ -46,6 +47,7 @@
 		    }
 		}
 	}
+	//System.out.println("[header] CURRENT_USER_ID: " + CURRENT_USER_ID);
 	
 %>
 

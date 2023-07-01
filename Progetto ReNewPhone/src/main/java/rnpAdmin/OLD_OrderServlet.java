@@ -1,4 +1,4 @@
-package rnpServlet;
+package rnpAdmin;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,8 +15,8 @@ import rnpDAO.OrderDAODataSource;
 /**
  * Servlet per gestire le richieste relate alla manipolazione dei dati di un database.
  */
-@WebServlet("/orders")
-public class OrderServlet extends HttpServlet {
+@WebServlet("/OLD-orders")
+public class OLD_OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static OrderDAODataSource orderDAO = new OrderDAODataSource();
 

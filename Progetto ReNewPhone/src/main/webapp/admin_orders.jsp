@@ -13,37 +13,41 @@ if (!IS_CURRENT_USER_ADMIN) {
 	// Manda alla pagina di errore 404 per motivi di sicurezza
 	response.sendError(HttpServletResponse.SC_NOT_FOUND);
 }
+	
+	//System.out.println("[admin_orders] CURRENT_USER_ID: " + CURRENT_USER_ID);
+	//System.out.println("[admin_orders] IS_CURRENT_USER_ADMIN: " + IS_CURRENT_USER_ADMIN);
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<title>Admin - Panel</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<title>Admin - Orders</title>
 </head>
 <body>
 
 	<div class="content">
-		<h1>Pannello di amministrazione</h1>
-		<form method="get" action="admin_orders.jsp">
-			<input type="submit" value="Visualizza ordini">
-		</form>
+		<h1>Ordini Effettuati</h1>
 
-		<form method="get" action="admin_add.jsp">
-			<input type="submit" value="Aggiungi elemento">
-		</form>
-
-		<form method="get" action="admin_hide-show.jsp">
-			<input type="submit" value="Mostra/Nascondi elemento">
-		</form>
-
-		<form method="get" action="admin_modify.jsp">
-			<input type="submit" value="Modifica elemento">
-		</form>
-
+		<!-- TABELLA PRINCIPALE -->
+		<table>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Email Utente</th>
+					<th>Totale Ordine</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Inserisci qui gli ordini -->
+			</tbody>
+		</table>
+		<div class="pagination"></div>
 
 	</div>
-
+	<script type="text/javascript"><%@include file="js/ordersAjax.js" %></script>
+	
 	<%@ include file="_footer.html"%>
 </body>
 </html>

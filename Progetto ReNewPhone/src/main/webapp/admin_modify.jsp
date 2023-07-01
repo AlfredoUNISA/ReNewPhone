@@ -19,27 +19,13 @@ if (!IS_CURRENT_USER_ADMIN) {
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<title>Admin - Panel</title>
+<script src="js/uploadImage.js"></script>
+<title>Admin - Modify</title>
 </head>
 <body>
 
 	<div class="content">
-		<h1>Pannello di amministrazione</h1>
-		<form method="get" action="admin_orders.jsp">
-			<input type="submit" value="Visualizza ordini">
-		</form>
 
-		<form method="get" action="admin_add.jsp">
-			<input type="submit" value="Aggiungi elemento">
-		</form>
-
-		<form method="get" action="admin_hide-show.jsp">
-			<input type="submit" value="Mostra/Nascondi elemento">
-		</form>
-
-		<form method="get" action="admin_modify.jsp">
-			<input type="submit" value="Modifica elemento">
-		</form>
 
 
 	</div>

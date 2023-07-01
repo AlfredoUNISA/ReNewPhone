@@ -1,4 +1,4 @@
-package rnpSupport;
+package rnpServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
