@@ -26,7 +26,7 @@ function toggleFilterPage(){
                     else 
                     	$(".slide-toggle").val("Apri Filtri");
                     
-                    $(".box").animate({
+                    $(".filterBox").animate({
                         width: "toggle"           
 				});
 			}

@@ -27,8 +27,12 @@
 	<div class="content">
 	   <h2>Lista Prodotti</h2>
 	    
-	    
-	    <div class="box" style="float:left; display:none">
+	    <input	type="button" 
+               	class="slide-toggle"
+               	value="Apri Filtri" 
+               	id="myButton">
+               	
+	    <div class="filterBox">
             <div class="box-inner">
        		 <h5>Filtri:</h5>
        		 	<fieldset id="priceRange">
@@ -37,7 +41,7 @@
 	                <input type="number" placeholder="Max" min="0" max="9999">
                	</fieldset>
                 <fieldset id="memoryRange">
-	                <input type="number" placeholder="Min" min="0" max="9999">Gb  
+	                <input type="number" placeholder="Min" min="0" max="9999">Gb
 	                 Spazio interno
 	                <input type="number" placeholder="Max" min="0" max="9999">Gb
                	</fieldset>
@@ -62,10 +66,7 @@
                	id="myButton1">
             </div>
         </div>
-        <input	type="button" 
-               	class="slide-toggle"
-               	value="Apri Filtri" 
-               	id="myButton">
+        
     
 		 	
 			    <div class="productsGrid">

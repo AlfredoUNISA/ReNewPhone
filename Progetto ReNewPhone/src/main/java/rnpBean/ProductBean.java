@@ -60,7 +60,7 @@ public class ProductBean implements Serializable {
 		return this.model;
 	}
 	public void setModel() {
-		this.model = this.name.substring(0);
+		this.model = this.name;
 		
 		this.model = this.model.replace("Pro", "")
 				.replace("Max", "")

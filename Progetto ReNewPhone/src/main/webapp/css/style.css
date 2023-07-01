@@ -534,17 +534,16 @@ nav a:hover {
 	
 }
 /* Stile per gli elementi del menù dei filtri*/
-.box{
-	height:100px;
-	float:left; 
-	display:none;
-	text-align:center;
+.filterBox{
+     width: auto;
+     display: none;
+     align-items: center;
+     text-align: center;
+     transition: transform 0.3s ease-in-out;
 	
 }
 .box-inner{
-	height:100px;
 	float:left; 
-	display:none;
 	text-align:center;
 	
 }
