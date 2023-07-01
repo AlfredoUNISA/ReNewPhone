@@ -32,7 +32,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 	private static final Logger logger = Logger.getLogger(CartDAODataSource.class.getName());
 	private static DataSource ds;
 	private static final String TABLE_NAME = "carts"; // MODIFICABILE
-
+	private static final String selectPrototype="SELECT * FROM " + CartDAODataSource.TABLE_NAME;
 	// Inizializzazione per il Data Source
 	static {
 		try {
@@ -184,7 +184,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 
 		Collection<CartBean> carts = new LinkedList<CartBean>();
 
-		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME;
+		String selectSQL=selectPrototype;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY ?";
@@ -237,7 +237,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 
 		CartBean bean = new CartBean();
 
-		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ? AND id_product = ?"; // MODIFICABILE
+		String selectSQL = selectPrototype + " WHERE id_user = ? AND id_product = ?"; // MODIFICABILE
 
 		try {
 			connection = ds.getConnection();
@@ -284,7 +284,7 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 		PreparedStatement preparedStatement = null;
 		Collection<CartBean> carts = new LinkedList<CartBean>();
 
-		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ?"; // MODIFICABILE
+		String selectSQL = selectPrototype + " WHERE id_user = ?"; // MODIFICABILE
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
