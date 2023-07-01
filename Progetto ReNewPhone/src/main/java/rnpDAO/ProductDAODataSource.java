@@ -162,13 +162,14 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY ?";
 		}
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			if(order != null && !order.equals(""))
+				preparedStatement.setString(1, order);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -316,7 +317,7 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE " + ProductDAODataSource.TABLE_NAME + " SET quantity = quantity - " + qty + " WHERE id = ?"; // MODIFICABILE
+		String updateSQL = "UPDATE " + ProductDAODataSource.TABLE_NAME + " SET quantity = quantity - ? WHERE id = ?"; // MODIFICABILE
 
 		ProductBean product = doRetrieveByKey(id);
 		if(product.getQuantity() < qty)
@@ -325,7 +326,9 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
-			preparedStatement.setInt(1, id); // MODIFICABILE
+			preparedStatement.setInt(1, qty); // MODIFICABILE
+			preparedStatement.setInt(2, id); // MODIFICABILE
+			
 			preparedStatement.executeUpdate();
 		} finally {
 			try {

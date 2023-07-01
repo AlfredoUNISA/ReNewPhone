@@ -262,13 +262,15 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 		String selectSQL = "SELECT * FROM " + UserDAODataSource.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY ?";
 		}
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			if(order != null && !order.equals(""))
+				preparedStatement.setString(1, order);
+			
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {

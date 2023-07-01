@@ -185,12 +185,14 @@ public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ 
 		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY ?";
 		}
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
+			if(order != null && !order.equals(""))
+				preparedStatement.setString(1, order);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
