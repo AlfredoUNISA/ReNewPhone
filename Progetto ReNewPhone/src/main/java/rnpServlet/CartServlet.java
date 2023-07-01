@@ -106,7 +106,7 @@ public class CartServlet extends HttpServlet {
 				request.removeAttribute("cart-details");
 				request.setAttribute("cart-details", cart);
 			} else {
-				System.out.println("**404** Cart row not found for showRowDetails (id_user = " + id_user
+				logger.log(Level.WARNING,"**404** Cart row not found for showRowDetails (id_user = " + id_user
 						+ ", id_product = " + id_product + ")");
 			}
 		} catch (SQLException e) {
@@ -181,7 +181,7 @@ public class CartServlet extends HttpServlet {
 
 		try {
 			if (!cartDAO.doDeleteSingleRow(id_user, id_product)) {
-				System.out.println("**404** Cart row not found for showRowDetails (id_user = " + id_user
+				logger.log(Level.WARNING,"**404** Cart row not found for showRowDetails (id_user = " + id_user
 						+ ", id_product = " + id_product + ")");
 			}
 		} catch (SQLException e) {
@@ -200,7 +200,7 @@ public class CartServlet extends HttpServlet {
 	private void finalizeOrder(HttpServletRequest request, HttpServletResponse response, int id_user)
 			throws ServletException, IOException {
 		try {
-			Collection<CartBean> cart = (Collection<CartBean>) cartDAO.doRetrieveByUser(id_user, null);
+			Collection<CartBean> cart = cartDAO.doRetrieveByUser(id_user, null);
 
 			String totalParam = request.getParameter("total");
 			int total = 0;
@@ -208,7 +208,7 @@ public class CartServlet extends HttpServlet {
 				total = Integer.parseInt(totalParam);
 			}
 
-			if (cart != null && cart.size() != 0) {
+			if (cart != null && !cart.isEmpty()) {
 				OrderDAODataSource orderDAO = new OrderDAODataSource();
 				ItemsOrderDAODataSource itemsOrderDAO = new ItemsOrderDAODataSource();
 				ProductDAODataSource productDAO = new ProductDAODataSource();
