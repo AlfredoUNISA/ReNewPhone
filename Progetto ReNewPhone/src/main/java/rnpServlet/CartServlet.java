@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import rnpBean.CartBean;
 import rnpBean.ItemOrderBean;
 import rnpBean.OrderBean;
@@ -23,6 +25,7 @@ import rnpDAO.CartDAODataSource;
 import rnpDAO.ItemsOrderDAODataSource;
 import rnpDAO.OrderDAODataSource;
 import rnpDAO.ProductDAODataSource;
+import rnpSupport.Login;
 
 /**
  * Servlet implementation class CartServlet
@@ -121,7 +124,7 @@ public class CartServlet extends HttpServlet {
 			throws ServletException, IOException {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 			
-		/*
+		
 		if (id_user == -1) {
 			// Utente non registrato, gestisci il carrello nel cookie
 
@@ -138,10 +141,17 @@ public class CartServlet extends HttpServlet {
 			}
 
 			// Crea o aggiorna il carrello nel cookie
+			Gson gson = new Gson();
 			if (cartCookie == null) {
-				// Il cookie "cartCookie" non esiste, crea un nuovo carrello e aggiungi
-				// l'oggetto al carrello esistente
-				cartCookie = new Cookie("cartCookie", id_product + ":" + quantity);
+				// Il cookie "cartCookie" non esiste, crea un nuovo carrello
+	            CartBean cart = new CartBean();
+	            cart.setId_user(id_user);
+				cart.setId_product(id_product);
+				cart.setQuantity(quantity);
+
+	            String cartJson = gson.toJson(cart);
+	            //System.out.println(cart);
+	            cartCookie = new Cookie("cartCookie", cartJson);
 			} else {
 				// Il cookie "cartCookie" esiste, aggiungi l'oggetto al carrello esistente
 				String cartValue = cartCookie.getValue();
@@ -155,7 +165,6 @@ public class CartServlet extends HttpServlet {
 			// Aggiungi il cookie alla risposta
 			response.addCookie(cartCookie);
 		} else {
-			*/
 			// Utente registrato
 			CartBean cart = new CartBean();
 			cart.setId_user(id_user);
@@ -170,7 +179,7 @@ public class CartServlet extends HttpServlet {
 					// TODO: fare qualcosa se ci sono duplicati
 				}
 			}
-		//}
+		}
 	}
 
 	/**

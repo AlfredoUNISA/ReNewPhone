@@ -35,7 +35,7 @@ $(document).ready(function () {
 
 				// Scrivi i dettagli dell'utente
 				var user = response.user;
-				var userDetails = "<h2>Utente Ordinante</h2>" +
+				var userDetails = "<hr><h2>Utente Ordinante</h2>" +
 					"<table>" +
 					"<th>ID</th><th>Nome</th><th>Cognome</th><th>Email</th>" + 
 					"<th>Indirizzo</th><th>Citt\u00E0</th><th>CAP</th><th>Tel</th>" +

@@ -57,11 +57,9 @@
 				</tbody>
 			</table>
 		<form action="orders?sort=id" method="post">
-		<%if(IS_CURRENT_USER_ADMIN){ %>
-    			<input type="submit" value="Visualizza tutti gli Ordini">
-    			<%} else { %>
-    			<input type="submit" value="I Tuoi Ordini">
-    			<% } %>
+		<%if(!IS_CURRENT_USER_ADMIN){ %>
+    		<input type="submit" value="I Tuoi Ordini">
+    	<% } %>
 		</form><br>
 		<form action="logout.jsp" method="post">
     			<input type="submit" value="Logout">
