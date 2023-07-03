@@ -40,13 +40,13 @@ function filterProducts() {
 			  var brand = $("#brandSelect").val();
 			  var ramMin = $("#ramRange input:first-of-type").val();
 			  var ramMax = $("#ramRange input:last-of-type").val();
-			  console.log(priceMin);
-			  console.log(priceMax);
-			  console.log(memoryMin);
-			  console.log(memoryMax);
-			  console.log(brand);
-			  console.log(ramMin);
-			  console.log(ramMax);
+			  //console.log(priceMin);
+			  //console.log(priceMax);
+			  //console.log(memoryMin);
+			  //console.log(memoryMax);
+			  //console.log(brand);
+			  //console.log(ramMin);
+			  //console.log(ramMax);
 			  loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,brand,ramMin,ramMax);
 			 
 }

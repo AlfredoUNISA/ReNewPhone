@@ -12,7 +12,7 @@ var currentUserId = '<%= CURRENT_USER_ID %>;';
 $(document).ready(function () {
 	$('#addToCartBtn').click(function (e) { 
 		currentProductQuantity = $('#quantitySelect').val();
-		console.log(currentProductQuantity);
+		//console.log(currentProductQuantity);
 		$.ajax({
 			type: "POST",
 			url: "my-cart?action=add&user=" + currentUserId + "&product=" + currentProductId + "&quantity=" + currentProductQuantity,
@@ -234,8 +234,8 @@ function updatePrice() {
 	
 	if (quantity < 5) {
 		for (var i = 1; i <= 5; i++) {
-			console.log("Quantity: " + quantity);
-			console.log("i: " + i);
+			//console.log("Quantity: " + quantity);
+			//console.log("i: " + i);
 			if(i <= quantity)
 				$("#quantityOption" + i).prop("disabled", false);
 			else	

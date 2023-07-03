@@ -34,9 +34,10 @@ if (!IS_CURRENT_USER_ADMIN) {
 		<table>
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Email Utente</th>
+					<th>ID Ordine</th>
+					<th>ID Utente</th>
 					<th>Totale Ordine</th>
+					<th>Dettagli</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -44,6 +45,12 @@ if (!IS_CURRENT_USER_ADMIN) {
 			</tbody>
 		</table>
 		<div class="pagination"></div>
+		<br>
+		
+		<div class="userDetails"></div>
+		<br>
+		<div class="orderDetails"></div>
+		
 
 	</div>
 	<script type="text/javascript"><%@include file="js/ordersAjax.js" %></script>

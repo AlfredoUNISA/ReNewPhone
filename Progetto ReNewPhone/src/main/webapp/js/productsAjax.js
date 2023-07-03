@@ -17,7 +17,7 @@ function loadMoreProducts() {
 		success: function (response) {
 			// Recupera il JSON dei prodotti
 			var resultJSON = response;
-			console.log(resultJSON);
+			//console.log(resultJSON);
 
 			// Itera sui prodotti e visualizzali
 			$(resultJSON).each(function () {
@@ -61,7 +61,7 @@ function loadMoreProducts() {
 					'<p>' + this.groupName + '</p>' +
 					'<p>RAM: ' + ramValue + '</p>' +
 					'<p>Dimensioni: ' + displaySizeValue + '</p>' +
-					'<p>RAM: ' + storageValue + '</p>' +
+					'<p>HD: ' + storageValue + '</p>' +
 					'<p>Marca: ' + this.brand + '</p>' +
 					'<p>Anno: ' + this.year + '</p>' +
 					'<p>Prezzo: ' + priceValue + '</p>' +
@@ -73,7 +73,7 @@ function loadMoreProducts() {
 				$('.productsGrid').append(html);
 			});
 			countLoadings++;
-			console.log(countLoadings - 1 + ", " + countLoadings);
+			//console.log(countLoadings - 1 + ", " + countLoadings);
 		},
 		error: function (status, error) {
 			console.error("Errore durante la chiamata AJAX: " + status + " - " + error);
