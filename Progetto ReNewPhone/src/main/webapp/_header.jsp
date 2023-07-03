@@ -78,7 +78,14 @@
 			<button type="submit">Cerca</button>
 		</form>
 		<ul class="pulsanti-destra">
-			<li><a href="my-cart">Carrello</a></li>
+			
+			<%if(IS_CURRENT_USER_ADMIN) {%>
+				<li><a href="admin.jsp">Pannello Admin</a>
+			<%} else {%>
+				<li><a href="my-cart">Carrello</a></li>
+			<%} %>
+			
+			
 			
 			<%if(IS_CURRENT_USER_REGISTRED) {%>
 				<li><a href="user_page.jsp">Account</a></li>
