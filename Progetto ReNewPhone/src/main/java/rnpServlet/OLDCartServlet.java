@@ -2,10 +2,8 @@ package rnpServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,9 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import rnpBean.CartBean;
 import rnpBean.ItemOrderBean;
@@ -35,21 +30,22 @@ import rnpSupport.Login;
 /**
  * Servlet implementation class CartServlet
  */
-@WebServlet("/my-cart")
-public class CartServlet extends HttpServlet {
-	private static final Logger logger = Logger.getLogger(CartServlet.class.getName());
+@WebServlet("/OLDmy-cart")
+public class OLDCartServlet extends HttpServlet {
+	private static final Logger logger = Logger.getLogger(OLDCartServlet.class.getName());
 	private static final long serialVersionUID = 1L;
 	private static CartDAODataSource cartDAO = new CartDAODataSource();
-	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
+		String sort = request.getParameter("sort");
 
-		String userParam = request.getParameter("user");
+		HttpSession session = request.getSession();
+		Object session_obj = session.getAttribute("user");
 		int id_user = -1;
-		if (userParam != null)
-			id_user = Integer.parseInt(userParam);
+		if (session_obj != null)
+			id_user = (int) session_obj;
 
 		String productParam = request.getParameter("product");
 		int id_product = -1;
@@ -60,8 +56,8 @@ public class CartServlet extends HttpServlet {
 		// Esegui azioni opzionali
 		if (action != null) {
 			switch (action) {
-			case "show":
-				showAllRows(request, response, id_user);
+			case "details":
+				showRowDetails(request, response, id_user, id_product);
 				break;
 			case "add":
 				addRow(request, response, id_user, id_product);
@@ -76,9 +72,10 @@ public class CartServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath());
 				break;
 			}
-		} else {
-			request.getServletContext().getRequestDispatcher("/CartView.jsp").forward(request, response);
 		}
+
+		// Ricarica tutte le righe e forward alla jsp
+		showAllRows(request, response, id_user, sort);
 	}
 
 	/**
@@ -87,43 +84,34 @@ public class CartServlet extends HttpServlet {
 	 * 
 	 * @param sort Specifica l'ordine di ordinamento dei risultati
 	 */
-	private void showAllRows(HttpServletRequest request, HttpServletResponse response, int usr)
+	private void showAllRows(HttpServletRequest request, HttpServletResponse response, int usr, String sort)
 			throws ServletException, IOException {
 		try {
-			// Lista che contine tutti gli oggetti nel carrello dell'utente
-			List<CartBean> cartList = (List<CartBean>) cartDAO.doRetrieveByUser(usr, null);
-			int sum = 0;
+			// MODIFICABILE
+			request.removeAttribute("cart");
+			request.setAttribute("cart", cartDAO.doRetrieveByUser(usr, sort));
+			request.getServletContext().getRequestDispatcher("/CartView.jsp").forward(request, response);
+		} catch (SQLException e) {
+			printError(e);
+		}
+	}
 
-			// Lista di dati da mandare con il json
-			List<CartDataToSend> listToSend = new ArrayList<>();
+	/**
+	 * Mostra i dettagli di una riga all'interno della tabella "Dettagli".
+	 */
+	private void showRowDetails(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product)
+			throws ServletException, IOException {
 
-			for (CartBean cartBean : cartList) {
-				ProductBean product = productDAO.doRetrieveByKey(cartBean.getId_product());
-				
-				CartDataToSend toSend = new CartDataToSend (
-					product.getName(), 
-					product.getId(),
-					cartBean.getQuantity(),
-					product.getPrice()
-				);
-				
-				sum += productDAO.doRetrieveByKey(cartBean.getId_product()).getPrice();
-				listToSend.add(toSend);
+		try {
+			// MODIFICABILE
+			CartBean cart = cartDAO.doRetrieveByPrimaryKeys(id_user, id_product);
+			if (cart != null) {
+				request.removeAttribute("cart-details");
+				request.setAttribute("cart-details", cart);
+			} else {
+				logger.log(Level.WARNING,"**404** Cart row not found for showRowDetails (id_user = " + id_user
+						+ ", id_product = " + id_product + ")");
 			}
-			
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-			JsonObject jsonObject = new JsonObject();
-			jsonObject.addProperty("sum", sum);
-
-			JsonElement cartElements = gson.toJsonTree(listToSend);
-			jsonObject.add("cartList", cartElements);
-
-			String json = jsonObject.toString();
-
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(json);
 		} catch (SQLException e) {
 			printError(e);
 		}
@@ -135,7 +123,8 @@ public class CartServlet extends HttpServlet {
 	private void addRow(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product)
 			throws ServletException, IOException {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
-
+			
+		
 		if (id_user == -1) {
 			// Utente non registrato, gestisci il carrello nel cookie
 
@@ -155,14 +144,14 @@ public class CartServlet extends HttpServlet {
 			Gson gson = new Gson();
 			if (cartCookie == null) {
 				// Il cookie "cartCookie" non esiste, crea un nuovo carrello
-				CartBean cart = new CartBean();
-				cart.setId_user(id_user);
+	            CartBean cart = new CartBean();
+	            cart.setId_user(id_user);
 				cart.setId_product(id_product);
 				cart.setQuantity(quantity);
 
-				String cartJson = gson.toJson(cart);
-				// System.out.println(cart);
-				cartCookie = new Cookie("cartCookie", cartJson);
+	            String cartJson = gson.toJson(cart);
+	            //System.out.println(cart);
+	            cartCookie = new Cookie("cartCookie", cartJson);
 			} else {
 				// Il cookie "cartCookie" esiste, aggiungi l'oggetto al carrello esistente
 				String cartValue = cartCookie.getValue();
@@ -201,7 +190,7 @@ public class CartServlet extends HttpServlet {
 
 		try {
 			if (!cartDAO.doDeleteSingleRow(id_user, id_product)) {
-				logger.log(Level.WARNING, "**404** Cart row not found for showRowDetails (id_user = " + id_user
+				logger.log(Level.WARNING,"**404** Cart row not found for showRowDetails (id_user = " + id_user
 						+ ", id_product = " + id_product + ")");
 			}
 		} catch (SQLException e) {
@@ -275,21 +264,8 @@ public class CartServlet extends HttpServlet {
 	}
 
 	protected final void printError(SQLException e) {
-		logger.log(Level.SEVERE, "ERROR: " + e);
+		logger.log(Level.SEVERE, "ERROR: "+e);
 	}
 }
 
-class CartDataToSend {
-	String name;
-	int id;
-	int quantity;
-	int price;
-	
-	public CartDataToSend(String name, int id, int quantity, int price) {
-		this.name = name;
-		this.id = id;
-		this.quantity = quantity;
-		this.price = price;
-	}
 
-}

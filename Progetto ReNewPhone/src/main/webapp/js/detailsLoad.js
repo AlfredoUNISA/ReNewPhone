@@ -7,7 +7,7 @@ var stateValues = [];
 var json;
 var currentProductId = -1;
 var currentProductQuantity = -1;
-var currentUserId = '<%= CURRENT_USER_ID %>;';
+var currentUserId = '<%= CURRENT_USER_ID %>';
 
 $(document).ready(function () {
 	$('#addToCartBtn').click(function (e) { 

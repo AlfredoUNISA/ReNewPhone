@@ -56,7 +56,8 @@ $(document).ready(function () {
 				// Scrivi i dettagli dei prodotti
 				var products = response.products;
 				var productsDetails = "<h2>Prodotti Ordinati</h2>" + "<table>" +
-					"<th>ID</th><th>Nome</th><th>Prezzo</th><th>Quantit\u00E0 Ordinata</th>";
+					"<th>ID</th><th>Nome</th><th>Prezzo</th><th>Quantit\u00E0 Ordinata</th>" + 
+					"<th>RAM</th><th>Storage</th><th>Colore</th><th>Stato</th><th>Display</th>";
 
 				for (var i = 0; i < products.length; i++) {
 					var product = products[i];
@@ -66,6 +67,11 @@ $(document).ready(function () {
 						"<td><a href='products?action=details&name=" + product.name + "'>" + product.name + "</a></td>" +
 						"<td><b><i>" + product.price + " &euro;</i></b></td>" +
 						"<td><b><i>" + product.quantity + "</i></b></td>" +
+						"<td>" + product.ram + "</td>" +
+						"<td>" + product.storage + "</td>" +
+						"<td>" + product.color + "</td>" +
+						"<td>" + product.state + "</td>" +
+						"<td>" + product.display_size + "</td>" +
 						"</tr>";
 				}
 				productsDetails += "</table>";
