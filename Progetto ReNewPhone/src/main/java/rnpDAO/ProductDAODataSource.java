@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -341,4 +342,32 @@ public class ProductDAODataSource implements IBeanDAO<ProductBean> /* MODIFICABI
 		}
 		
 	}
+
+
+public synchronized ArrayList<?> doRetrieveBrands(/* MODIFICABILE */) throws SQLException {
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+
+	ArrayList<String> Brands = new ArrayList<>();
+	String selectSQL = "SELECT brand FROM " + ProductDAODataSource.TABLE_NAME + " group by brand";// MODIFICABILE
+
+	try {
+		connection = ds.getConnection();
+		preparedStatement = connection.prepareStatement(selectSQL);
+		ResultSet rs = preparedStatement.executeQuery();
+		while (rs.next()) {
+			Brands.add(rs.getString("brand"));
+		}
+	} finally {
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
+	}
+	return Brands;
 }
+}
+
