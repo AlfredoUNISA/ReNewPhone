@@ -36,7 +36,7 @@
 		<div class="sumCart"></div>
 		
 		
-    	<input type="submit" value="Finalizza ordine">
+    	<input id="submitBtn" type="submit" value="Finalizza ordine">
 	
     </div>
     

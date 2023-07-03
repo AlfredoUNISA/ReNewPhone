@@ -1,5 +1,12 @@
+var userId;
+var tableDiv;
+var sumDiv;
+var sum;
+
 $(document).ready(function () {
-	var userId = "<%=CURRENT_USER_ID%>";
+	userId = "<%=CURRENT_USER_ID%>";
+	tableDiv = $(".tableCart");
+	sumDiv = $(".sumCart");
 	
 	loadCart();
 
@@ -13,18 +20,18 @@ $(document).ready(function () {
 			},
 			dataType: "json",
 			success: function (response) {
+				console.log(response);
 				var cart = response.cartList;
-				var sum = response.sum;
-				console.log(cart);
-				console.log(sum);
-
-				var tableDiv = $(".tableCart");
-				var sumDiv = $(".sumCart");
+				sum = response.sum;
 				
-				if(cart == null){
+				if(cart.length == 0){
 					tableDiv.html("");
 					sumDiv.html("");
-					tableDiv.append("<h2>Il carrello è vuoto!</h2>");
+					
+					tableDiv.append("<h2>Il carrello \u00E8 vuoto!</h2>");
+					
+					// invalidate submit button
+					$("#submitBtn").prop("disabled", true);
 				} else {
 					tableDiv.html("");
 					sumDiv.html("");
@@ -47,17 +54,53 @@ $(document).ready(function () {
 								"<td><a href='products?action=details&name=" + product.name + "'>" + product.name + "</a></td>" +
 								"<td><b><i>" + product.price + " &euro;</i></b></td>" +
 								"<td>" + product.quantity + "</td>" +
-								"<td><button id='" + product.id + "'>-</button></td>" +
+								"<td><button class='removeBtn' value='" + product.id + "'>-</button></td>" +
 								"</tr>");
 					}
 					sumDiv.append("<h2>Totale: <b><i>" + sum + " &euro;</i></b></h2>");
+					$("#submitBtn").prop("disabled", false);
 				}
-
-
-
 			}
 		});
 	}
 
-});
+	tableDiv.on("click", ".removeBtn", function() {
+		var productId = $(this).val();
+		var conf = confirm("Sei sicuro di voler rimuovere questo prodotto (id=" + productId + ") dal carrello?");
 
+		if(conf){
+			$.ajax({
+				type: "GET",
+				url: "my-cart",
+				data: {
+					action: "delete",
+					user: userId,
+					product: productId
+				},
+				success: function () {
+					loadCart();
+				}
+			});
+		}
+	});
+
+	$("#submitBtn").click(function () {
+		var conf = confirm("Sei sicuro di voler procedere all'acquisto?");
+
+		if(conf){
+			$.ajax({
+				type: "GET",
+				url: "my-cart",
+				data: {
+					action: "finalize",
+					user: userId,
+					total: sum
+				},
+				success: function () {
+					loadCart();
+					alert("Acquisto effettuato con successo!");
+				}
+			});
+		}
+	});
+});
