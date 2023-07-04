@@ -22,7 +22,7 @@ import rnpBean.OrderBean;
  * @implNote ATTENZIONE: Modificare web.xml (resource-ref con JNDI) e modificare context.xml (in META-INF)
  * @category MODIFICABILE
  */
-public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE */ {
+public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE */ {
 
 	private static DataSource ds;
 	private static final String TABLE_NAME = "orders"; // MODIFICABILE

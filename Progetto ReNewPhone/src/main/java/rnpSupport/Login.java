@@ -2,6 +2,7 @@ package rnpSupport;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,8 @@ import rnpDAO.UserDAODataSource;
 @WebServlet("/login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	protected Logger logger = Logger.getLogger(getClass().getName());
+	
 
 	public static final int MINUTE = 60;
 	public static final int HOUR = MINUTE * 60;

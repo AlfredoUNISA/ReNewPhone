@@ -27,7 +27,7 @@ import rnpBean.UserBean;
  *           context.xml (in META-INF)
  * @category MODIFICABILE
  */
-public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ {
+public class UserDAODataSource implements MethodsDAO<UserBean> /* MODIFICABILE */ {
 
 	private static DataSource ds;
 	private static final String TABLE_NAME = "users"; // MODIFICABILE

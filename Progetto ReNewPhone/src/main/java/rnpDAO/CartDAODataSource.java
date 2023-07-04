@@ -28,7 +28,7 @@ import rnpBean.CartBean;
  *           context.xml (in META-INF)
  * @category MODIFICABILE
  */
-public class CartDAODataSource implements IBeanDAO<CartBean> /* MODIFICABILE */ {
+public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE */ {
 	private static final Logger logger = Logger.getLogger(CartDAODataSource.class.getName());
 	private static DataSource ds;
 	private static final String TABLE_NAME = "carts"; // MODIFICABILE

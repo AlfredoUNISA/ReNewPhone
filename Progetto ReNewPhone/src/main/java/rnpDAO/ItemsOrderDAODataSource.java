@@ -28,7 +28,7 @@ import rnpBean.ItemOrderBean;
  *           context.xml (in META-INF)
  * @category MODIFICABILE
  */
-public class ItemsOrderDAODataSource implements IBeanDAO<ItemOrderBean> /* MODIFICABILE */ {
+public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> /* MODIFICABILE */ {
 	private static final Logger logger = Logger.getLogger(ItemsOrderDAODataSource.class.getName());
 	private static DataSource ds;
 	private static final String TABLE_NAME = "order_items"; // MODIFICABILE

@@ -3,12 +3,9 @@ package rnpBean;
 import java.io.Serializable;
 
 /**
- * Bean che contiene tutte le informazioni di un prodotto.
- * @category Bean
- * @category MODIFICABILE (tutto)
+ * Bean che contiene tutte le informazioni di una riga della tabella "products" del database.
  */
 public class ProductBean implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	int id;
@@ -59,6 +56,8 @@ public class ProductBean implements Serializable {
 	public String getModel() {
 		return this.model;
 	}
+	
+	// TODO: da rimuovere
 	public void setModel() {
 		this.model = this.name;
 		
