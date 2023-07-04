@@ -102,15 +102,15 @@ public class AjaxProductEvalServlet extends HttpServlet implements ServletHelper
 			evaluation+=200;
 		else 
 			evaluation+=300;
-		
+		System.out.println(condition);
 		switch(condition) {
-		case "Buono":
+		case "buona":
 			evaluation+=40;
 			break;
-		case "Ottimo":
+		case "ottima":
 			evaluation+=60;
 			break;
-		case "Accetabile":
+		case "accetabile":
 			evaluation+=0;
 			break;
 		}
