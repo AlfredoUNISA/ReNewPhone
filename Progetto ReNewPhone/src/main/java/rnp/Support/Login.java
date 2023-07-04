@@ -1,4 +1,4 @@
-package rnpSupport;
+package rnp.Support;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import rnpDAO.UserDAODataSource;
+import rnp.DAO.UserDAODataSource;
 
 /**
  * Servlet implementation class Login

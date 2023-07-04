@@ -1,4 +1,4 @@
-package rnpDAO;
+package rnp.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,34 +15,38 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import rnpBean.CartBean;
+import rnp.Bean.CartBean;
 
 /**
- * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale
- * attraverso un pool di connessioni DataSource. La classe si occupa di eseguire
- * le operazioni CRUD (create, retrieve, update e delete) sui dati nella tabella
- * "TABLE_NAME" della base di dati.
+ * Fornisce l'accesso ai dati di un oggetto ProductBean in una base di dati
+ * relazionale attraverso un pool di connessioni DataSource. La classe si occupa
+ * di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati
+ * nella tabella {@link #TABLE_NAME} della base di dati.
  * 
- * @category Query con Data Source
- * @implNote ATTENZIONE: Modificare web.xml (resource-ref con JNDI) e modificare
- *           context.xml (in META-INF)
- * @category MODIFICABILE
+ * @implNote In {@code WEB-INF\web.xml} è stato aggiunto un tag resource-ref con
+ *           JNDI.<br>
+ *           In {@code META-INF\context.xml} sono stati aggiunti username,
+ *           password e altri dati inerenti al DB.<br>
+ *           Queste modifiche permettono di poter utilizzare tutti i DAO (serve
+ *           farlo solo una volta).
  */
-public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE */ {
-	private static final Logger logger = Logger.getLogger(CartDAODataSource.class.getName());
-	private static DataSource ds;
-	private static final String TABLE_NAME = "carts"; // MODIFICABILE
-	private static final String selectPrototype="SELECT * FROM " + CartDAODataSource.TABLE_NAME;
+public class CartDAODataSource implements MethodsDAO<CartBean> {
+	private static DataSource dataSource;
+	private static final String TABLE_NAME = "carts"; 
+
+	private static final String CLASS_NAME = CartDAODataSource.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
+
 	// Inizializzazione per il Data Source
 	static {
 		try {
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			Context initialContext = new InitialContext();
+			Context environmentContext = (Context) initialContext.lookup("java:comp/env");
 
-			ds = (DataSource) envCtx.lookup("jdbc/renewphonedb"); // MODIFICABILE
+			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb"); 
 
 		} catch (NamingException e) {
-			logger.log(Level.SEVERE,"Error:" + e.getMessage());
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
@@ -52,7 +56,7 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 	 * 
 	 * @param cart_row Oggetto da inserire
 	 * @return Zero
-	 * @category MODIFICABILE
+	 * @category INSERT
 	 */
 	@Override
 	public synchronized int doSave(CartBean cart_row) throws SQLException {
@@ -60,16 +64,16 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		// MODIFICABILE
+		
 		String insertSQL = "INSERT INTO " + CartDAODataSource.TABLE_NAME
 				+ " (id_user, id_product, quantity) VALUES (?, ?, ?)";
-		
+
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 
 			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
-			// MODIFICABILE
+			
 			preparedStatement.setInt(1, cart_row.getId_user());
 			preparedStatement.setInt(2, cart_row.getId_product());
 			preparedStatement.setInt(3, cart_row.getQuantity());
@@ -98,21 +102,21 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 	 * @param id_user    Il codice UTENTE della riga da rimuovere dalla tabella.
 	 * @param id_product Il codice PRODOTTO della riga da rimuovere dalla tabella.
 	 * @return L'esito della query.
-	 * @category MODIFICABILE
+	 * @category DELETE
 	 */
-	public synchronized boolean doDeleteSingleRow(int id_user, int id_product /* MODIFICABILE */) throws SQLException {
+	public synchronized boolean doDeleteSingleRow(int id_user, int id_product) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ? AND id_product = ?"; // MODIFICABILE
+		String deleteSQL = "DELETE FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ? AND id_product = ?"; 
 
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			// MODIFICABILE
+			
 			preparedStatement.setInt(1, id_user);
 			preparedStatement.setInt(2, id_product);
 
@@ -136,7 +140,7 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 	 * 
 	 * @param id_user Il codice UTENTE della riga da rimuovere dalla tabella.
 	 * @return L'esito della query.
-	 * @category MODIFICABILE
+	 * @category DELETE
 	 */
 	@Override
 	public synchronized boolean doDelete(int id_user) throws SQLException {
@@ -145,13 +149,13 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ?"; // MODIFICABILE
+		String deleteSQL = "DELETE FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ?"; 
 
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			// MODIFICABILE
+			
 			preparedStatement.setInt(1, id_user);
 
 			result = preparedStatement.executeUpdate();
@@ -175,7 +179,7 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 	 * @param order Specifica l'ordine di ordinamento dei risultati (se non è nullo
 	 *              aggiunge ORDER BY alla query).
 	 * @return La collezione di oggetti contenente tutte le righe della tabella.
-	 * @category MODIFICABILE
+	 * @category SELECT
 	 */
 	@Override
 	public synchronized Collection<CartBean> doRetrieveAll(String order) throws SQLException {
@@ -184,16 +188,16 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 
 		Collection<CartBean> carts = new LinkedList<CartBean>();
 
-		String selectSQL=selectPrototype;
+		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY ?";
 		}
 
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			if(order != null && !order.equals(""))
+			if (order != null && !order.equals(""))
 				preparedStatement.setString(1, order);
 
 			ResultSet rs = preparedStatement.executeQuery();
@@ -201,7 +205,7 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 			while (rs.next()) {
 				CartBean bean = new CartBean();
 
-				// MODIFICABILE
+				
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setId_product(rs.getInt("id_product"));
 				bean.setQuantity(rs.getInt("quantity"));
@@ -228,29 +232,29 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 	 * @param id_user    Il codice UTENTE di cui si vuole ottenere la riga.
 	 * @param id_product Il codice PRODOTTO di cui si vuole ottenere la riga.
 	 * @return Il bean ottenuto in base al codice.
-	 * @category MODIFICABILE
+	 * @category SELECT
 	 */
-	public synchronized CartBean doRetrieveByPrimaryKeys(int id_user, int id_product /* MODIFICABILE */)
+	public synchronized CartBean doRetrieveByPrimaryKeys(int id_user, int id_product)
 			throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		CartBean bean = new CartBean();
 
-		String selectSQL = selectPrototype + " WHERE id_user = ? AND id_product = ?"; // MODIFICABILE
+		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ? AND id_product = ?"; 
 
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 
-			// MODIFICABILE
+			
 			preparedStatement.setInt(1, id_user);
 			preparedStatement.setInt(2, id_product);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				// MODIFICABILE
+				
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setId_product(rs.getInt("id_product"));
 				bean.setQuantity(rs.getInt("quantity"));
@@ -277,24 +281,24 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 	 *                nullo aggiunge ORDER BY alla query).
 	 * @return La collezione di oggetti contenente tutte le righe inerenti
 	 *         all'utente.
-	 * @category MODIFICABILE
+	 * @category SELECT
 	 */
 	public synchronized Collection<CartBean> doRetrieveByUser(int id_user, String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		Collection<CartBean> carts = new LinkedList<>();
 
-		String selectSQL = selectPrototype + " WHERE id_user = ?"; // MODIFICABILE
+		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ?"; 
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
 		}
 
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 
-			// MODIFICABILE
+			
 			preparedStatement.setInt(1, id_user);
 
 			ResultSet rs = preparedStatement.executeQuery();
@@ -302,7 +306,7 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 			while (rs.next()) {
 				CartBean bean = new CartBean();
 
-				// MODIFICABILE
+				
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setId_product(rs.getInt("id_product"));
 				bean.setQuantity(rs.getInt("quantity"));
@@ -325,13 +329,14 @@ public class CartDAODataSource implements MethodsDAO<CartBean> /* MODIFICABILE *
 	 * !!! ATTENZIONE !!! Sono forzato dall'interfaccia a creare questo metodo.
 	 * Usare doRetrieveByPrimaryKeys() oppure doRetrieveByUser().
 	 * 
-	 * @return null ed un messaggio in sout.
 	 * @deprecated
+	 * @category DEPRECATED
 	 */
 	@Override
 	@Deprecated
 	public synchronized CartBean doRetrieveByKey(int NON_USARE_QUESTO_METODO) throws SQLException {
-		logger.log(Level.WARNING,"Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()");
+		LOGGER.log(Level.WARNING, "ERROR [" + CLASS_NAME
+				+ "]: Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()");
 		return null;
 	}
 

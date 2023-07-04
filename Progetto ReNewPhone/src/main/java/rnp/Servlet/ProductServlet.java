@@ -1,4 +1,4 @@
-package rnpServlet;
+package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,8 +13,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
-import rnpBean.ProductBean;
-import rnpDAO.ProductDAODataSource;
+import rnp.Bean.ProductBean;
+import rnp.DAO.ProductDAODataSource;
 
 /**
  * Servlet implementation class ProductServlet

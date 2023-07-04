@@ -1,4 +1,4 @@
-package rnpServlet;
+package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import rnpBean.UserBean;
-import rnpDAO.UserDAODataSource;
+import rnp.Bean.UserBean;
+import rnp.DAO.UserDAODataSource;
 
 /**
  * Servlet implementation class UserServlet

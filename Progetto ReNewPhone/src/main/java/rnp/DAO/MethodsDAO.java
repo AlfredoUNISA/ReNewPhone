@@ -1,4 +1,4 @@
-package rnpDAO;
+package rnp.DAO;
 
 import java.sql.SQLException;
 import java.util.Collection;

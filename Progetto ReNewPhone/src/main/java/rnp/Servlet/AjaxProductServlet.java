@@ -1,4 +1,4 @@
-package rnpServlet;
+package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,8 +21,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import rnpBean.ProductBean;
-import rnpDAO.ProductDAODataSource;
+import rnp.Bean.ProductBean;
+import rnp.DAO.ProductDAODataSource;
 
 /**
  * Servlet che ritorna un JSON a una richiesta AJAX

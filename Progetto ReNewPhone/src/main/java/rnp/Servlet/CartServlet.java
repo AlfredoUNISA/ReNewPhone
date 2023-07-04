@@ -1,4 +1,4 @@
-package rnpServlet;
+package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,15 +22,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import rnpBean.CartBean;
-import rnpBean.ItemOrderBean;
-import rnpBean.OrderBean;
-import rnpBean.ProductBean;
-import rnpDAO.CartDAODataSource;
-import rnpDAO.ItemsOrderDAODataSource;
-import rnpDAO.OrderDAODataSource;
-import rnpDAO.ProductDAODataSource;
-import rnpSupport.Login;
+import rnp.Bean.CartBean;
+import rnp.Bean.ItemOrderBean;
+import rnp.Bean.OrderBean;
+import rnp.Bean.ProductBean;
+import rnp.DAO.CartDAODataSource;
+import rnp.DAO.ItemsOrderDAODataSource;
+import rnp.DAO.OrderDAODataSource;
+import rnp.DAO.ProductDAODataSource;
+import rnp.Support.Login;
 
 /**
  * Servlet implementation class CartServlet

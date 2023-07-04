@@ -1,4 +1,4 @@
-package rnpAdmin;
+package rnp.Admin;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,15 +16,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import rnpBean.ItemOrderBean;
-import rnpBean.OrderBean;
-import rnpBean.ProductBean;
-import rnpBean.UserBean;
-import rnpDAO.ItemsOrderDAODataSource;
-import rnpDAO.OrderDAODataSource;
-import rnpDAO.ProductDAODataSource;
-import rnpDAO.UserDAODataSource;
-import rnpSupport.Login;
+import rnp.Bean.ItemOrderBean;
+import rnp.Bean.OrderBean;
+import rnp.Bean.ProductBean;
+import rnp.Bean.UserBean;
+import rnp.DAO.ItemsOrderDAODataSource;
+import rnp.DAO.OrderDAODataSource;
+import rnp.DAO.ProductDAODataSource;
+import rnp.DAO.UserDAODataSource;
+import rnp.Support.Login;
 
 /**
  * Servlet per gestire le richieste relate alla manipolazione dei dati di un
