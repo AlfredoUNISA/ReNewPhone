@@ -1,20 +1,24 @@
-package rnp;
+package rnpServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import rnpBean.UserBean;
+import rnpDAO.UserDAODataSource;
+
 /**
- * Servlet implementation class ProductServlet
+ * Servlet implementation class UserServlet
  */
-@WebServlet("/products") //	MODIFICABILE
-public class ProductServlet extends HttpServlet {
+@WebServlet("/users")
+public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ProductDAODataSource productDAO = new ProductDAODataSource();
+	private static UserDAODataSource userDAO = new UserDAODataSource();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,7 +35,6 @@ public class ProductServlet extends HttpServlet {
 				addRow(request, response);
 				break;
 			case "delete":
-				// TODO: da vedere se un utente è autorizzato a cancellare un prodotto
 				deleteRow(request, response);
 				break;
 			default:
@@ -41,7 +44,7 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		// Ricarica tutte le righe e forward alla jsp
-		showAllRows(request, response, "id");
+		showAllRows(request, response, sort);
 	}
 
 	/**
@@ -54,26 +57,30 @@ public class ProductServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			// MODIFICABILE
-			request.removeAttribute("products");
-			request.setAttribute("products", productDAO.doRetrieveAll(sort));
-			request.getServletContext().getRequestDispatcher("/ProductView.jsp").forward(request, response);
+			request.removeAttribute("users");
+			request.setAttribute("users", userDAO.doRetrieveAll(sort));
+			request.getServletContext().getRequestDispatcher("/UserView.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
 		}
 	}
 
 	/**
-	 * Mostra i dettagli di una riga all'interno della jsp "ProductDetails".
+	 * Mostra i dettagli di una riga all'interno della tabella "Dettagli".
 	 */
 	private void showRowDetails(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String name = request.getParameter("name");
+		int id = Integer.parseInt(request.getParameter("id"));
 		
 		try {
 			// MODIFICABILE
-			//request.removeAttribute("product-details");
-			request.setAttribute("product-details", productDAO.doRetrieveByName(name));
-			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
+			UserBean user = userDAO.doRetrieveByKey(id);
+			if (user != null) {
+				request.removeAttribute("user-details");
+				request.setAttribute("user-details", user);
+			} else {
+				System.out.println("**404** User not found for showRowDetails (id_user = " + id + ")");
+			}
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
 		}
@@ -85,35 +92,32 @@ public class ProductServlet extends HttpServlet {
 	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// MODIFICABILE
 		String name = request.getParameter("name");
-		int ram= Integer.parseInt(request.getParameter("ram"));
-		float display_size= Float.parseFloat(request.getParameter("display_size"));
-		int storage= Integer.parseInt(request.getParameter("storage"));
-		int price = Integer.parseInt(request.getParameter("price"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		String color = request.getParameter("color");
-		String brand = request.getParameter("brand");
-		int year = Integer.parseInt(request.getParameter("year"));
-		String category = request.getParameter("category");
-		String state = request.getParameter("state");
+		String surname = request.getParameter("surname");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String address = request.getParameter("address");
+		String city = request.getParameter("city");
+		String cap = request.getParameter("cap");
+		String phone = request.getParameter("phone");
 
 		// MODIFICABILE
-		ProductBean product = new ProductBean();
-		product.setName(name);
-		product.setRam(ram);
-		product.setDisplay_size(display_size);
-		product.setStorage(storage);
-		product.setPrice(price);
-		product.setQuantity(quantity);
-		product.setColor(color);
-		product.setBrand(brand);
-		product.setYear(year);
-		product.setCategory(category);
-		product.setState(state);
+		UserBean user = new UserBean();
+		user.setName(name);
+		user.setSurname(surname);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setAddress(address);
+		user.setCity(city);
+		user.setCap(cap);
+		user.setPhone(phone);
 
 		try {
-			productDAO.doSave(product);
+			userDAO.doSave(user);
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);
+			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
+				// TODO: fare qualcosa se ci sono duplicati
+			}
 		}
 	}
 
@@ -125,8 +129,8 @@ public class ProductServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		try {
-			if (!productDAO.doDelete(id)) {
-				System.out.println("**404** Product not found for deleteRow (id_product = " + id + ")");
+			if (!userDAO.doDelete(id)) {
+				System.out.println("**404** User not found for deleteRow (id_user = " + id + ")");
 			}
 		} catch (SQLException e) {
 			System.out.println("ERROR: " + e);

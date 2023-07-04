@@ -1,4 +1,4 @@
-package rnp;
+package rnpDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import rnpBean.OrderBean;
+
 /**
  * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale attraverso un pool di connessioni DataSource. 
  * La classe si occupa di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati nella tabella "TABLE_NAME" della base di dati.
@@ -20,7 +22,7 @@ import javax.sql.DataSource;
  * @implNote ATTENZIONE: Modificare web.xml (resource-ref con JNDI) e modificare context.xml (in META-INF)
  * @category MODIFICABILE
  */
-public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE */ {
+public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE */ {
 
 	private static DataSource ds;
 	private static final String TABLE_NAME = "orders"; // MODIFICABILE
@@ -150,7 +152,10 @@ public class OrderDAODataSource implements IBeanDAO<OrderBean> /* MODIFICABILE *
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			/*
+			if(sort != null && !sort.equals(""))
+				preparedStatement.setString(1, sort);
+*/
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {

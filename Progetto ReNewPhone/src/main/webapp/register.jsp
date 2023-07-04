@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,rnp.UserBean,rnp.UserDAODataSource"%>
+	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,rnpBean.UserBean,rnpDAO.UserDAODataSource"%>
 		
 <%-- 					Legenda Sessione
 	CURRENT_USER_ID			  : int 	  -> ID utente corrente

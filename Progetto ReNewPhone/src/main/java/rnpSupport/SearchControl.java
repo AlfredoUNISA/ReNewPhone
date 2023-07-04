@@ -1,10 +1,13 @@
-package rnp;
+package rnpSupport;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+import rnpBean.ProductBean;
+import rnpDAO.MethodsDAO;
+import rnpDAO.ProductDAODataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/search")
 public class SearchControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static IBeanDAO<ProductBean> productDAO = new ProductDAODataSource();
+	static MethodsDAO<ProductBean> productDAO = new ProductDAODataSource();
 
 	public SearchControl() {
 		super();

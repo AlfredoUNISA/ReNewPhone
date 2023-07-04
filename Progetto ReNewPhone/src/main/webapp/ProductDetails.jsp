@@ -1,5 +1,5 @@
-<%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
-<%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
+<%@ page import="rnpDAO.OrderDAODataSource,rnpDAO.UserDAODataSource,rnpDAO.ProductDAODataSource"%>
+<%@ page import="rnpBean.OrderBean,rnpBean.UserBean,rnpBean.ProductBean"%>
 <%@ page import="java.util.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,76 +16,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/style.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript"><%@include file="js/detailsLoad.js" %></script>
 	<title>Homepage</title>
 </head>
 <body>
+	<% String name = request.getParameter("name"); %>
 
 	<div class="content">
-		<h1>Dettagli</h1>
-			<br>
-		
-		<%
-		// OTTENIMENTO DI TUTTE LE RIGHE DALLA TABLE DEL DATABASE
-        Collection<?> products = (Collection<?>) request.getAttribute("product-details");
-        
-        // Controllo se il prodotto è presente nel DB
-        if (products != null && products.size() != 0) {
-        	
-        	
-        %>
-        <div class="detailContent">
-			<img class="detailImage" alt="<%=request.getParameter("name")%>" src="resources/<%=request.getParameter("name")%>.jpg">
-			<table class="DetailsTable">
-				<thead>
-					<tr>
-						<th>ID</th>
-		                <th>Nome</th>
-		                <th>Ram</th>
-		                <th>Dimensione Display</th>
-		                <th>Memoria Interna</th>
-		                <th>Prezzo</th>
-		                <th>Quantità</th>
-		                <th>Colore</th>
-		                <th>Marca</th>
-		                <th>Anno</th>
-		                <th>Categoria</th>
-		                <th>Condizioni</th>
-					</tr>
-				</thead>
-        <%
-        //ITERAZIONE
-        	Iterator<?> it = products.iterator();
-			while (it.hasNext()) {
-				ProductBean productDetails = (ProductBean) it.next();
-       
-		%>
-		<!-- TABELLA DETTAGLI --> 
-				<tbody>
-					<tr>
-						<td><%= productDetails.getId() %></td>
-	                	<td><%= productDetails.getName() %></td>
-	                	<td><%=	productDetails.getRam()%></td>
-						<td><%=	productDetails.getDisplay_size()%></td>
-						<td><%=	productDetails.getStorage()%></td>
-	                	<td><%= productDetails.getPrice() %></td>
-	                	<td><%= productDetails.getQuantity() %></td>
-	                	<td><%= productDetails.getColor() %></td>
-	                	<td><%= productDetails.getBrand() %></td>
-	                	<td><%= productDetails.getYear() %></td>
-						<td><%= productDetails.getCategory() %></td>
-						<td><%= productDetails.getState() %></td>
-					</tr>
-		<%}  //End while
-         } /*End If*/ else {%>
-		<h1 style="font-weight:bold;"> Impossibile trovare i dettagli del prodotto <%=request.getParameter("name")%></h1>
-		<%} %>
-				</tbody>
-			</table> 
+		<h1>Dettagli</h1><br>
+		<img class="detailImage" alt="<%=name%>" src="resources/<%=name%>.jpg">
+		<div class="productDetails">
+			<div id="description">
+				<i><h2><%=name%></h2></i>
+				<div id="categoryContainer"></div>
+				<div id="brandContainer"></div>
+				<div id="yearContainer"></div>
 			</div>
-		<p style="color:darkred; font-weight:bold;"> ATTENZIONE le immagini sono solo a scopo illustrativo. il colore potrebbe variare</p>
-		
-		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi repellendus veniam illo explicabo repellat veritatis, quis eius. Distinctio mollitia eos eaque rem facere incidunt placeat pariatur, nobis ut deleniti consectetur.</p>
+			<h2>Specifiche</h2>
+			<div id="ramContainer"></div>
+			<div id="displaySizeContainer"></div>
+			<div id="storageContainer"></div>
+			<div id="colorContainer"></div>
+			<div id="colorContainer"></div>
+			<div id="stateContainer"></div>
+			<br><br>
+			<div id="priceContainer"></div>
+			<div id="quantityContainer"></div>
+			<div id="idContainer"></div>
+		</div>
+		<br>  
+		<div class="buyProduct">
+			Seleziona la quantità: 
+			<select id="quantitySelect">
+				<option id="quantityOption1" value="1">1</option>
+				<option id="quantityOption2" value="2">2</option>
+				<option id="quantityOption3" value="3">3</option>
+				<option id="quantityOption4" value="4">4</option>
+				<option id="quantityOption5" value="5">5</option>
+			</select>
+			<button id="addToCartBtn">Aggiungi al carrello</button>
+		</div>
+
 	</div>
 
 	<%@ include file="_footer.html" %>

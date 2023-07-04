@@ -1,4 +1,4 @@
-package rnp;
+package rnpDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +14,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import rnpBean.UserBean;
+
 /**
  * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale
  * attraverso un pool di connessioni DataSource. La classe si occupa di eseguire
@@ -25,7 +27,7 @@ import javax.sql.DataSource;
  *           context.xml (in META-INF)
  * @category MODIFICABILE
  */
-public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ {
+public class UserDAODataSource implements MethodsDAO<UserBean> /* MODIFICABILE */ {
 
 	private static DataSource ds;
 	private static final String TABLE_NAME = "users"; // MODIFICABILE
@@ -260,13 +262,15 @@ public class UserDAODataSource implements IBeanDAO<UserBean> /* MODIFICABILE */ 
 		String selectSQL = "SELECT * FROM " + UserDAODataSource.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
+			selectSQL += " ORDER BY ?";
 		}
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			if(order != null && !order.equals(""))
+				preparedStatement.setString(1, order);
+			
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {

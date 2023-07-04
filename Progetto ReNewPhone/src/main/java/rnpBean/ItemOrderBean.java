@@ -1,13 +1,11 @@
-package rnp;
+package rnpBean;
 
 import java.io.Serializable;
 
 /**
- * Bean che contiene tutte le informazioni di un oggetto di un ordine.
- * @category Bean
+ * Bean che contiene tutte le informazioni di una riga della tabella "order_items" del database.
  */
 public class ItemOrderBean implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	int id;

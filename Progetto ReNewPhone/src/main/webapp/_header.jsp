@@ -1,16 +1,17 @@
-<%@ page import="rnp.Login"%>
-<%@page import="rnp.UserDAODataSource"%>
-<%@page import="rnp.UserBean"%>
+<%@ page import="rnpSupport.Login"%>
+<%@page import="rnpDAO.UserDAODataSource"%>
+<%@page import="rnpBean.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%
 	// Ottenimento dell'utente attuale (funziona su tutte le pagine che utilizzano l'header)
 	Object session_obj = request.getSession().getAttribute("user");
+	//System.out.println("[header] session_obj: " + session_obj);
 	int CURRENT_USER_ID = -1;
 	if(session_obj != null)
 		CURRENT_USER_ID = (int) session_obj;
-	
+
 	/*
 		ID:
 	   -10 = Admin
@@ -46,6 +47,7 @@
 		    }
 		}
 	}
+	//System.out.println("[header] CURRENT_USER_ID: " + CURRENT_USER_ID);
 	
 %>
 
@@ -62,6 +64,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="header-body">
 	<nav>
@@ -76,7 +79,15 @@
 			<button type="submit">Cerca</button>
 		</form>
 		<ul class="pulsanti-destra">
-			<li><a href="my-cart">Carrello</a></li>
+			
+			<%if(IS_CURRENT_USER_ADMIN) {%>
+				<li><a href="admin.jsp">Pannello Admin</a>
+			<%} else {%>
+				<li><a href="UsedProductEval.jsp">Valura il tuo usato</a></li>
+				<li><a href="my-cart">Carrello</a></li>
+			<%} %>
+			
+			
 			
 			<%if(IS_CURRENT_USER_REGISTRED) {%>
 				<li><a href="user_page.jsp">Account</a></li>

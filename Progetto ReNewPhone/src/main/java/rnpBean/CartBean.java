@@ -1,14 +1,11 @@
-package rnp;
+package rnpBean;
 
 import java.io.Serializable;
 
 /**
- * Bean che contiene tutte le informazioni di una riga di un carrello.
- * @category Bean
- * @category MODIFICABILE (tutto)
+ * Bean che contiene tutte le informazioni di una riga della tabella "carts" del database.
  */
 public class CartBean implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	int id_user;

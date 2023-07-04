@@ -1,11 +1,9 @@
-package rnp;
+package rnpBean;
 
 import java.io.Serializable;
 
 /**
- * Bean che contiene tutte le informazioni di un prodotto.
- * @category Bean
- * @category MODIFICABILE (tutto)
+ * Bean che contiene tutte le informazioni di una riga della tabella "users" del database.
  */
 public class UserBean implements Serializable {
 

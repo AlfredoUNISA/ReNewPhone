@@ -490,7 +490,7 @@ nav a:hover {
   color: #333;
  }
  
- .detailContent{
+ .detailProduct{
  display:flex;
  flex-wrap:wrap;
  width:100%;
@@ -533,4 +533,21 @@ nav a:hover {
 	height:11.83em;
 	
 }
- 
+/* Stile per gli elementi del menù dei filtri*/
+.filterBox{
+     width: auto;
+     display: none;
+     align-items: center;
+     text-align: center;
+     transition: transform 0.3s ease-in-out;
+	
+}
+.box-inner{
+	float:left; 
+	text-align:center;
+	
+}
+.productEvalFieldSet{
+	display:none; 
+	border:0;
+}

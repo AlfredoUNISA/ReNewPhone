@@ -1,6 +1,6 @@
-<%@ page import="rnp.OrderDAODataSource, rnp.UserDAODataSource, rnp.ProductDAODataSource"%>
-<%@ page import="rnp.OrderBean, rnp.UserBean, rnp.ProductBean"%>
-<%@ page import="java.util.*, rnp.Login"%>
+<%@ page import="rnpDAO.OrderDAODataSource,rnpDAO.UserDAODataSource,rnpDAO.ProductDAODataSource"%>
+<%@ page import="rnpBean.OrderBean,rnpBean.UserBean,rnpBean.ProductBean"%>
+<%@ page import="java.util.*,rnpSupport.Login"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
