@@ -89,7 +89,7 @@ public class CartServlet extends HttpServlet {
 	private String emptyCartJsonString = null;
 
 	/**
-	 * Crea ed imposta un cartCookie "vuoto".
+	 * Crea ed imposta un cartCookie "vuoto", con sum=0 e cartList.size=0
 	 * 
 	 * @return json "vuoto"
 	 */
@@ -103,11 +103,9 @@ public class CartServlet extends HttpServlet {
 
 		emptyCartJsonString = jsonObject.toString();
 
-		// Codifica la stringa per evitare caratteri illegali nel cookie
-		String encodedString = Base64.getEncoder().encodeToString(emptyCartJsonString.getBytes());
-
-		// Imposta il cookie
-		Cookie cartCookie = new Cookie("cartCookie", encodedString);
+		// Codifica la stringa per evitare caratteri illegali nel cookie ed imposta il
+		// cookie
+		Cookie cartCookie = new Cookie("cartCookie", encodeJsonString(emptyCartJsonString));
 		cartCookie.setMaxAge(Login.COOKIE_DURATION);
 		response.addCookie(cartCookie);
 
@@ -124,7 +122,7 @@ public class CartServlet extends HttpServlet {
 	}
 
 	/**
-	 * @return Ritorna il cookie con il nome specificato, null se non esiste.
+	 * Ritorna il cookie con il nome specificato, null se non esiste.
 	 */
 	private Cookie getCookie(String name, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
@@ -141,8 +139,22 @@ public class CartServlet extends HttpServlet {
 	}
 
 	/**
-	 * Ritorna un json alla pagina jsp contenente tutte le righe del database (in
-	 * base all'utente).
+	 * Ritorna la stringa "decodificata" contenuta nel CartCookie.
+	 */
+	private String decodeJsonString(Cookie cartCookie) {
+		return new String(Base64.getDecoder().decode(cartCookie.getValue()));
+	}
+
+	/**
+	 * Ritorna la stringa "codificata" per poterla includere nel CartCookie.
+	 */
+	private String encodeJsonString(String json) {
+		return Base64.getEncoder().encodeToString(json.getBytes());
+	}
+
+	/**
+	 * Ritorna un json alla pagina jsp contenente il carrello nel database o nel
+	 * cookie.
 	 */
 	private void showAllRows(HttpServletRequest request, HttpServletResponse response, int usr)
 			throws ServletException, IOException {
@@ -157,18 +169,14 @@ public class CartServlet extends HttpServlet {
 				if (cartCookie == null) {
 					// Se il cookie non esiste creane uno nuovo
 					cartCookie = createNewEmptyCartCookie(response);
-					jsonString = emptyCartJsonString;
+					jsonString = emptyCartJsonString; // Prodotto dalla funzione
 				} else {
 					// Se il cookie esiste
-					// Decodifica la stringa
-					String encodedString = cartCookie.getValue();
-					String decodedString = new String(Base64.getDecoder().decode(encodedString));
 
 					// Ottieni il json
-					JsonObject jsonObj = gson.fromJson(decodedString, JsonObject.class);
+					JsonObject jsonObj = gson.fromJson(decodeJsonString(cartCookie), JsonObject.class);
 					jsonString = jsonObj.toString();
 				}
-
 				// Manda il json come risposta
 				sendJsonResponse(response, jsonString);
 			} else {
@@ -176,26 +184,89 @@ public class CartServlet extends HttpServlet {
 
 				// Ottieni le righe dal database
 				List<CartBean> cartList = (List<CartBean>) cartDAO.doRetrieveByUser(usr, null);
-				int sum = 0; // Somma totale degli oggetti nel carrello
-				List<CartDataToSend> listToSend = new ArrayList<>(); // Lista di oggetti da mandare con il json
+				// Somma totale degli oggetti nel carrello
+				int sum = 0;
+				// Lista di oggetti da mandare con il json
+				List<CartDataToSend> listToSend = new ArrayList<>();
 
-				// Inserisci i dati nella lista per il json
+				// Inserisci i dati dal database nella lista per il json
 				for (CartBean cartBean : cartList) {
 					ProductBean product = productDAO.doRetrieveByKey(cartBean.getId_product());
 
 					CartDataToSend toSend = new CartDataToSend(product.getName(), product.getId(),
 							cartBean.getQuantity(), product.getPrice());
 
-					sum += productDAO.doRetrieveByKey(cartBean.getId_product()).getPrice() * cartBean.getQuantity();
+					sum += product.getPrice() * cartBean.getQuantity();
 					listToSend.add(toSend);
 				}
 
-				// Crea il json
+				Cookie cartCookie = getCookie("cartCookie", request);
+				JsonObject jsonObjectCookie = null;
+
+				// Se esiste un cartCookie, allora è un utente non registrato che ha fatto il
+				// login: includi il carrello del cookie nel carrello dell'utente
+				if (cartCookie != null) {
+					// Ottieni il json dal cookie
+					jsonObjectCookie = gson.fromJson(decodeJsonString(cartCookie), JsonObject.class);
+
+					// Prendi l'array
+					JsonArray cartCookieList = jsonObjectCookie.getAsJsonArray("cartList");
+
+					// Itera su tutti gli elementi dell'array ottenuto dal cookie sotto forma di
+					// JsonObject
+					for (JsonElement cartElement : cartCookieList) {
+						JsonObject current = cartElement.getAsJsonObject();
+
+						// Prendi tutti i parametri necessari
+						int idCookie = current.get("id").getAsInt();
+						String nameCookie = current.get("name").getAsString();
+						int priceCookie = current.get("price").getAsInt();
+						int quantityCookie = current.get("quantity").getAsInt();
+
+						// Controlla se i parametri sono presenti nella lista da mandare
+						boolean isPresent = false;
+						for (CartDataToSend cartDataToSend : listToSend) {
+							if (idCookie == cartDataToSend.getId() && nameCookie == cartDataToSend.getName()
+									&& priceCookie == cartDataToSend.getPrice()
+									&& quantityCookie == cartDataToSend.getQuantity())
+								isPresent = true;
+						}
+
+						// Se i parametri non sono presenti nella lista da mandare, aggiungili alla
+						// lista e al database
+						if (!isPresent) {
+							// LISTA DA MANDARE
+							CartDataToSend toSendCookie = new CartDataToSend(nameCookie, idCookie, quantityCookie,
+									priceCookie);
+							sum += priceCookie * quantityCookie;
+
+							listToSend.add(toSendCookie);
+
+							// DATABASE
+							CartBean cartElementCookie = new CartBean();
+							cartElementCookie.setId_user(usr);
+							cartElementCookie.setId_product(idCookie);
+							cartElementCookie.setQuantity(quantityCookie);
+
+							cartDAO.doSave(cartElementCookie);
+						}
+
+					}
+					// Invalida il cartCookie
+					cartCookie.setMaxAge(0);
+					response.addCookie(cartCookie);
+				}
+
+				// Crea il json della risposta
 				JsonObject jsonObject = new JsonObject();
+				
+				// Aggiungi al json la somma
+				if (listToSend.size() == 0)
+					sum = 0;
 				jsonObject.addProperty("sum", sum);
 
-				JsonElement cartElements = gson.toJsonTree(listToSend);
-				jsonObject.add("cartList", cartElements);
+				// Aggiungi al json la lista da mandare
+				jsonObject.add("cartList", gson.toJsonTree(listToSend));
 
 				// Manda il json come risposta
 				sendJsonResponse(response, jsonObject.toString());
@@ -223,12 +294,8 @@ public class CartServlet extends HttpServlet {
 				cartCookie = createNewEmptyCartCookie(response);
 			}
 
-			// Decodifica la stringa
-			String encodedString = cartCookie.getValue();
-			String decodedString = new String(Base64.getDecoder().decode(encodedString));
-
 			// Ottieni il json
-			JsonObject jsonObject = gson.fromJson(decodedString, JsonObject.class);
+			JsonObject jsonObject = gson.fromJson(decodeJsonString(cartCookie), JsonObject.class);
 
 			int sum = jsonObject.get("sum").getAsInt();
 			JsonArray cartList = jsonObject.getAsJsonArray("cartList");
@@ -250,11 +317,8 @@ public class CartServlet extends HttpServlet {
 			// Elimina il cookie vecchio
 			cartCookie.setMaxAge(0);
 
-			// Crea il cookie aggiornato
-			String updatedJsonString = jsonObject.toString();
-			String updatedEncodedString = Base64.getEncoder().encodeToString(updatedJsonString.getBytes());
-
-			Cookie updatedCartCookie = new Cookie("cartCookie", updatedEncodedString);
+			// Crea il cookie con il json aggiornato
+			Cookie updatedCartCookie = new Cookie("cartCookie", encodeJsonString(jsonObject.toString()));
 			updatedCartCookie.setMaxAge(Login.COOKIE_DURATION);
 
 			// Aggiungi il cookie alla risposta
@@ -287,10 +351,7 @@ public class CartServlet extends HttpServlet {
 		if (id_user == -1) {
 			Cookie cartCookie = getCookie("cartCookie", request);
 
-			String encodedString = cartCookie.getValue();
-			String decodedString = new String(Base64.getDecoder().decode(encodedString));
-
-			JsonObject jsonObject = gson.fromJson(decodedString, JsonObject.class);
+			JsonObject jsonObject = gson.fromJson(decodeJsonString(cartCookie), JsonObject.class);
 
 			int sum = jsonObject.get("sum").getAsInt();
 			JsonArray cartList = jsonObject.getAsJsonArray("cartList");
@@ -313,10 +374,7 @@ public class CartServlet extends HttpServlet {
 			cartCookie.setMaxAge(0);
 
 			// Crea il cookie aggiornato
-			String updatedJsonString = jsonObject.toString();
-			String updatedEncodedString = Base64.getEncoder().encodeToString(updatedJsonString.getBytes());
-
-			Cookie updatedCartCookie = new Cookie("cartCookie", updatedEncodedString);
+			Cookie updatedCartCookie = new Cookie("cartCookie", encodeJsonString(jsonObject.toString()));
 			updatedCartCookie.setMaxAge(Login.COOKIE_DURATION);
 
 			// Aggiungi il cookie alla risposta
@@ -339,7 +397,8 @@ public class CartServlet extends HttpServlet {
 
 	/**
 	 * Finalizza l'ordine mettendo tutti gli oggetti del carrello in un ordine e
-	 * rimuove tutti gli elementi del carrello.
+	 * rimuove tutti gli elementi del carrello. Solo gli utenti registrati possono
+	 * entrare qui.
 	 */
 	private void finalizeOrder(HttpServletRequest request, HttpServletResponse response, int id_user)
 			throws ServletException, IOException {
@@ -392,7 +451,6 @@ public class CartServlet extends HttpServlet {
 			// Fare qualcosa se non ci sono abbastanza oggetti in stock
 		}
 	}
-	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -416,6 +474,22 @@ class CartDataToSend {
 		this.id = id;
 		this.quantity = quantity;
 		this.price = price;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public int getPrice() {
+		return price;
 	}
 
 }
