@@ -47,7 +47,7 @@ function loadBrands(){
 }       
 
 function getDevices(){
-		$("#modello").empty();
+		$("#modelSelect").empty();
 		var marca=$("#brandSelect").val();
 		if(marca!="seleziona"){
 			$("#formAfterBrand").show();
