@@ -36,7 +36,7 @@
        		
        		<fieldset id="formAfterModel" class="productEvalFieldSet">
 	       		<label for="storage">Spazio interno:</label>
-	        	<input type="number" name="storage" id="storage" min="1" max="99" required><br>
+	        	<input type="number" name="storage" id="storage" min="1" max="9999" required><br>
         	
         		<label for="condizione">Condizione:</label>
 	       		<select name="condizione" id="condizione" required>

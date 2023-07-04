@@ -12,6 +12,11 @@
 		        else	
 		        	$("#formAfterModel").hide();
 		        });
+			$("#submitButton").click(function(e) {
+				e.preventDefault();
+				sendEval();
+			})
+
 })
 
 
@@ -48,6 +53,7 @@ function loadBrands(){
 
 function getDevices(){
 		$("#modelSelect").empty();
+		$("#modelSelect").append('<option value="seleziona"> SELEZIONA </option>');
 		var marca=$("#brandSelect").val();
 		if(marca!="seleziona"){
 			$("#formAfterBrand").show();
@@ -80,23 +86,20 @@ function getDevices(){
 
  
 function sendEval(){
-			var marca = $("#marca").val();
-                var modello = $("#modello").val();
-                var anno = $("#anno").val();
+			var marca = $("#brandSelect").val();
+                var modello = $("#modelSelect").val();
                 var condizione = $("#condizione").val();
+                var colore = $("#colore").val();
+                var storage = $("#storage").val();
 
                 $.ajax({
-                    url: "AjaxProductEvalServlet?action=getModels", // Indirizzo del tuo endpoint Java per l'inserimento
+                    url: "AjaxProductEvalServlet?action=evaluate&brand="+marca+'&model='+modello+
+                    "&condition="+condizione+"&storage="+storage, // Indirizzo del tuo endpoint Java per l'inserimento
                     method: "GET",
-                    data: {
-                        marca: marca,
-                        modello: modello,
-                        anno: anno,
-                        condizione: condizione
-                    },
                     success: function(response) {
                         // Gestisci la risposta dal server
-                        $("#risultato").html(response);
+                        var html='<h2><b> Il tuo '+ marca+' '+modello+'('+storage+'GB) '+colore+' vale= '+ response+'&euro;';
+                        $("#risultato").html(html);
                     },
                     error: function(xhr, status, error) {
                         // Gestisci l'errore della richiesta Ajax

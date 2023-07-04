@@ -31,21 +31,27 @@ import rnpDAO.ProductDAODataSource;
 public class AjaxProductEvalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
+	private static Gson gson = new GsonBuilder().create();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		String action= request.getParameter("action");
 			switch(action) {
 			case "getBrands":
-					handleBrands(request, response);
+				handleBrands(request, response);
 				break;
-			case "getModel":
-				
-			break;
+			case "evaluate":
+				handleEval(request,response);
+				break;
+			default:
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Pagina non trovata");
+				break;
 			}
 	}
 
 	
+
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -56,7 +62,7 @@ public class AjaxProductEvalServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			
-			Gson gson = new GsonBuilder().create();
+			
 			String json = gson.toJson(productDAO.doRetrieveBrands());
 			
 			response.setContentType("application/json");
@@ -70,4 +76,61 @@ public class AjaxProductEvalServlet extends HttpServlet {
 		
 	}
 
+	private void handleEval(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		int evaluation=100;//Valore più basso valutabile
+		//Ottenimento dei valori passati dalla richiesta ajax
+		String brand=request.getParameter("brand");
+		String condition=request.getParameter("condition");
+		String model=request.getParameter("model");
+		int storage=Integer.parseInt(request.getParameter("storage"));
+		//Calcolo del valore in base ad una logica per marca
+		switch(brand) {
+		case "Apple":
+			evaluation+=59;
+			break;
+		case "Samsung":
+			evaluation+=39;
+			break;
+		case "Google":
+			evaluation+=39;
+			break;
+		case "Xiaomi":
+			evaluation+=19;
+			break;
+		default:	
+			evaluation+=29;
+			break;
+		}
+		//Incremento valore in base allo spazio interno
+		if(storage<=32);
+		else if(storage<=64)
+			evaluation+=50;
+		else if(storage<=128)
+			evaluation+=150;
+		else if(storage<=256)
+			evaluation+=200;
+		else 
+			evaluation+=300;
+		
+		switch(condition) {
+		case "Buono":
+			evaluation+=40;
+			break;
+		case "Ottimo":
+			evaluation+=60;
+			break;
+		case "Accetabile":
+			evaluation+=0;
+			break;
+		}
+		if(model.toLowerCase().contains("pro") || model.toLowerCase().contains("max"))
+			evaluation+=150;
+		String json = gson.toJson(evaluation);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json);
+			
+	}
 }
