@@ -20,7 +20,7 @@
 
 	<div class="content">
     
-    <h1>Inserimento dinamico con Ajax</h1>
+    <h1>Valuta il tuo usato !</h1>
 
     <form id="inserimentoForm">
 		<label for="brandSelect">Brand</label> 
