@@ -166,9 +166,8 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 						// Controlla se i parametri sono presenti nella lista da mandare
 						boolean isPresent = false;
 						for (CartDataToSend cartDataToSend : listToSend) {
-							if (idCookie == cartDataToSend.getId() && nameCookie == cartDataToSend.getName()
-									&& priceCookie == cartDataToSend.getPrice()
-									&& quantityCookie == cartDataToSend.getQuantity())
+							int idInCart = cartDataToSend.getId();
+							if (idCookie == idInCart)
 								isPresent = true;
 						}
 
