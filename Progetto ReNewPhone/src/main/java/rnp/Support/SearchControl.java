@@ -1,13 +1,16 @@
-package rnpSupport;
+package rnp.Support;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
-import rnpBean.ProductBean;
-import rnpDAO.MethodsDAO;
-import rnpDAO.ProductDAODataSource;
+import rnp.Bean.ProductBean;
+import rnp.DAO.MethodsDAO;
+import rnp.DAO.ProductDAODataSource;
+import rnp.Servlet.ServletHelper;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,16 +21,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet per gestire le richieste relate alla ricerca di prodotti in un database.
- * @category Servlet
  */
 @WebServlet("/search")
-public class SearchControl extends HttpServlet {
+public class SearchControl extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	static MethodsDAO<ProductBean> productDAO = new ProductDAODataSource();
-
-	public SearchControl() {
-		super();
-	}
+	
+	private static final String CLASS_NAME = SearchControl.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = request.getParameter("q");
@@ -49,15 +50,9 @@ public class SearchControl extends HttpServlet {
 						searchResults.add(product);
 					}
 				}
-				/*
-				for (ProductBean product : searchResults) {
-					System.out.println("------");
-				    System.out.println(product);
-				}
-				*/
 			}
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 
 		// Aggiungi i risultati della ricerca come attributo della richiesta

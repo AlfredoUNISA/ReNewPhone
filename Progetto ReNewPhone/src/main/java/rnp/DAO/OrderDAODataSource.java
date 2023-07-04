@@ -1,4 +1,4 @@
-package rnpDAO;
+package rnp.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,36 +7,47 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import rnpBean.OrderBean;
+import rnp.Bean.OrderBean;
 
 /**
- * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale attraverso un pool di connessioni DataSource. 
- * La classe si occupa di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati nella tabella "TABLE_NAME" della base di dati.
- * @category Query con Data Source
- * @implNote ATTENZIONE: Modificare web.xml (resource-ref con JNDI) e modificare context.xml (in META-INF)
- * @category MODIFICABILE
+ * Fornisce l'accesso ai dati di un oggetto ProductBean in una base di dati
+ * relazionale attraverso un pool di connessioni DataSource. La classe si occupa
+ * di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati
+ * nella tabella {@link #TABLE_NAME} della base di dati.
+ * 
+ * @implNote In {@code WEB-INF\web.xml} è stato aggiunto un tag resource-ref con
+ *           JNDI.<br>
+ *           In {@code META-INF\context.xml} sono stati aggiunti username,
+ *           password e altri dati inerenti al DB.<br>
+ *           Queste modifiche permettono di poter utilizzare tutti i DAO (serve
+ *           farlo solo una volta).
  */
-public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE */ {
+public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 
-	private static DataSource ds;
-	private static final String TABLE_NAME = "orders"; // MODIFICABILE
+	private static DataSource dataSource;
+	private static final String TABLE_NAME = "orders";
+	
+	private static final String CLASS_NAME = OrderDAODataSource.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
 	// Inizializzazione per il Data Source
 	static {
 		try {
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env"); 
+			Context initialContext = new InitialContext();
+			Context environmentContext = (Context) initialContext.lookup("java:comp/env"); 
 
-			ds = (DataSource) envCtx.lookup("jdbc/renewphonedb"); // MODIFICABILE
+			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb"); 
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
@@ -44,7 +55,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 	 * Un bean viene inserito come una nuova riga nella tabella "TABLE_NAME" usando una connessione al database.
 	 * @param order Oggetto da inserire
 	 * @return L'id generato automaticamente dalla insert
-	 * @category MODIFICABILE
+	 * @category INSERT
 	 */
 	@Override
 	public synchronized int doSave(OrderBean order) throws SQLException {
@@ -52,18 +63,18 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		// MODIFICABILE
+		
 		String insertSQL = "INSERT INTO " + OrderDAODataSource.TABLE_NAME
                 + " (id_user, total) VALUES (?, ?)";
 		
 		int generatedId = -1;
 
 		try { 
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 
 			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
-			// MODIFICABILE
+			
 			preparedStatement.setInt(1, order.getId_user());
 			preparedStatement.setInt(2, order.getTotal());
 
@@ -78,7 +89,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 	            	generatedId = generatedKeys.getInt(1);
 	            }
 	            else {
-	                System.out.println("ERROR: No ID obtained in OrderDAODataSource's doSave.");
+	            	LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: No ID obtained in doSave.");
 	            }
 	        }
 			
@@ -98,23 +109,23 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 	 * Rimuove una riga dalla tabella "TABLE_NAME" in base al codice.
 	 * @param id Il codice del prodotto da rimuovere.
 	 * @return L'esito della query.
-	 * @category MODIFICABILE
+	 * @category DELETE
 	 */
 	@Override
-	public synchronized boolean doDelete(int id /* MODIFICABILE */) throws SQLException {
+	public synchronized boolean doDelete(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
 
-		String deleteSQL = "DELETE FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
+		String deleteSQL = "DELETE FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?"; 
 
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			
-			preparedStatement.setInt(1, id); // MODIFICABILE
+			preparedStatement.setInt(1, id); 
 
 			result = preparedStatement.executeUpdate();
 
@@ -134,7 +145,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 	 * Seleziona tutte le righe dalla tabella "TABLE_NAME" e restituisce una collezione di oggetti.
 	 * @param sort Specifica l'ordine di ordinamento dei risultati (se non è nullo aggiunge ORDER BY alla query).
 	 * @return La collezione di oggetti contenente tutte le righe della tabella.
-	 * @category MODIFICABILE
+	 * @category SELECT
 	 */
 	@Override
 	public synchronized Collection<OrderBean> doRetrieveAll(String sort) throws SQLException {
@@ -150,7 +161,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 		}
 
 		try {
-			connection = ds.getConnection();
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			/*
 			if(sort != null && !sort.equals(""))
@@ -161,7 +172,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 			while (rs.next()) {
 				OrderBean bean = new OrderBean();
 
-				// MODIFICABILE
+				
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
@@ -185,24 +196,24 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> /* MODIFICABILE
 	 * Seleziona una singola riga dalla tabella "TABLE_NAME" in base al codice.
 	 * @param id Il codice del prodotto da ottenere.
 	 * @return Il bean ottenuto in base al codice.
-	 * @category MODIFICABILE
+	 * @category SELECT
 	 */
 	@Override
-	public synchronized OrderBean doRetrieveByKey(int id /* MODIFICABILE */) throws SQLException {
+	public synchronized OrderBean doRetrieveByKey(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		OrderBean bean = new OrderBean();
 		
-		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
+		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?"; 
 		
 		try {
-			connection = ds.getConnection();	
+			connection = dataSource.getConnection();	
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id); // MODIFICABILE
+			preparedStatement.setInt(1, id); 
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				// MODIFICABILE
+				
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));

@@ -1,4 +1,4 @@
-package rnpAdmin;
+package rnp.Admin;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,18 +18,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import rnpBean.ProductBean;
-import rnpDAO.ProductDAODataSource;
-import rnpSupport.Login;
+import rnp.Bean.ProductBean;
+import rnp.DAO.ProductDAODataSource;
+import rnp.Servlet.ServletHelper;
+import rnp.Support.Login;
 
 /**
  * Servlet implementation class AdminAddServlet
  */
 @WebServlet("/admin-add")
 @MultipartConfig
-public class AdminAddServlet extends HttpServlet {
+public class AdminAddServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
+	
+	private static final String className = AdminAddServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(className);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -43,7 +49,7 @@ public class AdminAddServlet extends HttpServlet {
 			}
 			addRow(request, response);
 		} catch (ServletException | IOException | InterruptedException e) {
-			System.out.println(e.getMessage());
+			LOGGER.log(Level.SEVERE, "ERROR [" + className + "]: " + e.getMessage());
 		}
 	}
 

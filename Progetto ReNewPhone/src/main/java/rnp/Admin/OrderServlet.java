@@ -1,4 +1,4 @@
-package rnpAdmin;
+package rnp.Admin;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,16 +15,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import rnpBean.OrderBean;
-import rnpDAO.OrderDAODataSource;
-import rnpSupport.Login;
+import rnp.Bean.OrderBean;
+import rnp.DAO.OrderDAODataSource;
+import rnp.Servlet.ServletHelper;
+import rnp.Support.Login;
 
 /**
  * Servlet per gestire le richieste relate alla manipolazione dei dati di un
  * database.
  */
 @WebServlet("/orders")
-public class OrderServlet extends HttpServlet {
+public class OrderServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static OrderDAODataSource orderDAO = new OrderDAODataSource();
 

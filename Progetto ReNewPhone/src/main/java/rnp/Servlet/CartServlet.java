@@ -1,4 +1,4 @@
-package rnpServlet;
+package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,25 +22,29 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import rnpBean.CartBean;
-import rnpBean.ItemOrderBean;
-import rnpBean.OrderBean;
-import rnpBean.ProductBean;
-import rnpDAO.CartDAODataSource;
-import rnpDAO.ItemsOrderDAODataSource;
-import rnpDAO.OrderDAODataSource;
-import rnpDAO.ProductDAODataSource;
-import rnpSupport.Login;
+import rnp.Bean.CartBean;
+import rnp.Bean.ItemOrderBean;
+import rnp.Bean.OrderBean;
+import rnp.Bean.ProductBean;
+import rnp.DAO.CartDAODataSource;
+import rnp.DAO.ItemsOrderDAODataSource;
+import rnp.DAO.OrderDAODataSource;
+import rnp.DAO.ProductDAODataSource;
+import rnp.Support.Login;
 
 /**
  * Servlet implementation class CartServlet
  */
 @WebServlet("/my-cart")
-public class CartServlet extends HttpServlet {
-	private static final Logger logger = Logger.getLogger(CartServlet.class.getName());
+public class CartServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
+	
 	private static CartDAODataSource cartDAO = new CartDAODataSource();
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
+
+	private static final String CLASS_NAME = CartServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
+
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -68,7 +72,7 @@ public class CartServlet extends HttpServlet {
 				try {
 					addRow(request, response, id_user, id_product);
 				} catch (ServletException | IOException | SQLException e) {
-					System.out.println(e.getMessage());
+					LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 				}
 				break;
 			case "delete":
@@ -86,75 +90,11 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
-	private String emptyCartJsonString = null;
-
-	/**
-	 * Crea ed imposta un cartCookie "vuoto", con sum=0 e cartList.size=0
-	 * 
-	 * @return json "vuoto"
-	 */
-	private Cookie createNewEmptyCartCookie(HttpServletResponse response) {
-		// Crea il json con oggetti "vuoti"
-		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("sum", 0);
-
-		JsonElement cartElements = gson.toJsonTree(new ArrayList<>());
-		jsonObject.add("cartList", cartElements);
-
-		emptyCartJsonString = jsonObject.toString();
-
-		// Codifica la stringa per evitare caratteri illegali nel cookie ed imposta il
-		// cookie
-		Cookie cartCookie = new Cookie("cartCookie", encodeJsonString(emptyCartJsonString));
-		cartCookie.setMaxAge(Login.COOKIE_DURATION);
-		response.addCookie(cartCookie);
-
-		return cartCookie;
-	}
-
-	/**
-	 * Manda il json come risposta.
-	 */
-	private void sendJsonResponse(HttpServletResponse response, String jsonString) throws IOException {
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(jsonString);
-	}
-
-	/**
-	 * Ritorna il cookie con il nome specificato, null se non esiste.
-	 */
-	private Cookie getCookie(String name, HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		Cookie result = null;
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(name)) {
-					result = cookie;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Ritorna la stringa "decodificata" contenuta nel CartCookie.
-	 */
-	private String decodeJsonString(Cookie cartCookie) {
-		return new String(Base64.getDecoder().decode(cartCookie.getValue()));
-	}
-
-	/**
-	 * Ritorna la stringa "codificata" per poterla includere nel CartCookie.
-	 */
-	private String encodeJsonString(String json) {
-		return Base64.getEncoder().encodeToString(json.getBytes());
-	}
-
 	/**
 	 * Ritorna un json alla pagina jsp contenente il carrello nel database o nel
 	 * cookie.
+	 * 
+	 * @category SELECT
 	 */
 	private void showAllRows(HttpServletRequest request, HttpServletResponse response, int usr)
 			throws ServletException, IOException {
@@ -259,7 +199,7 @@ public class CartServlet extends HttpServlet {
 
 				// Crea il json della risposta
 				JsonObject jsonObject = new JsonObject();
-				
+
 				// Aggiungi al json la somma
 				if (listToSend.size() == 0)
 					sum = 0;
@@ -272,12 +212,14 @@ public class CartServlet extends HttpServlet {
 				sendJsonResponse(response, jsonObject.toString());
 			}
 		} catch (SQLException e) {
-			printError(e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
 	/**
 	 * Aggiunge una nuova riga alla table del database.
+	 * 
+	 * @category INSERT
 	 */
 	private void addRow(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product)
 			throws ServletException, IOException, SQLException {
@@ -334,7 +276,7 @@ public class CartServlet extends HttpServlet {
 			try {
 				cartDAO.doSave(cart);
 			} catch (SQLException e) {
-				printError(e);
+				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 				if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 					// TODO: fare qualcosa se ci sono duplicati
 				}
@@ -344,6 +286,8 @@ public class CartServlet extends HttpServlet {
 
 	/**
 	 * Elimina una riga dalla table del database.
+	 * 
+	 * @category DELETE
 	 */
 	private void deleteRow(HttpServletRequest request, HttpServletResponse response, int id_user, int id_product)
 			throws ServletException, IOException {
@@ -382,11 +326,12 @@ public class CartServlet extends HttpServlet {
 		} else {
 			try {
 				if (!cartDAO.doDeleteSingleRow(id_user, id_product)) {
-					logger.log(Level.WARNING, "*Cart row not found for showRowDetails (id_user = " + id_user
-							+ ", id_product = " + id_product + ")");
+					LOGGER.log(Level.WARNING,
+							"ERROR [" + CLASS_NAME + "]: Cart row not found for showRowDetails (id_user = " + id_user
+									+ ", id_product = " + id_product + ")");
 				}
 			} catch (SQLException e) {
-				printError(e);
+				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 				if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 					// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
 					// questa riga da eliminare
@@ -399,6 +344,8 @@ public class CartServlet extends HttpServlet {
 	 * Finalizza l'ordine mettendo tutti gli oggetti del carrello in un ordine e
 	 * rimuove tutti gli elementi del carrello. Solo gli utenti registrati possono
 	 * entrare qui.
+	 * 
+	 * @category SELECT and INSERT
 	 */
 	private void finalizeOrder(HttpServletRequest request, HttpServletResponse response, int id_user)
 			throws ServletException, IOException {
@@ -447,20 +394,60 @@ public class CartServlet extends HttpServlet {
 				cartDAO.doDelete(id_user);
 			}
 		} catch (SQLException e) {
-			printError(e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 			// Fare qualcosa se non ci sono abbastanza oggetti in stock
 		}
+	}
+
+	private String emptyCartJsonString = null;
+
+	/**
+	 * Crea ed imposta un cartCookie "vuoto", con sum=0 e cartList.size=0
+	 * 
+	 * @return json "vuoto"
+	 * @category OTHER
+	 */
+	private Cookie createNewEmptyCartCookie(HttpServletResponse response) {
+		// Crea il json con oggetti "vuoti"
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("sum", 0);
+	
+		JsonElement cartElements = gson.toJsonTree(new ArrayList<>());
+		jsonObject.add("cartList", cartElements);
+	
+		emptyCartJsonString = jsonObject.toString();
+	
+		// Codifica la stringa per evitare caratteri illegali nel cookie ed imposta il
+		// cookie
+		Cookie cartCookie = new Cookie("cartCookie", encodeJsonString(emptyCartJsonString));
+		cartCookie.setMaxAge(Login.COOKIE_DURATION);
+		response.addCookie(cartCookie);
+	
+		return cartCookie;
+	}
+
+	/**
+	 * Ritorna la stringa "decodificata" contenuta nel CartCookie.
+	 * 
+	 * @category OTHER
+	 */
+	private String decodeJsonString(Cookie cartCookie) {
+		return new String(Base64.getDecoder().decode(cartCookie.getValue()));
+	}
+
+	/**
+	 * Ritorna la stringa "codificata" per poterla includere nel CartCookie.
+	 * 
+	 * @category OTHER
+	 */
+	private String encodeJsonString(String json) {
+		return Base64.getEncoder().encodeToString(json.getBytes());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
-	protected final void printError(SQLException e) {
-		logger.log(Level.SEVERE, "ERROR: " + e);
-	}
-
 }
 
 class CartDataToSend {

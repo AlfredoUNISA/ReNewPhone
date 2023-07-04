@@ -1,7 +1,9 @@
-package rnpServlet;
+package rnp.Admin;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,16 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import rnpBean.UserBean;
-import rnpDAO.UserDAODataSource;
+import rnp.Bean.UserBean;
+import rnp.DAO.UserDAODataSource;
+import rnp.Servlet.ServletHelper;
 
 /**
  * Servlet implementation class UserServlet
  */
 @WebServlet("/users")
-public class UserServlet extends HttpServlet {
+public class UserServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static UserDAODataSource userDAO = new UserDAODataSource();
+	
+	private static final String CLASS_NAME = UserServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -61,7 +67,7 @@ public class UserServlet extends HttpServlet {
 			request.setAttribute("users", userDAO.doRetrieveAll(sort));
 			request.getServletContext().getRequestDispatcher("/UserView.jsp").forward(request, response);
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
@@ -79,10 +85,10 @@ public class UserServlet extends HttpServlet {
 				request.removeAttribute("user-details");
 				request.setAttribute("user-details", user);
 			} else {
-				System.out.println("**404** User not found for showRowDetails (id_user = " + id + ")");
+				LOGGER.log(Level.WARNING, "WARNING [" + CLASS_NAME + "]: User not found for showRowDetails (id_user = " + id + ")");
 			}
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
@@ -114,7 +120,7 @@ public class UserServlet extends HttpServlet {
 		try {
 			userDAO.doSave(user);
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 				// TODO: fare qualcosa se ci sono duplicati
 			}
@@ -130,10 +136,10 @@ public class UserServlet extends HttpServlet {
 
 		try {
 			if (!userDAO.doDelete(id)) {
-				System.out.println("**404** User not found for deleteRow (id_user = " + id + ")");
+				LOGGER.log(Level.WARNING, "WARNING [" + CLASS_NAME + "]: User not found for deleteRow (id_user = " + id + ")");
 			}
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 				// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
 				// questa riga da eliminare

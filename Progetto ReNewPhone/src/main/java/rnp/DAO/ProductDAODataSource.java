@@ -1,4 +1,4 @@
-package rnpDAO;
+package rnp.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.naming.Context;
@@ -15,13 +16,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import rnpBean.ProductBean;
+import rnp.Bean.ProductBean;
 
 /**
  * Fornisce l'accesso ai dati di un oggetto ProductBean in una base di dati
  * relazionale attraverso un pool di connessioni DataSource. La classe si occupa
  * di eseguire le operazioni CRUD (create, retrieve, update e delete) sui dati
- * nella tabella "product" della base di dati.
+ * nella tabella {@link #TABLE_NAME} della base di dati.
  * 
  * @implNote In {@code WEB-INF\web.xml} è stato aggiunto un tag resource-ref con
  *           JNDI.<br>
@@ -33,7 +34,9 @@ import rnpBean.ProductBean;
 public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 	private static DataSource dataSource;
 	private static final String TABLE_NAME = "products";
-	private static final Logger logger = Logger.getLogger(ProductDAODataSource.class.getName());
+	
+	private static final String CLASS_NAME = ProductDAODataSource.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 	
 	// Inizializzazione per il Data Source
 	static {
@@ -41,10 +44,10 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 			Context initialContext = new InitialContext();
 			Context environmentContext = (Context) initialContext.lookup("java:comp/env");
 
-			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb"); // MODIFICABILE
+			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb"); 
 
 		} catch (NamingException e) {
-			logger.severe("Error: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
@@ -61,7 +64,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		// MODIFICABILE
+		
 		String insertSQL = "INSERT INTO " + ProductDAODataSource.TABLE_NAME
 				+ " (name, ram, display_size, storage, price, quantity, color, brand, year, category, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -72,7 +75,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 
 			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
-			// MODIFICABILE
+			
 			preparedStatement.setString(1, product.getName());
 			preparedStatement.setInt(2, product.getRam());
 			preparedStatement.setFloat(3, product.getDisplay_size());
@@ -94,7 +97,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 				if (generatedKeys.next()) {
 					generatedId = generatedKeys.getInt(1);
 				} else {
-					System.out.println("ERROR: No ID obtained in OrderDAODataSource's doSave.");
+					LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: No ID obtained in doSave.");
 				}
 			}
 
@@ -124,13 +127,13 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ProductDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
+		String deleteSQL = "DELETE FROM " + ProductDAODataSource.TABLE_NAME + " WHERE id = ?"; 
 
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			preparedStatement.setInt(1, id); // MODIFICABILE
+			preparedStatement.setInt(1, id); 
 
 			result = preparedStatement.executeUpdate();
 
@@ -160,7 +163,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		Collection<ProductBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME;
 
@@ -178,7 +181,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				// MODIFICABILE
+				
 				bean.setId(rs.getInt("id"));
 				bean.setName(rs.getString("name"));
 				bean.setRam(rs.getInt("ram"));
@@ -221,7 +224,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		Collection<ProductBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME + " WHERE name LIKE ?";
 
@@ -237,7 +240,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				// MODIFICABILE
+				
 				bean.setId(rs.getInt("id"));
 				bean.setName(rs.getString("name"));
 				bean.setRam(rs.getInt("ram"));
@@ -281,15 +284,15 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 
 		ProductBean bean = new ProductBean();
 
-		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME + " WHERE id = ?"; // MODIFICABILE
+		String selectSQL = "SELECT * FROM " + ProductDAODataSource.TABLE_NAME + " WHERE id = ?"; 
 
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id); // MODIFICABILE
+			preparedStatement.setInt(1, id); 
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				// MODIFICABILE
+				
 				bean.setId(rs.getInt("id"));
 				bean.setName(rs.getString("name"));
 				bean.setRam(rs.getInt("ram"));
@@ -315,7 +318,6 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 		return bean;
 	}
 	
-	// TODO: Verificare importanza
 	/**
 	 * Ottiene tutti i brand che si trovano nella tabella {@link #TABLE_NAME}.
 	 * @return La collezione di stringhe contenente tutti i brand.
@@ -357,7 +359,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE " + ProductDAODataSource.TABLE_NAME + " SET quantity = quantity - ? WHERE id = ?"; // MODIFICABILE
+		String updateSQL = "UPDATE " + ProductDAODataSource.TABLE_NAME + " SET quantity = quantity - ? WHERE id = ?"; 
 
 		ProductBean product = doRetrieveByKey(id);
 		if (product.getQuantity() < qty)
@@ -366,8 +368,8 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
-			preparedStatement.setInt(1, qty); // MODIFICABILE
-			preparedStatement.setInt(2, id); // MODIFICABILE
+			preparedStatement.setInt(1, qty); 
+			preparedStatement.setInt(2, id); 
 
 			preparedStatement.executeUpdate();
 		} finally {

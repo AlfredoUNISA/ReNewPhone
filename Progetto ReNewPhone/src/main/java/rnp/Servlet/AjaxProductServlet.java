@@ -1,4 +1,4 @@
-package rnpServlet;
+package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,6 +9,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,25 +23,35 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import rnpBean.ProductBean;
-import rnpDAO.ProductDAODataSource;
+import rnp.Bean.ProductBean;
+import rnp.DAO.ProductDAODataSource;
 
 /**
  * Servlet che ritorna un JSON a una richiesta AJAX
  */
 @WebServlet("/AjaxProductServlet")
-public class AjaxProductServlet extends HttpServlet {
+public class AjaxProductServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
+	
+	private static final String CLASS_NAME = AjaxProductServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int productsPerLoading = 12; // Default
 		int countLoadings = 0;
-		int priceMin = Integer.MIN_VALUE // Valori di default per i filtri
-				, priceMax = Integer.MAX_VALUE, memoryMin = Integer.MIN_VALUE, memoryMax = Integer.MAX_VALUE,
-				ramMin = Integer.MIN_VALUE, ramMax = Integer.MAX_VALUE;
+		
+		// Valori di default per i filtri
+		int priceMin = Integer.MIN_VALUE;
+		int priceMax = Integer.MAX_VALUE; 
+		int memoryMin = Integer.MIN_VALUE; 
+		int memoryMax = Integer.MAX_VALUE;
+		int ramMin = Integer.MIN_VALUE; 
+		int ramMax = Integer.MAX_VALUE;
+		
 		String filterBrand = null;
+		
 		// Ottenimento dei valori dei filtri
 		if (request.getParameter("priceMin") != null && !request.getParameter("priceMin").isBlank()) {
 			priceMin = Integer.parseInt(request.getParameter("priceMin"));
@@ -216,12 +228,10 @@ public class AjaxProductServlet extends HttpServlet {
 			String jsonResult = gson.toJson(jsonGroups);
 			// System.out.println(jsonResult.toString());
 			// Scrivi il JSON come risposta
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(jsonResult);
+			sendJsonResponse(response, jsonResult);
 
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
