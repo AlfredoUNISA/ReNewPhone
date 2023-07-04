@@ -547,3 +547,7 @@ nav a:hover {
 	text-align:center;
 	
 }
+.productEvalFieldSet{
+	display:none; 
+	border:0;
+}

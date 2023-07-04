@@ -20,26 +20,43 @@
 
 	<div class="content">
     
-    <h1>Inserimento dinamico con Ajax</h1>
+    <h1>Valuta il tuo usato !</h1>
 
     <form id="inserimentoForm">
 		<label for="brandSelect">Brand</label> 
-		<select id="brandSelect">
+		<select id="brandSelect" required>
 		<option value="seleziona"> SELEZIONA </option>
-		</select>
+		</select> <br>
+		<fieldset id="formAfterBrand" class="productEvalFieldSet">
+		
+        	<label for="modelSelect">Modello:</label>
+       		<select id="modelSelect" required>
+       		 <option value="seleziona"> SELEZIONA </option> 
+       		 </select>
+       		
+       		<fieldset id="formAfterModel" class="productEvalFieldSet">
+	       		<label for="storage">Spazio interno:</label>
+	        	<input type="number" name="storage" id="storage" min="1" max="99" required><br>
+        	
+        		<label for="condizione">Condizione:</label>
+	       		<select name="condizione" id="condizione" required>
+	       		
+	            <option value="ottima">Ottima</option>
+	            <option value="buona">Buona</option>
+	            <option value="accettabile">Accettabile</option>
+            	</select><br>
+            	
+            	<label for="colore">Colore:</label>
+	       		<input type="text" name="colore" id="colore" size="30" required><br>
+       			<br>
+        	
+        	
+        	</fieldset>
+        	
+        	
+		</fieldset>
 
-        <label for="modello">Modello:</label>
-        <select id="modello"></select>
-
-        <label for="anno">Anno di produzione:</label>
-        <input type="number" name="anno" id="anno" required><br>
-
-        <label for="condizione">Condizione:</label>
-        <select name="condizione" id="condizione" required>
-            <option value="ottima">Ottima</option>
-            <option value="buona">Buona</option>
-            <option value="accettabile">Accettabile</option>
-        </select><br>
+        
 
         <input type="submit" id="submitButton" value="Inserisci">
     </form>

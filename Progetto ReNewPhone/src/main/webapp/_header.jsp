@@ -83,6 +83,7 @@
 			<%if(IS_CURRENT_USER_ADMIN) {%>
 				<li><a href="admin.jsp">Pannello Admin</a>
 			<%} else {%>
+				<li><a href="UsedProductEval.jsp">Valura il tuo usato</a></li>
 				<li><a href="my-cart">Carrello</a></li>
 			<%} %>
 			

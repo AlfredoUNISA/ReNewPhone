@@ -4,7 +4,14 @@
             $("#brandSelect").change(function(e) {
                 e.preventDefault();
 				getDevices();
-	});
+			});
+			$("#modelSelect").change(function() {
+				var modelValue= $("#modelSelect").val();
+				if(modelValue!="seleziona")
+		        	$("#formAfterModel").show();
+		        else	
+		        	$("#formAfterModel").hide();
+		        });
 })
 
 
@@ -20,10 +27,9 @@ function loadBrands(){
 		method:"GET",
 		success: function(response){
 			var brands=response;
-			console.log(brands);
 			$(brands).each(function () {
 				var brand=this;
-				var html='<option value='+brand+'>'+brand+'</option>'
+				var html='<option value="'+brand+'">'+brand+'</option>'
 				$("#brandSelect").append(html);
 			})
 			
@@ -41,21 +47,19 @@ function loadBrands(){
 }       
 
 function getDevices(){
-		$("#modello").empty();
-		//if()
+		$("#modelSelect").empty();
 		var marca=$("#brandSelect").val();
-		console.log(marca);
 		if(marca!="seleziona"){
+			$("#formAfterBrand").show();
 			$.ajax({
                     url: "AjaxProductServlet?filterBrand="+marca+"&productsPerLoading=999", // Indirizzo del tuo endpoint Java per l'inserimento
                     method: "GET",
                     success: function(response) {
                        	var marcaResponse=response;
-						console.log(marcaResponse);
 						$(marcaResponse).each(function () {
 							var x=this.groupName;
-							var html='<option value='+x+'>'+x+'</option>'
-							$("#modello").append(html);
+							var html='<option value="'+x+'">'+x+'</option>'
+							$("#modelSelect").append(html);
 						})
 						
 			
@@ -66,6 +70,8 @@ function getDevices(){
                         console.log("Errore Ajax: " + error);
                     }
                 });
+		} else {
+			$("#formAfterBrand").hide();
 		}
 	
 	
@@ -80,7 +86,7 @@ function sendEval(){
                 var condizione = $("#condizione").val();
 
                 $.ajax({
-                    url: "AjaxProductEvalServlet/action=getModels", // Indirizzo del tuo endpoint Java per l'inserimento
+                    url: "AjaxProductEvalServlet?action=getModels", // Indirizzo del tuo endpoint Java per l'inserimento
                     method: "GET",
                     data: {
                         marca: marca,

@@ -59,7 +59,7 @@ function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBr
 			// Recupera il JSON dei prodotti
 			var resultJSON = response;
 			console.log(resultJSON);
-
+			if(resultJSON.length!=0){
 			// Itera sui prodotti e visualizzali
 			$(resultJSON).each(function () {
 				// Creazione del valore da visualizzare per RAM
@@ -113,6 +113,10 @@ function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBr
 			});
 			countLoadings++;
 			console.log(countLoadings - 1 + ", " + countLoadings);
+		} else {
+			$("#loadMoreButton").hide();
+			$("#loadMoreFilteredButton").hide();
+		}
 		},
 		error: function (status, error) {
 			console.error("Errore durante la chiamata AJAX: " + status + " - " + error);
