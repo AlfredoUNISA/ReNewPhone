@@ -20,6 +20,7 @@ import javax.servlet.http.Part;
 
 import rnp.Bean.ProductBean;
 import rnp.DAO.ProductDAODataSource;
+import rnp.Servlet.ServletHelper;
 import rnp.Support.Login;
 
 /**
@@ -27,7 +28,7 @@ import rnp.Support.Login;
  */
 @WebServlet("/admin-add")
 @MultipartConfig
-public class AdminAddServlet extends HttpServlet {
+public class AdminAddServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 	

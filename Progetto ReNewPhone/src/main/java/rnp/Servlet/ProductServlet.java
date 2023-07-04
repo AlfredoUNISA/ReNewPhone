@@ -2,6 +2,8 @@ package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 
 import rnp.Bean.ProductBean;
 import rnp.DAO.ProductDAODataSource;
@@ -19,10 +20,13 @@ import rnp.DAO.ProductDAODataSource;
 /**
  * Servlet implementation class ProductServlet
  */
-@WebServlet("/products") //	MODIFICABILE
-public class ProductServlet extends HttpServlet {
+@WebServlet("/products")
+public class ProductServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
+	
+	private static final String CLASS_NAME = ProductServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -53,13 +57,13 @@ public class ProductServlet extends HttpServlet {
 
 	/**
 	 * Mostra i dettagli di una riga all'interno della jsp "ProductDetails".
+	 * @category SELECT
 	 */
 	private void showRowDetails(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String name = request.getParameter("name");
 		
 		try {
-			// MODIFICABILE
 			//request.removeAttribute("product-details");
 			Gson gson = new GsonBuilder().create();
 			String json = gson.toJson(productDAO.doRetrieveByName(name));
@@ -67,19 +71,20 @@ public class ProductServlet extends HttpServlet {
 			request.setAttribute("product-details", json.substring(0, json.length()));
 			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
 	/**
 	 * Aggiunge una nuova riga alla table del database.
+	 * @category INSERT
 	 */
 	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// MODIFICABILE
+		
 		String name = request.getParameter("name");
-		int ram= Integer.parseInt(request.getParameter("ram"));
-		float display_size= Float.parseFloat(request.getParameter("display_size"));
-		int storage= Integer.parseInt(request.getParameter("storage"));
+		int ram = Integer.parseInt(request.getParameter("ram"));
+		float display_size = Float.parseFloat(request.getParameter("display_size"));
+		int storage = Integer.parseInt(request.getParameter("storage"));
 		int price = Integer.parseInt(request.getParameter("price"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String color = request.getParameter("color");
@@ -88,7 +93,7 @@ public class ProductServlet extends HttpServlet {
 		String category = request.getParameter("category");
 		String state = request.getParameter("state");
 
-		// MODIFICABILE
+		
 		ProductBean product = new ProductBean();
 		product.setName(name);
 		product.setRam(ram);
@@ -105,12 +110,13 @@ public class ProductServlet extends HttpServlet {
 		try {
 			productDAO.doSave(product);
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
 	/**
 	 * Elimina una riga dalla table del database.
+	 * @category DELETE
 	 */
 	private void deleteRow(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -118,10 +124,10 @@ public class ProductServlet extends HttpServlet {
 
 		try {
 			if (!productDAO.doDelete(id)) {
-				System.out.println("**404** Product not found for deleteRow (id_product = " + id + ")");
+				LOGGER.log(Level.WARNING, "ERROR [" + CLASS_NAME + "]: Product not found for deleteRow (id_product = " + id + ")");
 			}
 		} catch (SQLException e) {
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 				// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
 				// questa riga da eliminare

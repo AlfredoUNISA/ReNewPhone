@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 
 import rnp.Bean.OrderBean;
 import rnp.DAO.OrderDAODataSource;
+import rnp.Servlet.ServletHelper;
 import rnp.Support.Login;
 
 /**
@@ -24,7 +25,7 @@ import rnp.Support.Login;
  * database.
  */
 @WebServlet("/orders")
-public class OrderServlet extends HttpServlet {
+public class OrderServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static OrderDAODataSource orderDAO = new OrderDAODataSource();
 

@@ -21,9 +21,9 @@ import rnp.Bean.OrderBean;
 import rnp.Bean.ProductBean;
 import rnp.Bean.UserBean;
 import rnp.DAO.ItemsOrderDAODataSource;
-import rnp.DAO.OrderDAODataSource;
 import rnp.DAO.ProductDAODataSource;
 import rnp.DAO.UserDAODataSource;
+import rnp.Servlet.ServletHelper;
 import rnp.Support.Login;
 
 /**
@@ -31,7 +31,7 @@ import rnp.Support.Login;
  * database.
  */
 @WebServlet("/orderDetails")
-public class OrderDetailsServlet extends HttpServlet {
+public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static ItemsOrderDAODataSource itemsOrderDAO = new ItemsOrderDAODataSource();
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
