@@ -35,6 +35,8 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 	
 	private static final String className = AdminAddServlet.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(className);
+	
+	private static final String UPLOAD_DIRECTORY = "C:\\Users\\Alfredo\\Desktop\\ImmaginiRNP";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -81,15 +83,12 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 		// Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 		InputStream fileContent = filePart.getInputStream();
 
-		// Definisci la directory di destinazione
-		String uploadDirectory = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\resources";
-
 		// Crea il percorso completo per il file (rinomina il file)
 		
 		List<ProductBean> listTmp = (List<ProductBean>) productDAO.doRetrieveByName(name);
 		//System.out.println(listTmp.get(0).getModel());
 		
-		String filePath = uploadDirectory + File.separator + listTmp.get(0).getModel() + ".jpg";
+		String filePath = UPLOAD_DIRECTORY + File.separator + listTmp.get(0).getModel() + ".jpg";
 
 		// Salva il file sul server
 		File file = new File(filePath);
