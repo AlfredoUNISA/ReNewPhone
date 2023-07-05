@@ -50,12 +50,12 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-
+		
 		String userParam = request.getParameter("user");
 		int id_user = -1;
 		if (userParam != null)
 			id_user = Integer.parseInt(userParam);
-
+		
 		String productParam = request.getParameter("product");
 		int id_product = -1;
 		if (productParam != null) {
@@ -64,6 +64,14 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 
 		// Esegui azioni opzionali
 		if (action != null) {
+			int attributeCurrentUserId = (int) request.getSession().getAttribute("currentUserId");
+			// System.out.println("attribute id: " + attributeCurrentUserId);
+			// System.out.println("parameter id: " + id_user + "\n----------------");
+			
+			if(attributeCurrentUserId != id_user) {
+				response.sendRedirect("my-cart");
+			}
+			
 			switch (action) {
 			case "show":
 				showAllRows(request, response, id_user);

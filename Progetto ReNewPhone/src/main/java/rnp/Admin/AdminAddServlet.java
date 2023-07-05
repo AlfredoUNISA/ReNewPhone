@@ -33,8 +33,8 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 	
-	private static final String className = AdminAddServlet.class.getName();
-	private static final Logger LOGGER = Logger.getLogger(className);
+	private static final String CLASS_NAME = AdminAddServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 	
 	private static final String UPLOAD_DIRECTORY = "C:\\Users\\Alfredo\\Desktop\\ImmaginiRNP";
 
@@ -52,7 +52,7 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 			}
 			addRow(request, response);
 		} catch (ServletException | IOException | SQLException | InterruptedException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + className + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 	}
 
@@ -138,7 +138,7 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 			productDAO.doSave(product);
 		} catch (SQLException e) {
 			error = true;
-			System.out.println("ERROR: " + e);
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 
 		if (!error) {

@@ -47,6 +47,7 @@
 		    }
 		}
 	}
+	request.getSession().setAttribute("currentUserId", CURRENT_USER_ID);
 	//System.out.println("[header] CURRENT_USER_ID: " + CURRENT_USER_ID);
 	
 %>
