@@ -12,6 +12,13 @@
 	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
 <%@ include file="_header.jsp" %>
+<% 
+	String name = request.getParameter("name");
+	ProductDAODataSource productDAO = new ProductDAODataSource();
+	List<ProductBean> listProductBean = (List<ProductBean>) productDAO.doRetrieveByName(name);
+	ProductBean productSample = listProductBean.get(0);
+	String model = productSample.getModel();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -22,14 +29,13 @@
 	<title>Homepage</title>
 </head>
 <body>
-	<% String name = request.getParameter("name"); %>
 
 	<div class="content">
 		<h1>Dettagli</h1><br>
-		<img class="detailImage" alt="<%=name%>" src="resources/<%=name%>.jpg">
+		<img class="detailImage" alt="<%=model%>" src="resources/<%=model%>.jpg">
 		<div class="productDetails">
 			<div id="description">
-				<i><h2><%=name%></h2></i>
+				<i><h2><%=productSample.getName()%></h2></i>
 				<div id="categoryContainer"></div>
 				<div id="brandContainer"></div>
 				<div id="yearContainer"></div>

@@ -217,7 +217,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 	 * 
 	 * @param order Specifica l'ordine di ordinamento dei risultati (se non è nullo
 	 *              aggiunge ORDER BY alla query).
-	 * @return La collezione di oggetti contenente tutte le righe della tabella.
+	 * @return La collezione di oggetti contenente tutte le righe della tabella con un nome specifico.
 	 * @category SELECT
 	 */
 	public synchronized Collection<ProductBean> doRetrieveByName(String name) throws SQLException {
@@ -253,6 +253,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 				bean.setYear(rs.getInt("year"));
 				bean.setCategory(rs.getString("category"));
 				bean.setState(rs.getString("state"));
+				bean.setModel();
 
 				products.add(bean);
 			}
@@ -305,6 +306,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 				bean.setYear(rs.getInt("year"));
 				bean.setCategory(rs.getString("category"));
 				bean.setState(rs.getString("state"));
+				bean.setModel();
 			}
 		} finally {
 			try {

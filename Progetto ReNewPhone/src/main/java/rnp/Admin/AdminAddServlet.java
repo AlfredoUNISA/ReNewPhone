@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +49,7 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 				return;
 			}
 			addRow(request, response);
-		} catch (ServletException | IOException | InterruptedException e) {
+		} catch (ServletException | IOException | SQLException | InterruptedException e) {
 			LOGGER.log(Level.SEVERE, "ERROR [" + className + "]: " + e.getMessage());
 		}
 	}
@@ -74,7 +75,7 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 	/**
 	 * Salva l'immagine data nella directory ASSOLUTA del server.
 	 */
-	private void storeImage(HttpServletRequest request, String name) throws IOException, ServletException {
+	private void storeImage(HttpServletRequest request, String name) throws IOException, ServletException, SQLException {
 		Part filePart = request.getPart("file");
 		// String fileName =
 		// Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -83,8 +84,12 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 		// Definisci la directory di destinazione
 		String uploadDirectory = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\resources";
 
-		// Crea il percorso completo per il file
-		String filePath = uploadDirectory + File.separator + name + ".jpg";
+		// Crea il percorso completo per il file (rinomina il file)
+		
+		List<ProductBean> listTmp = (List<ProductBean>) productDAO.doRetrieveByName(name);
+		//System.out.println(listTmp.get(0).getModel());
+		
+		String filePath = uploadDirectory + File.separator + listTmp.get(0).getModel() + ".jpg";
 
 		// Salva il file sul server
 		File file = new File(filePath);
@@ -101,7 +106,7 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 	 * Aggiunge una nuova riga alla table del database.
 	 */
 	private void addRow(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, InterruptedException {
+			throws ServletException, IOException, InterruptedException, SQLException {
 		// MODIFICABILE
 		String name = request.getParameter("name");
 		int ram = Integer.parseInt(request.getParameter("ram"));

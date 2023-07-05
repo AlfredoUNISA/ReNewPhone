@@ -56,8 +56,7 @@ public class ProductBean implements Serializable {
 	public String getModel() {
 		return this.model;
 	}
-	
-	// TODO: da rimuovere
+
 	public void setModel() {
 		this.model = this.name;
 		
