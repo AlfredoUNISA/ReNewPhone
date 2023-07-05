@@ -8,23 +8,27 @@ var json;
 var currentProductId = -1;
 var currentProductQuantity = -1;
 var currentUserId = '<%= CURRENT_USER_ID %>';
+var isAdmin = "<%=IS_CURRENT_USER_ADMIN%>";
 
 $(document).ready(function () {
-	$('#addToCartBtn').click(function (e) { 
-		currentProductQuantity = $('#quantitySelect').val();
-		//console.log(currentProductQuantity);
-		$.ajax({
-			type: "POST",
-			url: "my-cart?action=add&user=" + currentUserId + "&product=" + currentProductId + "&quantity=" + currentProductQuantity,
-			success: function () {
-				alert("Prodotto aggiunto al carrello");
-			},
-			error: function () {
-				alert("Errore durante l'aggiunta al carrello");
-			}
-		});
+	$('#addToCartBtn').click(function (e) {
+		if (isAdmin == true || isAdmin == "true") {
+			alert("Non puoi aggiungere prodotti al carrello se sei un admin");
+		} else {
+			currentProductQuantity = $('#quantitySelect').val();
+			$.ajax({
+				type: "POST",
+				url: "my-cart?action=add&user=" + currentUserId + "&product=" + currentProductId + "&quantity=" + currentProductQuantity,
+				success: function () {
+					alert("Prodotto aggiunto al carrello");
+				},
+				error: function () {
+					alert("Errore durante l'aggiunta al carrello");
+				}
+			});
+		}
 	});
-	
+
 	json = getJson();
 	//console.log(json);
 
@@ -221,8 +225,8 @@ function updatePrice() {
 	var quantity = values[6];
 	var id = values[7];
 
-	
-	if (quantity == 0){
+
+	if (quantity == 0) {
 		$("#quantitySelect").prop("disabled", true);
 		$("#addToCartBtn").prop("disabled", true);
 	} else {
@@ -231,18 +235,18 @@ function updatePrice() {
 		for (var i = 1; i <= 5; i++)
 			$("#quantityOption" + i).prop("disabled", false);
 	}
-	
+
 	if (quantity < 5) {
 		for (var i = 1; i <= 5; i++) {
 			//console.log("Quantity: " + quantity);
 			//console.log("i: " + i);
-			if(i <= quantity)
+			if (i <= quantity)
 				$("#quantityOption" + i).prop("disabled", false);
-			else	
+			else
 				$("#quantityOption" + i).prop("disabled", true);
 		}
 	}
-	
+
 
 	var error = false;
 	if (price == -1) {
@@ -251,21 +255,21 @@ function updatePrice() {
 	} else {
 		$("#priceContainer").html('<b>' + price + ' &euro;');
 	}
-	
+
 	if (error == true || quantity == 0) {
 		error = true;
 		$("#quantityContainer").html('<b>Non in magazzino</b>');
 	} else {
 		$("#quantityContainer").html('<b>In magazzino: ' + quantity + '</b>');
 		currentProductQuantity = quantity;
-	}	
-	
-	if (error == true || id == 0){
+	}
+
+	if (error == true || id == 0) {
 		error = true;
 		$("#idContainer").html('<b>Non disponibile</b>');
 	} else {
 		$("#idContainer").html('<b>ID: ' + id + '</b>');
 		currentProductId = id;
 	}
-	
+
 }
