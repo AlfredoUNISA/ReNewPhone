@@ -28,39 +28,57 @@
 		<h1>Lista Prodotti</h1>
 
 
-		<input type="button" class="slide-toggle" value="Apri Filtri"
-			id="myButton">
+		
 
 		<div class="filterBox">
 			<div class="box-inner">
-				<h4>Filtri:</h4>
+				<h2>Filtri:</h2>
+				</div>
+				
+				<div class="box-inner">
 				<fieldset id="priceRange">
+				<h3>
 					<input type="number" placeholder="Min" min="0" max="9999">
-					<h5>Prezzo </h5> <input type="number" placeholder="Max" min="0" max="9999">
+					Prezzo  <input type="number" placeholder="Max" min="0" max="9999">
+					</h3>
 				</fieldset>
+				</div>
+				
+				<div class="box-inner">
 				<fieldset id="memoryRange">
-					<input type="number" placeholder="Min" min="0" max="9999">Gb
-					<h5>Storage </h5> <input type="number" placeholder="Max" min="0"
-						max="9999">Gb
+					<h3><input type="number" placeholder="Min" min="0" max="9999">
+					Memoria Interna   <input type="number" placeholder="Max" min="0"
+						max="9999"></h3>
 				</fieldset>
+				</div>
+				
+				<div class="box-inner">
 				<fieldset>
-					<label for="brandSelect">Brand</label> <select id="brandSelect">
+					<h3><label for="brandSelect">Brand</label> <select id="brandSelect">
 						<option value="Seleziona">Seleziona</option>
 						<option value="Apple">Apple</option>
 						<option value="Google">Google</option>
 						<option value="Samsung">Samsung</option>
 						<option value="Xiaomi">Xiaomi</option>
-					</select>
+					</select> </h3>
 				</fieldset>
+				</div>
+				
+				<div class="box-inner">
 				<fieldset id="ramRange">
-					<input type="number" placeholder="Min" min="0" max="99">Gb
-					<h5>RAM </h5><input type="number" placeholder="Max" min="0" max="99">Gb
+					<h3><input type="number" placeholder="Min" min="0" max="99">
+					 RAM(Gb) <input type="number" placeholder="Max" min="0" max="99"> </h3>
 				</fieldset>
+				</div>
+				
+				<div class="content">
 				<input type="button" class="processButton" value="Conferma"
 					id="myButton1">
 			</div>
 		</div>
-	<p> </p>
+		
+		<input type="button" class="slide-toggle" value="Nascondi Filtri"
+			id="myButton">
 
 		<div class="productsGrid">
 
