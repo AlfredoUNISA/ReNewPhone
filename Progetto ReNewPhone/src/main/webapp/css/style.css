@@ -558,32 +558,30 @@ nav a:hover {
 /* Stile per gli elementi del menù dei filtri*/
 .filterBox{
     
-     display: flex;
+     display: none;
      align-items: center;
-     text-align: center;
-    border: 1.5px solid #f2f6fa;
+     border: 1.5px solid #f2f6fa;
      border-radius:10px;
-       background-color:#f2f6fa;
+     background-color:#f2f6fa;
      justify-content: space-between;
-      flex-wrap:wrap;
-  font-size: .8em;
-  align-items: center; 
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
-   padding: 1em;
-  display: flex;
-  font-size: 1em;
-  flex-wrap: wrap;
+     flex-wrap:wrap;
+	 box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+	 padding: 1em;
+     text-align: center;
+	 font-size: 1em;
+
+
+
 }
-
-
-
 .box-inner{
-	float:top-left; 
+	display:flex;
+	flex-direction:row;
+	/*float:top-left; */
 	animation:left-slide;
+	justify-content: center;
 	text-align:center;
-  flex-wrap: wrap;
-   align-items: center; 
-	
+ 	flex-wrap: wrap;
+    align-items: center; 
 	   
 }
 .box-inner fieldset{
