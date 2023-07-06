@@ -39,9 +39,26 @@
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
 	</div>
 	
-	<h2>I nostri ricondizionati</h2>
+	<div class="messaggio"> I nostri ricondizionati</div>
 	
-
+ <div class="brand-container">
+    <div class="brand">
+    <a href="products">  <img src="resources/Apple.png" alt="Apple"></a>
+    </div>
+    <div class="brand">
+    <a href="products">  <img src="resources/samsung.png" alt="Samsung"></a>
+    </div>
+    <div class="brand">
+    <a href="products">  <img src="resources/pixel.png" alt="Pixel"></a>
+    </div>
+        <div class="brand">
+    <a href="products">  <img src="resources/xiaomi.png" alt="xiaomi"></a>
+    </div>
+    
+  </div>
+  
+  
+  
 	<%@ include file="_footer.html" %>
 </body>
 </html>

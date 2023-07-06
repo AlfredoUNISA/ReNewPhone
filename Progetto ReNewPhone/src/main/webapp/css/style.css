@@ -155,6 +155,18 @@ input[type="email"]:invalid {
       padding: 20px;
 }
 
+.messaggio{
+  display: center;
+  padding: 10px 20px;
+  font-size: 2em;
+  text-align: center;
+  justify-content: center;
+  background-color: #357B92;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  
+}
 
 /*----------- HEADER ------------*/
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
@@ -597,3 +609,40 @@ border:none;
 	
 }
 
+
+/* Stile perhomepage*/
+  .brand-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 40px 0;
+    }
+
+    .brand {
+      width: 200px;
+      height: 200px;
+      background-color: #f2f2f2;
+      border-radius: 10pt;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+           display: flex;
+     align-items: center;
+     text-align: center;
+    border: 3px solid black;
+     border-radius:10px;
+       background-color:white;
+     justify-content: space-between;
+      flex-wrap:wrap;
+    }
+
+    .brand img {
+         max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+
+    .presentation {
+      padding: 20px;
+      text-align: center;
+    }
