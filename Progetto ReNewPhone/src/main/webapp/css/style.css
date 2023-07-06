@@ -8,6 +8,7 @@ body {
   text-align: center;
   padding: 20px;
   margin: 8px;
+  border-radius:10px;
 }
 
 h2 {
@@ -59,12 +60,12 @@ input[type="email"],
 input[type="text"],
 input[type="username"],
 input[type="password"],
-input[type="ricerca"],
+
 textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 10px;
   margin-bottom: 15px;
   font-size: 16px;
 }
@@ -85,6 +86,42 @@ input[type="submit"]:hover,
 input[type="reset"]:hover {
   background-color: #0069d9;
 }
+
+input[type="button"]{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  background-color: #357B92;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+input[type="number"]{
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+input[type="search"]{
+  
+  display: inline-block;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  background-color: white;
+  border: #A4CCDE;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 
 /*----------- HEADER ------------*/
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
@@ -123,6 +160,7 @@ nav a {
   color: white;
   text-align: center;
   padding: 1em 1.2em; 
+  border-radius:10px;
   text-decoration: none; 
   font-family: 'Nunito Sans', sans-serif;
 }
@@ -139,9 +177,7 @@ nav a.active {
   color: white;
 }
 
-.cerca{
-  padding: 1em;
-}
+
 
 /*----------- FOOTER ------------*/
 /* stile generale */
@@ -254,6 +290,7 @@ body {
   }
   .header li{
     font-size: 0.8em;
+    border-radius: 10px;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -274,6 +311,7 @@ body {
   input[type="username"],
   input[type="password"],
   input[type="ricerca"],
+  input[type="button"],
   textarea {
     width: 100%;
   }	
@@ -308,6 +346,7 @@ li{
   input[type="username"],
   input[type="password"],
   input[type="ricerca"],
+   input[type="button"],
   textarea {
     width: 100%;
   }	
@@ -463,6 +502,7 @@ nav a:hover {
       border: 1px solid black;
       display: flex;
       justify-content: center;
+      border-radius:10px;
       align-items: center;
       text-align: center;
       padding: 10px;
@@ -505,6 +545,7 @@ nav a:hover {
 
  .productsGrid{
   display:flex;
+  border-radius: 10px;
   font-size: .8em;
   align-items: center; 
   flex-wrap:wrap;
@@ -517,12 +558,14 @@ nav a:hover {
   flex-wrap: wrap;
   margin-left: 0.7em;
   margin-bottom: 1em;
-  border: 1px solid black;
-  transition: transform 0.3s ease-in-out;
-  background-color:white;
+  margin-top:25px;
+  border: 1.5px solid #f2f6fa;
+  border-radius: 10px 10px 10px 10px; 
+  transition: transform 0.25s ease-in-out;
+  background-color:#f2f6fa;
 }
  #Product:hover{
-  transform: scale(1.1);
+  transform: scale(1.08);
   }
  #price{
  font-size:120%;
@@ -530,7 +573,7 @@ nav a:hover {
  }
 .productImg{
 	width:10em;
-	height:11.83em;
+	height:11.85em;
 	
 }
 /* Stile per gli elementi del menù dei filtri*/
@@ -539,15 +582,23 @@ nav a:hover {
      display: none;
      align-items: center;
      text-align: center;
-     transition: transform 0.3s ease-in-out;
-	
+     border-radius:10px;
 }
+
+
+
 .box-inner{
 	float:left; 
 	text-align:center;
+	border-radius:10px;
 	
+	   
 }
+
+
 .productEvalFieldSet{
 	display:none; 
 	border:0;
+	border-radius:10px;
 }
+
