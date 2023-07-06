@@ -17,31 +17,12 @@
 <body>
 
   <div class="content">
-    <h1>Contact</h1>
+    <h1>Contatti</h1>
     <h4>Se riscontri dei problemi in fase d'acquisto o hai dubbi, non esitare a contattarci.</h4>
     <h4>Compila il modulo inserendo la tua email, ti risponderemo il prima possibile</h4>
     <form action="messaggio_inviato.jsp" method="post">
-      <input type="text"  pattern="[a-zA-Z]*"name="name" required placeholder="Inserisci il tuo nome">
-      <style> 
-     input:invalid {
-    animation: shake 600ms;
-    color: rgb(255, 35, 35);
-}
-
-@keyframes shake {
-    25% {
-        transform: translateX(5px);
-    }
-    50% {
-        transform: translateX(-5px);
-    }
-    75% {
-        transform: translateX(5px);
-    }
-}
-      
-      </style>
-      <input type="email" name="email" required placeholder="Inserisci la tua email">
+  
+      <input type="email" pattern="[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+" name="email" required placeholder="Inserisci la tua email">
       <textarea name="message" required  placeholder="Scrivi qui il tuo messaggio"></textarea>
       <input type="submit" value="Invia">
     </form>
