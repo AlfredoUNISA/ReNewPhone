@@ -65,7 +65,7 @@ function loadMoreProducts() {
 					'<p>Marca: ' + this.brand + '</p>' +
 					'<p>Anno: ' + this.year + '</p>' +
 					'<p>Prezzo: ' + priceValue + '</p>' +
-					'<p><a href="products?action=details&name=' + this.groupName + '">Dettagli</a></p>' +
+					'<a href="products?action=details&name=' + this.groupName + '"> <input type="button"  value="Dettagli">   </a>' +
 					'</div>' +
 					'</div>';
 
