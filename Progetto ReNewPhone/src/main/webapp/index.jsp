@@ -39,33 +39,8 @@
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
 	</div>
 	
-	<h2>I nostri prodotti di punta</h2>
-	<div class ="slider">
-		<div class="slide-track">
-		
-			<div class="slide"><a href="search?q=+iPhone">
-			<img src="resources/iphone.png" alt="iPhone">  </a></div>
-			<div class="slide"><a href="search?q=+Samsung+Galaxy">
-			<img src="resources/samsung_galaxy.png" alt="Samsung Galaxy">  </a></div>
-			<div class="slide"><a href="search?q=+Google+Pixel">
-			<img src="resources/google_pixel.jpg" alt="Samsung Galaxy">  </a></div>
-			
-			<div class="slide"><a href="search?q=+iPhone">
-			<img src="resources/iphone.png" alt="iPhone">  </a></div>
-			<div class="slide"><a href="search?q=+Samsung+Galaxy">
-			<img src="resources/samsung_galaxy.png" alt="Samsung Galaxy">  </a></div>
-			<div class="slide"><a href="search?q=+Google+Pixel">
-			<img src="resources/google_pixel.jpg" alt="Samsung Galaxy">  </a></div>
-			
-			<div class="slide"><a href="search?q=+iPhone">
-			<img src="resources/iphone.png" alt="iPhone">  </a></div>
-			<div class="slide"><a href="search?q=+Samsung+Galaxy">
-			<img src="resources/samsung_galaxy.png" alt="Samsung Galaxy">  </a></div>
-			<div class="slide"><a href="search?q=+Google+Pixel">
-			<img src="resources/google_pixel.jpg" alt="Samsung Galaxy">  </a></div>
-		</div>
+	<h2>I nostri ricondizionati</h2>
 	
-	</div>
 
 	<%@ include file="_footer.html" %>
 </body>
