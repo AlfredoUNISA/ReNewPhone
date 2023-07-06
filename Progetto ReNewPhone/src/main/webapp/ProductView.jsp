@@ -25,21 +25,22 @@
 </head>
 <body>
 	<div class="content">
-		<h2>Lista Prodotti</h2>
+		<h1>Lista Prodotti</h1>
+
 
 		<input type="button" class="slide-toggle" value="Apri Filtri"
 			id="myButton">
 
 		<div class="filterBox">
 			<div class="box-inner">
-				<h5>Filtri:</h5>
+				<h4>Filtri:</h4>
 				<fieldset id="priceRange">
 					<input type="number" placeholder="Min" min="0" max="9999">
-					Prezzo <input type="number" placeholder="Max" min="0" max="9999">
+					<h5>Prezzo </h5> <input type="number" placeholder="Max" min="0" max="9999">
 				</fieldset>
 				<fieldset id="memoryRange">
 					<input type="number" placeholder="Min" min="0" max="9999">Gb
-					Spazio interno <input type="number" placeholder="Max" min="0"
+					<h5>Storage </h5> <input type="number" placeholder="Max" min="0"
 						max="9999">Gb
 				</fieldset>
 				<fieldset>
@@ -53,13 +54,13 @@
 				</fieldset>
 				<fieldset id="ramRange">
 					<input type="number" placeholder="Min" min="0" max="99">Gb
-					RAM <input type="number" placeholder="Max" min="0" max="99">Gb
+					<h5>RAM </h5><input type="number" placeholder="Max" min="0" max="99">Gb
 				</fieldset>
 				<input type="button" class="processButton" value="Conferma"
 					id="myButton1">
 			</div>
 		</div>
-
+	<p> </p>
 
 		<div class="productsGrid">
 
@@ -70,9 +71,9 @@
 			<script type="text/javascript"><%@include file="js/productsAjax.js" %></script>
 		</div>
 
-		<button id="loadMoreButton">Carica Altro</button>
-		<button id="loadMoreFilteredButton" style="display: none">Carica
-			Altro</button>
+		<input type="button" id="loadMoreButton" value="Carica Altro">
+		<a href="products"> <input type="button"  value="Torna all'inizio">   </a>
+	
 
 	</div>
 
