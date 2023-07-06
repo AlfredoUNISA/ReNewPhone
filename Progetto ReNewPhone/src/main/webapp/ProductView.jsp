@@ -72,7 +72,7 @@
 		</div>
 
 		<input type="button" id="loadMoreButton" value="Carica Altro">
-		<a href="products"> <input type="button"  value="Torna all'inizio">   </a>
+		<a href="#"> <input type="button"  value="Torna all'inizio">   </a>
 	
 
 	</div>
