@@ -30,7 +30,7 @@
 		<h1>Ricerca prodotti</h1>
 		<form action="search" method="get">
 			<input type="text" name="q" value="<%=query%>">
-			<button type="submit">Cerca</button>
+			<input type="button" value="AVVIA RICERCA">
 		</form>
 
 		<%
