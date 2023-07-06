@@ -14,25 +14,23 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/style.css">
-<title>Insert title here</title>
+<title>Informazioni</title>
 </head>
 <body>
-	
-	<div class="content">
-		<h1>Informazioni Spedizioni</h1>
-		<p>
-			Lorem amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, beatae? Quam nulla obcaecati cumque sed dolore fugit nam dicta porro tempora commodi! Rerum doloribus esse earum nam! Laboriosam, repudiandae. Dolorem?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis odio dolores aliquid architecto optio, doloribus odit asperiores vero enim, laborum vel adipisci, illo quam quae. Voluptate error minus quasi iste?
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam nihil perspiciatis delectus iure, facere veritatis quae quidem adipisci officiis velit, at quod cum ullam vitae numquam facilis in doloribus temporibus.
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quod aspernatur earum non eius, recusandae dolor quis libero nesciunt tempora iure ipsum veritatis id inventore alias nemo sunt consequatur maiores?
-			
-		</p>
-	</div>
 
+  <div class="content">
+	<h1>Informazioni Spedizioni</h1>
+	</div>
+	
+	<div class="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6043.262227357299!2d14.787282276739846!3d40.77013746730239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133bc5c7456b88bd%3A0x80bab96149d2993d!2sUniversit%C3%A0%20degli%20Studi%20di%20Salerno!5e0!3m2!1sit!2sit!4v1688653252347!5m2!1sit!2sit" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+
+
+  <div class="content">
+	<h2>Ci trovi qui!</h2>
+		
+		<h3>Spedizioni in Italia a partire da 5,90€</h3>
+	</div>
 	<%@ include file="_footer.html"%>
 </body>
 </html>
