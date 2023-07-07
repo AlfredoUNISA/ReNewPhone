@@ -1,10 +1,12 @@
 package rnp.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -65,7 +67,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 
 		
 		String insertSQL = "INSERT INTO " + OrderDAODataSource.TABLE_NAME
-                + " (id_user, total) VALUES (?, ?)";
+                + " (id_user, total, order_date) VALUES (?, ?, ?)";
 		
 		int generatedId = -1;
 
@@ -77,6 +79,9 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 			
 			preparedStatement.setInt(1, order.getId_user());
 			preparedStatement.setInt(2, order.getTotal());
+			
+			// Inserisce la data di oggi
+			preparedStatement.setDate(3, new Date(Calendar.getInstance().getTime().getTime()));
 
 			preparedStatement.executeUpdate();
 			
@@ -171,11 +176,11 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 
 			while (rs.next()) {
 				OrderBean bean = new OrderBean();
-
 				
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
+				bean.setDate(rs.getDate("order_date"));
 				
 				orders.add(bean);
 			}
@@ -217,6 +222,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
+				bean.setDate(rs.getDate("order_date"));
 			}
 		} finally {
 			try {
@@ -257,9 +263,12 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 			
 			while (rs.next()) {				
 				OrderBean bean = new OrderBean();
+				
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
+				bean.setDate(rs.getDate("order_date"));
+				
 				orders.add(bean);
 			}
 		} finally {

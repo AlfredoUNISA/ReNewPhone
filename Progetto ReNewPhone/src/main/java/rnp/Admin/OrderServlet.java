@@ -62,7 +62,7 @@ public class OrderServlet extends HttpServlet implements ServletHelper {
 
 		// Costruisci una sotto-lista di ordini per la pagina corrente
         List<OrderBean> ordersForPage = orders.subList(startIndex, Math.min(endIndex, orders.size()));
-        //System.out.println(allOrdersForPage);
+        //System.out.println(ordersForPage);
         
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         

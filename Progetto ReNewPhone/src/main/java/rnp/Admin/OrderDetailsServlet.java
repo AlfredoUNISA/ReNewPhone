@@ -107,25 +107,7 @@ public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 	        sendJsonResponse(response, jsonResponse);
 		}
 	}
-
-	/**
-	 * Controlla se l'utente attuale è admin.
-	 * 
-	 * @return true se è admin, false altrimenti
-	 */
-	private boolean checkForAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Object session_obj = request.getSession().getAttribute("user");
-		int userId = -1;
-
-		if (session_obj != null)
-			userId = (int) session_obj;
-
-		if (!Login.isAdmin(userId))
-			return false;
-		else
-			return true;
-	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

@@ -19,7 +19,7 @@
 <body>
 
 	<div class="content">
-		<h1>Ordini Effettuati di <%=CURRENT_USER_BEAN.getName() %></h1>
+		<h1>Ordini Effettuati di <%=CURRENT_USER_BEAN.getName()%> <%=CURRENT_USER_BEAN.getSurname()%></h1>
 
 		<!-- TABELLA PRINCIPALE -->
 		<table>
@@ -27,6 +27,7 @@
 				<tr>
 					<th>ID Ordine</th>
 					<th>Totale Ordine</th>
+					<th>Data Ordine</th>
 					<th>Dettagli</th>
 				</tr>
 			</thead>

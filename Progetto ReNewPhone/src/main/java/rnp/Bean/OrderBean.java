@@ -1,6 +1,7 @@
 package rnp.Bean;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Bean che contiene tutte le informazioni di una riga della tabella "orders" del database.
@@ -11,6 +12,7 @@ public class OrderBean implements Serializable {
 	int id;
     int id_user;
     int total;
+    Date order_date;
     
 	public OrderBean() {
 		id = -1;
@@ -38,9 +40,16 @@ public class OrderBean implements Serializable {
 	public void setTotal(int total) {
 		this.total = total;
 	}
+	
+	public Date getDate() {
+		return order_date;
+	}
+	public void setDate(Date date) {
+		this.order_date = date;
+	}
 
 	@Override
 	public String toString() {
-		return "OrderBean [id=" + id + ", id_user=" + id_user + ", total=" + total + "]";
+		return "OrderBean [id=" + id + ", id_user=" + id_user + ", total=" + total + ", order_date=" + order_date + "]";
 	}
 }

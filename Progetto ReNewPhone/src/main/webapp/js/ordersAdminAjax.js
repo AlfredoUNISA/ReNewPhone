@@ -104,6 +104,7 @@ $(document).ready(function () {
 					row.append($("<td>").text(this.id));
 					row.append($("<td>").text(this.id_user));
 					row.append($("<td>").text(this.total));
+					row.append($("<td>").text(this.order_date));
 					row.append($("<td>").html("<a href='#' class='order-details-link'>Dettagli</a>"));
 					tableBody.append(row);
 				});

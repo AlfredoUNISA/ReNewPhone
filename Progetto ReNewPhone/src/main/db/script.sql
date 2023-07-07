@@ -37,6 +37,7 @@ CREATE TABLE orders (
   id int primary key AUTO_INCREMENT,
   id_user int not null,
   total int not null,
+  order_date date not null,
   FOREIGN KEY (id_user) REFERENCES users(id)
 );
 

@@ -37,6 +37,7 @@ if (!IS_CURRENT_USER_ADMIN) {
 					<th>ID Ordine</th>
 					<th>ID Utente</th>
 					<th>Totale Ordine</th>
+					<th>Data Ordine</th>
 					<th>Dettagli</th>
 				</tr>
 			</thead>
