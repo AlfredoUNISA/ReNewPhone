@@ -145,14 +145,6 @@ public class UserDAODataSource implements MethodsDAO<UserBean>, VariousHelper {
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
-			// Verifica se ci sono dipendenze nelle tabelle correlate
-			boolean hasDependencies = checkDependencies(connection, id);
-
-			if (hasDependencies) {
-				// Elimina le dipendenze nelle tabelle correlate
-				deleteDependencies(connection, id);
-			}
-			
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, id); 
 			result = preparedStatement.executeUpdate();
@@ -366,31 +358,6 @@ public class UserDAODataSource implements MethodsDAO<UserBean>, VariousHelper {
 		}
 	
 		return hasDependencies;
-	}
-
-	// TODO: verifica
-	/**
-	 * Elimina le dipendenze in altre tabelle.
-	 * @category OTHER
-	 */
-	private void deleteDependencies(Connection connection, int userId) throws SQLException {
-		PreparedStatement preparedStatement = null;
-	
-		try {
-			// TODO: Elimina le righe correlate nella tabella orders
-	
-			// Elimina le righe correlate nella tabella carts
-			String deleteCartsSQL = "DELETE FROM carts WHERE id_user = ?";
-			preparedStatement = connection.prepareStatement(deleteCartsSQL);
-			preparedStatement.setInt(1, userId);
-			preparedStatement.executeUpdate();
-	
-			if (preparedStatement != null) {
-				preparedStatement.close();
-			}
-		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
-		}
 	}
 
 }
