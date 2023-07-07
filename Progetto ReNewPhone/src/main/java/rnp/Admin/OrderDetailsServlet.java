@@ -39,12 +39,6 @@ public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (!checkForAdmin(request, response)) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			System.out.println("Non admin");
-			return;
-		}
-
 		String idStr = request.getParameter("id");
 		String id_userStr = request.getParameter("id_user");
 		String totalStr = request.getParameter("total");
@@ -110,10 +104,7 @@ public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 	        jsonResponse.add("products", gson.fromJson(jsonProd, JsonElement.class));
 	        jsonResponse.add("user", gson.fromJson(jsonUser, JsonElement.class));
 			
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().print(jsonResponse);
-			
+	        sendJsonResponse(response, jsonResponse);
 		}
 	}
 

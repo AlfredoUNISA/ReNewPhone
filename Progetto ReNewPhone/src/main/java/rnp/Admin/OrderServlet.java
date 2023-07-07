@@ -3,6 +3,8 @@ package rnp.Admin;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,34 +30,39 @@ import rnp.Support.Login;
 public class OrderServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
 	private static OrderDAODataSource orderDAO = new OrderDAODataSource();
+	
+	private static final String CLASS_NAME = OrderServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (!checkForAdmin(request, response)) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			System.out.println("test");
-			return;
-		}
-		
+
+		boolean isAdmin = checkForAdmin(request, response); 
 		int page = Integer.parseInt(request.getParameter("page"));
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
-        // Calcola l'indice di inizio e fine per gli ordini
-        int startIndex = (page - 1) * pageSize;
-        int endIndex = startIndex + pageSize;
-
-        // Recupera gli ordini dal database utilizzando OrderDAODataSource
+		// Calcola l'indice di inizio e fine per gli ordini
+		int startIndex = (page - 1) * pageSize;
+		int endIndex = startIndex + pageSize;
+		
+		// Recupera gli ordini dal database utilizzando OrderDAODataSource
         List<OrderBean> orders = null;
 		try {
-			orders = (List<OrderBean>) orderDAO.doRetrieveAll("id DESC");
+			if (isAdmin) {
+				orders = (List<OrderBean>) orderDAO.doRetrieveAll("id DESC");				
+			} else if(unregistered) {
+				response.sendRedirect("index.jsp");
+			} else {
+				orders = (List<OrderBean>) orderDAO.doRetrieveByUser(user, "id DESC");
+			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}
 		//System.out.println(orders);
-		
-        // Costruisci una sotto-lista di ordini per la pagina corrente
+
+		// Costruisci una sotto-lista di ordini per la pagina corrente
         List<OrderBean> ordersForPage = orders.subList(startIndex, Math.min(endIndex, orders.size()));
-        //System.out.println(ordersForPage);
+        //System.out.println(allOrdersForPage);
         
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         
@@ -65,12 +72,13 @@ public class OrderServlet extends HttpServlet implements ServletHelper {
         JsonObject jsonResponse = new JsonObject();
         jsonResponse.add("orders", gson.fromJson(json, JsonElement.class));
         jsonResponse.addProperty("totalCount", orders.size());
-        
-        response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().print(jsonResponse);
+		
+        //System.out.println(jsonResponse);
+        sendJsonResponse(response, jsonResponse);
 	}
 
+	private int user = -1;
+	private boolean unregistered = true;
 	/**
 	 * Controlla se l'utente attuale è admin.
 	 * 
@@ -83,12 +91,16 @@ public class OrderServlet extends HttpServlet implements ServletHelper {
 		if (session_obj != null)
 			userId = (int) session_obj;
 
+		if(userId > 0)
+			unregistered = false;
+		user = userId;
+	
 		if (!Login.isAdmin(userId))
 			return false;
 		else
 			return true;
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

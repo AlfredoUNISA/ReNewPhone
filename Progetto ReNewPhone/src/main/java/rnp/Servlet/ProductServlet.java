@@ -38,9 +38,6 @@ public class ProductServlet extends HttpServlet implements ServletHelper {
 			case "details":
 				showRowDetails(request, response);
 				break;
-			case "add":
-				addRow(request, response);
-				break;
 			case "delete":
 				// TODO: da vedere se un utente è autorizzato a cancellare un prodotto
 				deleteRow(request, response);
@@ -70,45 +67,6 @@ public class ProductServlet extends HttpServlet implements ServletHelper {
 			
 			request.setAttribute("product-details", json.substring(0, json.length()));
 			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
-		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
-		}
-	}
-
-	/**
-	 * Aggiunge una nuova riga alla table del database.
-	 * @category INSERT
-	 */
-	private void addRow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String name = request.getParameter("name");
-		int ram = Integer.parseInt(request.getParameter("ram"));
-		float display_size = Float.parseFloat(request.getParameter("display_size"));
-		int storage = Integer.parseInt(request.getParameter("storage"));
-		int price = Integer.parseInt(request.getParameter("price"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		String color = request.getParameter("color");
-		String brand = request.getParameter("brand");
-		int year = Integer.parseInt(request.getParameter("year"));
-		String category = request.getParameter("category");
-		String state = request.getParameter("state");
-
-		
-		ProductBean product = new ProductBean();
-		product.setName(name);
-		product.setRam(ram);
-		product.setDisplay_size(display_size);
-		product.setStorage(storage);
-		product.setPrice(price);
-		product.setQuantity(quantity);
-		product.setColor(color);
-		product.setBrand(brand);
-		product.setYear(year);
-		product.setCategory(category);
-		product.setState(state);
-
-		try {
-			productDAO.doSave(product);
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 		}

@@ -6,6 +6,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+
 public interface ServletHelper {
 	
 	public static final int MINUTE = 60;
@@ -33,11 +35,20 @@ public interface ServletHelper {
 	}
 	
 	/**
-	 * Manda un json come risposta.
+	 * Manda un json (STRINGA) come risposta.
 	 */
 	default void sendJsonResponse(HttpServletResponse response, String jsonString) throws IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(jsonString);
+	}
+	
+	/**
+	 * Manda un json (JSONOBJECT) come risposta.
+	 */
+	default void sendJsonResponse(HttpServletResponse response, JsonObject json) throws IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(json);
 	}
 }

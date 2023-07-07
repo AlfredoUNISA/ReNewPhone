@@ -56,11 +56,14 @@
 					</tr>
 				</tbody>
 			</table>
-		<form action="orders?sort=id" method="post">
+			
 		<%if(!IS_CURRENT_USER_ADMIN){ %>
-    		<input type="submit" value="I Tuoi Ordini">
+			<form action="user_orders.jsp" method="get">
+    			<input type="submit" value="I Tuoi Ordini">
+			</form>	
     	<% } %>
-		</form><br>
+    	<br>
+    	
 		<form action="logout.jsp" method="post">
     			<input type="submit" value="Logout">
 		</form><br>

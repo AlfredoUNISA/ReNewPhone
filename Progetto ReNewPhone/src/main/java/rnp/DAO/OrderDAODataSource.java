@@ -52,7 +52,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 	}
 
 	/**
-	 * Un bean viene inserito come una nuova riga nella tabella "TABLE_NAME" usando una connessione al database.
+	 * Un bean viene inserito come una nuova riga nella tabella {@link #TABLE_NAME} usando una connessione al database.
 	 * @param order Oggetto da inserire
 	 * @return L'id generato automaticamente dalla insert
 	 * @category INSERT
@@ -106,7 +106,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 	}
 
 	/**
-	 * Rimuove una riga dalla tabella "TABLE_NAME" in base al codice.
+	 * Rimuove una riga dalla tabella {@link #TABLE_NAME} in base al codice.
 	 * @param id Il codice del prodotto da rimuovere.
 	 * @return L'esito della query.
 	 * @category DELETE
@@ -142,7 +142,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 	}
 
 	/**
-	 * Seleziona tutte le righe dalla tabella "TABLE_NAME" e restituisce una collezione di oggetti.
+	 * Seleziona tutte le righe dalla tabella {@link #TABLE_NAME} e restituisce una collezione di oggetti.
 	 * @param sort Specifica l'ordine di ordinamento dei risultati (se non è nullo aggiunge ORDER BY alla query).
 	 * @return La collezione di oggetti contenente tutte le righe della tabella.
 	 * @category SELECT
@@ -152,7 +152,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<OrderBean> products = new LinkedList<OrderBean>();
+		Collection<OrderBean> orders = new LinkedList<OrderBean>();
 
 		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME;
 
@@ -166,7 +166,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 			/*
 			if(sort != null && !sort.equals(""))
 				preparedStatement.setString(1, sort);
-*/
+			 */
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -177,7 +177,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
 				
-				products.add(bean);
+				orders.add(bean);
 			}
 
 		} finally {
@@ -189,11 +189,11 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 					connection.close();
 			}
 		}
-		return products;
+		return orders;
 	}
 	
 	/**
-	 * Seleziona una singola riga dalla tabella "TABLE_NAME" in base al codice.
+	 * Seleziona una singola riga dalla tabella {@link #TABLE_NAME} in base al codice.
 	 * @param id Il codice del prodotto da ottenere.
 	 * @return Il bean ottenuto in base al codice.
 	 * @category SELECT
@@ -205,7 +205,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 		
 		OrderBean bean = new OrderBean();
 		
-		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?"; 
+		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?";
 		
 		try {
 			connection = dataSource.getConnection();	
@@ -228,6 +228,50 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean> {
 			}
 		}
 		return bean;
+	}
+	
+	/**
+	 * Seleziona una collezione di ordini dalla tabella {@link #TABLE_NAME} in base al codice utente.
+	 * @param id Il codice dell'utente.
+	 * @return La collezione di bean.
+	 * @category SELECT
+	 */
+	public synchronized Collection<OrderBean> doRetrieveByUser(int idUser, String sort) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<OrderBean> orders = new LinkedList<OrderBean>();
+		
+		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id_user = ?"; 
+		
+		if (sort != null && !sort.equals("")) {
+			selectSQL += " ORDER BY " + sort;
+		}
+		
+		try {
+			connection = dataSource.getConnection();	
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, idUser);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {				
+				OrderBean bean = new OrderBean();
+				bean.setId(rs.getInt("id"));
+				bean.setId_user(rs.getInt("id_user"));
+				bean.setTotal(rs.getInt("total"));
+				orders.add(bean);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return orders;
 	}
 }
 

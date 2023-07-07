@@ -1,3 +1,6 @@
+/**
+ * UTENTE
+ */
 $(document).ready(function () {
 	var currentPage = 1;
 	var ordersPerPage = 3; // Numero di ordini da visualizzare per pagina
@@ -16,9 +19,9 @@ $(document).ready(function () {
 	$(document).on("click", ".order-details-link", function (e) {
 		e.preventDefault();
 		var id = $(this).closest("tr").find("td:first").text();
-		var id_user = $(this).closest("tr").find("td:eq(1)").text();
-		var total = $(this).closest("tr").find("td:eq(2)").text();
-
+		var id_user = "<%= CURRENT_USER_BEAN.getId() %>";
+		var total = $(this).closest("tr").find("td:eq(1)").text();
+		console.log(id_user);
 		$.ajax({
 			type: "GET",
 			url: "orderDetails",
@@ -30,28 +33,7 @@ $(document).ready(function () {
 			dataType: "json",
 			success: function (response) {
 
-				$(".userDetails").empty();
 				$(".orderDetails").empty();
-
-				// Scrivi i dettagli dell'utente
-				var user = response.user;
-				var userDetails = "<hr><h2>Utente Ordinante</h2>" +
-					"<table>" +
-					"<th>ID</th><th>Nome</th><th>Cognome</th><th>Email</th>" + 
-					"<th>Indirizzo</th><th>Citt\u00E0</th><th>CAP</th><th>Tel</th>" +
-					"<tr>" +
-					"<td>" + user.id + "</td>" +
-					"<td>" + user.name + "</td>" +
-					"<td>" + user.surname + "</td>" +
-					"<td>" + user.email + "</td>" +
-					"<td>" + user.address + "</td>" +
-					"<td>" + user.city + "</td>" +
-					"<td>" + user.cap + "</td>" +
-					"<td>" + user.phone + "</td>" +
-					"</tr>" +
-					"</table>";
-
-				$(".userDetails").append(userDetails);
 
 				// Scrivi i dettagli dei prodotti
 				var products = response.products;
@@ -90,16 +72,14 @@ $(document).ready(function () {
 			},
 			dataType: "json",
 			success: function (data) {
-				//console.log(data);
+				console.log(data);
 
 				var tableBody = $("table tbody");
 				tableBody.empty();
 
-
 				$(data.orders).each(function () {
 					var row = $("<tr>");
 					row.append($("<td>").text(this.id));
-					row.append($("<td>").text(this.id_user));
 					row.append($("<td>").text(this.total));
 					row.append($("<td>").html("<a href='#' class='order-details-link'>Dettagli</a>"));
 					tableBody.append(row);

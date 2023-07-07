@@ -8,15 +8,6 @@
 	IS_CURRENT_USER_REGISTRED : Bool	  -> Boolean per sapere se l'user è registrato
 --%>
 <%@ include file="_header.jsp"%>
-<%
-if (!IS_CURRENT_USER_ADMIN) {
-	// Manda alla pagina di errore 404 per motivi di sicurezza
-	response.sendError(HttpServletResponse.SC_NOT_FOUND);
-}
-	
-	//System.out.println("[admin_orders] CURRENT_USER_ID: " + CURRENT_USER_ID);
-	//System.out.println("[admin_orders] IS_CURRENT_USER_ADMIN: " + IS_CURRENT_USER_ADMIN);
-%>
 
 <!DOCTYPE html>
 <html>
@@ -28,14 +19,13 @@ if (!IS_CURRENT_USER_ADMIN) {
 <body>
 
 	<div class="content">
-		<h1>Ordini Effettuati</h1>
+		<h1>Ordini Effettuati di <%=CURRENT_USER_BEAN.getName() %></h1>
 
 		<!-- TABELLA PRINCIPALE -->
 		<table>
 			<thead>
 				<tr>
 					<th>ID Ordine</th>
-					<th>ID Utente</th>
 					<th>Totale Ordine</th>
 					<th>Dettagli</th>
 				</tr>
@@ -47,13 +37,11 @@ if (!IS_CURRENT_USER_ADMIN) {
 		<div class="pagination"></div>
 		<br>
 		
-		<div class="userDetails"></div>
-		<br>
 		<div class="orderDetails"></div>
 		
 
 	</div>
-	<script type="text/javascript"><%@include file="js/ordersAdminAjax.js" %></script>
+	<script type="text/javascript"><%@include file="js/ordersUserAjax.js" %></script>
 	
 	<%@ include file="_footer.html"%>
 </body>
