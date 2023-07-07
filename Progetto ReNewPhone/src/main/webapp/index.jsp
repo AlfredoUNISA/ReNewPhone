@@ -48,15 +48,14 @@
 <div class="slider">
   <input type="button" value="<" onclick="prec()">  
   <div id="img_slider">
-  
-    <img src="https://i.postimg.cc/kMhJKgr6/immagine2.jpg">
-    <img src="https://i.postimg.cc/WbF2ncj9/immagine3.jpg">
-    <img src="https://i.postimg.cc/15h9JYts/immagine4.jpg">
-    <img src="https://i.postimg.cc/rmD8YBxF/immagine5.jpg">
-    <img src="resources/xiaomi.jpg">
+    <img src="resources/promo1.jpg">
+         <img src="resources/promo2.jpg">
+         <img src="resources/promo3.jpg">
+     
   </div>
   <input type="button" value=">" onclick="succ()"> 
 </div>
+
 
 
 	
@@ -64,6 +63,7 @@
 	<div class="messaggio"> I nostri ricondizionati</div>
 	
  <div class="brand-container">
+ 
   <a href="products">  <div class="brand">
       <img src="resources/apple.jpg" alt="iPhone">
     </div>
