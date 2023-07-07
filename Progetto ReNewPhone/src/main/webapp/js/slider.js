@@ -1,4 +1,4 @@
-var n_img = 5;
+var n_img = 3;
 var corrente = 1;
 
 function succ(){
@@ -25,6 +25,6 @@ function prec(){
     document.querySelector("#img_slider img:nth-child(" + corrente + ")").style.display = "block";
 }
 
-setInterval(succ, 4000);
+setInterval(succ, 7000);
 
 
