@@ -85,7 +85,7 @@ public class UserServlet extends HttpServlet implements VariousHelper {
 				request.removeAttribute("user-details");
 				request.setAttribute("user-details", user);
 			} else {
-				LOGGER.log(Level.WARNING, "WARNING [" + CLASS_NAME + "]: User not found for showRowDetails (id_user = " + id + ")");
+				LOGGER.log(Level.WARNING, ANSI_YELLOW + "WARNING [" + CLASS_NAME + "]: User not found for showRowDetails (id_user = " + id + ")" + ANSI_RESET);
 			}
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
@@ -136,7 +136,7 @@ public class UserServlet extends HttpServlet implements VariousHelper {
 
 		try {
 			if (!userDAO.doDelete(id)) {
-				LOGGER.log(Level.WARNING, "WARNING [" + CLASS_NAME + "]: User not found for deleteRow (id_user = " + id + ")");
+				LOGGER.log(Level.WARNING, ANSI_YELLOW + "WARNING [" + CLASS_NAME + "]: User not found for deleteRow (id_user = " + id + ")" + ANSI_RESET);
 			}
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
