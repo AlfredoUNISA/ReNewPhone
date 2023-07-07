@@ -161,11 +161,21 @@ input[type="email"]:invalid {
   font-size: 2em;
   text-align: center;
   justify-content: center;
-  background-color: #357B92;
+  background-color: #4F5D75;
   color: white;
-  border: none;
-  border-radius: 10px;
-  
+  border: none; 
+}
+.messaggio-var{
+  margin-bottom: 3em;
+  margin-top:2em;
+  display: center;
+  padding: 10px 20px;
+  font-size: 2em;
+  text-align: center;
+  justify-content: center;
+  background-color: red;
+  color: white;
+  border: none; 
 }
 
 /*----------- HEADER ------------*/
@@ -612,37 +622,84 @@ border:none;
 
 /* Stile perhomepage*/
   .brand-container {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 40px 0;
+       display:flex;
+  border-radius: 10px;
+  font-size: .8em;
+  align-items: center; 
+  flex-wrap:wrap;
+  justify-content: space-between;
     }
 
     .brand {
-      width: 200px;
-      height: 200px;
+    
+      width: 270px;
+      height: 270px;
       background-color: #f2f2f2;
       border-radius: 10pt;
       display: flex;
       justify-content: center;
       align-items: center;
-           display: flex;
-     align-items: center;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
      text-align: center;
-    border: 3px solid black;
-     border-radius:10px;
+    border: 3px solid white;
        background-color:white;
-     justify-content: space-between;
-      flex-wrap:wrap;
+           transition: transform 0.25s ease-in-out;
+  margin-left: 1em;
+  margin-right:1em;
+  margin-bottom: 2em;
+  margin-top:2em;
+        
     }
+    brand:hover{
+  transform: scale(1.08);
+
+  }
 
     .brand img {
          max-width: 100%;
       max-height: 100%;
       object-fit: cover;
+        border-radius: 10pt;
     }
 
     .presentation {
       padding: 20px;
       text-align: center;
     }
+
+    
+    /*----------- slider ------------*/
+
+
+.slider{
+	  margin-left: 1em;
+  margin-right:1em;
+  margin-bottom: 2em;
+  margin-top:2em;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      align-items: center;
+
+}
+#img_slider{
+
+  width:80%;
+     height:80%;
+           border-radius: 10pt;
+         justify-content: center;
+      align-items: center;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+     text-align: center;
+
+}
+#img_slider img{
+    display: none;
+   width:100%;
+             border-radius: 10pt;
+}
+#img_slider img:nth-child(1){
+    display:block;
+}
+
