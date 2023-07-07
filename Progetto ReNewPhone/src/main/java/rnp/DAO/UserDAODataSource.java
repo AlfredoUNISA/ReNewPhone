@@ -17,6 +17,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import rnp.Bean.UserBean;
+import rnp.Servlet.VariousHelper;
 
 /**
  * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale
@@ -31,7 +32,7 @@ import rnp.Bean.UserBean;
  *           Queste modifiche permettono di poter utilizzare tutti i DAO (serve
  *           farlo solo una volta).
  */
-public class UserDAODataSource implements MethodsDAO<UserBean> {
+public class UserDAODataSource implements MethodsDAO<UserBean>, VariousHelper {
 
 	private static DataSource dataSource;
 	private static final String TABLE_NAME = "users";
@@ -48,7 +49,7 @@ public class UserDAODataSource implements MethodsDAO<UserBean> {
 			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb");
 
 		} catch (NamingException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 
@@ -158,7 +159,7 @@ public class UserDAODataSource implements MethodsDAO<UserBean> {
 
 			connection.commit();
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 
 			if (connection != null) {
 				connection.rollback(); // Annulla la transazione in caso di errore
@@ -361,7 +362,7 @@ public class UserDAODataSource implements MethodsDAO<UserBean> {
 				preparedStatement.close();
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	
 		return hasDependencies;
@@ -388,7 +389,7 @@ public class UserDAODataSource implements MethodsDAO<UserBean> {
 				preparedStatement.close();
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 

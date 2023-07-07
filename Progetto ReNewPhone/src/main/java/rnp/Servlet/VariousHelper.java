@@ -8,12 +8,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
-public interface ServletHelper {
+public interface VariousHelper {
 	
+	// Valori di tempo per i cookie 
 	public static final int MINUTE = 60;
 	public static final int HOUR = MINUTE * 60;
 	public static final int DAY = HOUR * 24;
+	
 	public static final int COOKIE_DURATION = 1 * HOUR;
+	
+	// Colori console
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_YELLOW = "\033[0;33m";
 	
 	/**
 	 * Ritorna il cookie con il nome specificato, null se non esiste.

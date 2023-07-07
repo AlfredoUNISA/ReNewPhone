@@ -17,7 +17,7 @@ public class ItemOrderBean implements Serializable {
 		id = -1;
 		id_order = 0;
 		ordered_quantity = 0;
-		productBean = null;
+		productBean = new ProductBean();
 	}
 
 	public int getId() {

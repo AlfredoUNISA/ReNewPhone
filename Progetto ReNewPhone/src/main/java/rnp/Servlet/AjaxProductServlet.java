@@ -30,7 +30,7 @@ import rnp.DAO.ProductDAODataSource;
  * Servlet che ritorna un JSON a una richiesta AJAX
  */
 @WebServlet("/AjaxProductServlet")
-public class AjaxProductServlet extends HttpServlet implements ServletHelper {
+public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 	
@@ -231,7 +231,7 @@ public class AjaxProductServlet extends HttpServlet implements ServletHelper {
 			sendJsonResponse(response, jsonResult);
 
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 

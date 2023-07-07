@@ -16,6 +16,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import rnp.Bean.ItemOrderBean;
+import rnp.Servlet.VariousHelper;
 
 /**
  * Fornisce l'accesso ai dati di un oggetto Bean in una base di dati relazionale
@@ -30,7 +31,7 @@ import rnp.Bean.ItemOrderBean;
  *           Queste modifiche permettono di poter utilizzare tutti i DAO (serve
  *           farlo solo una volta).
  */
-public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
+public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean>, VariousHelper {
 	private static DataSource dataSource;
 	private static final String TABLE_NAME = "order_items";
 
@@ -46,7 +47,7 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb");
 
 		} catch (NamingException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 
@@ -68,7 +69,7 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 				+ " (id_order, id_product, ordered_quantity, name,"
 				+ " ram, display_size, storage, price,"
 				+ " color, brand, year, category,"
-				+ " state) VALUES (?, ?, ?)";
+				+ " state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		int generatedId = -1;
 
@@ -302,7 +303,7 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 				bean.setId(rs.getInt("id"));
 				bean.setId_order(rs.getInt("id_order"));
 				bean.setId_product(rs.getInt("id_product"));
-				bean.setOrderedQuantity(rs.getInt("quantity"));
+				bean.setOrderedQuantity(rs.getInt("ordered_quantity"));
 				
 				bean.setName(rs.getString("name"));
 				bean.setRam(rs.getInt("ram"));

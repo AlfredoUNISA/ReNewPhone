@@ -10,7 +10,7 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 import rnp.Bean.ProductBean;
 import rnp.DAO.MethodsDAO;
 import rnp.DAO.ProductDAODataSource;
-import rnp.Servlet.ServletHelper;
+import rnp.Servlet.VariousHelper;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet per gestire le richieste relate alla ricerca di prodotti in un database.
  */
 @WebServlet("/search")
-public class SearchControl extends HttpServlet implements ServletHelper {
+public class SearchControl extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	static MethodsDAO<ProductBean> productDAO = new ProductDAODataSource();
 	
@@ -52,7 +52,7 @@ public class SearchControl extends HttpServlet implements ServletHelper {
 				}
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 
 		// Aggiungi i risultati della ricerca come attributo della richiesta

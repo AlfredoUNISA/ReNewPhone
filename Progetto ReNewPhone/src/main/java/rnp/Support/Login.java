@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import rnp.DAO.UserDAODataSource;
-import rnp.Servlet.ServletHelper;
+import rnp.Servlet.VariousHelper;
 
 /**
  * Servlet implementation class Login
  */
 @WebServlet("/login")
-public class Login extends HttpServlet implements ServletHelper{
+public class Login extends HttpServlet implements VariousHelper{
 	private static final long serialVersionUID = 1L;
 	
 	private static final String CLASS_NAME = Login.class.getName();
@@ -41,7 +41,7 @@ public class Login extends HttpServlet implements ServletHelper{
 		try {
 			id = userDAO.doRetrieveByCredentials(email, password);
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 
 		if (id == -1) {

@@ -21,7 +21,7 @@ import rnp.DAO.ProductDAODataSource;
  * Servlet implementation class ProductServlet
  */
 @WebServlet("/products")
-public class ProductServlet extends HttpServlet implements ServletHelper {
+public class ProductServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 	
@@ -68,7 +68,7 @@ public class ProductServlet extends HttpServlet implements ServletHelper {
 			request.setAttribute("product-details", json.substring(0, json.length()));
 			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class ProductServlet extends HttpServlet implements ServletHelper {
 				LOGGER.log(Level.WARNING, "ERROR [" + CLASS_NAME + "]: Product not found for deleteRow (id_product = " + id + ")");
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 				// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
 				// questa riga da eliminare

@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
 
 import rnp.Bean.OrderBean;
 import rnp.DAO.OrderDAODataSource;
-import rnp.Servlet.ServletHelper;
+import rnp.Servlet.VariousHelper;
 import rnp.Support.Login;
 
 /**
@@ -27,7 +27,7 @@ import rnp.Support.Login;
  * database.
  */
 @WebServlet("/orders")
-public class OrderServlet extends HttpServlet implements ServletHelper {
+public class OrderServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static OrderDAODataSource orderDAO = new OrderDAODataSource();
 	
@@ -56,7 +56,7 @@ public class OrderServlet extends HttpServlet implements ServletHelper {
 				orders = (List<OrderBean>) orderDAO.doRetrieveByUser(user, "id DESC");
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 		//System.out.println(orders);
 

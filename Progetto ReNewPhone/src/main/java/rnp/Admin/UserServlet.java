@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import rnp.Bean.UserBean;
 import rnp.DAO.UserDAODataSource;
-import rnp.Servlet.ServletHelper;
+import rnp.Servlet.VariousHelper;
 
 /**
  * Servlet implementation class UserServlet
  */
 @WebServlet("/users")
-public class UserServlet extends HttpServlet implements ServletHelper {
+public class UserServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static UserDAODataSource userDAO = new UserDAODataSource();
 	
@@ -67,7 +67,7 @@ public class UserServlet extends HttpServlet implements ServletHelper {
 			request.setAttribute("users", userDAO.doRetrieveAll(sort));
 			request.getServletContext().getRequestDispatcher("/UserView.jsp").forward(request, response);
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class UserServlet extends HttpServlet implements ServletHelper {
 				LOGGER.log(Level.WARNING, "WARNING [" + CLASS_NAME + "]: User not found for showRowDetails (id_user = " + id + ")");
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 
@@ -120,7 +120,7 @@ public class UserServlet extends HttpServlet implements ServletHelper {
 		try {
 			userDAO.doSave(user);
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 				// TODO: fare qualcosa se ci sono duplicati
 			}
@@ -139,7 +139,7 @@ public class UserServlet extends HttpServlet implements ServletHelper {
 				LOGGER.log(Level.WARNING, "WARNING [" + CLASS_NAME + "]: User not found for deleteRow (id_user = " + id + ")");
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 				// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
 				// questa riga da eliminare

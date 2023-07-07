@@ -17,6 +17,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import rnp.Bean.ProductBean;
+import rnp.Servlet.VariousHelper;
 
 /**
  * Fornisce l'accesso ai dati di un oggetto ProductBean in una base di dati
@@ -31,7 +32,7 @@ import rnp.Bean.ProductBean;
  *           Queste modifiche permettono di poter utilizzare tutti i DAO (serve
  *           farlo solo una volta).
  */
-public class ProductDAODataSource implements MethodsDAO<ProductBean> {
+public class ProductDAODataSource implements MethodsDAO<ProductBean>, VariousHelper {
 	private static DataSource dataSource;
 	private static final String TABLE_NAME = "products";
 	
@@ -47,7 +48,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean> {
 			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb"); 
 
 		} catch (NamingException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 

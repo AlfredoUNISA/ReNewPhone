@@ -36,7 +36,7 @@ import rnp.Support.Login;
  * Servlet implementation class CartServlet
  */
 @WebServlet("/my-cart")
-public class CartServlet extends HttpServlet implements ServletHelper {
+public class CartServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	
 	private static CartDAODataSource cartDAO = new CartDAODataSource();
@@ -80,7 +80,7 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 				try {
 					addRow(request, response, id_user, id_product);
 				} catch (ServletException | IOException | SQLException e) {
-					LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+					LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + ", 1]: " + e.getMessage() + ANSI_RESET);
 				}
 				break;
 			case "delete":
@@ -219,7 +219,7 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 				sendJsonResponse(response, jsonObject.toString());
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + ", 2]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 
@@ -283,7 +283,7 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 			try {
 				cartDAO.doSave(cart);
 			} catch (SQLException e) {
-				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+				LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + ", 3]: " + e.getMessage() + ANSI_RESET);
 				if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 					// TODO: fare qualcosa se ci sono duplicati
 				}
@@ -334,11 +334,11 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 			try {
 				if (!cartDAO.doDeleteSingleRow(id_user, id_product)) {
 					LOGGER.log(Level.WARNING,
-							"ERROR [" + CLASS_NAME + "]: Cart row not found for showRowDetails (id_user = " + id_user
+							"ERROR [" + CLASS_NAME + ", 1]: Cart row not found for showRowDetails (id_user = " + id_user
 									+ ", id_product = " + id_product + ")");
 				}
 			} catch (SQLException e) {
-				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+				LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + ", 4]: " + e.getMessage() + ANSI_RESET);
 				if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
 					// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
 					// questa riga da eliminare
@@ -406,8 +406,7 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 				cartDAO.doDelete(id_user);
 			}
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
-			// Fare qualcosa se non ci sono abbastanza oggetti in stock
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + ", 5]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 

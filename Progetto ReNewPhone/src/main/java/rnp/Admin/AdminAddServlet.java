@@ -21,7 +21,7 @@ import javax.servlet.http.Part;
 
 import rnp.Bean.ProductBean;
 import rnp.DAO.ProductDAODataSource;
-import rnp.Servlet.ServletHelper;
+import rnp.Servlet.VariousHelper;
 import rnp.Support.Login;
 
 /**
@@ -29,7 +29,7 @@ import rnp.Support.Login;
  */
 @WebServlet("/admin-add")
 @MultipartConfig
-public class AdminAddServlet extends HttpServlet implements ServletHelper {
+public class AdminAddServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 	
@@ -52,7 +52,7 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 			}
 			addRow(request, response);
 		} catch (ServletException | IOException | SQLException | InterruptedException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 	}
 
@@ -138,7 +138,7 @@ public class AdminAddServlet extends HttpServlet implements ServletHelper {
 			productDAO.doSave(product);
 		} catch (SQLException e) {
 			error = true;
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 
 		if (!error) {

@@ -25,7 +25,7 @@ import rnp.Bean.UserBean;
 import rnp.DAO.ItemsOrderDAODataSource;
 import rnp.DAO.ProductDAODataSource;
 import rnp.DAO.UserDAODataSource;
-import rnp.Servlet.ServletHelper;
+import rnp.Servlet.VariousHelper;
 import rnp.Support.Login;
 
 /**
@@ -33,7 +33,7 @@ import rnp.Support.Login;
  * database.
  */
 @WebServlet("/orderDetails")
-public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
+public class OrderDetailsServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	
 	private static ItemsOrderDAODataSource itemsOrderDAO = new ItemsOrderDAODataSource();
@@ -74,7 +74,7 @@ public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 			try {
 				itemsInsideOrder = (List<ItemOrderBean>) itemsOrderDAO.doRetrieveByOrder(order.getId());
 			} catch (SQLException e) {
-				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+				LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 			}
 			
 			//System.out.println(itemsInsideOrder);
@@ -84,7 +84,7 @@ public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 			try {
 				user = userDAO.doRetrieveByKey(order.getId_user());
 			} catch (SQLException e) {
-				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+				LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 			}
 			
 			List<ProductBean> products = new ArrayList<>();

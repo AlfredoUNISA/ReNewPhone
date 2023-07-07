@@ -19,7 +19,7 @@ import rnp.DAO.ProductDAODataSource;
  * Servlet implementation class AjaxProductEvalServlet
  */
 @WebServlet("/AjaxProductEvalServlet")
-public class AjaxProductEvalServlet extends HttpServlet implements ServletHelper {
+public class AjaxProductEvalServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 	private static Gson gson = new GsonBuilder().create();
@@ -61,7 +61,7 @@ public class AjaxProductEvalServlet extends HttpServlet implements ServletHelper
 			
 			sendJsonResponse(response, json);
 		} catch (SQLException e) {
-			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
 		
 	}
