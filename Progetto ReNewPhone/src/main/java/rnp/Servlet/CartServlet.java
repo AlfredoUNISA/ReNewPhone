@@ -334,8 +334,8 @@ public class CartServlet extends HttpServlet implements VariousHelper {
 			try {
 				if (!cartDAO.doDeleteSingleRow(id_user, id_product)) {
 					LOGGER.log(Level.WARNING,
-							"ERROR [" + CLASS_NAME + ", 1]: Cart row not found for showRowDetails (id_user = " + id_user
-									+ ", id_product = " + id_product + ")");
+							ANSI_YELLOW + "WARNING [" + CLASS_NAME + ", 1]: Cart row not found for showRowDetails (id_user = " + id_user
+									+ ", id_product = " + id_product + ")" + ANSI_RESET);
 				}
 			} catch (SQLException e) {
 				LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + ", 4]: " + e.getMessage() + ANSI_RESET);
