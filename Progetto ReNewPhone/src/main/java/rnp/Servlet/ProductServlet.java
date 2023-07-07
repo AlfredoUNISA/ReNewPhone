@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import rnp.Bean.ProductBean;
 import rnp.DAO.ProductDAODataSource;
 
 /**
@@ -82,7 +81,7 @@ public class ProductServlet extends HttpServlet implements VariousHelper {
 
 		try {
 			if (!productDAO.doDelete(id)) {
-				LOGGER.log(Level.WARNING, "ERROR [" + CLASS_NAME + "]: Product not found for deleteRow (id_product = " + id + ")");
+				LOGGER.log(Level.WARNING, ANSI_YELLOW + "WARNING [" + CLASS_NAME + "]: Product not found for deleteRow (id_product = " + id + ")" + ANSI_RESET);
 			}
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);

@@ -23,10 +23,8 @@ import rnp.Bean.OrderBean;
 import rnp.Bean.ProductBean;
 import rnp.Bean.UserBean;
 import rnp.DAO.ItemsOrderDAODataSource;
-import rnp.DAO.ProductDAODataSource;
 import rnp.DAO.UserDAODataSource;
 import rnp.Servlet.VariousHelper;
-import rnp.Support.Login;
 
 /**
  * Servlet per gestire le richieste relate alla manipolazione dei dati di un
