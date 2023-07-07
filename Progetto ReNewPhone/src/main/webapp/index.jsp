@@ -15,6 +15,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript"><%@include file="js/slider.js" %></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Homepage</title>
 </head>
@@ -26,7 +27,7 @@
 			<p>Benvenuto nel sito di ReNewPhone <b><%=CURRENT_USER_BEAN.getName()%> <%=CURRENT_USER_BEAN.getSurname()%></b>, il sito di riferimento per la vendita di smartphone ricondizionati.</p>
 
 		<%} else {%>
-			<p>Benvenuto nel sito di ReNewPhone, il sito di riferimento per la vendita di smartphone ricondizionati.</p>
+			<h3>Il sito di riferimento per la vendita di smartphone ricondizionati.</h3>
 		<%} %>
 		
 		
@@ -36,27 +37,57 @@
 		<hr>
 		<%}%>
 		
-		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus aperiam iusto quibusdam ducimus adipisci, delectus fugiat, eum neque autem quidem a nam. Libero sed voluptates incidunt dignissimos doloribus id voluptatibus?</p>
+		
 	</div>
+	<div class="messaggio-var">News</div>
+	
+	
+	
+	
+	
+<div class="slider">
+  <input type="button" value="<" onclick="prec()">  
+  <div id="img_slider">
+  
+    <img src="https://i.postimg.cc/kMhJKgr6/immagine2.jpg">
+    <img src="https://i.postimg.cc/WbF2ncj9/immagine3.jpg">
+    <img src="https://i.postimg.cc/15h9JYts/immagine4.jpg">
+    <img src="https://i.postimg.cc/rmD8YBxF/immagine5.jpg">
+    <img src="resources/xiaomi.jpg">
+  </div>
+  <input type="button" value=">" onclick="succ()"> 
+</div>
+
+
+	
 	
 	<div class="messaggio"> I nostri ricondizionati</div>
 	
  <div class="brand-container">
-    <div class="brand">
-    <a href="products">  <img src="resources/Apple.png" alt="Apple"></a>
+  <a href="products">  <div class="brand">
+      <img src="resources/apple.jpg" alt="iPhone">
     </div>
-    <div class="brand">
-    <a href="products">  <img src="resources/samsung.png" alt="Samsung"></a>
+    </a>
+     <a href="products">  <div class="brand">
+   <img src="resources/samsung.jpg" alt="Samsung">
     </div>
-    <div class="brand">
-    <a href="products">  <img src="resources/pixel.png" alt="Pixel"></a>
+    </a>
+     <a href="products">  <div class="brand">
+      <img src="resources/ipad_logo.jpg" alt="iPad">
     </div>
-        <div class="brand">
-    <a href="products">  <img src="resources/xiaomi.png" alt="xiaomi"></a>
+    </a>
+     <a href="products">  <div class="brand">
+   <img src="resources/pixel.jpg" alt="Pixel">
     </div>
-    
+    </a>
+       <a href="products">  <div class="brand">
+   <img src="resources/xiaomi.jpg" alt="Xiaomi">
+    </div>
+    </a>
   </div>
   
+<div class="messaggio"> F.A.Q.</div>
+
   
   
 	<%@ include file="_footer.html" %>
