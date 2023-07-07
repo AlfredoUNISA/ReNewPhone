@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
+/**
+ * Interfaccia con varie funzioni e costanti utili a tutte le classi
+ */
 public interface VariousHelper {
 	
 	// Valori di tempo per i cookie 

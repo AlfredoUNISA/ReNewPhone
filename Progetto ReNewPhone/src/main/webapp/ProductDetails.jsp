@@ -64,6 +64,11 @@
 			</select>
 			<button id="addToCartBtn">Aggiungi al carrello</button>
 		</div>
+		<%if(IS_CURRENT_USER_ADMIN) {%>
+			<div class="modifyProduct">
+				<form id="modifyProductForm" method="get"></form>
+			</div>
+		<%} %>
 
 	</div>
 

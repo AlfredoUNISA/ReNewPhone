@@ -118,9 +118,7 @@ public class AjaxProductEvalServlet extends HttpServlet implements VariousHelper
 			evaluation+=150;
 		String json = gson.toJson(evaluation);
 		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(json);
+		sendJsonResponse(response, json);
 			
 	}
 }

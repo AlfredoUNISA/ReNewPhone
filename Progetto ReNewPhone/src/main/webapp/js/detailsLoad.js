@@ -5,30 +5,13 @@ var colorValues = [];
 var stateValues = [];
 
 var json;
+var jsonIndex = -1;
 var currentProductId = -1;
 var currentProductQuantity = -1;
 var currentUserId = '<%= CURRENT_USER_ID %>';
 var isAdmin = "<%=IS_CURRENT_USER_ADMIN%>";
 
 $(document).ready(function () {
-	$('#addToCartBtn').click(function (e) {
-		if (isAdmin == true || isAdmin == "true") {
-			alert("Non puoi aggiungere prodotti al carrello se sei un admin");
-		} else {
-			currentProductQuantity = $('#quantitySelect').val();
-			$.ajax({
-				type: "POST",
-				url: "my-cart?action=add&user=" + currentUserId + "&product=" + currentProductId + "&quantity=" + currentProductQuantity,
-				success: function () {
-					alert("Prodotto aggiunto al carrello");
-				},
-				error: function () {
-					alert("Errore durante l'aggiunta al carrello");
-				}
-			});
-		}
-	});
-
 	json = getJson();
 	//console.log(json);
 
@@ -38,7 +21,106 @@ $(document).ready(function () {
 
 	updatePrice();
 
+	if (isAdmin == true || isAdmin == "true") {
+		$("#quantitySelect").hide();
+		$("#addToCartBtn").hide();
+		$(".buyProduct").empty();
+		$(".buyProduct").append("<br><b>Non puoi aggiungere prodotti al carrello se sei un admin</b><hr>");
+	}
+
+	$('#addToCartBtn').click(function (e) {
+		currentProductQuantity = $('#quantitySelect').val();
+		$.ajax({
+			type: "POST",
+			url: "my-cart?action=add&user=" + currentUserId + "&product=" + currentProductId + "&quantity=" + currentProductQuantity,
+			success: function () {
+				alert("Prodotto aggiunto al carrello");
+			},
+			error: function () {
+				alert("Errore durante l'aggiunta al carrello");
+			}
+		});
+	});
+
+	if (isAdmin == true || isAdmin == "true") {
+		// find the json index of the product with currentProductId
+		for (var i = 0; i < json.length; i++) {
+			if (json[i].id == currentProductId) {
+				jsonIndex = i;
+				break;
+			}
+		}
+		
+
+		$(".modifyProduct").append('<button id="modifyBtn">Modifica prodotto</button>');
+
+		$("#modifyBtn").click(function (e) {
+			//console.log(json[jsonIndex]);
+			$("#modifyBtn").hide();
+			$("#modifyProductForm").show();
+			$("#modifyProductForm").append('<br>');
+			
+			$("#modifyProductForm").append('Nome: <input type="text" name="name" value="' + json[jsonIndex].name + '"/><br><br>');
+			$("#modifyProductForm").append('Prezzo: <input type="number" name="price" value="' + json[jsonIndex].price + '"/><br><br>');
+			$("#modifyProductForm").append('Categoria: <input type="text" name="category" value="' + json[jsonIndex].category + '"/><br><br>');
+			$("#modifyProductForm").append('Brand: <input type="text" name="brand" value="' + json[jsonIndex].brand + '"/><br><br>');
+			$("#modifyProductForm").append('Anno:<input type="number" name="year" value="' + json[jsonIndex].year + '"/><br><br>');
+			$("#modifyProductForm").append('RAM:<input type="number" name="ram" value="' + json[jsonIndex].ram + '"/><br><br>');
+			$("#modifyProductForm").append('Display:<input type="number" name="display_size" value="' + json[jsonIndex].display_size + '"/><br><br>');
+			$("#modifyProductForm").append('Memoria:<input type="number" name="storage" value="' + json[jsonIndex].storage + '"/><br><br>');
+			$("#modifyProductForm").append('Colore:<input type="text" name="color" value="' + json[jsonIndex].color + '"/><br><br>');
+			$("#modifyProductForm").append('Stato:<input type="text" name="state" value="' + json[jsonIndex].state + '"/><br><br>');
+			$("#modifyProductForm").append('Quantit\u00e0 in Magazzino:<input type="number" name="quantity" value="' + json[jsonIndex].quantity + '"/><br><br>');
+			$("#modifyProductForm").append('<input type="submit" value="Modifica" id="submitModify"/>');
+			
+			$("#submitModify").click(function (e) { 
+				e.preventDefault();
+				modifyProduct();
+			});
+		});
+	}
 });
+
+function modifyProduct() {
+	var name = $("input[name='name']").val();
+	var price = $("input[name='price']").val();
+	var category = $("input[name='category']").val();
+	var brand = $("input[name='brand']").val();
+	var year = $("input[name='year']").val();
+	var ram = $("input[name='ram']").val();
+	var display_size = $("input[name='display_size']").val();
+	var storage = $("input[name='storage']").val();
+	var color = $("input[name='color']").val();
+	var state = $("input[name='state']").val();
+	var quantity = $("input[name='quantity']").val();
+
+	$.ajax({
+		type: "POST",
+		url: "admin-modify",
+		data: {
+			"id": currentProductId,
+			"name": name,
+			"price": price,
+			"category": category,
+			"brand": brand,
+			"year": year,
+			"ram": ram,
+			"display_size": display_size,
+			"storage": storage,
+			"color": color,
+			"state": state,
+			"quantity": quantity
+		},
+		success: function () {
+			// send redirrect
+			window.location.replace("products?action=details&name=" + name);
+		},
+		error: function () {
+			alert.log("Errore con la modifica del prodotto");
+		}
+	});
+
+}
 
 /**
  * Ottiene il JSON con tutti i dettagli del prodotto

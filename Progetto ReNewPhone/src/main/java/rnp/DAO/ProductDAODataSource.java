@@ -386,4 +386,50 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean>, VariousHel
 		}
 
 	}
+	
+	public synchronized void doUpdate(ProductBean product) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    String updateSQL = "UPDATE " + ProductDAODataSource.TABLE_NAME + " SET"
+	    		+ " name = ?, ram = ?, display_size = ?, storage = ?,"
+	    		+ " price = ?, quantity = ?, color = ?, brand = ?,"
+	    		+ " year = ?, category = ?, state = ?"
+	    		+ " WHERE id = ?";
+
+	    try {
+	        connection = dataSource.getConnection();
+	        preparedStatement = connection.prepareStatement(updateSQL);
+
+	        preparedStatement.setString(1, product.getName());
+	        preparedStatement.setInt(2, product.getRam());
+	        preparedStatement.setFloat(3, product.getDisplay_size());
+	        preparedStatement.setInt(4, product.getStorage());
+	        
+	        preparedStatement.setInt(5, product.getPrice());
+	        preparedStatement.setInt(6, product.getQuantity());
+	        preparedStatement.setString(7, product.getColor());
+	        preparedStatement.setString(8, product.getBrand());
+	        
+	        preparedStatement.setInt(9, product.getYear());
+	        preparedStatement.setString(10, product.getCategory());
+	        preparedStatement.setString(11, product.getState());
+	        
+	        preparedStatement.setInt(12, product.getId());
+
+	        preparedStatement.executeUpdate();
+	        
+	        connection.setAutoCommit(false);
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+	}
+
 }
