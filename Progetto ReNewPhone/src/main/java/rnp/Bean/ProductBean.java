@@ -31,8 +31,8 @@ public class ProductBean implements Serializable {
 		brand = "";
 		category = "";
 		state = "";
-		year=0;
-		model=this.getModel();
+		year = 0;
+		model = this.getModel();
 	}
 
 	public int getYear() {

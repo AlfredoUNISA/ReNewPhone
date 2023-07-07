@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,9 +35,12 @@ import rnp.Support.Login;
 @WebServlet("/orderDetails")
 public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 	private static final long serialVersionUID = 1L;
+	
 	private static ItemsOrderDAODataSource itemsOrderDAO = new ItemsOrderDAODataSource();
-	private static ProductDAODataSource productDAO = new ProductDAODataSource();
 	private static UserDAODataSource userDAO = new UserDAODataSource();
+	
+	private static final String CLASS_NAME = OrderDetailsServlet.class.getName();
+	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -69,28 +74,26 @@ public class OrderDetailsServlet extends HttpServlet implements ServletHelper {
 			try {
 				itemsInsideOrder = (List<ItemOrderBean>) itemsOrderDAO.doRetrieveByOrder(order.getId());
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 			}
 			
 			//System.out.println(itemsInsideOrder);
 			
+			// Crea le informazioni dell'utente da mandare
 			UserBean user = null;
 			try {
 				user = userDAO.doRetrieveByKey(order.getId_user());
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
 			}
 			
 			List<ProductBean> products = new ArrayList<>();
 			for (ItemOrderBean item : itemsInsideOrder) {
+				ProductBean productDetails = item.getProductBean();
+
+				// Utilizza la quantità di ProductBean come quantità ordinata di questo prodotto
+				productDetails.setQuantity(item.getOrderedQuantity());
 				
-				ProductBean productDetails = null;
-				try {
-					productDetails = productDAO.doRetrieveByKey(item.getId_product());
-					productDetails.setQuantity(item.getQuantity());
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
 				products.add(productDetails);
 			}
 		

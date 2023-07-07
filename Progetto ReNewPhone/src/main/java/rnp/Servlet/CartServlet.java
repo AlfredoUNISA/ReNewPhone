@@ -357,6 +357,7 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 	private void finalizeOrder(HttpServletRequest request, HttpServletResponse response, int id_user)
 			throws ServletException, IOException {
 		try {
+			// Ottieni tutti gli oggetti nel carrello
 			Collection<CartBean> cart = cartDAO.doRetrieveByUser(id_user, null);
 
 			String totalParam = request.getParameter("total");
@@ -370,6 +371,7 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 				ItemsOrderDAODataSource itemsOrderDAO = new ItemsOrderDAODataSource();
 				ProductDAODataSource productDAO = new ProductDAODataSource();
 
+				// Controlla se ci sono abbastanza oggetti richiesti in magazzino
 				Iterator<?> checkIter = cart.iterator();
 				while (checkIter.hasNext()) {
 					CartBean cart_bean = (CartBean) checkIter.next();
@@ -380,20 +382,23 @@ public class CartServlet extends HttpServlet implements ServletHelper {
 								+ productCheck.getQuantity() + " in stock, " + cart_bean.getQuantity() + " asked).");
 				}
 
+				// Crea ed inserisci l'ordine
 				OrderBean order_bean = new OrderBean();
 				order_bean.setId_user(id_user);
 				order_bean.setTotal(total);
 
 				int generatedOrderId = orderDAO.doSave(order_bean);
 
+				// Inserisci ogni oggetto del carrello nella tabella "order_items"
 				Iterator<?> it = cart.iterator();
 				while (it.hasNext()) {
 					CartBean cart_bean = (CartBean) it.next();
+					ProductBean product = productDAO.doRetrieveByKey(cart_bean.getId_product());
 
 					ItemOrderBean item_order_bean = new ItemOrderBean();
 					item_order_bean.setId_order(generatedOrderId);
-					item_order_bean.setId_product(cart_bean.getId_product());
-					item_order_bean.setQuantity(cart_bean.getQuantity());
+					item_order_bean.setOrderedQuantity(cart_bean.getQuantity());
+					item_order_bean.setProductBean(product);
 
 					itemsOrderDAO.doSave(item_order_bean);
 				}

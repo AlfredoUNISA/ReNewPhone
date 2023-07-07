@@ -32,8 +32,8 @@ import rnp.Bean.ItemOrderBean;
  */
 public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 	private static DataSource dataSource;
-	private static final String TABLE_NAME = "order_items"; 
-	
+	private static final String TABLE_NAME = "order_items";
+
 	private static final String CLASS_NAME = ItemsOrderDAODataSource.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
@@ -43,7 +43,7 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 			Context initialContext = new InitialContext();
 			Context environmentContext = (Context) initialContext.lookup("java:comp/env");
 
-			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb"); 
+			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb");
 
 		} catch (NamingException e) {
 			LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: " + e.getMessage());
@@ -51,8 +51,8 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 	}
 
 	/**
-	 * Un bean viene inserito come una nuova riga nella tabella {@link #TABLE_NAME} usando
-	 * una connessione al database.
+	 * Un bean viene inserito come una nuova riga nella tabella {@link #TABLE_NAME}
+	 * usando una connessione al database.
 	 * 
 	 * @param order Oggetto da inserire
 	 * @return L'id generato automaticamente dalla insert
@@ -64,30 +64,41 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		
 		String insertSQL = "INSERT INTO " + ItemsOrderDAODataSource.TABLE_NAME
-				+ " (id_order, id_product, quantity) VALUES (?, ?, ?)";
+				+ " (id_order, id_product, ordered_quantity, name,"
+				+ " ram, display_size, storage, price,"
+				+ " color, brand, year, category,"
+				+ " state) VALUES (?, ?, ?)";
 
 		int generatedId = -1;
 
 		try {
 			// Riduci il numero di prodotti in magazzino
 			ProductDAODataSource productDAO = new ProductDAODataSource();
-			productDAO.reduceStock(item.getId_product(), item.getQuantity());
+			productDAO.reduceStock(item.getId_product(), item.getOrderedQuantity());
 
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
-			
 			preparedStatement.setInt(1, item.getId_order());
 			preparedStatement.setInt(2, item.getId_product());
-			preparedStatement.setInt(3, item.getQuantity());
+			preparedStatement.setInt(3, item.getOrderedQuantity());
+			
+			preparedStatement.setString(4, item.getName());
+			preparedStatement.setInt(5, item.getRam());
+			preparedStatement.setFloat(6, item.getDisplaySize());
+			preparedStatement.setInt(7, item.getStorage());
+			preparedStatement.setInt(8, item.getPrice());
+			preparedStatement.setString(9, item.getColor());
+			preparedStatement.setString(10, item.getBrand());
+			preparedStatement.setInt(11, item.getYear());
+			preparedStatement.setString(12, item.getCategory());
+			preparedStatement.setString(13, item.getState());
 
 			preparedStatement.executeUpdate();
 
 			connection.setAutoCommit(false);
 			connection.commit();
-			
 
 			// Ottieni l'id generato
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -124,13 +135,13 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ItemsOrderDAODataSource.TABLE_NAME + " WHERE id = ?"; 
+		String deleteSQL = "DELETE FROM " + ItemsOrderDAODataSource.TABLE_NAME + " WHERE id = ?";
 
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			preparedStatement.setInt(1, id); 
+			preparedStatement.setInt(1, id);
 
 			result = preparedStatement.executeUpdate();
 
@@ -171,7 +182,7 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			if(sort != null && !sort.equals(""))
+			if (sort != null && !sort.equals(""))
 				preparedStatement.setString(1, sort);
 
 			ResultSet rs = preparedStatement.executeQuery();
@@ -179,11 +190,21 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 			while (rs.next()) {
 				ItemOrderBean bean = new ItemOrderBean();
 
-				
 				bean.setId(rs.getInt("id"));
 				bean.setId_order(rs.getInt("id_order"));
 				bean.setId_product(rs.getInt("id_product"));
-				bean.setQuantity(rs.getInt("quantity"));
+				bean.setOrderedQuantity(rs.getInt("ordered_quantity"));
+				
+				bean.setName(rs.getString("name"));
+				bean.setRam(rs.getInt("ram"));
+				bean.setDisplaySize(rs.getFloat("display_size"));
+				bean.setStorage(rs.getInt("storage"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setColor(rs.getString("color"));
+				bean.setBrand(rs.getString("brand"));
+				bean.setYear(rs.getInt("year"));
+				bean.setCategory(rs.getString("category"));
+				bean.setState(rs.getString("state"));
 
 				products.add(bean);
 			}
@@ -201,7 +222,8 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 	}
 
 	/**
-	 * Seleziona una singola riga dalla tabella {@link #TABLE_NAME} in base al codice.
+	 * Seleziona una singola riga dalla tabella {@link #TABLE_NAME} in base al
+	 * codice.
 	 * 
 	 * @param id Il codice del oggetto da ottenere.
 	 * @return Il bean ottenuto in base al codice.
@@ -214,19 +236,30 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 
 		ItemOrderBean bean = new ItemOrderBean();
 
-		String selectSQL = "SELECT * FROM " + ItemsOrderDAODataSource.TABLE_NAME + " WHERE id = ?"; 
+		String selectSQL = "SELECT * FROM " + ItemsOrderDAODataSource.TABLE_NAME + " WHERE id = ?";
 
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id); 
+			preparedStatement.setInt(1, id);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				
+
 				bean.setId(rs.getInt("id"));
 				bean.setId_order(rs.getInt("id_order"));
 				bean.setId_product(rs.getInt("id_product"));
-				bean.setQuantity(rs.getInt("quantity"));
+				bean.setOrderedQuantity(rs.getInt("quantity"));
+				
+				bean.setName(rs.getString("name"));
+				bean.setRam(rs.getInt("ram"));
+				bean.setDisplaySize(rs.getFloat("display_size"));
+				bean.setStorage(rs.getInt("storage"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setColor(rs.getString("color"));
+				bean.setBrand(rs.getString("brand"));
+				bean.setYear(rs.getInt("year"));
+				bean.setCategory(rs.getString("category"));
+				bean.setState(rs.getString("state"));
 			}
 		} finally {
 			try {
@@ -239,9 +272,10 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 		}
 		return bean;
 	}
-	
+
 	/**
-	 * Seleziona una singola riga dalla tabella {@link #TABLE_NAME} in base al codice.
+	 * Seleziona una singola riga dalla tabella {@link #TABLE_NAME} in base al
+	 * codice dell'ordine.
 	 * 
 	 * @param id Il codice del oggetto da ottenere.
 	 * @return Il bean ottenuto in base al codice.
@@ -258,18 +292,28 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id_order); 
+			preparedStatement.setInt(1, id_order);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
 				ItemOrderBean bean = new ItemOrderBean();
 
-				
 				bean.setId(rs.getInt("id"));
 				bean.setId_order(rs.getInt("id_order"));
 				bean.setId_product(rs.getInt("id_product"));
-				bean.setQuantity(rs.getInt("quantity"));
+				bean.setOrderedQuantity(rs.getInt("quantity"));
+				
+				bean.setName(rs.getString("name"));
+				bean.setRam(rs.getInt("ram"));
+				bean.setDisplaySize(rs.getFloat("display_size"));
+				bean.setStorage(rs.getInt("storage"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setColor(rs.getString("color"));
+				bean.setBrand(rs.getString("brand"));
+				bean.setYear(rs.getInt("year"));
+				bean.setCategory(rs.getString("category"));
+				bean.setState(rs.getString("state"));
 
 				products.add(bean);
 			}
@@ -297,13 +341,13 @@ public class ItemsOrderDAODataSource implements MethodsDAO<ItemOrderBean> {
 		PreparedStatement preparedStatement = null;
 
 		String selectCountSQL = "SELECT COUNT(*) AS number FROM " + ItemsOrderDAODataSource.TABLE_NAME
-				+ " WHERE id_order = ?"; 
+				+ " WHERE id_order = ?";
 		int result = 0;
 
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectCountSQL);
-			preparedStatement.setInt(1, id_order); 
+			preparedStatement.setInt(1, id_order);
 			ResultSet rs = preparedStatement.executeQuery();
 			rs.next();
 			result = rs.getInt("number");

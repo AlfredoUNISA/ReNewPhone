@@ -45,7 +45,20 @@ CREATE TABLE order_items (
   id int primary key AUTO_INCREMENT,
   id_order int not null,
   id_product int not null,
-  quantity int not null,
+  ordered_quantity int not null,
+  
+  /* Servono per mantenere i dati del prodotto nell'ordine */
+  name varchar(150) not null,
+  ram int not null,
+  display_size float not null,
+  storage int not null,
+  price int default 0,
+  color varchar(20),
+  brand varchar(25),
+  year int not null,
+  category varchar(15),
+  state char(12),
+  
   FOREIGN KEY (id_order) REFERENCES orders(id),
   FOREIGN KEY (id_product) REFERENCES products(id)
 );

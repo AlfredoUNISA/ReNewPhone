@@ -18,6 +18,7 @@ public class OrderBean implements Serializable {
 		id = -1;
 		id_user = 0;
 		total = 0;
+		order_date = null;
 	}
 
 	public int getId() {
