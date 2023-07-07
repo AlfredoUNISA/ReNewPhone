@@ -64,6 +64,8 @@ $(document).ready(function () {
 
 				for (var i = 0; i < products.length; i++) {
 					var product = products[i];
+					if(product.id==0)
+						product.id="Prodotto Eliminato";
 					productsDetails +=
 						"<tr>" +
 						"<td>" + product.id + "</td>" +
