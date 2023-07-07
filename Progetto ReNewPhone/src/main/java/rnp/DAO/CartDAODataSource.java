@@ -336,8 +336,8 @@ public class CartDAODataSource implements MethodsDAO<CartBean>, VariousHelper {
 	@Override
 	@Deprecated
 	public synchronized CartBean doRetrieveByKey(int NON_USARE_QUESTO_METODO) throws SQLException {
-		LOGGER.log(Level.WARNING, "ERROR [" + CLASS_NAME
-				+ "]: Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()");
+		LOGGER.log(Level.WARNING, ANSI_YELLOW + "WARNING [" + CLASS_NAME
+				+ "]: Non usare questo metodo, usa doRetrieveByPrimaryKeys() oppure doRetrieveByUser()" + ANSI_RESET);
 		return null;
 	}
 
