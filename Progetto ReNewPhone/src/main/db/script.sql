@@ -43,8 +43,8 @@ CREATE TABLE orders (
 
 CREATE TABLE order_items (
   id int primary key AUTO_INCREMENT,
-  id_order int not null,
-  id_product int not null,
+  id_order int ,
+  id_product int,
   ordered_quantity int not null,
   
   /* Servono per mantenere i dati del prodotto nell'ordine */
@@ -59,8 +59,8 @@ CREATE TABLE order_items (
   category varchar(15),
   state char(12),
   
-  FOREIGN KEY (id_order) REFERENCES orders(id),
-  FOREIGN KEY (id_product) REFERENCES products(id)
+  FOREIGN KEY (id_order) REFERENCES orders(id) on delete set null,
+  FOREIGN KEY (id_product) REFERENCES products(id) on delete set null
 );
 
 CREATE TABLE carts (
@@ -68,7 +68,7 @@ CREATE TABLE carts (
   id_product int not null,
   quantity int not null,
   primary key (id_user, id_product),
-  FOREIGN KEY (id_user) REFERENCES users(id),
+  FOREIGN KEY (id_user) REFERENCES users(id) on delete cascade,
   FOREIGN KEY (id_product) REFERENCES products(id)
 );
 
