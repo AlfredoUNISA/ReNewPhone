@@ -55,8 +55,13 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 				switch (action) {
 				case "getDeviceData":
 					getDeviceData(request, response);
+					break;
 				case "modify":
 					modifyRow(request, response);
+					break;
+				case "getDeviceWithID":
+					getDeviceWithID(request, response);
+					break;
 				}
 			}
 		} catch (ServletException | IOException | SQLException | InterruptedException e) {
@@ -64,47 +69,39 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 		}
 	}
 
+	private void getDeviceWithID(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		String idPar = request.getParameter("id");
+		int id = -1;
+		
+		if(idPar != null)
+			id = Integer.parseInt(idPar);
+		
+		if(id > 0) {
+			JsonObject json = new JsonObject();
+			json.add("product", gson.toJsonTree(productDAO.doRetrieveByKey(id)));
+			sendJsonResponse(response, json);
+		}
+		
+	}
+	
 	private void getDeviceData(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		String name = request.getParameter("name");
 		
 		List<ProductBean> products = (List<ProductBean>) productDAO.doRetrieveByName(name);
 		
-		List<Integer> rams = new ArrayList<>();
 		List<Integer> storages = new ArrayList<>();
-		List<Float> displays = new ArrayList<>();
-		List<String> colors = new ArrayList<>();
-		List<String> states = new ArrayList<>();
 
 		
 		for (ProductBean productBean : products) {
 			if(!storages.contains(productBean.getStorage()))
 				storages.add(productBean.getStorage());
-			/*
-			if(!rams.contains(productBean.getRam()))
-					rams.add(productBean.getRam());
-			
-			if(!displays.contains(productBean.getDisplay_size()))
-				displays.add(productBean.getDisplay_size());
-			
-			if(!colors.contains(productBean.getColor()))
-				colors.add(productBean.getColor());
-			
-			if(!states.contains(productBean.getState()))
-				states.add(productBean.getState());
-			*/
 		}
 		
 		JsonObject jsonObject = new JsonObject();
-		//jsonObject.addProperty("name", name);
-		//jsonObject.add("rams", gson.toJsonTree(rams));
 		jsonObject.add("storages", gson.toJsonTree(storages));
-		//jsonObject.add("displays", gson.toJsonTree(displays));
-		//jsonObject.add("colors", gson.toJsonTree(colors));
-		//jsonObject.add("states", gson.toJsonTree(states));
 		
 		
 		jsonObject.add("matches", gson.toJsonTree(products));
-		//System.out.println(jsonObject);
 		sendJsonResponse(response, jsonObject);
 
 	}

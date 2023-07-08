@@ -597,7 +597,6 @@ INSERT INTO products (name, ram, display_size, storage, price, quantity, color, 
 ('iPad Air', 8, 10.2, 256, 660, 10, 'Grigio Siderale', 'Apple', 'Tablet', 'Ottimo', 2022),
 ('iPad Air', 8, 10.2, 256, 650, 10, 'Argento', 'Apple', 'Tablet', 'Buono', 2022),
 ('iPad Air', 8, 10.2, 256, 660, 10, 'Argento', 'Apple', 'Tablet', 'Ottimo', 2022),
-('iPad Air', 8, 10.2, 512, 760, 10, 'Argento', 'Apple', 'Tablet', 'Accettabile', 2022),
 ('iPad Air', 8, 10.2, 512, 790, 10, 'Argento', 'Apple', 'Tablet', 'Accettabile', 2022),
 
 ('iPad Pro 11', 8, 11, 128, 899, 10, 'Grigio Siderale', 'Apple', 'Tablet', 'Accettabile', 2022),
