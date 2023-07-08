@@ -69,7 +69,7 @@
 
 
 	</div>
-	<script type="text/javascript"><%@include file="js/ProductsEval.js" %></script>
+	<script type="text/javascript"><%@include file="js/ProductEval.js" %></script>
 	<%@ include file="_footer.html"%>
 </body>
 </html>
