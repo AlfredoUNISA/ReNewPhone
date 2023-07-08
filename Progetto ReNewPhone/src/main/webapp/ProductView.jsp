@@ -86,7 +86,7 @@
 				</div>
 		</div>
 		<br>
-		<input type="button" class="slide-toggle" value="Apri Filtri"
+		<input type="button" class="slide-toggle" value="Chiudi Filtri"
 			id="myButton">
 
 		<div class="productsGrid">

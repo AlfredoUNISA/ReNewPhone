@@ -580,7 +580,6 @@ nav a:hover {
 }
 /* Stile per gli elementi del menù dei filtri*/
 .filterBox {
-	display: none;
 	align-items: center;
 	border: 1.5px solid #f2f6fa;
 	border-radius: 10px;

@@ -15,6 +15,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript"><%@include file="js/productsFilter.js" %></script>
 	<script type="text/javascript"><%@include file="js/slider.js" %></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Homepage</title>
@@ -64,32 +65,31 @@
 	
  <div class="brand-container">
  
-  <a href="products">  <div class="brand">
-      <img src="resources/apple.jpg" alt="iPhone">
+ 	<div class="brand">
+      <img src="resources/apple.jpg" alt="iPhone" onclick="brandSelectAndRedirect('Apple')">
     </div>
-    </a>
-     <a href="products">  <div class="brand">
-   <img src="resources/samsung.jpg" alt="Samsung">
+
+  	<div class="brand">
+   <img src="resources/samsung.jpg" alt="Samsung" onclick="brandSelectAndRedirect('Samsung')">
     </div>
-    </a>
-     <a href="products">  <div class="brand">
-      <img src="resources/ipad_logo.jpg" alt="iPad">
+ 
+    <div class="brand">
+      <img src="resources/ipad_logo.jpg" alt="iPad" onclick="brandSelectAndRedirect('Apple')">
     </div>
-    </a>
-     <a href="products">  <div class="brand">
-   <img src="resources/pixel.jpg" alt="Pixel">
+   
+    <div class="brand">
+   <img src="resources/pixel.jpg" alt="Pixel" onclick="brandSelectAndRedirect('Google')">
     </div>
-    </a>
-       <a href="products">  <div class="brand">
-   <img src="resources/xiaomi.jpg" alt="Xiaomi">
+
+    <div class="brand">
+   <img src="resources/xiaomi.jpg" alt="Xiaomi" onclick="brandSelectAndRedirect('Xiaomi')">
     </div>
-    </a>
+    
   </div>
   
 <div class="messaggio"> F.A.Q.</div>
 
-  
-  
+
 	<%@ include file="_footer.html" %>
 </body>
 </html>

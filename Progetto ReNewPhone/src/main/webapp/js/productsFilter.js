@@ -1,8 +1,8 @@
 var productsPerLoading = 8; // Cambiare questo per modificare il numero anche nella servlet
 var countLoadings = 0;
 $(document).ready(function(){
-	
-	$(".slide-toggle").click(function(){
+		
+		$(".slide-toggle").click(function(){
 		toggleFilterPage();
 	})
 	$(".processButton").click(function(){
@@ -14,11 +14,23 @@ $(document).ready(function(){
 	})
 	$('#loadMoreFilteredButton').click(function () {
 		filterProducts();
-	});
-	
-	
-	
+	});	
 })
+function brandSelectAndRedirect(brand){
+	var url = 'products?brandSelect='+brand;
+    window.location.href = url;
+}
+
+function GetParameterValues(param) {
+	var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	for (var i = 0; i < url.length; i++) {
+		var urlparam = url[i].split('=');
+		if (urlparam[0] == param) {
+			return urlparam[1];
+		}
+	}
+}
+
 
 function toggleFilterPage(){
                     if ($(".slide-toggle").val()== "Apri Filtri") 
@@ -32,12 +44,17 @@ function toggleFilterPage(){
 			}
 
 function filterProducts() {
-
+				console.log(GetParameterValues('brandSelect'))
+			  if(GetParameterValues('brandSelect')==null)
+						  	var brand = $("#brandSelect").val();
+			  else{
+				  $("#brandSelect").val(GetParameterValues('brandSelect'))
+			  	  var brand=GetParameterValues('brandSelect');
+			  	}
 			  var priceMin = $("#priceRange input:first-of-type").val();
 			  var priceMax = $("#priceRange input:last-of-type").val();
 			  var memoryMin = $("#memoryRange input:first-of-type").val();
 			  var memoryMax = $("#memoryRange input:last-of-type").val();
-			  var brand = $("#brandSelect").val();
 			  var ramMin = $("#ramRange input:first-of-type").val();
 			  var ramMax = $("#ramRange input:last-of-type").val();
 			  var yearMin = $("#yearRange input:first-of-type").val();
