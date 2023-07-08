@@ -155,6 +155,22 @@ input[type="email"]:invalid {
 	color: white;
 	border: none;
 }
+.messaggio-prezzo {
+	display: center;
+	padding: 7px 7px;
+	font-size: 1.5em;
+	text-align: center;
+	justify-content: center;
+	background-color: #4F5D75;
+	border-radius: 25px;
+	color: white;
+	border: none;
+	margin-left: 2em;
+	margin-right: 2em;
+	color: white;
+	border: none;
+}
+
 
 .messaggio-var {
 	margin-bottom: 3em;
@@ -488,26 +504,41 @@ nav a:hover {
 }
 
 /*---------Stile tabella prodotti-------------- */
-.DetailsTable table, .DetailsTable tr, .DetailsTable td {
-	border-collapse: collapse;
-	border: none;
-	max-width: 800px;
-	margin: 0 auto;
-	font-size: 1em;
-	color: #333;
+.DetailsTable table, .DetailsTable tr, .DetailsTable td {	border-collapse: collapse;
+
 }
 
+.detailContainer {
+  display: flex;
+}
 .detailProduct {
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-	padding: 1em;
+	padding: 2em;
+  display: flex;
+  border-radius: 10px;
+  font-size: 0.8em;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 1.5em;
+  text-align: justify;
+  margin-bottom: 1em;
+  margin-top: 2em;
+  border: 1.5px solid #f2f6fa;
+  border-radius: 10px;
+  background-color: #f2f6fa;
+  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: auto; 
 }
 
 .detailImage {
-	width: 30em;
-	height: auto;
+	padding:2em;
+  width: 30em;
+  height: 41em;
+  
 }
+
+
 
 /*---------Stile della pagina di visualizzazione dei prodotti-------------- */
 .productsGrid {
@@ -657,7 +688,7 @@ brand:hover {
 }
 
 
-}
+
 
 .box-inner {
 	display: flex;
