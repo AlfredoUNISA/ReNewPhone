@@ -9,7 +9,7 @@ var currentDevice = {
 	states: []
 };
 var jsonCurrentDevice;
-var foundDevice;
+var foundDevice = null;
 
 var brandSelect = $("#brandSelect");
 var deviceSelect = $("#deviceSelect");
@@ -54,14 +54,44 @@ $(document).ready(function () {
 
 	stateSelect.change(function (e) {
 		//console.clear();
-		findProductId();
+		findProduct(-1, false);
 	});
 
-	$("#submitButton").click(function (e) {
-		e.preventDefault();
-		$("#result").empty();
-		$("#result").append(foundDevice.id + ", " + foundDevice.price + " \u20ac<br>");
-	})
+	$("#searchIdSelect").prop("disabled", true);
+	$("#searchButton").prop("disabled", true);
+
+	$("#searchIdCheck").change(function (e) {
+		if (this.checked) {
+			// disabilita tutte le select
+			$("#brandSelect").prop("disabled", true);
+			$("#deviceSelect").prop("disabled", true);
+			$("#storageSelect").prop("disabled", true);
+			$("#ramSelect").prop("disabled", true);
+			$("#displaySizesSelect").prop("disabled", true);
+			$("#colorSelect").prop("disabled", true);
+			$("#stateSelect").prop("disabled", true);
+
+			$("#searchIdSelect").prop("disabled", false);
+			$("#searchButton").prop("disabled", false);
+
+		} else {
+			// abilita tutte le select
+			$("#brandSelect").prop("disabled", false);
+			$("#deviceSelect").prop("disabled", false);
+			$("#storageSelect").prop("disabled", false);
+			$("#ramSelect").prop("disabled", false);
+			$("#displaySizesSelect").prop("disabled", false);
+			$("#colorSelect").prop("disabled", false);
+			$("#stateSelect").prop("disabled", false);
+
+			$("#searchIdSelect").prop("disabled", true);
+			$("#searchButton").prop("disabled", true);
+		}
+	});
+
+	$("#searchButton").click(function (e) {
+		findProduct($("#searchIdSelect").val(), true);
+	});
 
 })
 
@@ -93,11 +123,11 @@ function loadBrands() {
 }
 
 function updateBrandAndGoOn(response) {
-	//console.log("Brands Disponibili: ") 
-	//console.log(response);
+	console.log("Brands Disponibili: ") 
+	console.log(response);
 
 	currentDevice.brand = brandSelect.val();
-	//console.log("Brand Attivo: " + currentDevice.brand);
+	console.log("Brand Attivo: " + currentDevice.brand);
 
 	loadDevices();
 }
@@ -137,11 +167,11 @@ function loadDevices() {
 }
 
 function updateDeviceAndGoOn(response) {
-	//console.log("Dispositivi Disponibili: ") 
-	//console.log(response);
+	console.log("Dispositivi Disponibili: ") 
+	console.log(response);
 
 	currentDevice.name = deviceSelect.val();
-	//console.log("Device Attivo: " + currentDevice.name);
+	console.log("Device Attivo: " + currentDevice.name);
 
 	writeDeviceData();
 }
@@ -160,15 +190,15 @@ function writeDeviceData() {
 		dataType: "json",
 		success: function (response) {
 			jsonCurrentDevice = response.matches;
-			//console.log("Match Dispositivo Attuale: ")
-			//console.table(jsonCurrentDevice);
+			console.log("Match Dispositivo Attuale: ")
+			console.table(jsonCurrentDevice);
 
 			currentDevice.storages = response.storages;
 
 			loadStorage();
 		},
 		error: function (e) {
-			//console.log("Errore: " + e);
+			console.log("Errore: " + e);
 		}
 	});
 }
@@ -185,7 +215,7 @@ function loadStorage() {
 
 function updateStorageAndGoOn() {
 	// Da questo punto in poi, già abbiamo i valori necessari in currentDevice
-	//console.log("Storage Attivo: " + storageSelect.val());
+	console.log("Storage Attivo: " + storageSelect.val());
 	loadRam();
 }
 
@@ -210,7 +240,7 @@ function loadRam() {
 }
 
 function updateRamAndGoOn() {
-	//console.log("Ram Attiva: " + ramSelect.val());
+	console.log("Ram Attiva: " + ramSelect.val());
 	loadDisplaySize();
 }
 
@@ -236,7 +266,7 @@ function loadDisplaySize() {
 }
 
 function updateDisplaySizeAndGoOn() {
-	//console.log("DisplaySize Attivo: " + displaySizesSelect.val());
+	console.log("DisplaySize Attivo: " + displaySizesSelect.val());
 	loadColor();
 }
 
@@ -261,7 +291,7 @@ function loadColor() {
 }
 
 function updateColorAndGoOn() {
-	//console.log("Color Attivo: " + colorSelect.val());
+	console.log("Color Attivo: " + colorSelect.val());
 	loadState();
 }
 
@@ -273,7 +303,6 @@ function loadState() {
 	jsonCurrentDevice.forEach(element => {
 		if (element.color == colorSelect.val() && element.display_size == displaySizesSelect.val() && element.ram == ramSelect.val() &&
 			element.storage == storageSelect.val() && (currentDevice.states == undefined || currentDevice.states.length == 0 || currentDevice.states.includes(element.state) == false)) {
-			//console.log("Aggiungo: " + element.state + " (" + element.id + ")");
 			currentDevice.states.push(element.state);
 		}
 	});
@@ -283,22 +312,108 @@ function loadState() {
 	});
 	stateSelect.val(stateSelect.find("option:first").val());
 
-	findProductId();
+	findProduct(-1, false);
 }
 
 /**
  * Invia i dati inseriti dall'utente al server per calcolare il valore del prodotto
  */
-function findProductId() {
+function findProduct(id, withID) {
 	// Cerca all'interno del json, l'id del prodotto in base a tutti i valori selezionati
-	console.clear();
-	jsonCurrentDevice.forEach(element => {
-		console.log("Element " + element.id + ": " + element.storage + " " + element.ram + " " + element.display_size + " " + element.color + " " + element.state);
-		console.log("Selected: " + storageSelect.val() + " " + ramSelect.val() + " " + displaySizesSelect.val() + " " + colorSelect.val() + " " + stateSelect.val());
-		if (element.storage == storageSelect.val() && element.ram == ramSelect.val() && element.display_size == displaySizesSelect.val() &&
-			element.color == colorSelect.val() && element.state == stateSelect.val()) {
-			console.log("->->->Trovato: " + element.id);
-			foundDevice = element;
+	if (withID == false) {
+		var found;
+		jsonCurrentDevice.forEach(element => {
+			if (element.storage == storageSelect.val() && element.ram == ramSelect.val() && element.display_size == displaySizesSelect.val() &&
+				element.color == colorSelect.val() && element.state == stateSelect.val()) {
+				found = element;
+			}
+		});
+		id = found.id;
+		console.log("ID: " + id);
+	}
+
+	$.ajax({
+		type: "GET",
+		url: "admin-modify",
+		data: {
+			action: "getDeviceWithID",
+			id: id
+		},
+		dataType: "json",
+		success: function (response) {
+
+			foundDevice = response.product;
+			$("#result").empty();
+			
+			$("#result").append("ID: " + foundDevice.id + "<br>");
+			$("#result").append("Name: " + foundDevice.name + "<br>");
+			$("#result").append("Brand: " + foundDevice.brand + "<br>");
+			$("#result").append("RAM: " + foundDevice.ram + " GB<br>");
+			$("#result").append("Storage: " + foundDevice.storage + " GB<br>");
+			$("#result").append("Display Size: " + foundDevice.display_size + " \"<br>");
+			$("#result").append("Category: " + foundDevice.category + "<br>");
+			$("#result").append("Price: " + foundDevice.price + " \u20AC<br>"); 
+			$("#result").append("Quantity: " + foundDevice.quantity + "<br>");
+			$("#result").append("Color: " + foundDevice.color + "<br>");
+			$("#result").append("State: " + foundDevice.state + "<br>");
+			$("#result").append("Year: " + foundDevice.year + "<br>");
+			$("#result").append("Model: " + foundDevice.model + "<br>");
+
+		
+			$("#searchIdSelect").val(foundDevice.id);
+			startModify();
+		},
+		error: function (e) {
+			console.log("Error: " + e);
 		}
 	});
+}
+
+function startModify() {
+	console.log("Start Modify");
+	$("#result").empty();
+	$("#result").append("ID: " + foundDevice.id + "<br>");
+	$("#result").append("Name: " + foundDevice.name + "<br>");
+	$("#result").append("Brand: " + foundDevice.brand + "<br>");
+	$("#result").append("Category: " + foundDevice.category + "<br>");
+	$("#result").append("Color: " + foundDevice.color + "<br>");
+	$("#result").append("State: " + foundDevice.state + "<br>");
+	$("#result").append("Year: " + foundDevice.year + "<br>");
+	$("#result").append("Model: " + foundDevice.model + "<br>");
+
+	$("#modifyRam").val(foundDevice.ram);
+	$("#modifyStorage").val(foundDevice.storage);
+	$("#modifyDisplay").val(foundDevice.display_size);
+	$("#modifyPrice").val(foundDevice.price); 
+	$("#modifyQuantity").val(foundDevice.quantity);
+
+	$("#modifyButton").click(function (e) { 
+		e.preventDefault();
+		$.ajax({
+			type: "POST",
+			url: "admin-modify",
+			data: {
+				action: "modify",
+				id: foundDevice.id,
+				name: foundDevice.name,
+				ram: $("#modifyRam").val(),
+				display_size: $("#modifyDisplay").val(),
+				storage: $("#modifyStorage").val(),
+				price: $("#modifyPrice").val(),
+				quantity: $("#modifyQuantity").val(),
+				color: foundDevice.color,
+				brand: foundDevice.brand,
+				year: foundDevice.year,
+				state: foundDevice.state
+			},
+			success: function () {
+				alert("Modifica effettuata con successo");
+				location.reload();
+			},
+			error: function (e) {
+				alert("Error: " + e);
+			}
+		});
+	});
+
 }
