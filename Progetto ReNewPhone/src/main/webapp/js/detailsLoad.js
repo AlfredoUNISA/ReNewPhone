@@ -172,7 +172,7 @@ function initializeHTML() {
 	brandContainer.append('Marca: <b>' + json[0].brand + '</b><br><br>');
 
 	var yearContainer = $("#yearContainer");
-	yearContainer.append('Anno: <b>' + json[0].year + '</b><br><br><hr>');
+	yearContainer.append('Anno: <b>' + json[0].year + '</b><br><br>');
 
 	// RAM
 	var ramContainer = $("#ramContainer");
