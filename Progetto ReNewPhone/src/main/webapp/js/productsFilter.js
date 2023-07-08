@@ -40,6 +40,9 @@ function filterProducts() {
 			  var brand = $("#brandSelect").val();
 			  var ramMin = $("#ramRange input:first-of-type").val();
 			  var ramMax = $("#ramRange input:last-of-type").val();
+			  var yearMin = $("#yearRange input:first-of-type").val();
+			  var yearMax = $("#yearRange input:last-of-type").val();
+
 			  //console.log(priceMin);
 			  //console.log(priceMax);
 			  //console.log(memoryMin);
@@ -47,14 +50,14 @@ function filterProducts() {
 			  //console.log(brand);
 			  //console.log(ramMin);
 			  //console.log(ramMax);
-			  loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,brand,ramMin,ramMax);
+			  loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,brand,ramMin,ramMax,yearMin,yearMax);
 			 
 }
-function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBrand,ramMin,ramMax) {
+function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBrand,ramMin,ramMax,yearMin,yearMax) {
 	$.ajax({
 		url: 'AjaxProductServlet?countLoadings=' + countLoadings + '&productsPerLoading=' + productsPerLoading +
 		'&priceMin=' + priceMin + '&priceMax='+priceMax+'&memoryMin='+memoryMin+ '&memoryMax='+memoryMax+
-		'&ramMin='+ramMin+ '&ramMax='+ramMax+ '&filterBrand='+filterBrand,
+		'&ramMin='+ramMin+ '&ramMax='+ramMax+ '&filterBrand='+filterBrand+'&yearMin='+yearMin+'&yearMax='+yearMax,
 		success: function (response) {
 			// Recupera il JSON dei prodotti
 			var resultJSON = response;
