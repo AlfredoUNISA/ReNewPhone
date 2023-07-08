@@ -40,7 +40,7 @@
 	
     </div>
     
-    <script type="text/javascript"><%@include file="js/cartAjax.js" %></script>
+    <script type="text/javascript"><%@include file="js/Cart.js" %></script>
     <%@ include file="_footer.html" %>
 </body>
 </html>

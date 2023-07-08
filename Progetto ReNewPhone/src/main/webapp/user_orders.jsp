@@ -42,7 +42,7 @@
 		
 
 	</div>
-	<script type="text/javascript"><%@include file="js/ordersUserAjax.js" %></script>
+	<script type="text/javascript"><%@include file="js/Orders.js" %></script>
 	
 	<%@ include file="_footer.html"%>
 </body>

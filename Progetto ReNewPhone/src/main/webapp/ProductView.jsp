@@ -92,10 +92,9 @@
 		<div class="productsGrid">
 
 
+			<script type="text/javascript"><%@include file="js/ProductFilter.js" %></script>
 
-			<script type="text/javascript"><%@include file="js/productsFilter.js" %></script>
-
-			<script type="text/javascript"><%@include file="js/productsAjax.js" %></script>
+			<script type="text/javascript"><%@include file="js/Products.js" %></script>
 		</div>
 
 		<input type="button" id="loadMoreButton" value="Carica Altro">

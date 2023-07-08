@@ -54,7 +54,7 @@ if (!IS_CURRENT_USER_ADMIN) {
 		
 
 	</div>
-	<script type="text/javascript"><%@include file="js/ordersAdminAjax.js" %></script>
+	<script type="text/javascript"><%@include file="js/AdminOrders.js" %></script>
 	
 	<%@ include file="_footer.html"%>
 </body>

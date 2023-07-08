@@ -2,6 +2,8 @@ package rnp.Admin;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,6 +13,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
 import rnp.Bean.ProductBean;
 import rnp.DAO.ProductDAODataSource;
 import rnp.Servlet.VariousHelper;
@@ -24,9 +31,11 @@ import rnp.Support.Login;
 public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
-	
+
 	private static final String CLASS_NAME = AdminModifyServlet.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
+	
+	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -40,10 +49,64 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-			modifyRow(request, response);
+			String action = request.getParameter("action");
+
+			if (action != null) {
+				switch (action) {
+				case "getDeviceData":
+					getDeviceData(request, response);
+				case "modify":
+					modifyRow(request, response);
+				}
+			}
 		} catch (ServletException | IOException | SQLException | InterruptedException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 		}
+	}
+
+	private void getDeviceData(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		String name = request.getParameter("name");
+		
+		List<ProductBean> products = (List<ProductBean>) productDAO.doRetrieveByName(name);
+		
+		List<Integer> rams = new ArrayList<>();
+		List<Integer> storages = new ArrayList<>();
+		List<Float> displays = new ArrayList<>();
+		List<String> colors = new ArrayList<>();
+		List<String> states = new ArrayList<>();
+
+		
+		for (ProductBean productBean : products) {
+			if(!storages.contains(productBean.getStorage()))
+				storages.add(productBean.getStorage());
+			/*
+			if(!rams.contains(productBean.getRam()))
+					rams.add(productBean.getRam());
+			
+			if(!displays.contains(productBean.getDisplay_size()))
+				displays.add(productBean.getDisplay_size());
+			
+			if(!colors.contains(productBean.getColor()))
+				colors.add(productBean.getColor());
+			
+			if(!states.contains(productBean.getState()))
+				states.add(productBean.getState());
+			*/
+		}
+		
+		JsonObject jsonObject = new JsonObject();
+		//jsonObject.addProperty("name", name);
+		//jsonObject.add("rams", gson.toJsonTree(rams));
+		jsonObject.add("storages", gson.toJsonTree(storages));
+		//jsonObject.add("displays", gson.toJsonTree(displays));
+		//jsonObject.add("colors", gson.toJsonTree(colors));
+		//jsonObject.add("states", gson.toJsonTree(states));
+		
+		
+		jsonObject.add("matches", gson.toJsonTree(products));
+		//System.out.println(jsonObject);
+		sendJsonResponse(response, jsonObject);
+
 	}
 
 	/**
@@ -69,66 +132,65 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 	 */
 	private void modifyRow(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, InterruptedException, SQLException {
-		
+
 		int currentId = -1;
 		String currentIdPar = request.getParameter("id");
-		if(currentIdPar != null && !currentIdPar.isBlank())
+		if (currentIdPar != null && !currentIdPar.isBlank())
 			currentId = Integer.parseInt(currentIdPar);
-		
-		String name = null; 
-		String namePar = request.getParameter("name"); 
-		if(namePar != null && !namePar.isBlank())
+
+		String name = null;
+		String namePar = request.getParameter("name");
+		if (namePar != null && !namePar.isBlank())
 			name = namePar;
-		
+
 		int ram = -1;
 		String ramPar = request.getParameter("ram");
-		if(ramPar != null && !ramPar.isBlank())
+		if (ramPar != null && !ramPar.isBlank())
 			ram = Integer.parseInt(ramPar);
 
 		float display_size = -1;
 		String display_sizePar = request.getParameter("display_size");
-		if(display_sizePar != null && !display_sizePar.isBlank())
+		if (display_sizePar != null && !display_sizePar.isBlank())
 			display_size = Float.parseFloat(display_sizePar);
 
 		int storage = -1;
 		String storagePar = request.getParameter("storage");
-		if(storagePar != null && !storagePar.isBlank())
+		if (storagePar != null && !storagePar.isBlank())
 			storage = Integer.parseInt(storagePar);
 
 		int price = -1;
 		String pricePar = request.getParameter("price");
-		if(pricePar != null && !pricePar.isBlank())
+		if (pricePar != null && !pricePar.isBlank())
 			price = Integer.parseInt(pricePar);
 
 		int quantity = -1;
 		String quantityPar = request.getParameter("quantity");
-		if(quantityPar != null && !quantityPar.isBlank())
+		if (quantityPar != null && !quantityPar.isBlank())
 			quantity = Integer.parseInt(quantityPar);
 
 		String color = null;
 		String colorPar = request.getParameter("color");
-		if(colorPar != null && !colorPar.isBlank())
+		if (colorPar != null && !colorPar.isBlank())
 			color = colorPar;
-		
+
 		String brand = null;
 		String brandPar = request.getParameter("brand");
-		if(brandPar != null && !brandPar.isBlank())
+		if (brandPar != null && !brandPar.isBlank())
 			brand = brandPar;
 
 		int year = -1;
 		String yearPar = request.getParameter("year");
-		if(yearPar != null && !display_sizePar.isBlank())
+		if (yearPar != null && !display_sizePar.isBlank())
 			year = Integer.parseInt(yearPar);
-
 
 		String category = null;
 		String categoryPar = request.getParameter("category");
-		if(categoryPar != null && !categoryPar.isBlank())
+		if (categoryPar != null && !categoryPar.isBlank())
 			category = categoryPar;
 
 		String state = null;
 		String statePar = request.getParameter("state");
-		if(statePar != null&& !statePar.isBlank())
+		if (statePar != null && !statePar.isBlank())
 			state = statePar;
 
 		ProductBean product = new ProductBean();
