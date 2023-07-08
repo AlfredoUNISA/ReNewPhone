@@ -70,6 +70,14 @@
 				</fieldset>
 
 				
+				<fieldset id="yearRange">
+				<h3>
+					<input type="number" placeholder="Min" min="0" max="9999">
+					Anno(yyyy) <input type="number" placeholder="Max" min="0" max="9999">
+					</h3>
+				</fieldset>
+				
+				
 				</div>
 				<br>
 				<div class="content">

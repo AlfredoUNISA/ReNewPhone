@@ -49,6 +49,8 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 		int memoryMax = Integer.MAX_VALUE;
 		int ramMin = Integer.MIN_VALUE; 
 		int ramMax = Integer.MAX_VALUE;
+		int yearMin = Integer.MIN_VALUE; 
+		int yearMax = Integer.MAX_VALUE;
 		
 		String filterBrand = null;
 		
@@ -71,6 +73,12 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 		if (request.getParameter("ramMax") != null && !request.getParameter("ramMax").isBlank()) {
 			ramMax = Integer.parseInt(request.getParameter("ramMax"));
 		}
+		if (request.getParameter("yearMin") != null && !request.getParameter("yearMin").isBlank()) {
+			yearMin = Integer.parseInt(request.getParameter("yearMin"));
+		}
+		if (request.getParameter("yearMax") != null && !request.getParameter("yearMax").isBlank()) {
+			yearMax = Integer.parseInt(request.getParameter("yearMax"));
+		}
 		if (request.getParameter("filterBrand") != null && !request.getParameter("filterBrand").isBlank()) {
 			filterBrand = request.getParameter("filterBrand");
 		}
@@ -86,7 +94,7 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 		// System.out.println("countLoadings: " + countLoadings);
 
 		loadProducts(request, response, productsPerLoading, countLoadings, priceMin, priceMax, memoryMin, memoryMax,
-				ramMin, ramMax, filterBrand);
+				ramMin, ramMax, filterBrand,yearMin,yearMax);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -96,7 +104,7 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 
 	protected void loadProducts(HttpServletRequest request, HttpServletResponse response, int productsPerLoading,
 			int countLoadings, int priceMin, int priceMax, int memoryMin, int memoryMax, int ramMin, int ramMax,
-			String filteredBrand) throws ServletException, IOException {
+			String filteredBrand, int yearMin, int yearMax) throws ServletException, IOException {
 		try {
 			Boolean filterStringWasNull = true; // default
 			// Prendi tutti i prodotti dal database
@@ -114,10 +122,12 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 				if (filterStringWasNull)
 					filteredBrand = product.getBrand();
 				String productName = product.getName();
-				if (priceMin < product.getPrice() // Nel caso non ci siano filtri specifici
-						&& priceMax > product.getPrice()// Tutti i prodotti passeranno per via dei valori di default
-						&& memoryMin < product.getStorage() && memoryMax > product.getStorage()
-						&& ramMin < product.getRam() && ramMax > product.getRam()
+
+				if (priceMin <= product.getPrice() // Nel caso non ci siano filtri specifici
+						&& priceMax >= product.getPrice()// Tutti i prodotti passeranno per via dei valori di default
+						&& memoryMin <= product.getStorage() && memoryMax >= product.getStorage()
+						&& ramMin <= product.getRam() && ramMax >= product.getRam()
+						&& yearMin <= product.getYear() && yearMax >= product.getYear()
 						&& filteredBrand.compareToIgnoreCase(product.getBrand()) == 0) {
 
 					// Controlla se il nome del prodotto è già presente nella mappa
