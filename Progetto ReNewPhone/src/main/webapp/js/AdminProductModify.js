@@ -396,6 +396,7 @@ function startModify() {
 				action: "modify",
 				id: foundDevice.id,
 				name: foundDevice.name,
+				category: foundDevice.category,
 				ram: $("#modifyRam").val(),
 				display_size: $("#modifyDisplay").val(),
 				storage: $("#modifyStorage").val(),
