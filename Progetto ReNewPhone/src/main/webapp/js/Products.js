@@ -12,8 +12,13 @@ $(document).ready(function () {
 });
 
 function loadMoreProducts() {
+
 	$.ajax({
-		url: 'AjaxProductServlet?countLoadings=' + countLoadings + '&productsPerLoading=' + productsPerLoading,
+		url: 'AjaxProductServlet',
+		data: {
+			countLoadings: countLoadings,
+			productsPerLoading: productsPerLoading
+		},
 		success: function (response) {
 			// Recupera il JSON dei prodotti
 			var resultJSON = response;

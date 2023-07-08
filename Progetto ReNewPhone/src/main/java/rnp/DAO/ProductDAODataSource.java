@@ -211,7 +211,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean>, VariousHel
 		}
 		return products;
 	}
-
+	
 	/**
 	 * Seleziona tutte le righe dalla tabella {@link #TABLE_NAME} e restituisce una
 	 * collezione di oggetti.
