@@ -27,7 +27,8 @@ String model = productSample.getModel();
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript"><%@include file="js/ProductDetails.js" %></script>
+<!-- <script type="text/javascript"><%@include file="js/ProductDetails.js" %></script> -->
+<script type="text/javascript"><%@include file="js/test.js" %></script>
 <title><%=productSample.getName()%></title>
 </head>
 <body>
@@ -41,29 +42,44 @@ String model = productSample.getModel();
 				src="resources/<%=model%>.jpg">
 			<div class="detailProduct">
 
+				<div id="ricerca">
+					<label for="brandName">Brand:</label> 
+					<p id="brandName"><%=productSample.getBrand()%></p>
+					
+					<label for="storageSelect">Spazio interno:</label> 
+					<select id="storageSelect" required>
+						<option value="0">Seleziona prima un dispositivo</option>
+					</select><br><br> 
+					
+					<label for="ramSelect">RAM:</label> 
+					<select id="ramSelect" required>
+						<option value="0">Seleziona prima uno spazio interno</option>
+					</select><br><br> 
+					
+					<label for="displaySizesSelect">Schermo:</label>
+					<select id="displaySizesSelect" required>
+						<option value="0">Seleziona prima la ram</option>
+					</select><br><br> 
+					
+					<label for="colorSelect">Colore:</label> 
+					<select	id="colorSelect" required>
+						<option value="0">Seleziona prima uno schermo</option>
+					</select><br><br> 
+					
+					<label for="stateSelect">Condizione:</label> 
+					<select id="stateSelect" required>
+						<option value="0">Seleziona prima un colore</option>
+					</select><br><br>
+				</div>
 
-				<div id="categoryContainer"></div>
-				<div id="brandContainer"></div>
-				<div id="yearContainer"></div>
-
-
-				<div id="ramContainer"></div>
-				<div id="displaySizeContainer"></div>
-				<div id="storageContainer"></div>
-				<br>
-				<div id="colorContainer"></div>
-				<br>
-				<div id="colorContainer"></div>
-				<div id="stateContainer"></div>
-
-
-				<div id="quantityContainer"></div>
 				<div id="idContainer"></div>
 				<div class="messaggio-prezzo">
 					<div id="priceContainer"></div>
+					<div id="remainingQuantityContainer"></div>
 				</div>
-				<div class="buyProduct">
 
+
+				<div class="buyProduct">
 					<h5>
 						Seleziona la quantità: <select id="quantitySelect">
 							<option id="quantityOption1" value="1">1</option>
@@ -74,15 +90,9 @@ String model = productSample.getModel();
 						</select>
 					</h5>
 					<input type="button" id="addToCartBtn" value="Aggiungi al carrello">
-
 				</div>
-
-
 			</div>
-
-
 		</div>
-
 	</div>
 
 	<%@ include file="_footer.html"%>
