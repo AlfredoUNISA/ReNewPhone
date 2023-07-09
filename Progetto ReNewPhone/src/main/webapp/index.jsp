@@ -49,9 +49,9 @@
 <div class="slider">
   <input type="button" value="<" onclick="prec()">  
   <div id="img_slider">
-    <img src="resources/promo1.jpg">
-         <img src="resources/promo2.jpg">
-         <img src="resources/promo3.jpg">
+    <img src="resources/promo1.jpg" alt="promo1">
+         <img src="resources/promo2.jpg" alt="promo2">
+         <img src="resources/promo3.jpg" alt="promo3">
      
   </div>
   <input type="button" value=">" onclick="succ()"> 

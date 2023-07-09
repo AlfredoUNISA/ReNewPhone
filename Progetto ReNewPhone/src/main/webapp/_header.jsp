@@ -62,6 +62,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +72,6 @@
 	<nav>
 		<ul class="pulsanti-sinistra">
 			<li><a href="index.jsp">Homepage</a></li>
-			<li><a href="about.jsp">Chi siamo</a></li>
 			<li><a href="contact.jsp">Contatti</a></li>
 			<li><a href="products">Prodotti</a></li>
 		</ul>

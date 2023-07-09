@@ -55,8 +55,8 @@ $(document).ready(function () {
  */
 function getJson() {
 	// Prendi la stringa JSON dei dettagli del prodotto attraverso l'attributo JSP
-	var jsonString = '<%= request.getAttribute("product-details") %>;'
-
+	var jsonString = '<%= request.getAttribute("product-details-json") %>;'
+	console.log(jsonString);
 	// Rimuovi il ; finale
 	jsonString = jsonString.substring(0, jsonString.length - 1);
 
