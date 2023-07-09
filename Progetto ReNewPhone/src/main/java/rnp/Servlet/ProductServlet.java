@@ -2,6 +2,7 @@ package rnp.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import rnp.Bean.ProductBean;
 import rnp.DAO.ProductDAODataSource;
 
 /**
@@ -37,10 +39,6 @@ public class ProductServlet extends HttpServlet implements VariousHelper {
 			case "details":
 				showRowDetails(request, response);
 				break;
-			case "delete":
-				// TODO: da vedere se un utente è autorizzato a cancellare un prodotto
-				deleteRow(request, response);
-				break;
 			default:
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Pagina non trovata");
 				break;
@@ -62,9 +60,11 @@ public class ProductServlet extends HttpServlet implements VariousHelper {
 		try {
 			//request.removeAttribute("product-details");
 			Gson gson = new GsonBuilder().create();
-			String json = gson.toJson(productDAO.doRetrieveByName(name));
+			List<ProductBean> list = (List<ProductBean>) productDAO.doRetrieveByName(name);
+			String json = gson.toJson(list);
 			
-			request.setAttribute("product-details", json);
+			request.setAttribute("product-details-list", list);
+			request.setAttribute("product-details-json", json); // Verrà utilizzato nel js
 			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
@@ -75,6 +75,7 @@ public class ProductServlet extends HttpServlet implements VariousHelper {
 	 * Elimina una riga dalla table del database.
 	 * @category DELETE
 	 */
+	/*
 	private void deleteRow(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -91,7 +92,7 @@ public class ProductServlet extends HttpServlet implements VariousHelper {
 			}
 		}
 	}
-
+	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

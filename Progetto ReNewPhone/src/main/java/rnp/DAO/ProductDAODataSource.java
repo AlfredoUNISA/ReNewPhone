@@ -213,7 +213,7 @@ public class ProductDAODataSource implements MethodsDAO<ProductBean>, VariousHel
 	}
 	
 	/**
-	 * Seleziona tutte le righe dalla tabella {@link #TABLE_NAME} e restituisce una
+	 * Seleziona tutte le righe dalla tabella {@link #TABLE_NAME} in base al nome e restituisce una
 	 * collezione di oggetti.
 	 * 
 	 * @param order Specifica l'ordine di ordinamento dei risultati (se non è nullo
