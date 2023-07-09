@@ -1,5 +1,5 @@
-<%@ page import="rnpDAO.OrderDAODataSource,rnpDAO.UserDAODataSource,rnpDAO.ProductDAODataSource"%>
-<%@ page import="rnpBean.CartBean,rnpBean.OrderBean,rnpBean.UserBean,rnpBean.ProductBean"%>
+<%@ page import="rnp.DAO.OrderDAODataSource,rnp.DAO.UserDAODataSource,rnp.DAO.ProductDAODataSource"%>
+<%@ page import="rnp.Bean.CartBean,rnp.Bean.OrderBean,rnp.Bean.UserBean,rnp.Bean.ProductBean"%>
 <%@ page import="java.util.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -40,7 +40,7 @@
 	
     </div>
     
-    <script type="text/javascript"><%@include file="js/cartAjax.js" %></script>
+    <script type="text/javascript"><%@include file="js/Cart.js" %></script>
     <%@ include file="_footer.html" %>
 </body>
 </html>

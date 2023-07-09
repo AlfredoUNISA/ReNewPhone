@@ -1,6 +1,6 @@
 <%@ page import="java.util.stream.Collectors"%>
-<%@ page import="rnpDAO.OrderDAODataSource,rnpDAO.UserDAODataSource,rnpDAO.ProductDAODataSource"%>
-<%@ page import="rnpBean.OrderBean,rnpBean.UserBean,rnpBean.ProductBean"%>
+<%@ page import="rnp.DAO.OrderDAODataSource,rnp.DAO.UserDAODataSource,rnp.DAO.ProductDAODataSource"%>
+<%@ page import="rnp.Bean.OrderBean,rnp.Bean.UserBean,rnp.Bean.ProductBean"%>
 <%@ page import="java.util.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -25,54 +25,81 @@
 </head>
 <body>
 	<div class="content">
-		<h2>Lista Prodotti</h2>
+		<h1>Lista Prodotti</h1>
 
-		<input type="button" class="slide-toggle" value="Apri Filtri"
-			id="myButton">
+
+		
 
 		<div class="filterBox">
+				<h2>Filtri:</h2><br>
 			<div class="box-inner">
-				<h5>Filtri:</h5>
+				
+
 				<fieldset id="priceRange">
+				<h3>
 					<input type="number" placeholder="Min" min="0" max="9999">
-					Prezzo <input type="number" placeholder="Max" min="0" max="9999">
+					Prezzo  <input type="number" placeholder="Max" min="0" max="9999">
+					</h3>
 				</fieldset>
+
+				
+				
 				<fieldset id="memoryRange">
-					<input type="number" placeholder="Min" min="0" max="9999">Gb
-					Spazio interno <input type="number" placeholder="Max" min="0"
-						max="9999">Gb
+					<h3><input type="number" placeholder="Min" min="0" max="9999">
+					Memoria Interna   <input type="number" placeholder="Max" min="0"
+						max="9999"></h3>
 				</fieldset>
+
+				
+				
 				<fieldset>
-					<label for="brandSelect">Brand</label> <select id="brandSelect">
+					<h3><label for="brandSelect">Brand</label> <select id="brandSelect">
 						<option value="Seleziona">Seleziona</option>
 						<option value="Apple">Apple</option>
 						<option value="Google">Google</option>
 						<option value="Samsung">Samsung</option>
 						<option value="Xiaomi">Xiaomi</option>
-					</select>
+					</select> </h3>
 				</fieldset>
+
+				
+				
 				<fieldset id="ramRange">
-					<input type="number" placeholder="Min" min="0" max="99">Gb
-					RAM <input type="number" placeholder="Max" min="0" max="99">Gb
+					<h3><input type="number" placeholder="Min" min="0" max="99">
+					 RAM(Gb) <input type="number" placeholder="Max" min="0" max="99"> </h3>
 				</fieldset>
+
+				
+				<fieldset id="yearRange">
+				<h3>
+					<input type="number" placeholder="Min" min="0" max="9999">
+					Anno(yyyy) <input type="number" placeholder="Max" min="0" max="9999">
+					</h3>
+				</fieldset>
+				
+				
+				</div>
+				<br>
+				<div class="content">
 				<input type="button" class="processButton" value="Conferma"
 					id="myButton1">
-			</div>
+				</div>
 		</div>
-
+		<br>
+		<input type="button" class="slide-toggle" value="Chiudi Filtri"
+			id="myButton">
 
 		<div class="productsGrid">
 
 
+			<script type="text/javascript"><%@include file="js/ProductFilter.js" %></script>
 
-			<script type="text/javascript"><%@include file="js/productsFilter.js" %></script>
-
-			<script type="text/javascript"><%@include file="js/productsAjax.js" %></script>
+			<script type="text/javascript"><%@include file="js/Products.js" %></script>
 		</div>
 
-		<button id="loadMoreButton">Carica Altro</button>
-		<button id="loadMoreFilteredButton" style="display: none">Carica
-			Altro</button>
+		<input type="button" id="loadMoreButton" value="Carica Altro">
+		<a href="#"> <input type="button"  value="Torna all'inizio">   </a>
+	
 
 	</div>
 

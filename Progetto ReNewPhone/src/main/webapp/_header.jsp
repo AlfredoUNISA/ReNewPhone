@@ -1,6 +1,6 @@
-<%@ page import="rnpSupport.Login"%>
-<%@page import="rnpDAO.UserDAODataSource"%>
-<%@page import="rnpBean.UserBean"%>
+<%@ page import="rnp.Support.Login"%>
+<%@page import="rnp.DAO.UserDAODataSource"%>
+<%@page import="rnp.Bean.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -47,6 +47,7 @@
 		    }
 		}
 	}
+	request.getSession().setAttribute("currentUserId", CURRENT_USER_ID);
 	//System.out.println("[header] CURRENT_USER_ID: " + CURRENT_USER_ID);
 	
 %>
@@ -83,7 +84,7 @@
 			<%if(IS_CURRENT_USER_ADMIN) {%>
 				<li><a href="admin.jsp">Pannello Admin</a>
 			<%} else {%>
-				<li><a href="UsedProductEval.jsp">Valura il tuo usato</a></li>
+				<li><a href="UsedProductEval.jsp">Valuta il tuo usato</a></li>
 				<li><a href="my-cart">Carrello</a></li>
 			<%} %>
 			

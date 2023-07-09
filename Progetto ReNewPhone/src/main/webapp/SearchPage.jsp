@@ -1,5 +1,5 @@
-<%@ page import="rnpDAO.ProductDAODataSource"%>
-<%@ page import="rnpBean.ProductBean"%>
+<%@ page import="rnp.DAO.ProductDAODataSource"%>
+<%@ page import="rnp.Bean.ProductBean"%>
 <%@ page import="java.util.*"%>
 
 <%@ page contentType="text/html; charset=UTF-8"%>
@@ -30,7 +30,7 @@
 		<h1>Ricerca prodotti</h1>
 		<form action="search" method="get">
 			<input type="text" name="q" value="<%=query%>">
-			<button type="submit">Cerca</button>
+			<input type="button" value="AVVIA RICERCA">
 		</form>
 
 		<%
