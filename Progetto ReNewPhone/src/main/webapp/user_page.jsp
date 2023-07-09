@@ -12,7 +12,7 @@
 <%@ include file="_header.jsp" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<%if(IS_CURRENT_USER_REGISTRED) {%>

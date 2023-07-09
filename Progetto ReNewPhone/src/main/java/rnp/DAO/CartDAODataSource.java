@@ -291,10 +291,25 @@ public class CartDAODataSource implements MethodsDAO<CartBean>, VariousHelper {
 
 		String selectSQL = "SELECT * FROM " + CartDAODataSource.TABLE_NAME + " WHERE id_user = ?"; 
 
+		// Qui non è possibile usare prepared statement per la order by
 		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+			// Effettua la validazione del parametro "order" per garantire che sia un valore sicuro e consentito
+	        String[] allowedColumns = { "id_user", "id_product", "quantity",
+	        		"id_user ASC", "id_product ASC", "quantity ASC",
+	        		"id_user DESC", "id_product DESC", "quantity DESC"};
+	        String sanitizedOrder = "";
 
+	        for (String column : allowedColumns) {
+	            if (column.equalsIgnoreCase(order)) {
+	                sanitizedOrder = column;
+	                break;
+	            }
+	        }
+
+	        if (!sanitizedOrder.isEmpty()) {
+	            selectSQL += " ORDER BY " + sanitizedOrder;
+	        }
+		}
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);

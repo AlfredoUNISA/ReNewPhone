@@ -17,7 +17,7 @@ if (!IS_CURRENT_USER_ADMIN) {
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <title>Admin - Modify</title>

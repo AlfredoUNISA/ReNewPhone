@@ -19,7 +19,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<!-- /my-cart -->
 	<link rel="stylesheet" href="css/style.css">

@@ -37,7 +37,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 
 	private static DataSource dataSource;
 	private static final String TABLE_NAME = "orders";
-	
+
 	private static final String CLASS_NAME = OrderDAODataSource.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 
@@ -45,9 +45,9 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 	static {
 		try {
 			Context initialContext = new InitialContext();
-			Context environmentContext = (Context) initialContext.lookup("java:comp/env"); 
+			Context environmentContext = (Context) initialContext.lookup("java:comp/env");
 
-			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb"); 
+			dataSource = (DataSource) environmentContext.lookup("jdbc/renewphonedb");
 
 		} catch (NamingException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
@@ -55,7 +55,9 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 	}
 
 	/**
-	 * Un bean viene inserito come una nuova riga nella tabella {@link #TABLE_NAME} usando una connessione al database.
+	 * Un bean viene inserito come una nuova riga nella tabella {@link #TABLE_NAME}
+	 * usando una connessione al database.
+	 * 
 	 * @param order Oggetto da inserire
 	 * @return L'id generato automaticamente dalla insert
 	 * @category INSERT
@@ -66,39 +68,36 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		
 		String insertSQL = "INSERT INTO " + OrderDAODataSource.TABLE_NAME
-                + " (id_user, total, order_date) VALUES (?, ?, ?)";
-		
+				+ " (id_user, total, order_date) VALUES (?, ?, ?)";
+
 		int generatedId = -1;
 
-		try { 
+		try {
 			connection = dataSource.getConnection();
 
 			preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
-			
 			preparedStatement.setInt(1, order.getId_user());
 			preparedStatement.setInt(2, order.getTotal());
-			
+
 			// Inserisce la data di oggi
 			preparedStatement.setDate(3, new Date(Calendar.getInstance().getTime().getTime()));
 
 			preparedStatement.executeUpdate();
-			
+
 			connection.setAutoCommit(false);
 			connection.commit();
-			
+
 			// Ottieni l'id generato
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	            	generatedId = generatedKeys.getInt(1);
-	            }
-	            else {
-	            	LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: No ID obtained in doSave.");
-	            }
-	        }
-			
+				if (generatedKeys.next()) {
+					generatedId = generatedKeys.getInt(1);
+				} else {
+					LOGGER.log(Level.SEVERE, "ERROR [" + CLASS_NAME + "]: No ID obtained in doSave.");
+				}
+			}
+
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -113,6 +112,7 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 
 	/**
 	 * Rimuove una riga dalla tabella {@link #TABLE_NAME} in base al codice.
+	 * 
 	 * @param id Il codice del prodotto da rimuovere.
 	 * @return L'esito della query.
 	 * @category DELETE
@@ -124,14 +124,13 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 
 		int result = 0;
 
-
-		String deleteSQL = "DELETE FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?"; 
+		String deleteSQL = "DELETE FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?";
 
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			
-			preparedStatement.setInt(1, id); 
+
+			preparedStatement.setInt(1, id);
 
 			result = preparedStatement.executeUpdate();
 
@@ -148,8 +147,11 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 	}
 
 	/**
-	 * Seleziona tutte le righe dalla tabella {@link #TABLE_NAME} e restituisce una collezione di oggetti.
-	 * @param sort Specifica l'ordine di ordinamento dei risultati (se non è nullo aggiunge ORDER BY alla query).
+	 * Seleziona tutte le righe dalla tabella {@link #TABLE_NAME} e restituisce una
+	 * collezione di oggetti.
+	 * 
+	 * @param sort Specifica l'ordine di ordinamento dei risultati (se non è nullo
+	 *             aggiunge ORDER BY alla query).
 	 * @return La collezione di oggetti contenente tutte le righe della tabella.
 	 * @category SELECT
 	 */
@@ -162,27 +164,42 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 
 		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME;
 
+		// Qui non è possibile usare prepared statement per la order by
 		if (sort != null && !sort.equals("")) {
-			selectSQL += " ORDER BY " + sort;
+			// Effettua la validazione del parametro "order" per garantire che sia un valore
+			// sicuro e consentito
+			String[] allowedColumns = { "id", "id_user", "total", "order_date", "id ASC", "id_user ASC", "total ASC",
+					"order_date ASC", "id DESC", "id_user DESC", "total DESC", "order_date DESC" };
+			String sanitizedOrder = "";
+
+			for (String column : allowedColumns) {
+				if (column.equalsIgnoreCase(sort)) {
+					sanitizedOrder = column;
+					break;
+				}
+			}
+
+			if (!sanitizedOrder.isEmpty()) {
+				selectSQL += " ORDER BY " + sanitizedOrder;
+			}
 		}
 
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			/*
-			if(sort != null && !sort.equals(""))
-				preparedStatement.setString(1, sort);
+			 * if(sort != null && !sort.equals("")) preparedStatement.setString(1, sort);
 			 */
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
 				OrderBean bean = new OrderBean();
-				
+
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
 				bean.setDate(rs.getDate("order_date"));
-				
+
 				orders.add(bean);
 			}
 
@@ -197,9 +214,11 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 		}
 		return orders;
 	}
-	
+
 	/**
-	 * Seleziona una singola riga dalla tabella {@link #TABLE_NAME} in base al codice.
+	 * Seleziona una singola riga dalla tabella {@link #TABLE_NAME} in base al
+	 * codice.
+	 * 
 	 * @param id Il codice del prodotto da ottenere.
 	 * @return Il bean ottenuto in base al codice.
 	 * @category SELECT
@@ -208,18 +227,18 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 	public synchronized OrderBean doRetrieveByKey(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		
+
 		OrderBean bean = new OrderBean();
-		
+
 		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id = ?";
-		
+
 		try {
-			connection = dataSource.getConnection();	
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id); 
+			preparedStatement.setInt(1, id);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				
+
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
@@ -236,9 +255,11 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 		}
 		return bean;
 	}
-	
+
 	/**
-	 * Seleziona una collezione di ordini dalla tabella {@link #TABLE_NAME} in base al codice utente.
+	 * Seleziona una collezione di ordini dalla tabella {@link #TABLE_NAME} in base
+	 * al codice utente.
+	 * 
 	 * @param id Il codice dell'utente.
 	 * @return La collezione di bean.
 	 * @category SELECT
@@ -246,30 +267,46 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 	public synchronized Collection<OrderBean> doRetrieveByUser(int idUser, String sort) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		
+
 		Collection<OrderBean> orders = new LinkedList<OrderBean>();
-		
-		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id_user = ?"; 
-		
+
+		String selectSQL = "SELECT * FROM " + OrderDAODataSource.TABLE_NAME + " WHERE id_user = ?";
+
+		// Qui non è possibile usare prepared statement per la order by
 		if (sort != null && !sort.equals("")) {
-			selectSQL += " ORDER BY " + sort;
+			// Effettua la validazione del parametro "order" per garantire che sia un valore
+			// sicuro e consentito
+			String[] allowedColumns = { "id", "id_user", "total", "order_date", "id ASC", "id_user ASC", "total ASC",
+					"order_date ASC", "id DESC", "id_user DESC", "total DESC", "order_date DESC" };
+			String sanitizedOrder = "";
+
+			for (String column : allowedColumns) {
+				if (column.equalsIgnoreCase(sort)) {
+					sanitizedOrder = column;
+					break;
+				}
+			}
+
+			if (!sanitizedOrder.isEmpty()) {
+				selectSQL += " ORDER BY " + sanitizedOrder;
+			}
 		}
-		
+
 		try {
-			connection = dataSource.getConnection();	
+			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, idUser);
-			
+
 			ResultSet rs = preparedStatement.executeQuery();
-			
-			while (rs.next()) {				
+
+			while (rs.next()) {
 				OrderBean bean = new OrderBean();
-				
+
 				bean.setId(rs.getInt("id"));
 				bean.setId_user(rs.getInt("id_user"));
 				bean.setTotal(rs.getInt("total"));
 				bean.setDate(rs.getDate("order_date"));
-				
+
 				orders.add(bean);
 			}
 		} finally {
@@ -284,4 +321,3 @@ public class OrderDAODataSource implements MethodsDAO<OrderBean>, VariousHelper 
 		return orders;
 	}
 }
-

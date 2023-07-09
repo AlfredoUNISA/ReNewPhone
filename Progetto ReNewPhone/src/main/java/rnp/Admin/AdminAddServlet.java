@@ -53,6 +53,8 @@ public class AdminAddServlet extends HttpServlet implements VariousHelper {
 			addRow(request, response);
 		} catch (ServletException | IOException | SQLException | InterruptedException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
+			
+			Thread.currentThread().interrupt();
 		}
 	}
 

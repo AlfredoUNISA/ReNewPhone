@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/search")
 public class SearchControl extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
-	static MethodsDAO<ProductBean> productDAO = new ProductDAODataSource();
+	static ProductDAODataSource productDAO = new ProductDAODataSource();
 	
 	private static final String CLASS_NAME = SearchControl.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);

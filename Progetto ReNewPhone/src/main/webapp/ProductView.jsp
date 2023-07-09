@@ -15,13 +15,13 @@
 <%@ include file="_header.jsp"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <!-- /products -->
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
-<title>Product List</title>
+<title>Prodotti</title>
 </head>
 <body>
 	<div class="content">
