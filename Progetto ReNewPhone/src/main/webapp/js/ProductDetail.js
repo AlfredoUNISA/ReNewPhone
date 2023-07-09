@@ -10,6 +10,7 @@ var currentDevice = {
 };
 
 var jsonCurrentDevice;
+var found;
 
 var currentUserId = '<%= CURRENT_USER_ID %>';
 var isAdmin = "<%= IS_CURRENT_USER_ADMIN %>";
@@ -64,6 +65,26 @@ $(document).ready(function () {
 	stateSelect.change(function (e) {
 		//console.clear();
 		findProductId();
+	});
+
+	$('#addToCartBtn').click(function (e) {
+		var currentProductQuantity = $('#quantitySelect').val();
+		$.ajax({
+			type: "POST",
+			url: "my-cart",
+			data: {
+				"action": "add",
+				"user": currentUserId,
+				"product": found.id,
+				"quantity": currentProductQuantity
+			},
+			success: function () {
+				alert("Prodotto aggiunto al carrello");
+			},
+			error: function () {
+				alert("Errore durante l'aggiunta al carrello");
+			}
+		});
 	});
 
 })
@@ -203,7 +224,6 @@ function loadState() {
  */
 function findProductId() {
 	// Cerca all'interno del json, l'id del prodotto in base a tutti i valori selezionati
-	var found;
 	jsonCurrentDevice.forEach(element => {
 		if (element.storage == storageSelect.val() && element.ram == ramSelect.val() && element.display_size == displaySizesSelect.val() &&
 			element.color == colorSelect.val() && element.state == stateSelect.val()) {
@@ -234,27 +254,6 @@ function findProductId() {
 				$("#quantityOption" + i).prop("disabled", true);
 		}
 	}
-
-	$('#addToCartBtn').click(function (e) {
-		var currentProductQuantity = $('#quantitySelect').val();
-		$.ajax({
-			type: "POST",
-			url: "my-cart",
-			data: {
-				"action": "add",
-				"user": currentUserId,
-				"product": found.id,
-				"quantity": currentProductQuantity
-			},
-			success: function () {
-				alert("Prodotto aggiunto al carrello");
-			},
-			error: function () {
-				alert("Errore durante l'aggiunta al carrello");
-			}
-		});
-	});
-
 
 	$("#priceContainer").html(found.price + " \u20AC");
 	// diminuisci la dimensione del font per remainingQuantityContainer
