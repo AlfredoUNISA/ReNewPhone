@@ -19,7 +19,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<!-- /users -->
 	<title>User List</title>

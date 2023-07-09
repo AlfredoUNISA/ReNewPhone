@@ -64,7 +64,7 @@ public class ProductServlet extends HttpServlet implements VariousHelper {
 			Gson gson = new GsonBuilder().create();
 			String json = gson.toJson(productDAO.doRetrieveByName(name));
 			
-			request.setAttribute("product-details", json.substring(0, json.length()));
+			request.setAttribute("product-details", json);
 			request.getServletContext().getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);

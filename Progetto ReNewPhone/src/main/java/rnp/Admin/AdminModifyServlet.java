@@ -66,6 +66,7 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 			}
 		} catch (ServletException | IOException | SQLException | InterruptedException e) {
 			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
+			Thread.currentThread().interrupt();
 		}
 	}
 
