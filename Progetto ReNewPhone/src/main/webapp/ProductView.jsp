@@ -86,6 +86,7 @@
 		</div>
 
 		<input type="button" id="loadMoreButton" value="Carica Altro">
+		<input type="button" id="loadMoreFilteredButton" value="Carica Altro">
 		<a href="#"> <input type="button"  value="Torna all'inizio">   </a>
 	
 

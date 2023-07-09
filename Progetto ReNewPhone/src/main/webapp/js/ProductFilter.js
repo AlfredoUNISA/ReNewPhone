@@ -1,7 +1,7 @@
 var productsPerLoading = 8; // Cambiare questo per modificare il numero anche nella servlet
 var countLoadings = 0;
 $(document).ready(function(){
-		
+		$('#loadMoreFilteredButton').hide();
 		$(".slide-toggle").click(function(){
 		toggleFilterPage();
 	})
