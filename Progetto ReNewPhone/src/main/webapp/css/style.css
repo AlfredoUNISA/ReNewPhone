@@ -509,27 +509,33 @@ nav a:hover {
 }
 
 .detailContainer {
-  display: flex;
+
+  flex-direction: column;
 }
+
+
 .detailProduct {
-	padding: 2em;
-  display: flex;
+  max-height: 2em;
+  padding: 1em;
+  display: wrap; 
+  border-collapse: collapse;
   border-radius: 10px;
   font-size: 0.8em;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-
   font-size: 1.5em;
   text-align: justify;
   margin-bottom: 1em;
-  margin-top: 2em;
+  margin-top: 1em;
+  margin-right: 1em;
   border: 1.5px solid #f2f6fa;
   border-radius: 10px;
   background-color: #f2f6fa;
-  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
-  margin-left: auto; 
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
 }
+
+
 
 .detailImage {
 	padding:2em;
