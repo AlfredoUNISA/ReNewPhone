@@ -65,15 +65,15 @@
 				
 				
 				<fieldset id="ramRange">
-					<h3><input type="number" placeholder="Min" min="0" max="99">
-					 RAM(Gb) <input type="number" placeholder="Max" min="0" max="99"> </h3>
+					<h3><input type="number" placeholder="Min" min="3" max="23">
+					 RAM(Gb) <input type="number" placeholder="Max" min="4" max="24"> </h3>
 				</fieldset>
 
 				
 				<fieldset id="yearRange">
 				<h3>
-					<input type="number" placeholder="Min" min="0" max="9999">
-					Anno(yyyy) <input type="number" placeholder="Max" min="0" max="9999">
+					<input type="number" placeholder="Min" min="2017" max="2022">
+					Anno(yyyy) <input type="number" placeholder="Max" min="2017" max="2023">
 					</h3>
 				</fieldset>
 				
