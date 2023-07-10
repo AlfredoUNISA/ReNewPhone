@@ -1,6 +1,7 @@
 package rnp.Support;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Base64;
@@ -90,62 +91,47 @@ public class Login extends HttpServlet implements VariousHelper {
 			return false;
 	}
 
-	static final String KEY = "UnaChiaveFissa16"; // La chiave fissa deve avere una lunghezza di 16 byte (128 bit) per
+	static final String KEY = "myFixedKey123456"; // La chiave fissa deve avere una lunghezza di 16 byte (128 bit) per
 	// l'algoritmo AES.
 
 	public static String encrypt(String strToEncrypt) throws Exception {
-		// Genera un vettore di inizializzazione (IV) casuale.
-		byte[] iv = new byte[16];
-		SecureRandom secureRandom = new SecureRandom();
-		secureRandom.nextBytes(iv);
-		GCMParameterSpec GCMPS= new GCMParameterSpec(iv.length, iv);
+		try {
+            byte[] keyBytes = KEY.getBytes(StandardCharsets.UTF_8);
+            SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
-		// Crea l'oggetto SecretKeySpec con la chiave fissa.
-		SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+            byte[] iv = new byte[12]; // Vettore di inizializzazione di 12 byte
+            GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(128, iv);
 
-		// Inizializza l'oggetto Cipher per l'operazione di crittografia.
-		Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-		cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, GCMPS);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, gcmParameterSpec);
 
-		// Crittografa la stringa fornita.
-		byte[] encryptedBytes = cipher.doFinal(strToEncrypt.getBytes("UTF-8"));
-
-		// Combina il vettore di inizializzazione e i dati crittografati come risultato
-		// finale.
-		byte[] combinedBytes = new byte[iv.length + encryptedBytes.length];
-		System.arraycopy(iv, 0, combinedBytes, 0, iv.length);
-		System.arraycopy(encryptedBytes, 0, combinedBytes, iv.length, encryptedBytes.length);
-
-		// Converte il risultato in una stringa base64 per una migliore
-		// rappresentazione.
-		return Base64.getEncoder().encodeToString(combinedBytes);
+            byte[] encryptedBytes = cipher.doFinal(strToEncrypt.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(encryptedBytes);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
+        }
+        return null;
 	}
 
 	public static String decrypt(String strToDecrypt) throws Exception {
-		// Decodifica la stringa base64 per ottenere i byte combinati (IV + dati
-		// crittografati).
-		byte[] combinedBytes = Base64.getDecoder().decode(strToDecrypt);
+		try {
+            byte[] keyBytes = KEY.getBytes(StandardCharsets.UTF_8);
+            SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
-		// Estrapola il vettore di inizializzazione (IV) dai byte combinati.
-		byte[] iv = new byte[16];
-		GCMParameterSpec GCMPS= new GCMParameterSpec(iv.length, iv);
-		System.arraycopy(combinedBytes, 0, iv, 0, iv.length);
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+            byte[] iv = new byte[12]; // Vettore di inizializzazione di 12 byte
+            GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(128, iv);
 
-		// Crea l'oggetto SecretKeySpec con la chiave fissa.
-		SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, gcmParameterSpec);
 
-		// Inizializza l'oggetto Cipher per l'operazione di decrittografia.
-		Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-		cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, GCMPS);
+            byte[] encryptedBytes = Base64.getDecoder().decode(strToDecrypt);
+            byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
 
-		// Decrittografa i dati esclusi il vettore di inizializzazione (IV).
-		byte[] encryptedBytes = new byte[combinedBytes.length - iv.length];
-		System.arraycopy(combinedBytes, iv.length, encryptedBytes, 0, encryptedBytes.length);
-
-		byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-
-		// Converte i byte decrittografati in una stringa.
-		return new String(decryptedBytes, "UTF-8");
+            return new String(decryptedBytes, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
+        }
+        return null;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
