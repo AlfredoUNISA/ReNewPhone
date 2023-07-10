@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -98,14 +98,14 @@ public class Login extends HttpServlet implements VariousHelper {
 		byte[] iv = new byte[16];
 		SecureRandom secureRandom = new SecureRandom();
 		secureRandom.nextBytes(iv);
-		IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+		GCMParameterSpec GCMPS= new GCMParameterSpec(iv.length, iv);
 
 		// Crea l'oggetto SecretKeySpec con la chiave fissa.
 		SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
 
 		// Inizializza l'oggetto Cipher per l'operazione di crittografia.
 		Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-		cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
+		cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, GCMPS);
 
 		// Crittografa la stringa fornita.
 		byte[] encryptedBytes = cipher.doFinal(strToEncrypt.getBytes("UTF-8"));
@@ -128,15 +128,15 @@ public class Login extends HttpServlet implements VariousHelper {
 
 		// Estrapola il vettore di inizializzazione (IV) dai byte combinati.
 		byte[] iv = new byte[16];
+		GCMParameterSpec GCMPS= new GCMParameterSpec(iv.length, iv);
 		System.arraycopy(combinedBytes, 0, iv, 0, iv.length);
-		IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
 		// Crea l'oggetto SecretKeySpec con la chiave fissa.
 		SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
 
 		// Inizializza l'oggetto Cipher per l'operazione di decrittografia.
 		Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-		cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+		cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, GCMPS);
 
 		// Decrittografa i dati esclusi il vettore di inizializzazione (IV).
 		byte[] encryptedBytes = new byte[combinedBytes.length - iv.length];
