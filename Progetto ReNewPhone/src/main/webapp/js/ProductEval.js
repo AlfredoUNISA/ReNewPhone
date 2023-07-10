@@ -13,6 +13,14 @@ $(document).ready(function () {
 		else
 			$("#formAfterModel").hide();
 	});
+	$("#storage").change(function (e) {
+		e.preventDefault();
+		var storageValue=$("#storage").val();
+		if (storageValue != "seleziona")
+			$('#formAfterStorage').show()
+		else
+			$("#formAfterStorage").hide();
+	});
 
 	$("#submitButton").click(function (e) {
 		e.preventDefault();
@@ -86,9 +94,9 @@ function sendEval() {
 	var marca = $("#brandSelect").val();
 	var modello = $("#modelSelect").val();
 	var condizione = $("#condizione").val();
-	var colore = $("#colore").val();
 	var storage = $("#storage").val();
-
+	if(storage==null || storage==0)
+		storage=1;
 	$.ajax({
 		url: "AjaxProductEvalServlet",
 		data: {

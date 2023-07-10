@@ -101,7 +101,7 @@ public class AjaxProductEvalServlet extends HttpServlet implements VariousHelper
 			evaluation += 250;
 		else
 			evaluation += 350;
-		System.out.println(condition);
+		//System.out.println(condition);
 		switch (condition) {
 		case "buona":
 			evaluation += 60;

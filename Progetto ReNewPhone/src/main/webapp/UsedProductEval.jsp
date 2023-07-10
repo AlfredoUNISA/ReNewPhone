@@ -28,33 +28,35 @@
 				<option value="seleziona">SELEZIONA</option>
 			</select> </label> 
 			
-		<fieldset id="formAfterBrand" class="fieldset">
+<fieldset id="formAfterBrand" class="fieldset">
 				<label for="modelSelect">Modello:<select id="modelSelect"
 					required>
 					<option value="seleziona">SELEZIONA</option>
 				</select></label> 
 
-<fieldset id="formAfterModel" class="fieldset">
-					<label for="storage">Spazio interno: <select
-						name="storage" id="storage" required>
+	<fieldset id="formAfterModel" class="fieldset">
+						<label for="storage">Spazio interno: <select
+							name="storage" id="storage" required>
+	
+							<option value="selezionaStorage">SELEZIONA</option>
+							<option value="64">64 Gb</option>
+							<option value="128">128 Gb</option>
+							<option value="256">256 Gb</option>
+						</select></label> 
 
-						<option value="64">64 Gb</option>
-						<option value="128">128 Gb</option>
-						<option value="256">256 Gb</option>
-					</select></label> 
-
-<fieldset id="formAfterStorage" class="fieldset">
-					<label for="condizione">Condizione: <select
-						name="condizione" id="condizione" required>
-
-						<option value="ottima">Ottima</option>
-						<option value="buona">Buona</option>
-						<option value="accettabile">Accettabile</option>
-					</select></label> 
-
-</fieldset>
+			<fieldset id="formAfterStorage" class="fieldset">
+								<label for="condizione">Condizione: <select
+									name="condizione" id="condizione" required>
+									
+									<option value="ottima">Ottima</option>
+									<option value="buona">Buona</option>
+									<option value="accettabile">Accettabile</option>
+									
+								</select></label> 
+			
+			</fieldset>
 	</fieldset>			
-	</fieldset>	
+</fieldset>	
 
 			<input type="submit" id="submitButton" value="Inserisci">
 		</form>
