@@ -269,3 +269,9 @@ function findProductId() {
 		$("#remainingQuantityContainer").html("Ancora " + found.quantity + " in magazzino");
 
 }
+
+
+  function closeBanner() {
+      var banner = document.querySelector('.banner');
+      banner.style.display = 'none';
+    }
