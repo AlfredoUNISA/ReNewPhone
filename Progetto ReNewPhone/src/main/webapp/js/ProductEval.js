@@ -101,7 +101,7 @@ function sendEval() {
 		type: "GET",
 		success: function (response) {
 			// Gestisci la risposta dal server
-			var html = '<h2><b> Il tuo ' + marca + ' ' + modello + '(' + storage + 'GB) ' + colore + ' vale= ' + response + '&euro;';
+			var html = '<h2><b> Il tuo ' + marca + ' ' + modello + '(' + storage + 'GB) '  + response + '&euro;';
 			$("#risultato").html(html);
 		},
 		error: function (e) {
