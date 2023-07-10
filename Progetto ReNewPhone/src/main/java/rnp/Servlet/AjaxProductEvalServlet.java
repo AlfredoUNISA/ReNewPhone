@@ -75,16 +75,16 @@ public class AjaxProductEvalServlet extends HttpServlet implements VariousHelper
 		// Calcolo del valore in base ad una logica per marca
 		switch (brand) {
 		case "Apple":
-			evaluation += 59;
+			evaluation += 129;
 			break;
 		case "Samsung":
-			evaluation += 39;
+			evaluation += 100;
 			break;
 		case "Google":
-			evaluation += 39;
+			evaluation += 79;
 			break;
 		case "Xiaomi":
-			evaluation += 19;
+			evaluation += 59;
 			break;
 		default:
 			evaluation += 29;
@@ -94,27 +94,29 @@ public class AjaxProductEvalServlet extends HttpServlet implements VariousHelper
 		if (storage <= 32)
 			;
 		else if (storage <= 64)
-			evaluation += 50;
+			evaluation += 70;
 		else if (storage <= 128)
 			evaluation += 150;
 		else if (storage <= 256)
-			evaluation += 200;
+			evaluation += 250;
 		else
-			evaluation += 300;
+			evaluation += 350;
 		System.out.println(condition);
 		switch (condition) {
 		case "buona":
-			evaluation += 40;
+			evaluation += 60;
 			break;
 		case "ottima":
-			evaluation += 60;
+			evaluation += 100;
 			break;
 		case "accetabile":
 			evaluation += 0;
 			break;
 		}
-		if (model.toLowerCase().contains("pro") || model.toLowerCase().contains("max"))
-			evaluation += 150;
+		if (model.toLowerCase().contains("pro") )
+			evaluation += 130;
+		if (model.toLowerCase().contains("pro max") || model.toLowerCase().contains("plus")|| model.toLowerCase().contains("ultra"))
+			evaluation += 170;
 		String json = gson.toJson(evaluation);
 
 		sendJsonResponse(response, json);
