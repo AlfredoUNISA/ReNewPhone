@@ -36,7 +36,9 @@
 		    for (Cookie cookie : cookies) {
 		        if (cookie.getName().equals("userCookie")) {
 		        	// Ottieni l'id dal cookie
-		        	CURRENT_USER_ID = Integer.parseInt(cookie.getValue());
+		        	String decripted = Login.decrypt(cookie.getValue());
+		        	CURRENT_USER_ID = Integer.parseInt(decripted);
+		        	System.out.println(CURRENT_USER_ID);
 		        	
 		        	UserDAODataSource dao = new UserDAODataSource();
 		    		CURRENT_USER_BEAN = dao.doRetrieveByKey(CURRENT_USER_ID);
