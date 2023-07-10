@@ -85,7 +85,7 @@ public class OrderServlet extends HttpServlet implements VariousHelper {
 	 * @return true se è admin, false altrimenti
 	 */
 	private boolean checkForAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Object session_obj = request.getSession().getAttribute("user");
+		Object session_obj = request.getSession().getAttribute("currentUserId");
 		int userId = -1;
 
 		if (session_obj != null)

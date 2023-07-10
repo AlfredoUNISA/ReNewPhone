@@ -93,6 +93,27 @@ $(document).ready(function () {
 		findProduct($("#searchIdSelect").val(), true);
 	});
 
+	$("#deleteButton").click(function (e) {
+		e.preventDefault();
+		if (confirm("Sei sicuro di voler eliminare il prodotto?")) {
+			$.ajax({
+				type: "POST",
+				url: "admin-modify",
+				data: {
+					action: "delete",
+					id: foundDevice.id,
+				},
+				success: function () {
+					alert("Eliminazione effettuata con successo");
+					location.reload();
+				},
+				error: function (e) {
+					alert("Error: " + e);
+				}
+			});
+		}
+	});
+
 })
 
 /**
@@ -123,7 +144,7 @@ function loadBrands() {
 }
 
 function updateBrandAndGoOn(response) {
-	console.log("Brands Disponibili: ") 
+	console.log("Brands Disponibili: ")
 	console.log(response);
 
 	currentDevice.brand = brandSelect.val();
@@ -165,7 +186,7 @@ function loadDevices() {
 }
 
 function updateDeviceAndGoOn(response) {
-	console.log("Dispositivi Disponibili: ") 
+	console.log("Dispositivi Disponibili: ")
 	console.log(response);
 
 	currentDevice.name = deviceSelect.val();
@@ -342,7 +363,7 @@ function findProduct(id, withID) {
 
 			foundDevice = response.product;
 			$("#result").empty();
-			
+
 			$("#result").append("ID: " + foundDevice.id + "<br>");
 			$("#result").append("Name: " + foundDevice.name + "<br>");
 			$("#result").append("Brand: " + foundDevice.brand + "<br>");
@@ -350,14 +371,14 @@ function findProduct(id, withID) {
 			$("#result").append("Storage: " + foundDevice.storage + " GB<br>");
 			$("#result").append("Display Size: " + foundDevice.display_size + " \"<br>");
 			$("#result").append("Category: " + foundDevice.category + "<br>");
-			$("#result").append("Price: " + foundDevice.price + " \u20AC<br>"); 
+			$("#result").append("Price: " + foundDevice.price + " \u20AC<br>");
 			$("#result").append("Quantity: " + foundDevice.quantity + "<br>");
 			$("#result").append("Color: " + foundDevice.color + "<br>");
 			$("#result").append("State: " + foundDevice.state + "<br>");
 			$("#result").append("Year: " + foundDevice.year + "<br>");
 			$("#result").append("Model: " + foundDevice.model + "<br>");
 
-		
+
 			$("#searchIdSelect").val(foundDevice.id);
 			startModify();
 		},
@@ -382,10 +403,10 @@ function startModify() {
 	$("#modifyRam").val(foundDevice.ram);
 	$("#modifyStorage").val(foundDevice.storage);
 	$("#modifyDisplay").val(foundDevice.display_size);
-	$("#modifyPrice").val(foundDevice.price); 
+	$("#modifyPrice").val(foundDevice.price);
 	$("#modifyQuantity").val(foundDevice.quantity);
 
-	$("#modifyButton").click(function (e) { 
+	$("#modifyButton").click(function (e) {
 		e.preventDefault();
 		$.ajax({
 			type: "POST",

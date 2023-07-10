@@ -59,6 +59,9 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 				case "modify":
 					modifyRow(request, response);
 					break;
+				case "delete":
+					deleteRow(request, response);
+					break;
 				case "getDeviceWithID":
 					getDeviceWithID(request, response);
 					break;
@@ -113,7 +116,7 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 	 * @return true se è admin, false altrimenti
 	 */
 	private boolean checkForAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Object session_obj = request.getSession().getAttribute("user");
+		Object session_obj = request.getSession().getAttribute("currentUserId");
 		int userId = -1;
 
 		if (session_obj != null)
@@ -207,5 +210,22 @@ public class AdminModifyServlet extends HttpServlet implements VariousHelper {
 
 		productDAO.doUpdate(product);
 
+	}
+	
+	private void deleteRow(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		try {
+			if (!productDAO.doDelete(id)) {
+				LOGGER.log(Level.WARNING, ANSI_YELLOW + "WARNING [" + CLASS_NAME + "]: Product not found for deleteRow (id = " + id + ")" + ANSI_RESET);
+			}
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
+			if (e instanceof java.sql.SQLIntegrityConstraintViolationException) {
+				// TODO: fare qualcosa se delle tabelle sono dipendenti da certi valori in
+				// questa riga da eliminare
+			}
+		}
 	}
 }
