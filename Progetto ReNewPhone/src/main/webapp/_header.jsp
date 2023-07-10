@@ -75,10 +75,7 @@
 			<li><a href="contact.jsp">Contatti</a></li>
 			<li><a href="products">Prodotti</a></li>
 		</ul>
-		<form class="cerca" action="search" method="get">
-			<input type="search" name="q" placeholder="Cerca...">
-			<button type="submit">Cerca</button>
-		</form>
+		
 		<ul class="pulsanti-destra">
 			
 			<%if(IS_CURRENT_USER_ADMIN) {%>

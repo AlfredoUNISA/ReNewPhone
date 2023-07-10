@@ -31,6 +31,10 @@
 			<h2>Filtri:</h2><br>
 			
 			<div class="box-inner">
+			
+				<label for="nameSearch">Cerca</label>
+				<input type="search" name="q" placeholder="Cerca..." id="nameSearch">
+				
 				<fieldset id="priceRange">
 				<h3>
 					<input type="number" placeholder="Min" min="0" max="9999">

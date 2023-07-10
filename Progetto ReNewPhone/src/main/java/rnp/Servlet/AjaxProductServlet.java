@@ -23,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import rnp.Bean.ProductBean;
 import rnp.DAO.ProductDAODataSource;
 
@@ -53,6 +54,7 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 		int yearMax = Integer.MAX_VALUE;
 		
 		String filterBrand = null;
+		String nameFilter = null;
 		
 		// Ottenimento dei valori dei filtri
 		if (request.getParameter("priceMin") != null && !request.getParameter("priceMin").isBlank()) {
@@ -82,6 +84,9 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 		if (request.getParameter("filterBrand") != null && !request.getParameter("filterBrand").isBlank()) {
 			filterBrand = request.getParameter("filterBrand");
 		}
+		if (request.getParameter("nameFilter") != null && !request.getParameter("nameFilter").isBlank()) {
+			nameFilter = request.getParameter("nameFilter");
+		}
 
 		if (request.getParameter("productsPerLoading") != null) {
 			productsPerLoading = Integer.parseInt(request.getParameter("productsPerLoading"));
@@ -94,7 +99,7 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 		// System.out.println("countLoadings: " + countLoadings);
 
 		loadProducts(request, response, productsPerLoading, countLoadings, priceMin, priceMax, memoryMin, memoryMax,
-				ramMin, ramMax, filterBrand,yearMin,yearMax);
+				ramMin, ramMax, filterBrand,yearMin,yearMax,nameFilter);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -104,9 +109,10 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 
 	protected void loadProducts(HttpServletRequest request, HttpServletResponse response, int productsPerLoading,
 			int countLoadings, int priceMin, int priceMax, int memoryMin, int memoryMax, int ramMin, int ramMax,
-			String filteredBrand, int yearMin, int yearMax) throws ServletException, IOException {
+			String filteredBrand, int yearMin, int yearMax, String nameFilter) throws ServletException, IOException {
 		try {
 			Boolean filterStringWasNull = true; // default
+			Boolean filterNameWasNull = true; // default
 			// Prendi tutti i prodotti dal database
 			LinkedList<ProductBean> listProducts = (LinkedList<ProductBean>) productDAO.doRetrieveAll(null);
 
@@ -117,18 +123,26 @@ public class AjaxProductServlet extends HttpServlet implements VariousHelper {
 																								// prodotti rientrino
 																								// nei filtri
 				filterStringWasNull = false;
+			if (nameFilter != null && nameFilter.compareToIgnoreCase("Cerca...") != 0)  // Controllo che i
+																						// prodotti rientrino
+																						// nei filtri
+				filterNameWasNull = false;
 			// Aggiungi tutti i prodotti alla mappa raggruppandoli per nome
 			for (ProductBean product : listProducts) {
 				if (filterStringWasNull)
 					filteredBrand = product.getBrand();
+				if (filterNameWasNull)
+					nameFilter = product.getName();
 				String productName = product.getName();
+				int score = FuzzySearch.partialRatio(nameFilter.toLowerCase(), product.getName().toLowerCase());
 
 				if (priceMin <= product.getPrice() // Nel caso non ci siano filtri specifici
 						&& priceMax >= product.getPrice()// Tutti i prodotti passeranno per via dei valori di default
 						&& memoryMin <= product.getStorage() && memoryMax >= product.getStorage()
 						&& ramMin <= product.getRam() && ramMax >= product.getRam()
 						&& yearMin <= product.getYear() && yearMax >= product.getYear()
-						&& filteredBrand.compareToIgnoreCase(product.getBrand()) == 0) {
+						&& filteredBrand.compareToIgnoreCase(product.getBrand()) == 0
+						&& score>=67) {
 
 					// Controlla se il nome del prodotto è già presente nella mappa
 					if (groupedProducts.containsKey(productName)) {
