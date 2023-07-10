@@ -28,74 +28,62 @@ if (!IS_CURRENT_USER_ADMIN) {
 		<h1>Seleziona il prodotto da modificare</h1>
 
 		<div id="ricerca">
-			<label for="brandSelect">Brand:</label> <select id="brandSelect"
-				required></select><br>
-			<br>
-
-			<div id="formAfterBrand">
-				<label for="deviceSelect">Dispositivo:</label> <select
-					id="deviceSelect" required>
-					<option value="0">Seleziona prima un brand</option>
-				</select><br>
-				<br>
-
-				<div id="formAfterDevice">
-					<label for="storageSelect">Spazio interno:</label> <select
-						id="storageSelect" required>
-						<option value="0">Seleziona prima un dispositivo</option>
-					</select><br>
-					<br>
-
-					<div id="formAfterStorage">
-						<label for="ramSelect">RAM:</label> <select id="ramSelect"
-							required>
-							<option value="0">Seleziona prima uno spazio interno</option>
-						</select><br>
-						<br>
-
-						<div id="formAfterRam">
-							<label for="displaySizesSelect">Schermo:</label> <select
-								id="displaySizesSelect" required>
-								<option value="0">Seleziona prima la ram</option>
-							</select><br>
-							<br>
-
-							<div id="formAfterDisplaySize">
-								<label for="colorSelect">Colore:</label> <select
-									id="colorSelect" required>
-									<option value="0">Seleziona prima uno schermo</option>
-								</select><br>
-								<br>
-
-								<div id="formAfterColor">
-									<label for="stateSelect">Condizione:</label> <select
-										id="stateSelect" required>
-										<option value="0">Seleziona prima un colore</option>
-									</select><br>
-									<br>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<label for="brandSelect">Brand:</label> 
+			<select id="brandSelect" required></select><br><br> 
+			
+			<label for="deviceSelect">Dispositivo:</label>
+			<select id="deviceSelect" required>
+				<option value="0">Seleziona prima un brand</option>
+			</select><br><br> 
+			
+			<label for="storageSelect">Spazio interno:</label> 
+			<select id="storageSelect" required>
+				<option value="0">Seleziona prima un dispositivo</option>
+			</select><br><br> 
+			
+			<label for="ramSelect">RAM:</label> 
+			<select id="ramSelect" required>
+				<option value="0">Seleziona prima uno spazio interno</option>
+			</select><br><br> 
+			
+			<label for="displaySizesSelect">Schermo:</label>
+			<select id="displaySizesSelect" required>
+				<option value="0">Seleziona prima la ram</option>
+			</select><br><br> 
+			
+			<label for="colorSelect">Colore:</label> 
+			<select	id="colorSelect" required>
+				<option value="0">Seleziona prima uno schermo</option>
+			</select><br><br> 
+			
+			<label for="stateSelect">Condizione:</label> 
+			<select id="stateSelect" required>
+				<option value="0">Seleziona prima un colore</option>
+			</select><br><br>
 		</div>
+		
 		<div id="searchId">
 			<h2>Oppure</h2>
 			<input type="checkbox" id="searchIdCheck">Ricerca tramite id
+			<b>ID: </b> <input type="number" id="searchIdSelect" min="1" value="1"><br><br>
+			<button id="searchButton">Cerca</button>
 		</div>
-		<b>ID: </b> <input type="number" id="searchIdSelect" min="1" value="1"><br><br>
-		<button id="searchButton">Cerca</button>
 		
+
 		<div id="modifyForm">
 			<hr>
 			<h2>Modifica</h2>
 			<p id="result"></p>
-			RAM: <input type="number" id="modifyRam" min="1" required><br><br>
-			Storage: <input type="number" id="modifyStorage" min="1" required><br><br>
-			Display: <input type="number" id="modifyDisplay" min="1" required><br><br>
-			Price: <input type="number" id="modifyPrice" min="1" required><br><br>
-			Quantity: <input type="number" id="modifyQuantity" min="1" required><br><br>
+			RAM: <input type="number" id="modifyRam" min="1" required><br>
+			<br> Storage: <input type="number" id="modifyStorage" min="1"
+				required><br>
+			<br> Display: <input type="number" id="modifyDisplay" min="1"
+				required><br>
+			<br> Price: <input type="number" id="modifyPrice" min="1"
+				required><br>
+			<br> Quantity: <input type="number" id="modifyQuantity" min="1"
+				required><br>
+			<br>
 			<button id="modifyButton">Modifica</button>
 		</div>
 

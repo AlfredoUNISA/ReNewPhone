@@ -1,7 +1,7 @@
 var productsPerLoading = 8; // Cambiare questo per modificare il numero anche nella servlet
 var countLoadings = 0;
 $(document).ready(function(){
-		
+		$('#loadMoreFilteredButton').hide();
 		$(".slide-toggle").click(function(){
 		toggleFilterPage();
 	})
@@ -51,6 +51,7 @@ function filterProducts() {
 				  $("#brandSelect").val(GetParameterValues('brandSelect'))
 			  	  var brand=GetParameterValues('brandSelect');
 			  	}
+			  var nameFilter= $("#nameSearch").val();
 			  var priceMin = $("#priceRange input:first-of-type").val();
 			  var priceMax = $("#priceRange input:last-of-type").val();
 			  var memoryMin = $("#memoryRange input:first-of-type").val();
@@ -67,14 +68,26 @@ function filterProducts() {
 			  //console.log(brand);
 			  //console.log(ramMin);
 			  //console.log(ramMax);
-			  loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,brand,ramMin,ramMax,yearMin,yearMax);
+			  loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,brand,ramMin,ramMax,yearMin,yearMax,nameFilter);
 			 
 }
-function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBrand,ramMin,ramMax,yearMin,yearMax) {
+function loadMoreFilteredProducts(priceMin,priceMax,memoryMin,memoryMax,filterBrand,ramMin,ramMax,yearMin,yearMax,nameFilter) {
 	$.ajax({
-		url: 'AjaxProductServlet?countLoadings=' + countLoadings + '&productsPerLoading=' + productsPerLoading +
-		'&priceMin=' + priceMin + '&priceMax='+priceMax+'&memoryMin='+memoryMin+ '&memoryMax='+memoryMax+
-		'&ramMin='+ramMin+ '&ramMax='+ramMax+ '&filterBrand='+filterBrand+'&yearMin='+yearMin+'&yearMax='+yearMax,
+		url: 'AjaxProductServlet',
+		data:{
+			countLoadings: countLoadings,
+			productsPerLoading: productsPerLoading,
+			priceMin: priceMin,
+			priceMax: priceMax,
+			memoryMin: memoryMin,
+			memoryMax: memoryMax,
+			ramMin: ramMin,
+			ramMax: ramMax,
+			filterBrand: filterBrand,
+			yearMin: yearMin,
+			yearMax: yearMax,
+			nameFilter:nameFilter	
+		},
 		success: function (response) {
 			// Recupera il JSON dei prodotti
 			var resultJSON = response;

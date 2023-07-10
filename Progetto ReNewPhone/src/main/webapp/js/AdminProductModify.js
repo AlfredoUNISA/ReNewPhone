@@ -161,8 +161,6 @@ function loadDevices() {
 				alert("Errore: " + e);
 			}
 		});
-	} else {
-		//$("#formAfterBrand").hide();
 	}
 }
 

@@ -27,30 +27,26 @@
 	<div class="content">
 		<h1>Lista Prodotti</h1>
 
-
-		
-
 		<div class="filterBox">
-				<h2>Filtri:</h2><br>
+			<h2>Filtri:</h2><br>
+			
 			<div class="box-inner">
+			
+				<label for="nameSearch">Cerca</label>
+				<input type="search" name="q" placeholder="Cerca..." id="nameSearch">
 				
-
 				<fieldset id="priceRange">
 				<h3>
 					<input type="number" placeholder="Min" min="0" max="9999">
 					Prezzo  <input type="number" placeholder="Max" min="0" max="9999">
 					</h3>
 				</fieldset>
-
-				
 				
 				<fieldset id="memoryRange">
 					<h3><input type="number" placeholder="Min" min="0" max="9999">
 					Memoria Interna   <input type="number" placeholder="Max" min="0"
 						max="9999"></h3>
 				</fieldset>
-
-				
 				
 				<fieldset>
 					<h3><label for="brandSelect">Brand</label> <select id="brandSelect">
@@ -61,43 +57,40 @@
 						<option value="Xiaomi">Xiaomi</option>
 					</select> </h3>
 				</fieldset>
-
-				
 				
 				<fieldset id="ramRange">
-					<h3><input type="number" placeholder="Min" min="0" max="99">
-					 RAM(Gb) <input type="number" placeholder="Max" min="0" max="99"> </h3>
+					<h3><input type="number" placeholder="Min" min="3" max="23">
+					 RAM(Gb) <input type="number" placeholder="Max" min="4" max="24"> </h3>
 				</fieldset>
-
 				
 				<fieldset id="yearRange">
 				<h3>
-					<input type="number" placeholder="Min" min="0" max="9999">
-					Anno(yyyy) <input type="number" placeholder="Max" min="0" max="9999">
+					<input type="number" placeholder="Min" min="2017" max="2022">
+					Anno(yyyy) <input type="number" placeholder="Max" min="2017" max="2023">
 					</h3>
 				</fieldset>
 				
-				
-				</div>
-				<br>
-				<div class="content">
-				<input type="button" class="processButton" value="Conferma"
-					id="myButton1">
-				</div>
+			</div>
+			
+			<br>
+			
+			<div class="content">
+				<input type="button" class="processButton" value="Conferma" id="myButton1">
+			</div>
 		</div>
+
 		<br>
-		<input type="button" class="slide-toggle" value="Chiudi Filtri"
-			id="myButton">
+
+		<input type="button" class="slide-toggle" value="Chiudi Filtri" id="myButton">
 
 		<div class="productsGrid">
-
-
 			<script type="text/javascript"><%@include file="js/ProductFilter.js" %></script>
 
 			<script type="text/javascript"><%@include file="js/Products.js" %></script>
 		</div>
 
 		<input type="button" id="loadMoreButton" value="Carica Altro">
+		<input type="button" id="loadMoreFilteredButton" value="Carica Altro">
 		<a href="#"> <input type="button"  value="Torna all'inizio">   </a>
 	
 

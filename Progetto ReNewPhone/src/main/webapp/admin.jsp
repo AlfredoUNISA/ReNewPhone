@@ -33,10 +33,6 @@ if (!IS_CURRENT_USER_ADMIN) {
 			<input type="submit" value="Aggiungi elemento">
 		</form>
 
-		<form method="get" action="admin_hide-show.jsp">
-			<input type="submit" value="Mostra/Nascondi elemento">
-		</form>
-
 		<form method="get" action="admin_modify.jsp">
 			<input type="submit" value="Modifica elemento">
 		</form>

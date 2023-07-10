@@ -15,10 +15,10 @@
 --%>
 <%@ include file="_header.jsp"%>
 <%
-String name = request.getParameter("name");
-ProductDAODataSource productDAO = new ProductDAODataSource();
-List<ProductBean> listProductBean = (List<ProductBean>) productDAO.doRetrieveByName(name);
-ProductBean productSample = listProductBean.get(0);
+List<?> listProductBean = (List<?>) request.getAttribute("product-details-list");
+//System.out.println("Lista in jsp:" + listProductBean);
+ProductBean productSample = (ProductBean) listProductBean.get(0);
+//System.out.println("ProductBean:" + productSample);
 String model = productSample.getModel();
 %>
 
@@ -27,71 +27,73 @@ String model = productSample.getModel();
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript"><%@include file="js/ProductDetails.js" %></script>
+<script type="text/javascript"><%@include file="js/ProductDetail.js" %></script>
 <title><%=productSample.getName()%></title>
 </head>
 <body>
 
 	<div class="content">
 
-<i><div class="messaggio"><%=productSample.getName()%></div></i> 
+		<i><div class="messaggio"><%=productSample.getName()%></div></i>
 
-<div class="detailContainer">
-  <img class="detailImage" alt="<%=model%>" src="resources/<%=model%>.jpg"> 
-  <div class="detailProduct">
- 
-      
-        <div id="categoryContainer"></div>
-       <div id="brandContainer"></div>
-        <div id="yearContainer"></div>
-      
+		<div class="detailContainer">
+			<img class="detailImage" alt="<%=model%>"
+				src="resources/<%=model%>.jpg">
+			<div class="detailProduct">
 
-    <div id="ramContainer"></div>
-    <div id="displaySizeContainer"></div>
-    <div id="storageContainer"></div>
-    <br>
-    <div id="colorContainer"></div>
-    <br>
-    <div id="colorContainer"></div>
-    <div id="stateContainer"></div>
-   
-   
-    <div id="quantityContainer"></div>
-    <div id="idContainer"></div>
-   <div class="messaggio-prezzo"> <div id="priceContainer"></div>   </div>
-      <div class="buyProduct">
-   
-  <h5>Seleziona la quantità: 
-  <select id="quantitySelect">
-    <option id="quantityOption1" value="1">1</option>
-    <option id="quantityOption2" value="2">2</option>
-    <option id="quantityOption3" value="3">3</option>
-    <option id="quantityOption4" value="4">4</option>
-    <option id="quantityOption5" value="5">5</option>
-  </select>
-  </h5>
-  <input type="button" id="addToCartBtn" value="Aggiungi al carrello">
+				<div id="ricerca">
+					<label for="brandName">Brand:</label> 
+					<p id="brandName"><%=productSample.getBrand()%></p>
+					
+					<label for="storageSelect">Spazio interno:</label> 
+					<select id="storageSelect" required>
+						<option value="0">Seleziona prima un dispositivo</option>
+					</select><br><br> 
+					
+					<label for="ramSelect">RAM:</label> 
+					<select id="ramSelect" required>
+						<option value="0">Seleziona prima uno spazio interno</option>
+					</select><br><br> 
+					
+					<label for="displaySizesSelect">Schermo:</label>
+					<select id="displaySizesSelect" required>
+						<option value="0">Seleziona prima la ram</option>
+					</select><br><br> 
+					
+					<label for="colorSelect">Colore:</label> 
+					<select	id="colorSelect" required>
+						<option value="0">Seleziona prima uno schermo</option>
+					</select><br><br> 
+					
+					<label for="stateSelect">Condizione:</label> 
+					<select id="stateSelect" required>
+						<option value="0">Seleziona prima un colore</option>
+					</select><br><br>
+				</div>
 
-</div>
-
-
-  </div>
-
-
-</div>
-
-
-
-		<%
-		if (IS_CURRENT_USER_ADMIN) {
-		%>
-		<div class="modifyProduct">
-			<form id="modifyProductForm" method="get"></form>
+				<div id="idContainer"></div>
+				
+	<div class="messaggio-prezzo">
+				<b>	<div id="priceContainer"></div></b>
+	</div>	
+				<div class="buyProduct">
+					<h6>
+						Seleziona la quantità: <select id="quantitySelect">
+							<option id="quantityOption1" value="1">1</option>
+							<option id="quantityOption2" value="2">2</option>
+							<option id="quantityOption3" value="3">3</option>
+							<option id="quantityOption4" value="4">4</option>
+							<option id="quantityOption5" value="5">5</option>
+						</select>
+						<i><div id="remainingQuantityContainer"></div></i>
+					</h6>
+					<input type="button" id="addToCartBtn" value="Aggiungi al carrello">
+					</div>
+							
+				
+			</div>
+				
 		</div>
-		<%
-		}
-		%>
-
 	</div>
 
 	<%@ include file="_footer.html"%>

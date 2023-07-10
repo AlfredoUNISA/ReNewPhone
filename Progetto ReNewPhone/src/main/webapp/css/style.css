@@ -163,11 +163,11 @@ input[type="email"]:invalid {
 	justify-content: center;
 	background-color: #4F5D75;
 	border-radius: 25px;
-	color: white;
+	color: #ffffff;
 	border: none;
 	margin-left: 2em;
 	margin-right: 2em;
-	color: white;
+	
 	border: none;
 }
 
@@ -510,11 +510,12 @@ nav a:hover {
 
 .detailContainer {
   display: flex;
+    justify-content: center;
+  
 }
 .detailProduct {
 	padding: 2em;
   display: flex;
-  border-radius: 10px;
   font-size: 0.8em;
   flex-wrap: wrap;
   align-items: center;
@@ -523,12 +524,11 @@ nav a:hover {
   font-size: 1.5em;
   text-align: justify;
   margin-bottom: 1em;
-  margin-top: 2em;
+  margin-top: 1em;
   border: 1.5px solid #f2f6fa;
   border-radius: 10px;
   background-color: #f2f6fa;
   box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
-  margin-left: auto; 
 }
 
 .detailImage {
@@ -537,6 +537,43 @@ nav a:hover {
   height: 41em;
   
 }
+
+#ricerca select {
+  width: 200px;
+  padding: 5px;
+  font-size: 0.7em;
+  margin-bottom: 10px;
+}
+
+#ricerca select option {
+  padding: 5px;
+}
+
+/* Stile per le label */
+label {
+  	padding: 2em;
+  display: center;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  text-align: center;
+  margin-bottom: 1em;
+  margin-top: 1.2em;
+  border: 1.5px solid #f2f6fa;
+  border-radius: 10px;
+  background-color: #f2f6fa;
+  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#label select {
+  width: 200px;
+  padding: 5px;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
 
 
 
@@ -595,7 +632,6 @@ nav a:hover {
 .box-inner {
 	display: flex;
 	flex-direction: row;
-	/*float:top-left; */
 	animation: left-slide;
 	justify-content: center;
 	text-align: center;
@@ -609,8 +645,8 @@ nav a:hover {
 
 .productEvalFieldSet {
 	display: none;
-	border: 0;
-	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+	border: none;
+		border-radius: 10px;
 }
 
 /* Stile perhomepage*/
@@ -704,10 +740,10 @@ brand:hover {
 	border: none;
 }
 
-.productEvalFieldSet {
+.fieldset {
 	display: none;
 	border: 0;
-	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+
 }
 
 /* Stile perhomepage*/
