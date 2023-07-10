@@ -1,5 +1,7 @@
 package rnp.Support;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
@@ -90,12 +92,31 @@ public class Login extends HttpServlet implements VariousHelper {
 		else
 			return false;
 	}
+	
+	static final String FILE_PATH = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\WEB-INF\\key.txt";
+	
+	private static String readFileAsString() {
+        StringBuilder content = new StringBuilder();
 
-	static final String KEY = "myFixedKey123456"; // La chiave fissa deve avere una lunghezza di 16 byte (128 bit) per
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+                content.append(System.lineSeparator());
+            }
+        } catch (IOException e) {
+			LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
+		}
+
+        return content.toString().strip();
+    }
+	
+	static final String KEY = readFileAsString(); // La chiave fissa deve avere una lunghezza di 16 byte (128 bit) per
 	// l'algoritmo AES.
 
 	public static String encrypt(String strToEncrypt) throws Exception {
 		try {
+			System.out.println(KEY + ", bytes: " + KEY.getBytes().length);
             byte[] keyBytes = KEY.getBytes(StandardCharsets.UTF_8);
             SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
@@ -115,6 +136,7 @@ public class Login extends HttpServlet implements VariousHelper {
 
 	public static String decrypt(String strToDecrypt) throws Exception {
 		try {
+			System.out.println(KEY + ", bytes: " + KEY.getBytes().length);
             byte[] keyBytes = KEY.getBytes(StandardCharsets.UTF_8);
             SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
