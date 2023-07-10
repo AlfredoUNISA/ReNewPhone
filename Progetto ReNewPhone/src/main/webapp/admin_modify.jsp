@@ -85,6 +85,9 @@ if (!IS_CURRENT_USER_ADMIN) {
 				required><br>
 			<br>
 			<button id="modifyButton">Modifica</button>
+			<br><br><br>
+			<p>Oppure Elimina</p>
+			<button id="deleteButton">ELIMINA</button>
 		</div>
 
 	</div>

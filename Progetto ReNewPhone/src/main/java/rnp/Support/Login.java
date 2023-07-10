@@ -60,15 +60,15 @@ public class Login extends HttpServlet implements VariousHelper {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", id);
 
-			System.out.println("Normale: " + Integer.toString(id));
+			//System.out.println("Normale: " + Integer.toString(id));
 			String encr = null;
-			String decript = null;
+			//String decript = null;
 			try {
 				encr = encrypt(Integer.toString(id));
-				System.out.println("Criptata: " + encr);
+				//System.out.println("Criptata: " + encr);
 				
-				decript = decrypt(encr);
-				System.out.println("Decriptata: " + decript);
+				//decript = decrypt(encr);
+				//System.out.println("Decriptata: " + decript);
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, ANSI_RED + "ERROR [" + CLASS_NAME + "]: " + e.getMessage() + ANSI_RESET);
 			}
@@ -100,7 +100,7 @@ public class Login extends HttpServlet implements VariousHelper {
         
         // Per motivi di portabilità del progetto, se il path non esiste viene utilitzzata la seguente key
         if(!new File(FILE_PATH).exists()) {
-        	System.out.println("Il path non esiste");
+        	//System.out.println("Il path non esiste");
         	return "myFixedKey123456";	
         }
 
@@ -122,7 +122,7 @@ public class Login extends HttpServlet implements VariousHelper {
 
 	public static String encrypt(String strToEncrypt) throws Exception {
 		try {
-			System.out.println(KEY + ", bytes: " + KEY.getBytes().length);
+			//System.out.println(KEY + ", bytes: " + KEY.getBytes().length);
             byte[] keyBytes = KEY.getBytes(StandardCharsets.UTF_8);
             SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
@@ -142,13 +142,13 @@ public class Login extends HttpServlet implements VariousHelper {
 
 	public static String decrypt(String strToDecrypt) throws Exception {
 		try {
-			System.out.println(KEY + ", bytes: " + KEY.getBytes().length);
+			//System.out.println(KEY + ", bytes: " + KEY.getBytes().length);
             byte[] keyBytes = KEY.getBytes(StandardCharsets.UTF_8);
             SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
             Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             byte[] iv = new byte[12]; // Vettore di inizializzazione di 12 byte
-            System.out.println("iv len: " + iv.length);
+            //System.out.println("iv len: " + iv.length);
             GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(128, iv);
 
             cipher.init(Cipher.DECRYPT_MODE, secretKey, gcmParameterSpec);

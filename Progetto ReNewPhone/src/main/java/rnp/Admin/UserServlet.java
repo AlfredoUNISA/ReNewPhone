@@ -40,9 +40,11 @@ public class UserServlet extends HttpServlet implements VariousHelper {
 			case "add":
 				addRow(request, response);
 				break;
+			/*
 			case "delete":
 				deleteRow(request, response);
 				break;
+			*/
 			default:
 				response.sendRedirect(request.getContextPath());
 				break;
@@ -130,6 +132,7 @@ public class UserServlet extends HttpServlet implements VariousHelper {
 	/**
 	 * Elimina una riga dalla table del database.
 	 */
+	/*
 	private void deleteRow(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -146,6 +149,7 @@ public class UserServlet extends HttpServlet implements VariousHelper {
 			}
 		}
 	}
+	*/
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
