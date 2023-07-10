@@ -13,47 +13,48 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<title>Homepage</title>
+<title>Valutazione Usato</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 	<div class="content">
-
+		
 		<h1>Valuta il tuo usato !</h1>
 
 		<form id="inserimentoForm">
-			<label for="brandSelect">Brand</label> 
+			<label for="brandSelect">Brand
 			<select id="brandSelect" required>
 				<option value="seleziona">SELEZIONA</option>
-			</select> <br>
+			</select> </label> 
 			
-			<fieldset id="formAfterBrand" class="productEvalFieldSet">
-				<label for="modelSelect">Modello:</label> <select id="modelSelect"
+		<fieldset id="formAfterBrand" class="fieldset">
+				<label for="modelSelect">Modello:<select id="modelSelect"
 					required>
 					<option value="seleziona">SELEZIONA</option>
-				</select>
+				</select></label> 
 
-				<fieldset id="formAfterModel" class="productEvalFieldSet">
-					<label for="storage">Spazio interno:</label> <input type="number"
-						name="storage" id="storage" min="1" max="9999" required><br>
+<fieldset id="formAfterModel" class="fieldset">
+					<label for="storage">Spazio interno: <select
+						name="storage" id="storage" required>
 
-					<label for="condizione">Condizione:</label> <select
+						<option value="64">64 Gb</option>
+						<option value="128">128 Gb</option>
+						<option value="256">256 Gb</option>
+					</select></label> 
+
+<fieldset id="formAfterStorage" class="fieldset">
+					<label for="condizione">Condizione: <select
 						name="condizione" id="condizione" required>
 
 						<option value="ottima">Ottima</option>
 						<option value="buona">Buona</option>
 						<option value="accettabile">Accettabile</option>
-					</select><br> <label for="colore">Colore:</label> <input type="text"
-						name="colore" id="colore" size="30" required><br> <br>
+					</select></label> 
 
-
-				</fieldset>
-
-
-			</fieldset>
-
-
+</fieldset>
+	</fieldset>			
+	</fieldset>	
 
 			<input type="submit" id="submitButton" value="Inserisci">
 		</form>
@@ -62,13 +63,8 @@
 
 
 
-
-
-
-
-
-
 	</div>
+
 	<script type="text/javascript"><%@include file="js/ProductEval.js" %></script>
 	<%@ include file="_footer.html"%>
 </body>
