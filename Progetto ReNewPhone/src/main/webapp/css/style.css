@@ -166,10 +166,9 @@ input[type="email"]:invalid {
 	border: none;
 	margin-left: 2em;
 	margin-right: 2em;
-<<<<<<< Updated upstream
-=======
+
 	border: none;
->>>>>>> Stashed changes
+
 }
 
 .messaggio-var {
@@ -513,8 +512,8 @@ nav a:hover {
 
 .detailProduct {
 	padding: 2em;
-<<<<<<< Updated upstream
   display: flex;
+  font-size: 0.8em;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
@@ -527,21 +526,6 @@ nav a:hover {
   border-radius: 10px;
   background-color: #f2f6fa;
   box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
-=======
-	display: flex;
-	font-size: 0.8em;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	font-size: 1.5em;
-	text-align: justify;
-	margin-bottom: 1em;
-	margin-top: 1em;
-	border: 1.5px solid #f2f6fa;
-	border-radius: 10px;
-	background-color: #f2f6fa;
-	box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
->>>>>>> Stashed changes
 }
 
 .detailImage {
@@ -562,22 +546,8 @@ nav a:hover {
 }
 
 /* Stile per le label */
-<<<<<<< Updated upstream
-label {
-  	padding: 2em;
-  display: center;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2em;
-  text-align: center;
-  margin-bottom: 1em;
-  margin-top: 1.2em;
-  border: 1.5px solid #f2f6fa;
-  border-radius: 10px;
-  background-color: #f2f6fa;
-  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
-=======
+
+
 .label-2 {
 	padding: 2em;
 	display: center;
@@ -592,7 +562,7 @@ label {
 	border-radius: 10px;
 	background-color: #f2f6fa;
 	box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
->>>>>>> Stashed changes
+
 }
 
 #label select {
@@ -672,7 +642,7 @@ label {
 	display: none;
 	border: none;
 	border-radius: 10px;
-<<<<<<< Updated upstream
+
 	font-size: .8em;
 	align-items: center;
 	flex-wrap: wrap;
@@ -711,8 +681,7 @@ label {
 .presentation {
 	padding: 20px;
 	text-align: center;
-=======
->>>>>>> Stashed changes
+
 }
 
 /*----------- slider ------------*/
