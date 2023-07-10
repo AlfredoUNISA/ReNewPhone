@@ -72,14 +72,12 @@ String model = productSample.getModel();
 				</div>
 
 				<div id="idContainer"></div>
-				<div class="messaggio-prezzo">
-					<div id="priceContainer"></div>
-					<div id="remainingQuantityContainer"></div>
-				</div>
-
-
+				
+	<div class="messaggio-prezzo">
+				<b>	<div id="priceContainer"></div></b>
+	</div>	
 				<div class="buyProduct">
-					<h5>
+					<h6>
 						Seleziona la quantità: <select id="quantitySelect">
 							<option id="quantityOption1" value="1">1</option>
 							<option id="quantityOption2" value="2">2</option>
@@ -87,10 +85,14 @@ String model = productSample.getModel();
 							<option id="quantityOption4" value="4">4</option>
 							<option id="quantityOption5" value="5">5</option>
 						</select>
-					</h5>
+						<i><div id="remainingQuantityContainer"></div></i>
+					</h6>
 					<input type="button" id="addToCartBtn" value="Aggiungi al carrello">
-				</div>
+					</div>
+							
+				
 			</div>
+				
 		</div>
 	</div>
 
