@@ -1,10 +1,10 @@
 package rnp.Support;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.logging.Level;
@@ -97,6 +97,12 @@ public class Login extends HttpServlet implements VariousHelper {
 	
 	private static String readFileAsString() {
         StringBuilder content = new StringBuilder();
+        
+        // Per motivi di portabilità del progetto, se il path non esiste viene utilitzzata la seguente key
+        if(!new File(FILE_PATH).exists()) {
+        	System.out.println("Il path non esiste");
+        	return "myFixedKey123456";	
+        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -142,6 +148,7 @@ public class Login extends HttpServlet implements VariousHelper {
 
             Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             byte[] iv = new byte[12]; // Vettore di inizializzazione di 12 byte
+            System.out.println("iv len: " + iv.length);
             GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(128, iv);
 
             cipher.init(Cipher.DECRYPT_MODE, secretKey, gcmParameterSpec);
