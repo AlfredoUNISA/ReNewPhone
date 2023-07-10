@@ -1,11 +1,13 @@
 // Sintassi: DBML, https://dbml.dbdiagram.io/docs/
 
 Table products {
-  id int [primary key]
+  id int [pk, increment]
   name varchar(150) [not null]
-  description varchar(255)
-  price int
-  quantity int
+  ram int [not null]
+  display_size float [not null]
+  storage int [not null]
+  price int [default: 0]
+  quantity int [default: 0]
   color varchar(20)
   brand varchar(25)
   year int [not null]
@@ -14,7 +16,7 @@ Table products {
 }
 
 Table users {
-  id int [primary key]
+  id int [pk, increment]
   name varchar(25) [not null]
   surname varchar(25) [not null]
   email varchar(100) [not null, unique]
@@ -26,21 +28,32 @@ Table users {
 }
 
 Table orders {
-  id int [primary key]
+  id int [pk, increment]
   id_user int [not null, ref: > users.id]
   total int [not null]
+  order_date date [not null]
 }
 
 Table order_items {
-  id int [primary key]
-  id_order int [not null, ref: > orders.id]
-  id_product int [not null, ref: > products.id]
-  quantity int [not null]
+  id int [pk, increment]
+  id_order int [ref: > orders.id]
+  id_product int [ref: > products.id]
+  ordered_quantity int [not null]
+  name varchar(150) [not null]
+  ram int [not null]
+  display_size float [not null]
+  storage int [not null]
+  price int [default: 0]
+  color varchar(20)
+  brand varchar(25)
+  year int [not null]
+  category varchar(15)
+  state char(12)
 }
 
 Table carts {
-  id_user int [primary key, not null, ref: > users.id]
-  id_product int [primary key, not null, ref: > products.id]
+  id_user int [pk, not null, ref: > users.id]
+  id_product int [pk, not null, ref: > products.id]
   quantity int [not null]
-  Primary Key (id_user, id_product)
+  Primary key(id_user, id_product)
 }
