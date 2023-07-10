@@ -36,7 +36,7 @@ public class AdminAddServlet extends HttpServlet implements VariousHelper {
 	private static final String CLASS_NAME = AdminAddServlet.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 	
-	private static final String UPLOAD_DIRECTORY = "C:\\Users\\Alfredo\\Desktop\\ImmaginiRNP";
+	private static final String UPLOAD_DIRECTORY = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\resources";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
