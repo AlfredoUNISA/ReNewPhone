@@ -37,8 +37,8 @@
 				
 				<fieldset id="priceRange">
 				<h3>
-					<input type="number" placeholder="Min" min="0" max="9999">
-					Prezzo  <input type="number" placeholder="Max" min="0" max="9999">
+					<input type="number" placeholder="Min" min="149" max="3000">
+					Prezzo  <input type="number" placeholder="Max" min="149" max="3000">
 					</h3>
 				</fieldset>
 				
