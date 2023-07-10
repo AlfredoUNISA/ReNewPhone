@@ -36,7 +36,9 @@
 		    for (Cookie cookie : cookies) {
 		        if (cookie.getName().equals("userCookie")) {
 		        	// Ottieni l'id dal cookie
-		        	CURRENT_USER_ID = Integer.parseInt(cookie.getValue());
+		        	String decripted = Login.decrypt(cookie.getValue());
+		        	CURRENT_USER_ID = Integer.parseInt(decripted);
+		        	System.out.println(CURRENT_USER_ID);
 		        	
 		        	UserDAODataSource dao = new UserDAODataSource();
 		    		CURRENT_USER_BEAN = dao.doRetrieveByKey(CURRENT_USER_ID);
@@ -75,10 +77,7 @@
 			<li><a href="contact.jsp">Contatti</a></li>
 			<li><a href="products">Prodotti</a></li>
 		</ul>
-		<form class="cerca" action="search" method="get">
-			<input type="search" name="q" placeholder="Cerca...">
-			<button type="submit">Cerca</button>
-		</form>
+		
 		<ul class="pulsanti-destra">
 			
 			<%if(IS_CURRENT_USER_ADMIN) {%>
