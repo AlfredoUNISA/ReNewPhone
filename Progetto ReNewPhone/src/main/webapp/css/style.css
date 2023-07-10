@@ -550,7 +550,7 @@ nav a:hover {
 }
 
 /* Stile per le label */
-label {
+.label-2 {
   	padding: 2em;
   display: center;
   flex-wrap: wrap;
@@ -563,7 +563,6 @@ label {
   border: 1.5px solid #f2f6fa;
   border-radius: 10px;
   background-color: #f2f6fa;
-  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
