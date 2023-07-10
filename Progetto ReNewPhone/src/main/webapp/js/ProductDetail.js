@@ -69,22 +69,26 @@ $(document).ready(function () {
 
 	$('#addToCartBtn').click(function (e) {
 		var currentProductQuantity = $('#quantitySelect').val();
-		$.ajax({
-			type: "POST",
-			url: "my-cart",
-			data: {
-				"action": "add",
-				"user": currentUserId,
-				"product": found.id,
-				"quantity": currentProductQuantity
-			},
-			success: function () {
-				alert("Prodotto aggiunto al carrello");
-			},
-			error: function () {
-				alert("Errore durante l'aggiunta al carrello");
-			}
-		});
+		if (isAdmin == "true" || isAdmin == true) {
+			alert("Non puoi aggiungere prodotti al carrello se sei un amministratore");
+		} else {
+			$.ajax({
+				type: "POST",
+				url: "my-cart",
+				data: {
+					"action": "add",
+					"user": currentUserId,
+					"product": found.id,
+					"quantity": currentProductQuantity
+				},
+				success: function () {
+					alert("Prodotto aggiunto al carrello");
+				},
+				error: function () {
+					alert("Errore durante l'aggiunta al carrello");
+				}
+			});
+		}
 	});
 
 })
@@ -258,7 +262,7 @@ function findProductId() {
 	$("#priceContainer").html(found.price + " \u20AC");
 	// diminuisci la dimensione del font per remainingQuantityContainer
 	$("#remainingQuantityContainer").css("font-size", "small");
-	
+
 	if (found.quantity == 0)
 		$("#remainingQuantityContainer").html("Non disponibile");
 	else

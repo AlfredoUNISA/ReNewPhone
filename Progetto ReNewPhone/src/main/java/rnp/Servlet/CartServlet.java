@@ -56,6 +56,11 @@ public class CartServlet extends HttpServlet implements VariousHelper {
 		if (userParam != null)
 			id_user = Integer.parseInt(userParam);
 		
+		if (id_user == -10) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
+		
 		String productParam = request.getParameter("product");
 		int id_product = -1;
 		if (productParam != null) {
@@ -70,6 +75,7 @@ public class CartServlet extends HttpServlet implements VariousHelper {
 			
 			if(attributeCurrentUserId != id_user) {
 				response.sendRedirect("my-cart");
+				return;
 			}
 			
 			switch (action) {
