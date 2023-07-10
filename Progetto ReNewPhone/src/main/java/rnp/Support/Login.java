@@ -104,7 +104,7 @@ public class Login extends HttpServlet implements VariousHelper {
 		SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
 
 		// Inizializza l'oggetto Cipher per l'operazione di crittografia.
-		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+		Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
 		cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
 
 		// Crittografa la stringa fornita.
@@ -135,7 +135,7 @@ public class Login extends HttpServlet implements VariousHelper {
 		SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
 
 		// Inizializza l'oggetto Cipher per l'operazione di decrittografia.
-		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+		Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
 		cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
 
 		// Decrittografa i dati esclusi il vettore di inizializzazione (IV).
