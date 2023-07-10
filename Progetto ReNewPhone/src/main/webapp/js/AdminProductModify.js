@@ -93,6 +93,36 @@ $(document).ready(function () {
 		findProduct($("#searchIdSelect").val(), true);
 	});
 
+	$("#modifyButton").click(function (e) {
+		e.preventDefault();
+		$.ajax({
+			type: "POST",
+			url: "admin-modify",
+			data: {
+				action: "modify",
+				id: foundDevice.id,
+				name: foundDevice.name,
+				category: foundDevice.category,
+				ram: $("#modifyRam").val(),
+				display_size: $("#modifyDisplay").val(),
+				storage: $("#modifyStorage").val(),
+				price: $("#modifyPrice").val(),
+				quantity: $("#modifyQuantity").val(),
+				color: foundDevice.color,
+				brand: foundDevice.brand,
+				year: foundDevice.year,
+				state: foundDevice.state
+			},
+			success: function () {
+				alert("Modifica effettuata con successo");
+				location.reload();
+			},
+			error: function (e) {
+				alert("Error: " + e);
+			}
+		});
+	});
+
 	$("#deleteButton").click(function (e) {
 		e.preventDefault();
 		if (confirm("Sei sicuro di voler eliminare il prodotto?")) {
@@ -405,35 +435,5 @@ function startModify() {
 	$("#modifyDisplay").val(foundDevice.display_size);
 	$("#modifyPrice").val(foundDevice.price);
 	$("#modifyQuantity").val(foundDevice.quantity);
-
-	$("#modifyButton").click(function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: "POST",
-			url: "admin-modify",
-			data: {
-				action: "modify",
-				id: foundDevice.id,
-				name: foundDevice.name,
-				category: foundDevice.category,
-				ram: $("#modifyRam").val(),
-				display_size: $("#modifyDisplay").val(),
-				storage: $("#modifyStorage").val(),
-				price: $("#modifyPrice").val(),
-				quantity: $("#modifyQuantity").val(),
-				color: foundDevice.color,
-				brand: foundDevice.brand,
-				year: foundDevice.year,
-				state: foundDevice.state
-			},
-			success: function () {
-				alert("Modifica effettuata con successo");
-				location.reload();
-			},
-			error: function (e) {
-				alert("Error: " + e);
-			}
-		});
-	});
 
 }
