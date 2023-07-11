@@ -142,12 +142,12 @@ input[type="email"]:invalid {
 
 .messaggio {
 	display: center;
-	padding: 10px 20px;
+	padding: 1em 2em;
 	font-size: 2em;
 	text-align: center;
 	justify-content: center;
 	background-color: #4F5D75;
-	border-radius: 25px;
+	border-radius: 2.5em;
 	color: white;
 	border: none;
 	margin-left: 2em;
@@ -156,12 +156,12 @@ input[type="email"]:invalid {
 
 .messaggio-prezzo {
 	display: center;
-	padding: 7px 7px;
+	padding: 0.7em 0.7em;
 	font-size: 1.5em;
 	text-align: center;
 	justify-content: center;
 	background-color: #4F5D75;
-	border-radius: 25px;
+	border-radius: 2.5em;
 	color: #ffffff;
 	border: none;
 	margin-left: 2em;
@@ -173,9 +173,9 @@ input[type="email"]:invalid {
 	margin-top: 2em;
 	margin-left: 2em;
 	margin-right: 2em;
-	border-radius: 25px;
+	border-radius: 2.5em;
 	display: center;
-	padding: 10px 10px;
+	padding: 1em 1em;
 	font-size: 2em;
 	text-align: center;
 	justify-content: center;
@@ -330,7 +330,7 @@ body {
 /*----------- MEDIA QUERIES ------------*/
 @media screen and (max-width: 767px) {
 	table, form, input[type="email"], input[type="text"], input[type="username"],
-		input[type="password"], input[type="ricerca"], textarea {
+		input[type="password"], input[type="ricerca"], textarea, .content {
 		width: 100%;
 	}
 	nav {
@@ -353,12 +353,17 @@ body {
 	.pulsanti-sinistra {
 		padding-left: 0.5em;
 	}
+	.detailContainer{
+		width:37.5em;
+		display:wrap;
+		flex-wrap:wrap;
+	}
 }
 
 @media screen and (max-width: 460px) {
 	table, form, input[type="email"], input[type="text"], input[type="username"],
 		input[type="password"], input[type="ricerca"], input[type="button"],
-		textarea {
+		textarea, .content {
 		width: 100%;
 	}
 	nav {
@@ -382,12 +387,20 @@ body {
 		width: 100%;
 		padding-left: 0;
 	}
+	.detailContainer, .detailImage, .detailProduct{
+	width:100%;
+	}
+	.detailContainer{
+		width:18.75em;
+		display:wrap;
+		flex-wrap:wrap;
+	}
 }
 
 @media screen and (max-width: 376px) {
 	table, form, input[type="email"], input[type="text"], input[type="username"],
 		input[type="password"], input[type="ricerca"], input[type="button"],
-		textarea {
+		textarea, .content {
 		width: 100%;
 	}
 	nav {
@@ -411,9 +424,15 @@ body {
 		width: 100%;
 		padding-left: 0;
 	}
+	.detailContainer, .detailImage, .detailProduct{
+	width:100%;
+	}
 }
 
 @media screen and (max-width: 320px) {
+	.content{
+		width: 100%;
+	}
 	nav {
 		justify-content: space-between;
 		width: 100%;
@@ -434,6 +453,9 @@ body {
 	.pulsanti-sinistra {
 		width: 100%;
 		padding-left: 0;
+	}
+	.detailContainer, .detailImage, .detailProduct{
+	width:100%;
 	}
 }
 
@@ -519,9 +541,9 @@ nav a:hover {
   margin-bottom: 1em;
   margin-top: 1em;
   border: 1.5px solid #f2f6fa;
-  border-radius: 10px;
+  border-radius: 1em;
   background-color: #f2f6fa;
-  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.2em 0.4em rgba(0, 0, 0, 0.1);
 }
 
 .detailImage {
@@ -531,14 +553,14 @@ nav a:hover {
 }
 
 #ricerca select {
-	width: 200px;
-	padding: 5px;
+	width: 20em;
+	padding: 0.5em;
 	font-size: 0.7em;
-	margin-bottom: 10px;
+	margin-bottom: 1em;
 }
 
 #ricerca select option {
-	padding: 5px;
+	padding: 0.5em;
 }
 
 /* Stile per le label */

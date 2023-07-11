@@ -94,14 +94,14 @@ String model = productSample.getModel();
 			</div>
 				
 		</div>
-	</div>
-
-
   <div class="banner">
    <span class="close-button" onclick="closeBanner()">&times;</span>
     <h2>Magico Luglio</h2>
     <h3>Se effettui un ordine superiore a 200€ la spedizione è gratis!</h3>
     
+	</div>
+
+
       
   </div>
 	<%@ include file="_footer.html"%>
