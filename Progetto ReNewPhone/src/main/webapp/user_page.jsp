@@ -28,7 +28,6 @@
 		<table>
 				<thead>
 					<tr>
-						<th>Id</th>
 						<th>Nome</th>
 						<th>Cognome</th>
 						<th>Email</th>
