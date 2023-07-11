@@ -166,9 +166,6 @@ input[type="email"]:invalid {
 	border: none;
 	margin-left: 2em;
 	margin-right: 2em;
-
-	border: none;
-
 }
 
 .messaggio-var {
@@ -513,7 +510,6 @@ nav a:hover {
 .detailProduct {
 	padding: 2em;
   display: flex;
-  font-size: 0.8em;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
@@ -818,9 +814,9 @@ nav a:hover {
 .faq-answer {
 	margin-bottom: 20px;
 	max-height: 0;
-	font-size: 1.2em; overflow : hidden;
+	font-size: 1.2em; 
+	overflow : hidden;
 	transition: max-height 0.3s ease;
-	overflow: hidden;
 }
 
 .faq-answer.show {
