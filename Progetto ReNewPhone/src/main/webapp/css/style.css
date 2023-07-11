@@ -713,7 +713,7 @@ nav a:hover {
 .box-inner {
 	display: flex;
 	flex-direction: row;
-	/*float:top-left; */
+	
 	animation: left-slide;
 	justify-content: center;
 	text-align: center;

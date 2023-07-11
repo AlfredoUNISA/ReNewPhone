@@ -23,19 +23,19 @@
 		<h1>Valuta il tuo usato !</h1>
 
 		<form id="inserimentoForm">
-			<label for="brandSelect">Brand
+			<label class="label-2" for="brandSelect">Brand
 			<select id="brandSelect" required>
 				<option value="seleziona">SELEZIONA</option>
 			</select> </label> 
 			
 <fieldset id="formAfterBrand" class="fieldset">
-				<label for="modelSelect">Modello:<select id="modelSelect"
+				<label class="label-2"for="modelSelect">Modello:<select id="modelSelect"
 					required>
 					<option value="seleziona">SELEZIONA</option>
 				</select></label> 
 
 	<fieldset id="formAfterModel" class="fieldset">
-						<label for="storage">Spazio interno: <select
+						<label class="label-2" for="storage">Spazio interno: <select
 							name="storage" id="storage" required>
 	
 							<option value="selezionaStorage">SELEZIONA</option>
@@ -45,7 +45,7 @@
 						</select></label> 
 
 			<fieldset id="formAfterStorage" class="fieldset">
-								<label for="condizione">Condizione: <select
+								<label class="label-2" for="condizione">Condizione: <select
 									name="condizione" id="condizione" required>
 									
 									<option value="ottima">Ottima</option>
