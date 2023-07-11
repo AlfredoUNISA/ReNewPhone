@@ -66,7 +66,7 @@ $(document).ready(function () {
 
 	tableDiv.on("click", ".removeBtn", function () {
 		var productId = $(this).val();
-		var conf = confirm("Sei sicuro di voler rimuovere questo prodotto (id=" + productId + ") dal carrello?");
+		var conf = confirm("Sei sicuro di voler rimuovere questo prodotto dal carrello?");
 
 		if (conf) {
 			$.ajax({

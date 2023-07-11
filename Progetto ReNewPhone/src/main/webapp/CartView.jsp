@@ -29,7 +29,7 @@
 	
 	<div class="content">
 	    
-	    <h2>Utente: "<%= CURRENT_USER_BEAN.getName() %> <%= CURRENT_USER_BEAN.getSurname() %>" (id = <%= CURRENT_USER_ID %>)</h2>
+	    <h2>Utente: "<%= CURRENT_USER_BEAN.getName() %> <%= CURRENT_USER_BEAN.getSurname() %>"</h2>
 	    
 	    <div class="tableCart"></div>
 		

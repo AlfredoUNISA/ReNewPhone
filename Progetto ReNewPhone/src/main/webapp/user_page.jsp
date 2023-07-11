@@ -24,10 +24,7 @@
 <body>
 	<div class="content">
 		<h1>Hello, <%=CURRENT_USER_BEAN.getName()%></h1>
-		
-		<p>IS_CURRENT_USER_ADMIN: <%= IS_CURRENT_USER_ADMIN %></p>
-		<p>IS_CURRENT_USER_REGISTRED: <%= IS_CURRENT_USER_REGISTRED %></p>
-		
+			
 		<table>
 				<thead>
 					<tr>
@@ -44,7 +41,6 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><%=CURRENT_USER_BEAN.getId()%></td>
 						<td><%=CURRENT_USER_BEAN.getName()%></td>
 						<td><%=CURRENT_USER_BEAN.getSurname()%></td>
 						<td><%=CURRENT_USER_BEAN.getEmail()%></td>
