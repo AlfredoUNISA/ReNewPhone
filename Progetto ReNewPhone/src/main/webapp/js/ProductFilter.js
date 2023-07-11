@@ -16,21 +16,10 @@ $(document).ready(function(){
 		filterProducts();
 	});	
 })
-function brandSelectAndRedirect(brand){
-	var url = 'products?brandSelect='+brand;
+function ProductRedirect(){
+	var url = 'products';
     window.location.href = url;
 }
-
-function GetParameterValues(param) {
-	var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-	for (var i = 0; i < url.length; i++) {
-		var urlparam = url[i].split('=');
-		if (urlparam[0] == param) {
-			return urlparam[1];
-		}
-	}
-}
-
 
 function toggleFilterPage(){
                     if ($(".slide-toggle").val()== "Apri Filtri") 
@@ -44,13 +33,7 @@ function toggleFilterPage(){
 			}
 
 function filterProducts() {
-				console.log(GetParameterValues('brandSelect'))
-			  if(GetParameterValues('brandSelect')==null)
-						  	var brand = $("#brandSelect").val();
-			  else{
-				  $("#brandSelect").val(GetParameterValues('brandSelect'))
-			  	  var brand=GetParameterValues('brandSelect');
-			  	}
+			  var brand = $("#brandSelect").val();
 			  var nameFilter= $("#nameSearch").val();
 			  var priceMin = $("#priceRange input:first-of-type").val();
 			  var priceMax = $("#priceRange input:last-of-type").val();

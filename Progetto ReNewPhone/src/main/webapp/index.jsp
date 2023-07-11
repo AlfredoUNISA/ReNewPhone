@@ -66,19 +66,19 @@
  <div class="brand-container">
  
  	<div class="brand">
-      <img src="resources/apple.jpg" alt="iPhone" onclick="brandSelectAndRedirect('Apple')">
+      <img src="resources/apple.jpg" alt="iPhone" onclick="ProductRedirect()">
     </div>
 
   	<div class="brand">
-   <img src="resources/samsung.jpg" alt="Samsung" onclick="brandSelectAndRedirect('Samsung')">
+   <img src="resources/samsung.jpg" alt="Samsung" onclick="ProductRedirect()">
     </div>
  
     <div class="brand">
-   <img src="resources/pixel.jpg" alt="Pixel" onclick="brandSelectAndRedirect('Google')">
+   <img src="resources/pixel.jpg" alt="Pixel" onclick="ProductRedirect()">
     </div>
 
     <div class="brand">
-   <img src="resources/xiaomi.jpg" alt="Xiaomi" onclick="brandSelectAndRedirect('Xiaomi')">
+   <img src="resources/xiaomi.jpg" alt="Xiaomi" onclick="ProductRedirect()">
     </div>
     
   </div>
