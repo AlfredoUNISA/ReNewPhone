@@ -49,6 +49,7 @@
 				</fieldset>
 				
 				<fieldset>
+				 	<br>
 					<h3><label for="brandSelect">Brand</label> <select id="brandSelect">
 						<option value="Seleziona">Seleziona</option>
 						<option value="Apple">Apple</option>

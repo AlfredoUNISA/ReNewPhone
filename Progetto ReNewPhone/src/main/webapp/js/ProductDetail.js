@@ -272,6 +272,5 @@ function findProductId() {
 
 
   function closeBanner() {
-      var banner = document.querySelector('.banner');
-      banner.style.display = 'none';
+     $(".banner").hide();
     }

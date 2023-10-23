@@ -28,7 +28,7 @@ import rnp.Support.Login;
  * Servlet implementation class AdminAddServlet
  */
 @WebServlet("/admin-add")
-@MultipartConfig
+@MultipartConfig(fileSizeThreshold = 1024*1024*5)
 public class AdminAddServlet extends HttpServlet implements VariousHelper {
 	private static final long serialVersionUID = 1L;
 	private static ProductDAODataSource productDAO = new ProductDAODataSource();
@@ -36,7 +36,7 @@ public class AdminAddServlet extends HttpServlet implements VariousHelper {
 	private static final String CLASS_NAME = AdminAddServlet.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
 	
-	private static final String UPLOAD_DIRECTORY = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\resources";
+	private static  String UPLOAD_DIRECTORY = null;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -45,6 +45,7 @@ public class AdminAddServlet extends HttpServlet implements VariousHelper {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		UPLOAD_DIRECTORY=request.getServletContext().getRealPath("/resources");
 		try {
 			if (!checkForAdmin(request, response)) {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -96,7 +97,7 @@ public class AdminAddServlet extends HttpServlet implements VariousHelper {
 		File file = new File(filePath);
 		try (OutputStream outputStream = new FileOutputStream(file)) {
 			int bytesRead;
-			byte[] buffer = new byte[8192]; // Dimensione del buffer
+			byte[] buffer = new byte[25165824]; // Dimensione del buffer
 			while ((bytesRead = fileContent.read(buffer)) != -1) {
 				outputStream.write(buffer, 0, bytesRead);
 			}

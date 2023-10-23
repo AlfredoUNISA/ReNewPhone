@@ -33,12 +33,14 @@ public class Login extends HttpServlet implements VariousHelper {
 
 	private static final String CLASS_NAME = Login.class.getName();
 	private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
+	private static String FILE_PATH="placeholder";
 
 	/**
 	 * Utilizzato per autentificare l'utente, creare una sessione e un cookie.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		FILE_PATH=request.getServletContext().getRealPath("//WEB-INF//key.txt");
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -92,8 +94,6 @@ public class Login extends HttpServlet implements VariousHelper {
 		else
 			return false;
 	}
-	
-	static final String FILE_PATH = "C:\\Users\\Alfredo\\Documents\\ReNewPhone\\Progetto ReNewPhone\\src\\main\\webapp\\WEB-INF\\key.txt";
 	
 	private static String readFileAsString() {
         StringBuilder content = new StringBuilder();
